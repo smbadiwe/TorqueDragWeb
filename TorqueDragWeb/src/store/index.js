@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import example from './module-example'
+import authStore from './modules/authStore'
+import datumStore from './modules/datumStore'
+import wellPathStore from './modules/wellPathStore'
+import tubingStringStore from './modules/tubingStringStore'
+import fluidsStore from './modules/fluidsStore'
+import subSurfaceStore from './modules/subSurfaceStore'
 
 Vue.use(Vuex)
 
@@ -17,7 +22,12 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      authStore,
+      datumStore,
+      wellPathStore,
+      tubingStringStore,
+      fluidsStore,
+      subSurfaceStore
     },
 
     // enable strict mode (adds overhead!)

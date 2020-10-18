@@ -1,10 +1,38 @@
+import authLayout from 'layouts/authLayout.vue'
+import mainLayout from 'layouts/MainLayout.vue'
+import userLayout from 'layouts/userLayout.vue'
+import landingpage from 'pages/index.vue'
+import loginapge from 'pages/auth/loginapge.vue'
 
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: authLayout,
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { 
+        path: '', 
+        component: loginapge
+      }
+    ]
+  },
+  {
+    path: '/main',
+    component: mainLayout,
+    children: [
+      { 
+        path: '/main', 
+        component: landingpage
+      }
+    ]
+  },
+  {
+    path: '/userLayout',
+    component: userLayout,
+    children: [
+      { 
+        path: '', 
+        component: landingpage
+      }
     ]
   },
 
