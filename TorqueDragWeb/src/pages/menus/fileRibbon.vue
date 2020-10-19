@@ -1,13 +1,34 @@
 <template>
   <div class="q-pa-md" style="display: inline;" >
-       <div class="row q-col">
-        <div v-if="ribbons.isFileRibbon"
-        class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background:orange; height:100px;">
+       <div class="row">
+        <div v-if="isRibbonActiveInputs"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white" style="height:100px;">
             <!-- <homeRibbon-Component></homeRibbon-Component> -->
         </div>
-        <div v-if="ribbons.isEditRibbon"
-        class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background:green; height:100px;">
+        <div v-if="menuTabs[2].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
         </div>
+
+        <div v-if="menuTabs[3].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
+        </div>
+
+        <div v-if="menuTabs[4].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
+        </div>
+
+        <div v-if="menuTabs[5].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
+        </div>
+
+        <div v-if="menuTabs[6].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
+        </div>
+
+        <div v-if="menuTabs[7].isRibbonActive"
+        class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-accent" style="height:100px;">
+        </div>
+
        </div>
   </div>
 </template>
@@ -15,22 +36,20 @@
 <script>
 import homeRibbon from 'pages/menus/homeRibbon.vue';
 export default {
+    computed:{
+        menuTabs() {
+            console.log("menuTabs fileRibbon")
+         return this.$store.getters['settingsStore/menuTabs'];
+        }
+    },
+    props:{
+        isRibbonActiveInputs:{
+            type: Boolean,
+            default: false
+        }
+    },
   components: {
       'homeRibbon-Component': homeRibbon
-  },
-  props: {
-      ribbons: {
-          type: Object,
-           isFileRibbon: {
-            type: Boolean,
-            required: true
-            },
-            isEditRibbon: {
-            type: Boolean,
-            required: true
-            }
-      }
-
   },
   data () {
       return {

@@ -25,27 +25,57 @@
                     expand-separator
                     label="Add Tubing Section"
                 >
-                    <q-card>
+                    <q-card class="bg-primary">
                     <q-card-section>
                         
-                        <q-select 
-                            class="login-input q-pa-sm"  
-                            v-model="typeOfSection" 
-                            :options="pipeSectionTypeList" 
-                            label="Tubing Section Type"
-                            borderless>
-                        </q-select>
-                        <q-input  class="login-input q-pa-md" outlined v-model="length" label="Length (ft)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="measuredDepth" label="Measured Depth (ft)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="size" label="Size (in)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="weight" label="Weight (Ibf)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="grade" label="Grade"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="outerDiameter" label="Outer Diameter (in)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="innerDiameter" label="Inner Diameter (in)"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="minimumYieldStrength" label="Minimum Yield Strength"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="makeUpTorque" label="Make-Up Torque"/>
-                        <q-input  class="login-input q-pa-md" outlined v-model="overPullMargin" label="Over_Pull Margin"/>
-                        <q-input  class="login-input q-pa-md" type="textarea" outlined v-model="itemDescription" label="Item Description"/>
+                        <div class="row">
+
+                        <div class="col-3 q-pa-sm">Length</div>
+                        <div class="col-6 q-pa-sm"><input v-model="length"></div>
+                        <div class="col-3 q-pa-sm">ft</div>
+
+                        <div class="col-3 q-pa-sm">Measured Depth</div>
+                        <div class="col-6 q-pa-sm"><input v-model="measuredDepth"></div>
+                        <div class="col-3 q-pa-sm">ft</div>
+
+                        <div class="col-3 q-pa-sm">Size</div>
+                        <div class="col-6 q-pa-sm"><input v-model="size"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Weight</div>
+                        <div class="col-6 q-pa-sm"><input v-model="weight"></div>
+                        <div class="col-3 q-pa-sm">lbf</div>
+
+                        <div class="col-3 q-pa-sm">Grade</div>
+                        <div class="col-6 q-pa-sm"><input v-model="grade"></div>
+                        <div class="col-3 q-pa-sm"></div>
+
+                        <div class="col-3 q-pa-sm">Outer Diameter</div>
+                        <div class="col-6 q-pa-sm"><input v-model="outerDiameter"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Outer Diameter</div>
+                        <div class="col-6 q-pa-sm"><input v-model="innerDiameter"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Minimum Yield Strength</div>
+                        <div class="col-6 q-pa-sm"><input v-model="minimumYieldStrength"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Make-Up Torque</div>
+                        <div class="col-6 q-pa-sm"><input v-model="makeUpTorque"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Over-Pull Margin</div>
+                        <div class="col-6 q-pa-sm"><input v-model="overPullMargin"></div>
+                        <div class="col-3 q-pa-sm">in</div>
+
+                        <div class="col-3 q-pa-sm">Item Description</div>
+                        <div class="col-6 q-pa-sm"><input type="textarea" v-model="itemDescription"></div>
+                        <div class="col-3 q-pa-sm"></div>
+
+                        </div>
+                        
                     </q-card-section>
 
                     <q-card-actions align="right">

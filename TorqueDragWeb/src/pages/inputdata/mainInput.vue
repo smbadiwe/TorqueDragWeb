@@ -1,12 +1,22 @@
 <template>
-  <div v-bind:style="tabStyle">
+  <div 
+  v-if="visibility"
+  v-bind:style="tabStyle" class="bg-primary">
+
+    
+    <q-card class="my-card bg-secondary text-white" style="height:50px;">
+      <q-card-section align="right">
+        <div class="text-center text-h6 q-pb-md">Input Data</div>
+          <!-- <q-icon name="close" /> -->
+      </q-card-section>
+    </q-card>
+
     <q-splitter
       v-model="splitterModel"
     >
 
       <template v-slot:before>
         <q-tabs
-        class="q-tab-panels"
        v-model="tab"
           vertical
         >
@@ -29,6 +39,7 @@
           vertical
           transition-prev="jump-up"
           transition-next="jump-up"
+          class="bg-primary mypanel"
         >
           <q-tab-panel name="Datum">
             <div>
@@ -73,6 +84,12 @@
             </div>
           </q-tab-panel>
 
+          <q-tab-panel name="Operations">
+            <div>
+              <operations-app></operations-app>
+            </div>
+          </q-tab-panel>
+
         </q-tab-panels>
       </template>
 
@@ -88,8 +105,20 @@ import tubingString from 'pages/inputdata/tubingString.vue'
 import rig from 'pages/inputdata/rig.vue'
 import fluids from 'pages/inputdata/fluids.vue'
 import subsurface from 'pages/inputdata/subsurface.vue'
+import operations from 'pages/inputdata/operations.vue'
 
 export default {
+computed:{
+  selectedInputTab() {
+         return this.$store.getters['datumStore/selectedInputTab'];
+    }
+},
+props: {
+  visibility: {
+    type: Boolean,
+    default: true
+  }
+},
  components:{
      'datumn-app': datumn,
      'wellPath-app': wellPath,
@@ -97,15 +126,17 @@ export default {
      'tubingString-app': tubingString,
      'rig-app': rig,
      'fluids-app': fluids,
-     'subsurface-app': subsurface
+     'subsurface-app': subsurface,
+     'operations-app': operations
   },
   data () {
     return {
       dense: false,
+      // visibility:true,
       tab: 'Datum',
       splitterModel: 20,
       tabStyle: {
-          background: '#474f57',
+          // background: '#474f57',
           color: '#ffffff',
           fontFamily: 'Times New Roman',
           fontStyle: 'italic',
@@ -118,15 +149,26 @@ export default {
         display:'block',
       }
     }
+  },
+  methods:{
+    CloseView(){
+      var context = this;
+      context.visibility =  false;
+    }
+  },
+  created(){
+
   }
 }
 </script>
 
 <style scoped>
-.q-tab-panels {
-    background: #474f57;
-}
-
+.my-card {
+  width: 100%;
+  }
+.mypanel {
+  /* border-style: groove; */
+  }
 .q-tab-panel {
     padding: 16px;
 }

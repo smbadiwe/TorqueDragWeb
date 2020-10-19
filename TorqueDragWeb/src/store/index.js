@@ -7,6 +7,7 @@ import wellPathStore from './modules/wellPathStore'
 import tubingStringStore from './modules/tubingStringStore'
 import fluidsStore from './modules/fluidsStore'
 import subSurfaceStore from './modules/subSurfaceStore'
+import settingsStore from './modules/settingsStore'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default function (/* { ssrContext } */) {
       wellPathStore,
       tubingStringStore,
       fluidsStore,
-      subSurfaceStore
+      subSurfaceStore,
+      settingsStore
     },
 
     // enable strict mode (adds overhead!)

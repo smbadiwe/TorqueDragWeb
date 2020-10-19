@@ -1,33 +1,139 @@
 <template>
-  <div v-bind:style="mainStyle">
+  <div v-bind:style="mainStyle" class="bg-primary">
     <q-layout view="hHh lpR fFf">
       <q-header>
 
 
-        <div class="q-pa-sm q-pl-md row items-center">
-             <q-btn
+        <div class="q-pa-sm q-pl-md row items-center bg-secondary">
+            <!--  <q-btn
             flat
             dense
             round
             icon="menu"
             aria-label="Menu"
             @click="leftDrawerOpen = !leftDrawerOpen"
-            />
+            /> -->
 
-           <div class="cursor-pointer non-selectable q-pa-sm"
-          v-on:click="ShowFileRibbon('Input')">
-            Input
+           
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+              flat
+            size="md" 
+            label="Settings"
+            class="text-capitalize">
+           </q-btn>
           </div>
 
-          <div class="cursor-pointer non-selectable q-pa-sm"
-          v-on:click="ShowFileRibbon('Home')">
-            Home
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+              flat
+            size="md" 
+            label="Home"
+            class="text-capitalize"
+            @click="ShowFileRibbon('Home')">
+           </q-btn>
           </div>
 
-          <div class="q-ml-md cursor-pointer non-selectable q-pa-sm"
-          v-on:click="ShowFileRibbon('Edit')">
-            Edit
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+            flat
+           size="md" 
+           label="View"
+           class="text-capitalize">
+            <q-menu fit>
+              <div class="q-pa-md bg-accent" style="max-width: 350px">
+                <q-list>
+                  <q-item clickable v-ripple
+                  @click="ShowInputView">
+                    <q-item-section>Inputs</q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-ripple
+                  @click="ShowWellListView">
+                    <q-item-section>WellList</q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-ripple
+                  @click="ShowSchematicView">
+                    <q-item-section>Schematic</q-item-section>
+                  </q-item>
+
+                  <q-item clickable v-ripple
+                  @click="ShowTDAnalysisView">
+                    <q-item-section>Analysis Settings</q-item-section>
+                  </q-item>
+                  
+                </q-list>
+              </div>
+            </q-menu>
+           </q-btn>
           </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+              flat
+            size="md" 
+            label="General Outputs"
+            class="text-capitalize"
+            @click="ShowFileRibbon('General Outputs')">
+           </q-btn>
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+              flat
+            size="md" 
+            label="Torque & Drag"
+            class="text-capitalize"
+            @click="ShowFileRibbon('Torque & Drag')">
+           </q-btn>
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+            flat
+           size="md" 
+           label="Hydraulics"
+           class="text-capitalize">
+            <q-menu fit>
+              <div class="q-pa-md bg-accent" style="width:600px; height:100px">
+              </div>
+            </q-menu>
+           </q-btn>
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md"
+           @click="ShowFileRibbon('Surge & Swab')">
+            Surge & Swab
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md"
+           @click="ShowFileRibbon('Well Control')">
+            Well Control
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+           <q-btn 
+              flat
+            size="md" 
+            label="Cementing"
+            class="text-capitalize"
+            @click="ShowFileRibbon('Cementing')">
+           </q-btn>
+          </div>
+
+          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
+            <q-btn 
+              flat
+            size="md" 
+            label="Tubing Stress Analysis"
+            class="text-capitalize"
+            @click="ShowFileRibbon('Tubing Stress Analysis')">
+           </q-btn>
+          </div>
+
+         
 
           <q-space />
 
@@ -62,31 +168,37 @@
         </div>
       </q-header>
  
-
-      <div 
-      v-bind:style="ribbonStyle"
-      class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <fileRibbon-app
-            :ribbons="ribbons"></fileRibbon-app>
-     </div>
-
+      
     <q-drawer
       v-model="leftDrawerOpen"
       width="500"
       >
         <div
           class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <mainInput-app></mainInput-app>
+            <!-- <mainInput-app></mainInput-app> -->
        </div>
         
     </q-drawer>
 
       <q-page-container>
         <div class="row" v-if="isInput">
+          <div v-if="isRibbonActiveHome"
+                class="col-12">
+                <homeRibbon-app></homeRibbon-app>
+          </div>
+          <div v-if="isRibbonGeneralOutputs"
+                class="col-12">
+                <generalOutputs-app></generalOutputs-app>
+          </div>
+          <div v-if="isTorqueDrag"
+                class="col-12">
+                <torqueDragRibbon-app></torqueDragRibbon-app>
+          </div>
           <div class="col-12"> 
             <div class="row">
               <div class="col-5 bg-primary q-pa-sm">
-                <mainInput-app></mainInput-app>
+                <mainInput-app
+                :visibility="isInput"></mainInput-app>
               </div>
               <div class="col-7 q-pa-sm">
                  <router-view />
@@ -96,9 +208,37 @@
         </div>
 
         <div class="row" v-else>
-          <div class="col-12 q-pa-sm"> 
-            <router-view />
+          <div v-if="isRibbonActiveHome"
+                class="col-12">
+                <homeRibbon-app></homeRibbon-app>
           </div>
+          <div v-if="isRibbonGeneralOutputs"
+                class="col-12">
+                <generalOutputs-app></generalOutputs-app>
+          </div>
+          <div v-if="isTorqueDrag"
+                class="col-12">
+                <torqueDragRibbon-app></torqueDragRibbon-app>
+          </div>
+            <div 
+            class="col q-pa-sm"> 
+              <router-view />
+            </div>
+            <div 
+            v-if="isWellList" 
+            class="col-2 bg-secondary q-pa-sm">
+              <wellList-app></wellList-app>
+            </div>
+            <div 
+            v-if="isSchematic" 
+            class="col-3 bg-orange q-pa-sm">
+
+            </div>
+            <div 
+            v-if="isTDAnalysis" 
+            class="col-3 bg-secondary q-pa-sm">
+              <analysisSettings-app></analysisSettings-app>
+            </div>
         </div>
        
       </q-page-container>
@@ -109,8 +249,12 @@
 
 <script>
  import fileRibbon from 'pages/menus/fileRibbon.vue'
-//import fileRibbon from 'pages/menus/newRibbonBar.vue'
-import mainInput from 'pages/inputdata/mainInput.vue'
+import homeRibbon from 'pages/menus/homeRibbon.vue';
+import generalOutputs from 'pages/menus/generalOutputs.vue';
+import mainInput from 'pages/inputdata/mainInput.vue';
+import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
+import wellList from 'pages/inputdata/wellList.vue';
+import analysisSettings from 'pages/inputdata/analysisSettings.vue';
 
 export default {
   name: 'userLayout',
@@ -120,70 +264,164 @@ export default {
         },
     Loginstatus(){
       return this.$store.getters['authStore/Loginstatus'];
+    },
+    menuTabs() {
+         return this.$store.getters['settingsStore/menuTabs'];
     }
   },
   components: { 
       'fileRibbon-app': fileRibbon,
-      'mainInput-app': mainInput
+      'mainInput-app': mainInput,
+      'homeRibbon-app': homeRibbon,
+      'generalOutputs-app': generalOutputs,
+      'torqueDragRibbon-app': torqueDragRibbon,
+      'wellList-app': wellList,
+      'analysisSettings-app': analysisSettings
       },
   data () {
     return {
       leftDrawerOpen: false,
       isInput:false,
+      isWellList:false,
+      isSchematic:false,
+      isTDAnalysis:false,
       tab: 'mails',
       isfileRibbon: false,
       ribbonStyle: {
           display: 'inline'
       },
-      ribbons: {
-           isFileRibbon: false,
-           isEditRibbon: false
-      },
       mainStyle: {
-          background: '#474f57',
+          // background: '#474f57',
           color: '#ffffff',
           fontFamily: 'Times New Roman',
           fontStyle: 'italic',
           fontSizeAdjust: '0.58'
       },
+      primaryColor   : '#191919',
+      secondaryColor : '#00a300',
+      accentColor: '#e8e3e3',
+      inActiveTextcolor: '#ffffff',
+      isRibbonActiveInputs: false,
+      isRibbonActiveHome: false,
+      isRibbonGeneralOutputs: false,
+      isTorqueDrag: false,
+      inputsRibbonBgColor: '#191919',
+      inputsRibbonTextColor: '#ffffff',
+      homeRibbonBgColor: '',
+      homeRibbonTextColor: '',
+      GeneralOutputsBgColor: '',
+      GeneralOutputsTextColor: ''
+
     }
   },
   methods:{
       ShowFileRibbon(selectedRibbonName){
           var context =  this;
-          if(selectedRibbonName == "Home"){
-              if(context.ribbons.isFileRibbon == true){
-                  context.ribbonStyle.display = 'none';
-                  context.ribbons.isFileRibbon = false;
-                  context.ribbons.isEditRibbon =  false; 
-              }else{
-                  context.ribbonStyle.display = 'inline';
-                  context.ribbons.isFileRibbon = true;
-                  context.ribbons.isEditRibbon =  false; 
-              }
-          }else if(selectedRibbonName == "Edit"){
+          var i = 0;
+          var menuTabsCount = context.menuTabs.length;
 
-              if(context.ribbons.isEditRibbon == true){
-                  context.ribbonStyle.display = 'none';
-                  context.ribbons.isFileRibbon = false;
-                  context.ribbons.isEditRibbon =  false; 
-              }else{
-                  context.ribbonStyle.display = 'inline';
-                  context.ribbons.isFileRibbon = false;
-                  context.ribbons.isEditRibbon =  true; 
-              } 
-              
-          }else if(selectedRibbonName == "Input"){
+        switch(selectedRibbonName){
+          /* case "Inputs":
             if(context.isInput == true){
-              context.isInput = false;
+                  context.isInput = false;
             }else{
-              context.isInput = true;
+                  context.isInput = true;
             }
-          }
+            break; */
 
-          //console.log("ribbonStyle:", context.ribbonStyle)
-          
+          case "Home":
+            context.isRibbonGeneralOutputs = false;
+            context.isTorqueDrag=false;
+            if(context.isRibbonActiveHome == true ){
+              context.isRibbonActiveHome = false;
+
+            }else{
+              context.isRibbonActiveHome = true;
+                  
+            }
+
+            context.homeRibbonBgColor = context.accentColor;
+            context.homeRibbonTextColor = context.primaryColor;
+            context.GeneralOutputsBgColor = context.secondaryColor;
+            context.GeneralOutputsTextColor = context.inActiveTextcolor
+            break;
+
+          case "General Outputs":
+            context.isRibbonActiveHome = false;
+            context.isTorqueDrag = false;
+            if(context.isRibbonGeneralOutputs == true ){
+              context.isRibbonGeneralOutputs = false;
+
+            }else{
+              context.isRibbonGeneralOutputs = true;
+            }
+
+            context.homeRibbonBgColor = context.secondaryColor;
+            context.homeRibbonTextColor = context.inActiveTextcolor;
+            context.GeneralOutputsBgColor = context.accentColor;
+            context.GeneralOutputsTextColor = context.primaryColor
+
+            break;
+
+          case "Torque & Drag":
+            context.isRibbonActiveHome = false;
+            context.isRibbonGeneralOutputs = false;
+            if(context.isTorqueDrag == true ){
+              context.isTorqueDrag = false;
+
+            }else{
+              context.isTorqueDrag = true;
+            }
+            break;
+
+        }
+
       },
+    ShowInputView(){
+      var context =  this;
+      if(context.isInput == true){
+        context.isInput = false;
+      }else{
+        context.isInput = true;
+      }
+    },
+    ShowWellListView(){
+      var context =  this;
+      if(context.isWellList == true){
+        context.isWellList = false;
+      }else{
+        context.isWellList = true;
+        context.isInput = false;
+        context.isSchematic = false;
+        context.isTDAnalysis = false;
+      }
+    },
+    ShowSchematicView(){
+      var context =  this;
+      if(context.isSchematic == true){
+        context.isSchematic = false;
+        
+      }else{
+        context.isSchematic = true;
+        context.isInput = false;
+        context.isTDAnalysis = false;
+         context.isWellList = false;
+      }
+    },
+    ShowTDAnalysisView(){
+      var context =  this;
+      if(context.isTDAnalysis == true){
+        context.isTDAnalysis = false;
+      }else{
+        context.isTDAnalysis = true;
+        context.isInput = false;
+        context.isSchematic = false;
+        context.isWellList = false;
+      }
+    },
+    onItemClick () {
+      // console.log('Clicked on an Item')
+    },
     logoutUser(){
       this.$store.dispatch('authStore/Logout')
     },
@@ -199,4 +437,39 @@ export default {
 .q-drawer__content {
     background: #474f57;
 }
+
+.dropbtn {
+  background-color: green;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
 </style>

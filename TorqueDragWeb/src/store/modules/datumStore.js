@@ -1,7 +1,9 @@
 import { $http } from 'boot/axios' 
 
 const state = {
-    datum:{}
+    datum:{},
+    selectedInputTab: 'Datum',
+    isInput: false
   }
 
   const getters = {

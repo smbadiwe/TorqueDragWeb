@@ -1,6 +1,6 @@
 <template>
   <div style="height:100vh;">
-    <div class="q-pa-sm" v-bind:style="mainStyle">
+    <div class="q-pa-sm bg-primary" v-bind:style="mainStyle">
     
         <!-- <textbox-Component></textbox-Component> -->
       <div class="row">
@@ -151,7 +151,7 @@ export default {
       datumList: [],
       selectedDatum: "",
       mainStyle: {
-          background: '#474f57',
+          // background: '#474f57',
           color: '#ffffff',
           fontFamily: 'Times New Roman',
           fontStyle: 'italic',
