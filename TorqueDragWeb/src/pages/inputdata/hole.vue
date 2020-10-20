@@ -1,5 +1,5 @@
 <template>
-    <div style="height:100vh;">
+    <div>
         <div class="row">
             <div class="col-12 q-pa-sm"> 
                 <q-btn 

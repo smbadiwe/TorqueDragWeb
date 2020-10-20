@@ -1,99 +1,185 @@
 <template>
   <div 
-  v-if="visibility"
-  v-bind:style="tabStyle" class="bg-primary">
+  v-bind:style="tabStyle" class="col-12 bg-primary">
 
     
     <q-card class="my-card bg-secondary text-white" style="height:50px;">
       <q-card-section align="right">
-        <div class="text-center text-h6 q-pb-md">Input Data</div>
+        <div class="text-center text-subtitle1 q-pb-md">Input Data</div>
           <!-- <q-icon name="close" /> -->
       </q-card-section>
     </q-card>
 
-    <q-splitter
-      v-model="splitterModel"
+    <q-scroll-area
+        :visible="visible"
+      style="height: 500px; width: 100%;"
     >
 
-      <template v-slot:before>
-        <q-tabs
-       v-model="tab"
-          vertical
-        >
-          <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
-          <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
-          <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
-          <q-tab name="String" label="String" v-bind:style="qtabStyle" />
-          <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
-          <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
-          <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
-          <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
-        </q-tabs>
-      </template>
-
-      <template v-slot:after>
-        <q-tab-panels
+        <div class="row"> 
+          <div class="col-3">
+            <q-tabs
           v-model="tab"
-          animated
-          swipeable
-          vertical
-          transition-prev="jump-up"
-          transition-next="jump-up"
-          class="bg-primary mypanel"
-        >
-          <q-tab-panel name="Datum">
-            <div>
-                <datumn-app></datumn-app>
-            </div>
-            
-          </q-tab-panel>
+              vertical
+            >
+              <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
+              <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
+              <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
+              <q-tab name="String" label="String" v-bind:style="qtabStyle" />
+              <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
+              <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
+              <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
+              <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
+            </q-tabs>
+          </div>
 
-          <q-tab-panel name="WellPath">
-            <div>
-              <wellPath-app></wellPath-app>
-            </div>
-          </q-tab-panel>
+          <div class="col-9">
+            <q-tab-panels
+              v-model="tab"
+              animated
+              swipeable
+              vertical
+              transition-prev="jump-up"
+              transition-next="jump-up"
+              class="bg-primary mypanel"
+            >
+              <q-tab-panel name="Datum">
+                <div>
+                    <datumn-app></datumn-app>
+                </div>
+                
+              </q-tab-panel>
 
-          <q-tab-panel name="Hole">
-            <div>
-              <hole-app></hole-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="WellPath">
+                <div>
+                  <wellPath-app></wellPath-app>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="String">
-            <div>
-              <tubingString-app></tubingString-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="Hole">
+                <div>
+                  <hole-app></hole-app>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="Rig">
-            <div>
-              <rig-app></rig-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="String">
+                <div>
+                  <tubingString-app></tubingString-app>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="Fluids">
-            <div>
-              <fluids-app></fluids-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="Rig">
+                <div>
+                  <rig-app></rig-app>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="Subsurface">
-            <div>
-              <subsurface-app></subsurface-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="Fluids">
+                <div>
+                  <fluids-app></fluids-app>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="Operations">
-            <div>
-              <operations-app></operations-app>
-            </div>
-          </q-tab-panel>
+              <q-tab-panel name="Subsurface">
+                <div>
+                  <subsurface-app></subsurface-app>
+                </div>
+              </q-tab-panel>
 
-        </q-tab-panels>
-      </template>
+              <q-tab-panel name="Operations">
+                <div>
+                  <operations-app></operations-app>
+                </div>
+              </q-tab-panel>
 
-    </q-splitter>
+            </q-tab-panels>
+          </div>
+        </div>
+
+    <!-- <q-splitter
+      v-model="splitterModel"
+      >
+
+        <template v-slot:before>
+          <q-tabs
+        v-model="tab"
+            vertical
+          >
+            <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
+            <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
+            <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
+            <q-tab name="String" label="String" v-bind:style="qtabStyle" />
+            <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
+            <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
+            <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
+            <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
+          </q-tabs>
+        </template>
+
+        <template v-slot:after>
+          <q-tab-panels
+            v-model="tab"
+            animated
+            swipeable
+            vertical
+            transition-prev="jump-up"
+            transition-next="jump-up"
+            class="bg-primary mypanel"
+          >
+            <q-tab-panel name="Datum">
+              <div>
+                  <datumn-app></datumn-app>
+              </div>
+              
+            </q-tab-panel>
+
+            <q-tab-panel name="WellPath">
+              <div>
+                <wellPath-app></wellPath-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Hole">
+              <div>
+                <hole-app></hole-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="String">
+              <div>
+                <tubingString-app></tubingString-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Rig">
+              <div>
+                <rig-app></rig-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Fluids">
+              <div>
+                <fluids-app></fluids-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Subsurface">
+              <div>
+                <subsurface-app></subsurface-app>
+              </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="Operations">
+              <div>
+                <operations-app></operations-app>
+              </div>
+            </q-tab-panel>
+
+          </q-tab-panels>
+        </template>
+
+    </q-splitter> -->
+    
+    </q-scroll-area>
   </div>
 </template>
 
@@ -134,6 +220,7 @@ props: {
       dense: false,
       // visibility:true,
       tab: 'Datum',
+      visible: true,
       splitterModel: 20,
       tabStyle: {
           // background: '#474f57',

@@ -6,7 +6,8 @@ const state =  {
     IdentityModel: {},
     user: {},
     administrator: {},
-    companyDBConnectionString: ""
+    companyDBConnectionString: "",
+    companyId: {}
 
 }
 
@@ -26,6 +27,9 @@ const getters = {
     },
     companyDBConnectionString(state){
         return state.companyDBConnectionString;
+    },
+    companyId(state){
+      return state.companyId;
     }
 }
 
@@ -36,6 +40,7 @@ const mutations = {
         state.Loginstatus= true;
         state.IdentityModel = payload.identity;
         state.companyDBConnectionString = payload.companyDBConnectionString;
+        state.companyId = payload.companyId;
         //state.user = payload.user;
         //state.administrator = payload.administrator;
         

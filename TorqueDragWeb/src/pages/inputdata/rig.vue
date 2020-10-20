@@ -1,5 +1,5 @@
 <template>
-    <div style="height:100vh;">
+    <div>
         <div class="row q-pa-sm">
             <div class="col-12">
             Mechanical Limits

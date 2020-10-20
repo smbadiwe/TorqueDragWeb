@@ -1,5 +1,5 @@
 <template>
-    <div style="height:100vh;">   
+    <div>   
         <div class="row">
             <div class="col-12 q-pa-sm">
                 Vertical Section Definition
@@ -37,8 +37,15 @@
             <div class="col-12 q-pa-sm"> 
                 <q-btn 
                     size="sm"
-                    label="Import">
+                    label="Import"
+                    @click="updateIsImportDialogVisible">
                 </q-btn>
+
+                <q-dialog v-model="isImportDialogVisible">
+                    <div class="q-pa-sm">
+                        <msExcelImport-app></msExcelImport-app>
+                    </div>
+                </q-dialog>
             </div>
 
             <q-table  
@@ -65,11 +72,15 @@
 </template>
 
 <script>
+import msExcelImport from 'components/dataImport/msExcelImport.vue';
 export default {
     computed:{
         deviationSurveys() {
         return this.$store.getters['wellPathStore/deviationSurveys'];
         }
+    },
+    components: {
+        'msExcelImport-app': msExcelImport
     },
      data () {
         return {
@@ -77,8 +88,15 @@ export default {
             { name: "measuredDepth", label: "MD (ft)", field: "", align: "left" },
             { name: "inclination", label: "Inc (deg)", field: "", align: "left" },
             { name: "azimuth", label: "Azi (deg)", field: "", align: "left" }
-        ]
+        ],
+        isImportDialogVisible: false
     }
+  },
+  methods: {
+      updateIsImportDialogVisible(){
+          var context =  this;
+          context.isImportDialogVisible = true;
+      }
   }
 }
 </script>

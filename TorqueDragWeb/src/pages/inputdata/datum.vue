@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100vh;">
+  <div style="height:450px;">
     <div class="q-pa-sm bg-primary" v-bind:style="mainStyle">
     
         <!-- <textbox-Component></textbox-Component> -->
@@ -39,27 +39,27 @@
                           </div>
 
                           <div class="col-3 q-pa-sm">Shore</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-6 q-pa-sm"><input v-model="typeOfShore"></div>
                           <div class="col-3 q-pa-sm"></div>
 
-                          <div class="col-3 q-pa-sm">Datumn Name</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-3 q-pa-sm">Datum Name</div>
+                          <div class="col-6 q-pa-sm"><input v-model="datumName"></div>
                           <div class="col-3 q-pa-sm"></div>
 
-                          <div class="col-3 q-pa-sm">Datumn Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-3 q-pa-sm">Datum Elevation</div>
+                          <div class="col-6 q-pa-sm"><input v-model="datumElevation"></div>
                           <div class="col-3 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">Ground Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-6 q-pa-sm"><input v-model="groundElevation"></div>
                           <div class="col-3 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">WellHead Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-6 q-pa-sm"><input v-model="wellHeadElevation"></div>
                           <div class="col-3 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">Air Gap</div>
-                          <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                          <div class="col-6 q-pa-sm"><input v-model="airGap"></div>
                           <div class="col-3 q-pa-sm">ft</div>
                 
                       </div>
@@ -70,7 +70,7 @@
                             size="sm"
                             label="Add"
                             class="bg-primary"
-                            @click="CollapseExander">
+                            @click="PostDatum">
                         </q-btn>
                     </q-card-actions>
 
@@ -86,11 +86,14 @@
             Select Datum: 
           </div>
           <div class="col-6 q-pa-sm">
-          <select v-model="selected" style="width:100%;"
-          @input="onDatumSelectionChanged">
-              <option>A</option>
-              <option>B</option>
-              <option>C</option>
+          <select style="width:100%;"
+            name="NameOfDatum"
+            id="" 
+            v-on:change="onDatumSelectionChanged($event)">
+              <option
+                v-for="datum in datums" :key="datum.id">
+                {{ datum.datumName }}
+              </option>
           </select>
         </div>
 
@@ -101,27 +104,27 @@
         </div>
 
         <div class="col-3 q-pa-sm">Shore</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.typeOfShore"></div>
         <div class="col-3 q-pa-sm"></div>
 
-        <div class="col-3 q-pa-sm">Datumn Name</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-3 q-pa-sm">Datum Name</div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumName"></div>
         <div class="col-3 q-pa-sm"></div>
 
-        <div class="col-3 q-pa-sm">Datumn Elevation</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-3 q-pa-sm">Datum Elevation</div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
         <div class="col-3 q-pa-sm">Ground Elevation</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.groundElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
         <div class="col-3 q-pa-sm">WellHead Elevation</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.wellHeadElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
         <div class="col-3 q-pa-sm">Air Gap</div>
-        <div class="col-6 q-pa-sm"><input v-model="message"></div>
+        <div class="col-6 q-pa-sm"><input v-model="selectedDatum.airGap"></div>
         <div class="col-3 q-pa-sm">ft</div>
  
       </div>
@@ -136,6 +139,20 @@
 import addDatum from 'components/inputdata/datum/addDatum.vue';
 import textbox from 'components/controls/textbox.vue';
 export default {
+  computed: {
+    companyDBConnectionString(){
+      return this.$store.getters['authStore/companyDBConnectionString'];
+    },
+    SelectedTorqueDragDesign(){
+      return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+    },
+    datums(){
+      return this.$store.getters['datumStore/datums'];
+    },
+    selectedDatum(){
+      return this.$store.getters['datumStore/selectedDatum'];
+    }
+  },
   components:{
     'addDatum-Component': addDatum,
     'textbox-Component': textbox
@@ -149,7 +166,6 @@ export default {
       variableUnit: "Ibf",
       text: '',
       datumList: [],
-      selectedDatum: "",
       mainStyle: {
           // background: '#474f57',
           color: '#ffffff',
@@ -160,7 +176,13 @@ export default {
       showHideStyle: {
           display: 'inline'
       },
-      expanded: false
+      expanded: false,
+      typeOfShore: "Onshore",
+      datumElevation: 52,
+      groundElevation: 14,
+      airGap: 38,
+      wellHeadElevation: 89,
+      datumName: "Datum 01"
     }
   },
   methods: {
@@ -168,16 +190,45 @@ export default {
       var context = this;
       context.expanded = true;
     },
-    CollapseExander(){
+    onDatumSelectionChanged(e){
       var context = this;
-      context.expanded = false;
-    },
-    onDatumSelectionChanged(){
+       var id = e.target.value;
+        var name = e.target.options[e.target.options.selectedIndex].text;
+        console.log('id ', id );
+        console.log('name ',name );
 
+      this.$store.commit('datumStore/onDatumSelectionChanged', name);
+
+      
+         // @input="onDatumSelectionChanged"
+    },
+    PostDatum(){
+      var context = this;
+
+      this.$store.dispatch('datumStore/PostDatum', {
+            datum: {
+              designId: context.SelectedTorqueDragDesign.designId,
+              typeOfShore: context.typeOfShore,
+              datumElevation: context.datumElevation,
+              groundElevation: context.groundElevation,
+              airGap: context.airGap,
+              wellHeadElevation: context.wellHeadElevation,
+              datumName: context.datumName
+            },
+            companyDBConnectionString: context.companyDBConnectionString
+          });
+
+          context.expanded = false;
     }
       
+  },
+  created() {
+      var companyDBConnectionString = this.$store.getters['authStore/companyDBConnectionString'];
+      //var parts = companyDBConnectionString.split('\\');
+      //var output = parts.join('\\\\');
+      this.$store.dispatch('datumStore/GetDatums', companyDBConnectionString)
+   }
   }
-}
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
-    <div style="height:100vh;">
+    <div>
 
-        <div class="row">
+        <div class="row" style="height: 450px;">
             <div class="col-12">
                 <q-expansion-item
                     v-model="expandedTDrmalAnalysis"
@@ -223,7 +223,8 @@ export default {
             expandedRotatingOnBottom: false,
             expandedSlideDrilling: false,
             expandedBackReaming: false,
-            expandedRotatingOffBottom: false
+            expandedRotatingOffBottom: false,
+            checked: false
         }
     }
 }

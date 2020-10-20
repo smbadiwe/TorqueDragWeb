@@ -226,7 +226,7 @@
             </div>
             <div 
             v-if="isWellList" 
-            class="col-2 bg-secondary q-pa-sm">
+            class="col-3 bg-secondary q-pa-sm">
               <wellList-app></wellList-app>
             </div>
             <div 
@@ -282,7 +282,7 @@ export default {
     return {
       leftDrawerOpen: false,
       isInput:false,
-      isWellList:false,
+      isWellList:true,
       isSchematic:false,
       isTDAnalysis:false,
       tab: 'mails',

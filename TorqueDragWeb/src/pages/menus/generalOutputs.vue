@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row bg-accent" style="height:100px;">
+        <div class="row bg-accent" style="height:140px;">
             <div class="col-12">
                 General Outputs
             </div>

@@ -1,8 +1,10 @@
 <template>
-    <div style="height:100vh;">
+    <div>
         <div class="row">
             <div class="col-12">
-                <q-card class="my-card" flat > 
+                <q-card class="my-card" 
+                style="height: 450px;"
+                flat scroll> 
 
                     <q-card-section class="bg-primary text-white text-center">
                         <div class="row">

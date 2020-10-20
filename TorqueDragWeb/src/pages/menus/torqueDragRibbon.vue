@@ -3,7 +3,7 @@
         <div class="row bg-accent text-primary" style="height:140px;">
             <div class="col vl">
                 <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         clickable
                         @click="EffectiveTension">
                         <img
@@ -13,7 +13,7 @@
                         Effective Tension
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -22,7 +22,7 @@
                         True Tension
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -31,7 +31,7 @@
                         Torque
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
                             @click="EffectiveTension">
                             <img
@@ -41,7 +41,7 @@
                             Side Force
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -50,7 +50,7 @@
                         Fatique
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -71,8 +71,7 @@
 
             <div class="col vl">
                 <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
-                        clickable
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="EffectiveTension">
                         <img
                         class="object-fit-cover"
@@ -81,7 +80,7 @@
                         Tripping In
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -90,7 +89,7 @@
                         Tripping Out
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -99,7 +98,7 @@
                         Rotating On Bottom
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
                             @click="EffectiveTension">
                             <img
@@ -109,7 +108,7 @@
                             Slide Drilling
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -118,7 +117,7 @@
                         Back reaming
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -127,7 +126,7 @@
                         Rotating Off Bottom
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -148,7 +147,7 @@
 
             <div class="col vl">
                 <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         clickable
                         @click="EffectiveTension">
                         <img
@@ -158,7 +157,7 @@
                         Tripping In Details
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -167,7 +166,7 @@
                         Tripping Out Details
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -176,7 +175,7 @@
                         Rotating on Bottom Details
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
                             @click="EffectiveTension">
                             <img
@@ -186,7 +185,7 @@
                             Slide Drilling Details
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="TrueTension">
                         <img
                         class="object-fit-cover"
@@ -195,7 +194,7 @@
                         Back reaming Details
                     </div>
 
-                    <div class="col q-pa-sm text-caption" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         @click="Torque">
                         <img
                         class="object-fit-cover"
@@ -241,15 +240,11 @@ export default {
   height: 140px;
 }
 
-#EffectiveTension:hover {
+.buttonHover:hover {
   background-color: grey;
 }
 
 #TrueTension:hover {
-  background-color: grey;
-}
-
-#EffectiveTension:hover {
   background-color: grey;
 }
 

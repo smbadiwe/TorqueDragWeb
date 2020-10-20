@@ -12,9 +12,15 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "js-cookie": "^2.2.1",
     "metro4": "^4.4.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.0",
     "quasar": "^1.0.0",
-    "vc-ribbon": "^2.0.4"
+    "vc-ribbon": "^2.0.4",
+    "xlsx": "^0.16.8"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0"
