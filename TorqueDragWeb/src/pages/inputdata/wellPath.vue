@@ -41,8 +41,8 @@
                     @click="updateIsImportDialogVisible">
                 </q-btn>
 
-                <q-dialog v-model="isImportDialogVisible">
-                    <div class="q-pa-sm">
+                <q-dialog v-model="isImportDialogVisible" class="bg-accent">
+                    <div class="q-pa-sm bg-accent">
                         <msExcelImport-app></msExcelImport-app>
                     </div>
                 </q-dialog>
@@ -57,9 +57,7 @@
 
 
             <template v-slot:body="props">
-                <q-tr 
-                v-if ="!props.row.isPaid"
-                :props="props">
+                <q-tr>
                     <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
                     <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
                     <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
@@ -77,6 +75,9 @@ export default {
     computed:{
         deviationSurveys() {
         return this.$store.getters['wellPathStore/deviationSurveys'];
+        },
+        isImportDialogVisible() {
+        return this.$store.getters['wellPathStore/isImportDialogVisible'];
         }
     },
     components: {
@@ -88,15 +89,27 @@ export default {
             { name: "measuredDepth", label: "MD (ft)", field: "", align: "left" },
             { name: "inclination", label: "Inc (deg)", field: "", align: "left" },
             { name: "azimuth", label: "Azi (deg)", field: "", align: "left" }
-        ],
-        isImportDialogVisible: false
+        ]
     }
   },
   methods: {
       updateIsImportDialogVisible(){
           var context =  this;
-          context.isImportDialogVisible = true;
+          this.$store.commit('dataImportStore/SetTypeOfInput', "Well Path");
+          this.$store.commit('wellPathStore/SetisImportDialogVisible', true);
       }
+  },
+  created(){
+      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var payload = {
+          companyDBConnectionString: Conn,
+          designId: selectedTorqueDragDesign.designId,
+          deviationSurveys: [],
+          deviationSurveysString: ""
+      }
+      console.log(payload)
+      this.$store.dispatch('wellPathStore/GetDeviationSurveys', payload)
   }
 }
 </script>

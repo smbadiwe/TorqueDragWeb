@@ -82,10 +82,10 @@
 
 
       <div class="row q-pa-sm">
-        <div class="col-6 q-pa-sm">
+        <div class="col-md-6 col-sm-12 q-pa-sm">
             Select Datum: 
           </div>
-          <div class="col-6 q-pa-sm">
+          <div class="col-md-6 col-sm-12 q-pa-sm">
           <select style="width:100%;"
             name="NameOfDatum"
             id="" 
@@ -103,27 +103,27 @@
           <hr/>
         </div>
 
-        <div class="col-3 q-pa-sm">Shore</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">Shore</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.typeOfShore"></div>
         <div class="col-3 q-pa-sm"></div>
 
-        <div class="col-3 q-pa-sm">Datum Name</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">Datum Name</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumName"></div>
         <div class="col-3 q-pa-sm"></div>
 
-        <div class="col-3 q-pa-sm">Datum Elevation</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">Datum Elevation</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
-        <div class="col-3 q-pa-sm">Ground Elevation</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">Ground Elevation</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.groundElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
-        <div class="col-3 q-pa-sm">WellHead Elevation</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">WellHead Elevation</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.wellHeadElevation"></div>
         <div class="col-3 q-pa-sm">ft</div>
 
-        <div class="col-3 q-pa-sm">Air Gap</div>
+        <div class="col-md-3 col-sm-12 q-pa-sm">Air Gap</div>
         <div class="col-6 q-pa-sm"><input v-model="selectedDatum.airGap"></div>
         <div class="col-3 q-pa-sm">ft</div>
  

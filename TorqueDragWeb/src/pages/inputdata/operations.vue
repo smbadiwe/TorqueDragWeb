@@ -217,7 +217,7 @@
 export default {
     data() {
         return {
-            expandedTDrmalAnalysis: false,
+            expandedTDrmalAnalysis: true,
             expandedTrippingIn: false,
             expandedTrippingOut: false,
             expandedRotatingOnBottom: false,

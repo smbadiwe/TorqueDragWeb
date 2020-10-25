@@ -10,6 +10,7 @@ import subSurfaceStore from './modules/subSurfaceStore'
 import settingsStore from './modules/settingsStore'
 import wellDesignStore from './modules/wellDesignStore'
 import dataImportStore from './modules/dataImportStore'
+import holeStore from './modules/holeStore'
 
 Vue.use(Vuex)
 
@@ -33,7 +34,8 @@ export default function (/* { ssrContext } */) {
       subSurfaceStore,
       settingsStore,
       wellDesignStore,
-      dataImportStore
+      dataImportStore,
+      holeStore
     },
 
     // enable strict mode (adds overhead!)

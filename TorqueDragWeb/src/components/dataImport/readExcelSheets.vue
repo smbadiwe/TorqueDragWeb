@@ -1,21 +1,26 @@
 <template>
-    <div class="q-pa-sm">
+    <div class="q-pa-sm bg-accent">
 
         <div class="row">
 
             <div class="col q-pa-sm">
-                <select style="width:100%;"
-                    name="NameOfSheet"
-                    id="" 
-                    v-on:change="onItemSelectionChanged($event)">
-                    <option
-                        v-for="sheetName in MsExcelWbBook.sheetNames" :key="sheetName">
-                        {{ sheetName }}
-                    </option>
-                </select>
+                <div class="row">
+                    <!-- <div class="col-3 q-pa-sm">Sheet Name:</div> -->
+                    <div class="col-12 q-pa-sm">
+                        <select
+                            name="NameOfSheet"
+                            id="" 
+                            v-on:change="onItemSelectionChanged($event)">
+                            <option
+                                v-for="sheetName in MsExcelWbBook.sheetNames" :key="sheetName">
+                                {{ sheetName }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
+            </div>
 
-            <div class="col q-pa-sm" style="width:auto">
+            <div class="col q-pa-sm">
                 <label class="custom-file-upload">
                     <input type="file" @change="importExcel" id="upload"/>
                     <i class="fa fa-cloud-upload"></i> Browse File
@@ -65,6 +70,8 @@ export default {
                 type: "binary"
             });
 
+
+
             var nCount = workbook.SheetNames.length;
             var i = 0;
             var j = 0;
@@ -74,6 +81,8 @@ export default {
                 var wsname = workbook.SheetNames[j]; // Take the first sheet，wb.SheetNames[0] :Take the name of the first sheet in the sheets
                 _sheetNames.push(wsname);
                 var ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); // Generate JSON table content，wb.Sheets[Sheet名]    Get the data of the first sheet
+
+
                 const excellist = [];  // Clear received data
                 // Edit data
                 for (i = 0; i < ws.length; i++) {
@@ -94,13 +103,26 @@ export default {
             sheetsData: _sheetsData
         })
     },
-    onItemSelectionChanged(){
+    onItemSelectionChanged(e){
         var id = e.target.value;
         var name = e.target.options[e.target.options.selectedIndex].text;
-        console.log('id ', id );
-        console.log('name ',name );
+        //console.log('id ', id );
+        //console.log('name ',name );
 
-      this.$store.commit('dataImportStore/onItemSelectionChanged', name);
+        var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
+        switch(typeOfInput){
+            case "Well Path":
+               this.$store.commit('dataImportStore/onItemSelectionChanged', name);
+              break;
+            case "Hole":
+               this.$store.commit('dataImportStore/OnHoleSectionSelectionChanged', name);
+              break
+            case "Tubing String":
+               this.$store.commit('dataImportStore/OnTubingStringSelectionChanged', name);
+              break
+        }
+
+     
     }
   }
 }

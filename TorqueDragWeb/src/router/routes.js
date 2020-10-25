@@ -1,8 +1,11 @@
 import authLayout from 'layouts/authLayout.vue'
 import mainLayout from 'layouts/MainLayout.vue'
 import userLayout from 'layouts/userLayout.vue'
+import newLayout from 'layouts/newLayout.vue'
+import newLayout2 from 'layouts/newLayout2.vue'
 import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
+import dockpage1 from 'pages/inputdata/dockpage1.vue'
 
 const routes = [
   {
@@ -12,6 +15,20 @@ const routes = [
       { 
         path: '', 
         component: loginapge
+      }
+    ]
+  },
+  {
+    path: '/newLayout',
+    component: newLayout
+  },
+  {
+    path: '/newLayout2',
+    component: newLayout2,
+    children: [
+      { 
+        path: '/newLayout2', 
+        component: dockpage1
       }
     ]
   },

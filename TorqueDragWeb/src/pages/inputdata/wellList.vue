@@ -32,7 +32,7 @@
                             label="Add Well"
                         >
 
-                        <q-card class="bg-secondary">
+                        <q-card class="bg-primary">
                             <q-card-section>
                                 
                                 <div class="row">
@@ -75,20 +75,12 @@
         <q-item 
         v-for="torqueDragDesign in torqueDragDesigns" :key="torqueDragDesign.designName"
         clickable v-ripple
-        @click="onItemSelectionChanged(torqueDragDesign)">
-            <q-item-section 
-            v-if="torqueDragDesign.isSelected" 
-            class="bg-grey">{{ torqueDragDesign.designName }}</q-item-section>
-            <q-item-section
-            v-else
-            >{{ torqueDragDesign.designName }}</q-item-section>
+        @click="onItemSelectionChanged(torqueDragDesign)"
+        :active="torqueDragDesign.isSelected"
+        active-class="text-orange-10 mnu_active">
 
-            
-            <q-item-section 
-                v-if="torqueDragDesign.isSelected" 
-                side class="text-primary bg-grey">{{ torqueDragDesign.creationDate }}</q-item-section>
+            <q-item-section>{{ torqueDragDesign.designName }}</q-item-section>
             <q-item-section
-                v-else 
                 side class="text-primary">{{ torqueDragDesign.creationDate }}</q-item-section>
         </q-item>
 
@@ -144,7 +136,6 @@ export default {
           context.expanded = false;
     },
     onItemSelectionChanged(torqueDragDesign){
-        var context =  this;
         this.$store.commit('wellDesignStore/GetSelectedTorqueDragDesign', torqueDragDesign)
     },
   },

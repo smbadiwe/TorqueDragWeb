@@ -17,19 +17,30 @@
 
         <div class="row"> 
           <div class="col-3">
+            <!-- <q-toolbar class="bg-primary text-white text-caption text-capitalize shadow-2 rounded-borders"> -->
             <q-tabs
           v-model="tab"
               vertical
+              class="q-pa-none"
             >
-              <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
-              <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
-              <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
-              <q-tab name="String" label="String" v-bind:style="qtabStyle" />
-              <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
-              <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
-              <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
-              <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
+              <q-tab class="rotate-270 text-capitalize text-center" name="Datum" label="Datum" v-bind:style="qtabStyle" 
+              style="width: 60px; height: 70px;" />
+              <q-tab class="rotate-270 text-capitalize" name="WellPath" label="Well Path" v-bind:style="qtabStyle"
+              style="width: 80px; height: 70px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="Hole" label="Hole" v-bind:style="qtabStyle"
+              style="width: 50px; height: 70px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="String" label="String" v-bind:style="qtabStyle"
+              style="width: 60px; height: 70px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="Rig" label="Rig" v-bind:style="qtabStyle"
+              style="width: 50px; height: 70px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="Fluids" label="Fluids" v-bind:style="qtabStyle"
+              style="width: 60px; height: 70px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="Subsurface" label="Subsurface" v-bind:style="qtabStyle"
+              style="width: 80px; height: 90px;"  />
+              <q-tab class="rotate-270 text-capitalize" name="Operations" label="Operations" v-bind:style="qtabStyle"
+              style="width: 80px; height: 90px;"  />
             </q-tabs>
+            <!-- </q-toolbar> -->
           </div>
 
           <div class="col-9">
@@ -221,7 +232,7 @@ props: {
       // visibility:true,
       tab: 'Datum',
       visible: true,
-      splitterModel: 20,
+      splitterModel: 10,
       tabStyle: {
           // background: '#474f57',
           color: '#ffffff',
@@ -230,7 +241,8 @@ props: {
           fontSizeAdjust: '0.58'
       },
       qtabStyle: {
-        minHeight: '40px',
+        //width: 'auto',
+        //height: '70px',
         marginLeft:'auto',
         marginRight:'auto',
         display:'block',

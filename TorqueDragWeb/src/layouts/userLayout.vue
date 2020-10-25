@@ -165,6 +165,13 @@
            </q-btn>
           </div>
 
+        
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <hr/>
+          </div>
         </div>
       </q-header>
  
@@ -196,7 +203,7 @@
           </div>
           <div class="col-12"> 
             <div class="row">
-              <div class="col-5 bg-primary q-pa-sm">
+              <div class="col-5 bg-primary q-pa-none">
                 <mainInput-app
                 :visibility="isInput"></mainInput-app>
               </div>
@@ -226,17 +233,17 @@
             </div>
             <div 
             v-if="isWellList" 
-            class="col-3 bg-secondary q-pa-sm">
+            class="col-3 bg-primary q-pa-sm">
               <wellList-app></wellList-app>
             </div>
             <div 
             v-if="isSchematic" 
-            class="col-3 bg-orange q-pa-sm">
+            class="col-3 bg-primary q-pa-sm">
 
             </div>
             <div 
             v-if="isTDAnalysis" 
-            class="col-3 bg-secondary q-pa-sm">
+            class="col-3 bg-primary q-pa-sm">
               <analysisSettings-app></analysisSettings-app>
             </div>
         </div>
@@ -472,4 +479,9 @@ export default {
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+.vl {
+  border-right: 2px solid white;
+  height: 100vh;
+}
 </style>
