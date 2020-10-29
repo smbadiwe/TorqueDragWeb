@@ -57,7 +57,8 @@
 
 
             <template v-slot:body="props">
-                <q-tr>
+                <q-tr
+                :props="props">
                     <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
                     <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
                     <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>

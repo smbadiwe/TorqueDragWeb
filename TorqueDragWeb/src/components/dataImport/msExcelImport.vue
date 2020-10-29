@@ -35,6 +35,7 @@
             <mapExcelVariables-app v-if="isWellPath"></mapExcelVariables-app>
             <mapHoleData-app v-if="isHole"></mapHoleData-app>
             <mapTubingData-app v-if="isTubingString"></mapTubingData-app>
+            <mapFluidData-app v-if="isFluid"></mapFluidData-app>
           </div>
 
           <q-stepper-navigation class="bg-accent">
@@ -67,6 +68,7 @@
             <previewDevSurvey-app v-if="isWellPath"></previewDevSurvey-app>
             <previewHoleData-app v-if="isHole"></previewHoleData-app>
             <previewTubingData-app v-if="isTubingString"></previewTubingData-app>
+            <previewFluidData-app v-if="isFluid"></previewFluidData-app>
           </div>
 
           <q-stepper-navigation class="bg-accent">
@@ -89,6 +91,8 @@ import mapTubingData from 'components/dataImport/tubingDataImport/mapTubingData.
 import previewDevSurvey from 'components/dataImport/previewDevSurvey.vue'
 import previewHoleData from 'components/dataImport/holeDataImport/previewHoleData.vue'
 import previewTubingData from 'components/dataImport/tubingDataImport/previewTubingData.vue'
+import mapFluidData from 'components/dataImport/fluidDataImport/mapFluidData.vue'
+import previewFluidData from 'components/dataImport/fluidDataImport/previewFluidData.vue'
 
 export default {
     computed: {
@@ -103,6 +107,15 @@ export default {
       },
       SelectedTorqueDragDesign(){
         return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      },
+      previewHoleData(){
+          return this.$store.getters['dataImportStore/previewHoleData'];
+      },
+      previewTubingStringData(){
+          return this.$store.getters['dataImportStore/previewTubingStringData'];
+      },
+      previewMudPVTData(){
+        return this.$store.getters['dataImportStore/previewMudPVTData'];
       }
     },
     components: {
@@ -112,7 +125,9 @@ export default {
         'mapHoleData-app': mapHoleData,
         'mapTubingData-app': mapTubingData,
         'previewHoleData-app': previewHoleData,
-        'previewTubingData-app': previewTubingData
+        'previewTubingData-app': previewTubingData,
+        'mapFluidData-app': mapFluidData,
+        'previewFluidData-app': previewFluidData
     },
     data () {
     return {
@@ -120,14 +135,58 @@ export default {
       visible: true,
       isWellPath: false,
       isHole: false,
-      isTubingString: false
+      isTubingString: false,
+      isFluid: false
      }
     },
     methods: {
         moveForward (currentStep){
             var context =  this;
+            var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
+
+          switch(typeOfInput){
+            case "Well Path":
+              context.isWellPath = true;
+              context.isHole = false;
+              context.isTubingString = false;
+              context.isFluid = false;
+              break;
+            case "Hole":
+              context.isWellPath = false;
+              context.isHole = true;
+              context.isTubingString = false;
+              context.isFluid = false;
+              break;
+            case "Tubing String":
+              context.isWellPath = false;
+              context.isHole = false;
+              context.isTubingString =  true;
+              context.isFluid = false;
+              break;
+            case "Fluid":
+              context.isWellPath = false;
+              context.isHole = false;
+              context.isTubingString =  false;
+              context.isFluid = true;
+              break;
+          }
+
             if(currentStep == 3){
-              this.$store.commit('dataImportStore/GetDevSurveyPreview', context.SelectedTorqueDragDesign.designId)
+              var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
+              switch(typeOfInput){
+                case "Well Path":
+                  this.$store.commit('dataImportStore/GetDevSurveyPreview', context.SelectedTorqueDragDesign.designId);
+                  break;
+                case "Hole":
+                  this.$store.commit('dataImportStore/GetHoleSectionPreview', context.SelectedTorqueDragDesign.designId);
+                  break;
+                case "Tubing String":
+                  this.$store.commit('dataImportStore/GetTubingStringPreview', context.SelectedTorqueDragDesign.designId);
+                  break;
+                case "Fluid":
+                  this.$store.commit('dataImportStore/GetFluidPreview', context.SelectedTorqueDragDesign.designId);
+                  break;
+              }
             }
 
             context.ImportDataStep = currentStep + 1;
@@ -142,10 +201,68 @@ export default {
         },
         finishAction(){
           var context = this;
-          this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
-            deviationSurveys: context.previewSurveyData,
-            companyDBConnectionString: context.companyDBConnectionString
-          });
+          var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
+          var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+          var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+
+          switch(typeOfInput){
+            case "Well Path":
+              context.isWellPath = true;
+              context.isHole = false;
+              context.isTubingString = false;
+              context.isFluid = false;
+              break;
+            case "Hole":
+              context.isWellPath = false;
+              context.isHole = true;
+              context.isTubingString = false;
+              context.isFluid = false;
+              break;
+            case "Tubing String":
+              context.isWellPath = false;
+              context.isHole = false;
+              context.isTubingString =  true;
+              context.isFluid = false;
+              break;
+            case "Fluid":
+              context.isWellPath = false;
+              context.isHole = false;
+              context.isTubingString =  false;
+              context.isFluid = true;
+              break;
+          }
+
+          switch(typeOfInput){
+            case "Well Path":
+              this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
+                deviationSurveys: context.previewSurveyData,
+                designId: selectedTorqueDragDesign.designId,
+                companyDBConnectionString: Conn
+              });
+              break;
+            case "Hole":
+              this.$store.dispatch('holeStore/PostHoleSections', {
+                holeSections: context.previewHoleData,
+                designId: selectedTorqueDragDesign.designId,
+                companyDBConnectionString: Conn,
+                holeSection: {}
+              });
+              break;
+            case "Tubing String":
+              this.$store.dispatch('tubingStringStore/PostPipes', {
+                pipes: context.previewTubingStringData,
+                designId: selectedTorqueDragDesign.designId,
+                companyDBConnectionString: Conn
+              });
+              break;
+            case "Fluid":
+              this.$store.dispatch('fluidsStore/PostMudPVTs', {
+                mudPVTs: context.previewMudPVTData,
+                designId: selectedTorqueDragDesign.designId,
+                companyDBConnectionString: Conn
+              });
+              break;
+          }
           
         }
     },
@@ -158,16 +275,25 @@ export default {
               context.isWellPath = true;
               context.isHole = false;
               context.isTubingString = false;
+              context.isFluid = false;
               break;
             case "Hole":
               context.isWellPath = false;
               context.isHole = true;
               context.isTubingString = false;
+              context.isFluid = false;
               break;
             case "Tubing String":
               context.isWellPath = false;
               context.isHole = false;
               context.isTubingString =  true;
+              context.isFluid = false;
+              break;
+            case "Fluid":
+              context.isWellPath = false;
+              context.isHole = false;
+              context.isTubingString =  false;
+              context.isFluid = true;
               break;
           }
     }

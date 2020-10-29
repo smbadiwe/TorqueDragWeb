@@ -1,6 +1,26 @@
 <template>
     <div>
         <div class="row bg-accent text-primary" style="height:140px;">
+              <div class="col-1 vl">
+                <div class="row" style="height:100px">
+                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                        clickable
+                        @click="RunSimulation">
+                        <img
+                        class="object-fit-cover"
+                        src="~assets/images/well_1.jpg">
+                        <br/>
+                        Run
+                    </div>
+                </div>
+
+                <div class="row" style="height:20px">
+                    <div class="col-12 q-pb-md q-pt-sm text-center">
+                        Simulation
+                    </div>
+                </div>
+            </div>
+
             <div class="col vl">
                 <div class="row" style="height:100px">
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
@@ -149,7 +169,7 @@
                 <div class="row" style="height:100px">
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         clickable
-                        @click="EffectiveTension">
+                        @click="TrippingInDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_14.jpg">
@@ -220,6 +240,16 @@
 <script>
 export default {
     methods: {
+        RunSimulation(){
+            var context =  this;
+            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            this.$store.dispatch('simulationStore/RunSimulation', {
+                companyDBConnectionString: Conn,
+                designId: selectedTorqueDragDesign.designId
+            });
+
+        },
         EffectiveTension(){
             console.log("EffectiveTension");
         },
@@ -228,6 +258,9 @@ export default {
         },
         Torque(){
             console.log("Torque");
+        },
+        TrippingInDetails(){
+            this.$router.push('/TrippingInDetails');
         }
     }
 }

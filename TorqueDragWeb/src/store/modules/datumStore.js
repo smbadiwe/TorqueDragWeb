@@ -82,9 +82,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.post('Datums/GetDatums',  {
-          companyDBConnectionString: payload
-       })
+       $http.post('Datums/GetDatums', payload)
         .then(response => {
             
           context.commit('GetDatums', response.data)              

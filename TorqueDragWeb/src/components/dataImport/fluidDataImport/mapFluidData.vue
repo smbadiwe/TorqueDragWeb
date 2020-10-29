@@ -2,21 +2,21 @@
     <div class="q-pa-sm bg-accent">
         <div class="row">   
             <div class="col-6 q-pa-sm">
-                 Hole Variables
+                 Mud PVT Variables
                 <br>
                 <hr/>
                 <br>
                 <q-list class="bg-accent text-primary"
-                    v-model="selectedHoleSectionVariable">
+                    v-model="selectedMudPVTVariable">
                     <q-item 
-                    v-for="holeVariableInBuilt in holeVariablesInBuilt2" 
-                    :key="holeVariableInBuilt.variableName"
+                    v-for="FluidVariablesInBuilt in FluidVariablesInBuilt2" 
+                    :key="FluidVariablesInBuilt.variableName"
                     clickable v-ripple
-                    @click="GetselectedHoleSectionVariable(holeVariableInBuilt)"
-                    :active="holeVariableInBuilt.isSelected"
+                    @click="GetselectedFluidVariable(FluidVariablesInBuilt)"
+                    :active="FluidVariablesInBuilt.isSelected"
                     active-class="text-orange-10 mnu_active">
 
-                        <q-item-section>{{ holeVariableInBuilt.variableName }}</q-item-section>
+                        <q-item-section>{{ FluidVariablesInBuilt.variableName }}</q-item-section>
                     </q-item>
                 </q-list>
             </div>
@@ -88,8 +88,8 @@
 <script>
 export default {
     computed: {
-        holeVariablesInBuilt2(){
-            return this.$store.getters['dataImportStore/holeVariablesInBuilt2'];
+        FluidVariablesInBuilt2(){
+            return this.$store.getters['dataImportStore/FluidVariablesInBuilt2'];
         },
         sheetHeaders(){
             return this.$store.getters['dataImportStore/sheetHeaders'];
@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             SelecteddevSurveyVariable: '',
-            selectedHoleSectionVariable: {},
+            selectedMudPVTVariable: {},
             selectedSheetHeader: {},
             columns: [
             { name: "SheetHeaderName", label: "ExcelSheet Header", field: "", align: "left" },
@@ -114,14 +114,14 @@ export default {
         GetselectedSheetHeader(selectedItem){
             this.$store.commit('dataImportStore/GetselectedSheetHeader', selectedItem)
         },
-        GetselectedHoleSectionVariable(selectedItem){
-            this.$store.commit('dataImportStore/GetselectedHoleSectionVariable', selectedItem)
+        GetselectedFluidVariable(selectedItem){
+            this.$store.commit('dataImportStore/GetselectedFluidVariable', selectedItem)
         },
         AddMappedVariable(){
-            this.$store.commit('dataImportStore/AddMappedHoleSectionVariable')
+            this.$store.commit('dataImportStore/AddMappedFluidVariable')
         },
         DeleteVariable(item){
-            this.$store.commit('dataImportStore/DeleteHoleSectionVariable', item)
+            this.$store.commit('dataImportStore/DeleteFluidVariable', item)
         }
     }
 }

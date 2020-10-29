@@ -40,13 +40,15 @@ const state = {
     selectedDevSurveyVariable: {},
     selectedHoleSectionVariable: {},
     selectedTubingStringVariable: {},
+    selectedFluidVariable: {},
     MappedVariables: [],
     previewSurveyData: [],
     previewHoleData: [],
     previewTubingStringData: [],
+    previewMudPVTData: [],
     holeVariablesInBuilt: [
         {
-            typeOfHole: 'Type of hole',
+            variableName: 'Type of hole',
             isSelected: false
         },
         {
@@ -76,7 +78,7 @@ const state = {
     ],
     holeVariablesInBuilt2: [
         {
-            typeOfHole: 'Type of hole',
+            variableName: 'Type of hole',
             isSelected: false
         },
         {
@@ -204,6 +206,58 @@ const state = {
             variableName: 'Over-Pull Margin',
             isSelected: false
         }
+    ],
+    FluidVariablesInBuilt: [
+        {
+            variableName: 'Temperature',
+            isSelected: false
+        },
+        {
+            variableName: 'Pressure',
+            isSelected: false
+        },
+        {
+            variableName: 'Reference',
+            isSelected: false
+        },
+        {
+            variableName: 'Density',
+            isSelected: false
+        },
+        {
+            variableName: 'Plastic Viscoity',
+            isSelected: false
+        },
+        {
+            variableName: 'Yield Point',
+            isSelected: false
+        }
+    ],
+    FluidVariablesInBuilt2: [
+        {
+            variableName: 'Temperature',
+            isSelected: false
+        },
+        {
+            variableName: 'Pressure',
+            isSelected: false
+        },
+        {
+            variableName: 'Reference',
+            isSelected: false
+        },
+        {
+            variableName: 'Density',
+            isSelected: false
+        },
+        {
+            variableName: 'Plastic Viscoity',
+            isSelected: false
+        },
+        {
+            variableName: 'Yield Point',
+            isSelected: false
+        }
     ]
   }
 
@@ -264,6 +318,18 @@ const state = {
     },
     selectedTubingStringVariable(state){
         return state.selectedTubingStringVariable;
+    },
+    previewMudPVTData(state){
+        return state.previewMudPVTData;
+    },
+    selectedFluidVariable(state){
+        return state.selectedFluidVariable;
+    },
+    FluidVariablesInBuilt(state){
+        return state.FluidVariablesInBuilt;
+    },
+    FluidVariablesInBuilt2(state){
+        return state.FluidVariablesInBuilt2;
     }
 }
 
@@ -271,26 +337,30 @@ const mutations = {
     GetMsExcelWbBook(state, payload){
         state.MsExcelWbBook.sheetNames = payload.sheetNames;
         state.MsExcelWbBook.sheetsData = payload.sheetsData;
+        state.selectedSheetData = {}
+        state.sheetHeaders = [];
+        state.MappedVariables = [];
 
         //console.log("payload.sheetsData :", payload.sheetsData);
         //console.log("payload.sheetsData[0]: ", payload.sheetsData[0])
-        var nlength =  payload.sheetsData.length;
+       /*  var nlength =  payload.sheetsData.length;
         if(nlength > 0){
             state.selectedSheetData = payload.sheetsData[0];
+            console.log("state.selectedSheetData: ", state.selectedSheetData)
             state.sheetHeaders = [];
             var nCount = state.selectedSheetData.length;
             if(nCount > 0){
                 var obj = state.selectedSheetData[0];
                 var columnHeaders = Object.keys(obj);
+                console.log("columnHeaders: ", columnHeaders)
                 for(j = 0; j < columnHeaders.length; j++){
                     state.sheetHeaders.push({
                         variableName: columnHeaders[j],
                         isSelected: false
                     })
                 }
-                //console.log("payload.sheetsData: ", payload.sheetsData)
             }
-        }
+        } */
 
         
     },
@@ -309,6 +379,7 @@ const mutations = {
                 if(nCount > 0){
                     var obj = state.selectedSheetData[0];
                     var columnHeaders = Object.keys(obj);
+                    console.log("columnHeaders: ", columnHeaders)
                     for(j = 0; j < columnHeaders.length; j++){
                         state.sheetHeaders.push({
                             variableName: columnHeaders[j],
@@ -339,12 +410,13 @@ const mutations = {
         for(i = 0; i < nCount; i++){
             if(state.selectedSheetName == state.MsExcelWbBook.sheetNames[i]){
                 state.selectedSheetData = state.MsExcelWbBook.sheetsData[i];
-                //console.log("state.selectedSheetData: ", state.selectedSheetData)
+                console.log("state.selectedSheetData: ", state.selectedSheetData)
                 state.sheetHeaders = [];
                 var nCount = state.selectedSheetData.length;
                 if(nCount > 0){
                     var obj = state.selectedSheetData[0];
                     var columnHeaders = Object.keys(obj);
+                    console.log("columnHeaders: ", columnHeaders)
                     for(j = 0; j < columnHeaders.length; j++){
                         state.sheetHeaders.push({
                             variableName: columnHeaders[j],
@@ -357,6 +429,7 @@ const mutations = {
                         state.holeVariablesInBuilt[j].isSelected = false;
                        state.holeVariablesInBuilt2.push(state.holeVariablesInBuilt[j]) 
                     }
+                    console.log("state.holeVariablesInBuilt2: ", state.holeVariablesInBuilt2)
                  
                     state.MappedVariables = [];
                     state.previewHoleData = [];
@@ -396,6 +469,42 @@ const mutations = {
                  
                     state.MappedVariables = [];
                     state.previewTubingStringData = [];
+                    
+                }
+                break;
+            }
+        }
+    },
+    OnFluidSelectionChanged(state, payload){
+
+        state.selectedSheetName = payload;
+        var i = 0;
+        var j = 0;
+        var nCount = state.MsExcelWbBook.sheetNames.length;
+        for(i = 0; i < nCount; i++){
+            if(state.selectedSheetName == state.MsExcelWbBook.sheetNames[i]){
+                state.selectedSheetData = state.MsExcelWbBook.sheetsData[i];
+                //console.log("state.selectedSheetData: ", state.selectedSheetData)
+                state.sheetHeaders = [];
+                var nCount = state.selectedSheetData.length;
+                if(nCount > 0){
+                    var obj = state.selectedSheetData[0];
+                    var columnHeaders = Object.keys(obj);
+                    for(j = 0; j < columnHeaders.length; j++){
+                        state.sheetHeaders.push({
+                            variableName: columnHeaders[j],
+                            isSelected: false
+                        })
+                    }
+
+                    state.FluidVariablesInBuilt2 = [];
+                    for(j = 0; j < state.FluidVariablesInBuilt.length; j++){
+                        state.FluidVariablesInBuilt[j].isSelected = false;
+                       state.FluidVariablesInBuilt2.push(state.FluidVariablesInBuilt[j]) 
+                    }
+                 
+                    state.MappedVariables = [];
+                    state.previewMudPVTData = [];
                     
                 }
                 break;
@@ -454,6 +563,20 @@ const mutations = {
                 state.TubingStringVariablesInBuilt2[i].isSelected = true;
             }else{
                 state.TubingStringVariablesInBuilt2[i].isSelected = false;
+            }
+        }
+        //console.log("state.selectedDevSurveyVariable:", state.selectedHoleSectionVariable);
+    },
+    GetselectedFluidVariable(state, payload){
+        //console.log("GetselectedDevSurveyVariable")
+        state.selectedFluidVariable = payload;
+        var i = 0;
+        var nCount = state.FluidVariablesInBuilt2.length;
+        for(i = 0; i < nCount; i++){
+            if(state.FluidVariablesInBuilt2[i].variableName == state.selectedFluidVariable.variableName){
+                state.FluidVariablesInBuilt2[i].isSelected = true;
+            }else{
+                state.FluidVariablesInBuilt2[i].isSelected = false;
             }
         }
         //console.log("state.selectedDevSurveyVariable:", state.selectedHoleSectionVariable);
@@ -522,7 +645,30 @@ const mutations = {
 
         state.MappedVariables.push({
             SheetHeaderName: state.selectedSheetHeader.variableName,
-            TubingStringVariable: state.selectedHoleSectionVariable.variableName
+            TubingStringVariable: state.selectedTubingStringVariable.variableName
+        })
+        
+
+    },
+    AddMappedFluidVariable(state){      
+
+        for (var i = 0; i < state.sheetHeaders.length; i++){
+            if (state.sheetHeaders[i].variableName === state.selectedSheetHeader.variableName) {
+                state.sheetHeaders.splice(i,1);
+                break;
+            }
+        }
+
+        for (var i = 0; i < state.FluidVariablesInBuilt2.length; i++){
+            if (state.FluidVariablesInBuilt2[i].variableName === state.selectedFluidVariable.variableName) {
+                state.FluidVariablesInBuilt2.splice(i,1);
+                break;
+            }
+        }
+
+        state.MappedVariables.push({
+            SheetHeaderName: state.selectedSheetHeader.variableName,
+            FluidVariable: state.selectedFluidVariable.variableName
         })
         
 
@@ -586,6 +732,29 @@ const mutations = {
     
                     state.TubingStringVariablesInBuilt2.push({
                         variableName:  payload.TubingStringVariable,
+                        isSelected: false
+                })
+
+                state.MappedVariables.splice(i,1);
+
+                
+                break;
+            }
+        }
+    },
+    DeleteFluidVariable(state, payload){
+
+        for (var i = 0; i < state.MappedVariables.length; i++){
+            if (state.MappedVariables[i].SheetHeaderName === payload.SheetHeaderName
+                && state.MappedVariables[i].FluidVariable === payload.FluidVariable) {
+
+                    state.sheetHeaders.push({
+                        variableName: payload.SheetHeaderName,
+                        isSelected: false
+                    })
+    
+                    state.FluidVariablesInBuilt2.push({
+                        variableName:  payload.FluidVariable,
                         isSelected: false
                 })
 
@@ -694,8 +863,8 @@ const mutations = {
                         outerDiameter: outerDiameter,
                         innerDiameter: innerDiameter,
                         weight: weight,
-                        top: top,
-                        bottom: bottom,
+                        topOfHole: top,
+                        bottomOfHole: bottom,
                         frictionFactor: frictionFactor,
                         designId: payload,
                         isSelected: false
@@ -722,8 +891,8 @@ const mutations = {
         var j = 0;
         var jCount = state.MappedVariables.length;
 
-        if(state.holeVariablesInBuilt2.length <= 0){
-                state.previewHoleData = [];     
+        if(state.TubingStringVariablesInBuilt2.length <= 0){
+                state.previewTubingStringData = [];     
                 var nCount = state.selectedSheetData.length;
                 for(i = 1; i < nCount; i++){
                     var obj = state.selectedSheetData[i];
@@ -780,7 +949,7 @@ const mutations = {
                                 }
                     }
 
-                    state.previewHoleData.push({
+                    state.previewTubingStringData.push({
                         typeOfSection: typeOfSection,
                         length: length,
                         measuredDepth: measuredDepth,
@@ -795,6 +964,65 @@ const mutations = {
                         overPullMargin: overPullMargin,
                         designId: payload,
                         isSelected: false
+                    })
+
+                }
+
+        }
+    },
+    GetFluidPreview(state, payload){
+        var temperature = 0;
+        var pressure = 0;
+        var reference = "";
+        var density = 0;
+        var plasticViscoity = 0;
+        var yieldPoint = 0;
+        var i = 0;
+        var j = 0;
+        var jCount = state.MappedVariables.length;
+
+        if(state.FluidVariablesInBuilt2.length <= 0){
+                state.previewMudPVTData = [];     
+                var nCount = state.selectedSheetData.length;
+                for(i = 1; i < nCount; i++){
+                    var obj = state.selectedSheetData[i];
+                    temperature = 0;
+                    pressure = 0;
+                    reference = "";
+                    density = 0;
+                    plasticViscoity = 0;
+                    yieldPoint = 0;
+                    for(j = 0; j < jCount; j++){
+                                switch(state.MappedVariables[j].FluidVariable){
+                                    case "Temperature":
+                                        temperature = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Pressure":
+                                        pressure = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Reference":
+                                        reference = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Density":
+                                        density = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Plastic Viscoity":
+                                        plasticViscoity = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Yield Point":
+                                        yieldPoint = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                }
+                    }
+
+                    state.previewMudPVTData.push({
+                        temperature: temperature,
+                        pressure: pressure,
+                        reference: reference,
+                        density: density,
+                        plasticViscoity: plasticViscoity,
+                        yieldPoint: yieldPoint,
+                        designId: payload
                     })
 
                 }

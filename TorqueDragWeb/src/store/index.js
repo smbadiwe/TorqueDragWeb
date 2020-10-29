@@ -11,6 +11,8 @@ import settingsStore from './modules/settingsStore'
 import wellDesignStore from './modules/wellDesignStore'
 import dataImportStore from './modules/dataImportStore'
 import holeStore from './modules/holeStore'
+import operationsStore from './modules/operationsStore'
+import simulationStore from './modules/simulationStore'
 
 Vue.use(Vuex)
 
@@ -35,7 +37,9 @@ export default function (/* { ssrContext } */) {
       settingsStore,
       wellDesignStore,
       dataImportStore,
-      holeStore
+      holeStore,
+      operationsStore,
+      simulationStore
     },
 
     // enable strict mode (adds overhead!)

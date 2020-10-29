@@ -121,6 +121,44 @@
                             </q-card>
 
             </div>
+            
+            <div class="col-12 q-pa-sm text-right"> 
+                                <q-btn 
+                                    size="sm"
+                                    label="Import"
+                                    class="q-pa-sm"
+                                    @click="Import">
+                                </q-btn>
+
+                <q-dialog v-model="isImportDialogVisible" class="bg-accent">
+                    <div class="q-pa-sm bg-accent">
+                        <msExcelImport-app></msExcelImport-app>
+                    </div>
+                </q-dialog>
+            </div>
+
+            <div class="col-12 q-pa-sm">
+                <q-table  
+                    :data="holeSections" 
+                    :columns="columns" 
+                    row-key="name" 
+                    >
+
+
+                    <template v-slot:body="props">
+                        <q-tr
+                        :props="props">
+                            <q-td key="typeOfHole" :props="props">{{ props.row.typeOfHole }}</q-td>
+                            <q-td key="outerDiameter" :props="props">{{ props.row.outerDiameter }}</q-td>
+                            <q-td key="innerDiameter" :props="props">{{ props.row.innerDiameter }}</q-td>
+                            <q-td key="weight" :props="props">{{ props.row.weight }}</q-td>
+                            <q-td key="topOfHole" :props="props">{{ props.row.topOfHole }}</q-td>
+                            <q-td key="bottomOfHole" :props="props">{{ props.row.bottomOfHole }}</q-td>
+                            <q-td key="frictionFactor" :props="props">{{ props.row.frictionFactor }}</q-td>
+                        </q-tr>
+                    </template>
+                </q-table>
+            </div>
 
         </div>
 
@@ -128,7 +166,19 @@
 </template>
 
 <script>
+import msExcelImport from 'components/dataImport/msExcelImport.vue';
 export default {
+    computed:{
+        holeSections() {
+        return this.$store.getters['holeStore/holeSections'];
+        },
+        isImportDialogVisible() {
+        return this.$store.getters['holeStore/isImportDialogVisible'];
+        }
+    },
+    components: {
+        'msExcelImport-app': msExcelImport
+    },
     data() {
         return {
             expanded: false,
@@ -139,14 +189,23 @@ export default {
             weight: null,
             top: null,
             bottom: null,
-            frictionFactor: null
+            frictionFactor: null,
+            columns: [
+            { name: "typeOfHole", label: "Hole Type", field: "", align: "left" },
+            { name: "outerDiameter", label: "Outer Diameter (in)", field: "", align: "left" },
+            { name: "innerDiameter", label: "Inner Diameter (in)", field: "", align: "left" },
+            { name: "weight", label: "Weight (lb/ft)", field: "", align: "left" },
+            { name: "topOfHole", label: "Top (ft)", field: "", align: "left" },
+            { name: "bottomOfHole", label: "bottom (ft)", field: "", align: "left" },
+            { name: "frictionFactor", label: "frictionFactor", field: "", align: "left" }
+        ]
         }
     },
     methods: {
-        updateIsImportDialogVisible(){
-            var context =  this;
+        Import(){
             this.$store.commit('dataImportStore/SetTypeOfInput', "Hole");
             this.$store.commit('holeStore/SetisImportDialogVisible', true);
+            
         },
         ShowHoleSection(selectedHeader){
             var context = this;
@@ -168,15 +227,23 @@ export default {
         },
         PostHoleSection(){
             var context =  this;
-            this.$store.dispatch('holeStore/GetDeviationSurveys', {
+            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+            this.$store.dispatch('holeStore/PostHoleSection', {
+                companyDBConnectionString: Conn,
+                designId: selectedTorqueDragDesign.designId,
+                holeSection: {
                 typeOfHole: context.typeOfHole,
-                outerDiameter: context.outerDiameter,
-                innerDiameter: context.innerDiameter,
-                weight: context.weight,
-                top: context.top,
-                bottom: context.bottom,
-                frictionFactor: context.frictionFactor
+                outerDiameter: parseFloat(context.outerDiameter),
+                innerDiameter: parseFloat(context.innerDiameter),
+                weight: parseFloat(context.weight),
+                topOfHole: parseFloat(context.top),
+                bottomOfHole: parseFloat(context.bottom),
+                frictionFactor:  parseFloat(context.frictionFactor)
+                }
             })
+
+            context.expanded = false;
         }
     },
     created(){

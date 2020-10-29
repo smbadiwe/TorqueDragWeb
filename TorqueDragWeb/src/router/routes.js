@@ -6,6 +6,8 @@ import newLayout2 from 'layouts/newLayout2.vue'
 import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
+import simulationConsole from 'pages/simulation/simulationConsole.vue'
+import t_d_results from 'pages/simulation/t_d_results.vue'
 
 const routes = [
   {
@@ -49,6 +51,14 @@ const routes = [
       { 
         path: '', 
         component: landingpage
+      },
+      { 
+        path: '/simulationConsole', 
+        component: simulationConsole
+      },
+      { 
+        path: '/TrippingInDetails', 
+        component: t_d_results
       }
     ]
   },

@@ -2,7 +2,8 @@ import { $http } from 'boot/axios'
 
 const state = {
     holeSections:[],
-    isImportDialogVisible: false
+    isImportDialogVisible: false,
+    holeSection: {}
   }
 
   const getters = {
@@ -11,12 +12,18 @@ const state = {
     },
     isImportDialogVisible(state){
       return state.isImportDialogVisible;
+    },
+    holeSection(state){
+      return state.holeSection;
     }
 }
 
 const mutations = {
-  PostHoleSection(state){
+  PostHoleSections(state){
     state.isImportDialogVisible = false;
+  },
+  PostHoleSection(state, payload){
+    state.holeSection = payload;
   },
   SetisImportDialogVisible(state, payload){
     state.isImportDialogVisible = payload;
@@ -70,10 +77,11 @@ const actions = {
   PostHoleSections(context, payload)
   {
     state.holeSections = [];
+    state.holeSections = payload.holeSections;
 
     return new Promise((resolve, reject) => {
   
-
+      console.log("payload: ", payload)
        $http.post('HoleSections/PostHoleSections', payload)
         .then(response => {
             

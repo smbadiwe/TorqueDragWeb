@@ -11,13 +11,18 @@
 
                     <template v-slot:body="props">
                         <q-tr>
-                            <q-td key="typeOfHole" :props="props">{{ props.row.typeOfHole }}</q-td>
+                            <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
+                            <q-td key="length" :props="props">{{ props.row.length }}</q-td>
+                            <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
+                            <q-td key="size" :props="props">{{ props.row.size }}</q-td>
+                            <q-td key="weight" :props="props">{{ props.row.weight }}</q-td>
+                            <q-td key="grade" :props="props">{{ props.row.grade }}</q-td>
                             <q-td key="outerDiameter" :props="props">{{ props.row.outerDiameter }}</q-td>
                             <q-td key="innerDiameter" :props="props">{{ props.row.innerDiameter }}</q-td>
-                            <q-td key="weight" :props="props">{{ props.row.weight }}</q-td>
-                            <q-td key="top" :props="props">{{ props.row.top }}</q-td>
-                            <q-td key="bottom" :props="props">{{ props.row.bottom }}</q-td>
-                            <q-td key="frictionFactor" :props="props">{{ props.row.frictionFactor }}</q-td>
+                            <q-td key="minimumYieldStrength" :props="props">{{ props.row.minimumYieldStrength }}</q-td>
+                            <q-td key="itemDescription" :props="props">{{ props.row.itemDescription }}</q-td>
+                            <q-td key="makeUpTorque" :props="props">{{ props.row.makeUpTorque }}</q-td>
+                            <q-td key="overPullMargin" :props="props">{{ props.row.overPullMargin }}</q-td>
                         </q-tr>
                         </template>
             </q-table>

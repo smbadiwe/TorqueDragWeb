@@ -39,28 +39,28 @@
                           </div>
 
                           <div class="col-3 q-pa-sm">Shore</div>
-                          <div class="col-6 q-pa-sm"><input v-model="typeOfShore"></div>
-                          <div class="col-3 q-pa-sm"></div>
+                          <div class="col-7 q-pa-sm"><input v-model="typeOfShore"></div>
+                          <div class="col-2 q-pa-sm"></div>
 
                           <div class="col-3 q-pa-sm">Datum Name</div>
-                          <div class="col-6 q-pa-sm"><input v-model="datumName"></div>
-                          <div class="col-3 q-pa-sm"></div>
+                          <div class="col-7 q-pa-sm"><input v-model="datumName"></div>
+                          <div class="col-2 q-pa-sm"></div>
 
                           <div class="col-3 q-pa-sm">Datum Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="datumElevation"></div>
-                          <div class="col-3 q-pa-sm">ft</div>
+                          <div class="col-7 q-pa-sm"><input v-model="datumElevation"></div>
+                          <div class="col-2 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">Ground Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="groundElevation"></div>
-                          <div class="col-3 q-pa-sm">ft</div>
+                          <div class="col-7 q-pa-sm"><input v-model="groundElevation"></div>
+                          <div class="col-2 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">WellHead Elevation</div>
-                          <div class="col-6 q-pa-sm"><input v-model="wellHeadElevation"></div>
-                          <div class="col-3 q-pa-sm">ft</div>
+                          <div class="col-7 q-pa-sm"><input v-model="wellHeadElevation"></div>
+                          <div class="col-2 q-pa-sm">ft</div>
 
                           <div class="col-3 q-pa-sm">Air Gap</div>
-                          <div class="col-6 q-pa-sm"><input v-model="airGap"></div>
-                          <div class="col-3 q-pa-sm">ft</div>
+                          <div class="col-7 q-pa-sm"><input v-model="airGap"></div>
+                          <div class="col-2 q-pa-sm">ft</div>
                 
                       </div>
                     </q-card-section>
@@ -177,12 +177,12 @@ export default {
           display: 'inline'
       },
       expanded: false,
-      typeOfShore: "Onshore",
-      datumElevation: 52,
-      groundElevation: 14,
-      airGap: 38,
-      wellHeadElevation: 89,
-      datumName: "Datum 01"
+      typeOfShore: "",
+      datumElevation: "",
+      groundElevation: "",
+      airGap: "",
+      wellHeadElevation: "",
+      datumName: ""
     }
   },
   methods: {
@@ -204,18 +204,20 @@ export default {
     },
     PostDatum(){
       var context = this;
-
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
-              designId: context.SelectedTorqueDragDesign.designId,
+              designId: selectedTorqueDragDesign.designId,
               typeOfShore: context.typeOfShore,
-              datumElevation: context.datumElevation,
-              groundElevation: context.groundElevation,
-              airGap: context.airGap,
-              wellHeadElevation: context.wellHeadElevation,
+              datumElevation: parseFloat(context.datumElevation),
+              groundElevation: parseFloat(context.groundElevation),
+              airGap: parseFloat(context.airGap),
+              wellHeadElevation: parseFloat(context.wellHeadElevation),
               datumName: context.datumName
             },
-            companyDBConnectionString: context.companyDBConnectionString
+            companyDBConnectionString: Conn,
+            designId: selectedTorqueDragDesign.designId
           });
 
           context.expanded = false;
@@ -223,10 +225,13 @@ export default {
       
   },
   created() {
-      var companyDBConnectionString = this.$store.getters['authStore/companyDBConnectionString'];
-      //var parts = companyDBConnectionString.split('\\');
-      //var output = parts.join('\\\\');
-      this.$store.dispatch('datumStore/GetDatums', companyDBConnectionString)
+      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var payload = {
+          companyDBConnectionString: Conn,
+          designId: selectedTorqueDragDesign.designId
+      }
+      this.$store.dispatch('datumStore/GetDatums', payload)
    }
   }
 </script>

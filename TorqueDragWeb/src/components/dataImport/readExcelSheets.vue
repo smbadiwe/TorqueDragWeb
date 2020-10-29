@@ -11,6 +11,9 @@
                             name="NameOfSheet"
                             id="" 
                             v-on:change="onItemSelectionChanged($event)">
+                           <!--  <option disabled>
+                                Please select sheet Name
+                            </option> -->
                             <option
                                 v-for="sheetName in MsExcelWbBook.sheetNames" :key="sheetName">
                                 {{ sheetName }}
@@ -115,13 +118,16 @@ export default {
                this.$store.commit('dataImportStore/onItemSelectionChanged', name);
               break;
             case "Hole":
+                console.log("OnHoleSectionSelectionChanged")
                this.$store.commit('dataImportStore/OnHoleSectionSelectionChanged', name);
               break
             case "Tubing String":
                this.$store.commit('dataImportStore/OnTubingStringSelectionChanged', name);
               break
+            case "Fluid":
+               this.$store.commit('dataImportStore/OnFluidSelectionChanged', name);
+              break
         }
-
      
     }
   }

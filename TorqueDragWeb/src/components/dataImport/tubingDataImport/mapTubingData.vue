@@ -1,13 +1,21 @@
 <template>
     <div class="q-pa-sm bg-accent">
-        <div class="row">   
+        <div class="row">
+             <div class="col-12 q-pa-sm text-right">
+                <q-btn 
+                    size="sm"
+                    label="Add"
+                    @click="AddMappedVariable">
+                </q-btn>
+            </div>
+               
             <div class="col-6 q-pa-sm">
                  Tubing String Variables
                 <br>
                 <hr/>
                 <br>
                 <q-list class="bg-accent text-primary"
-                    v-model="selectedDevSurveyVariable">
+                    v-model="selectedTubingStringVariable">
                     <q-item 
                     v-for="TubingStringVariableInBuilt in TubingStringVariablesInBuilt2" 
                     :key="TubingStringVariableInBuilt.variableName"
@@ -41,13 +49,6 @@
                 </q-list>
             </div>
 
-            <div class="col-12 q-pa-sm text-right">
-                <q-btn 
-                    size="sm"
-                    label="Add"
-                    @click="AddMappedVariable">
-                </q-btn>
-            </div>
         </div>
 
         <div class="row">
@@ -100,7 +101,7 @@ export default {
     },
     data() {
         return {
-            selectedHoleSectionVariable: {},
+            selectedTubingStringVariable: {},
             selectedSheetHeader: {},
             columns: [
             { name: "SheetHeaderName", label: "ExcelSheet Header", field: "", align: "left" },

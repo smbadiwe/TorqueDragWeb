@@ -83,7 +83,7 @@
                                     size="sm"
                                     label="Add"
                                     class="bg-primary"
-                                    @click="collapseExander">
+                                    @click="PostPipe">
                                 </q-btn>
                             </q-card-actions>
 
@@ -92,18 +92,31 @@
         
                     </div>
 
+                    <div class="col-12 q-pa-sm text-right"> 
+                                <q-btn 
+                                    size="sm"
+                                    label="Import"
+                                    class="q-pa-sm"
+                                    @click="Import">
+                                </q-btn>
+
+                        <q-dialog v-model="isImportDialogVisible" class="bg-accent">
+                            <div class="q-pa-sm bg-accent">
+                                <msExcelImport-app></msExcelImport-app>
+                            </div>
+                        </q-dialog>
+                    </div>
+
                     <div class="col-12 q-pa-sm"> 
                     <q-table  
-                    :data="deviationSurveys" 
+                    :data="pipes" 
                     :columns="columns" 
                     row-key="name" 
-                    binary-state-sort
                     >
 
 
                     <template v-slot:body="props">
-                        <q-tr 
-                        v-if ="!props.row.isPaid"
+                        <q-tr
                         :props="props">
                             <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
                             <q-td key="length" :props="props">{{ props.row.length }}</q-td>
@@ -121,11 +134,18 @@
 </template>
 
 <script>
+import msExcelImport from 'components/dataImport/msExcelImport.vue';
 export default {
      computed:{
         pipes() {
         return this.$store.getters['tubingStringStore/pipes'];
+        },
+        isImportDialogVisible() {
+        return this.$store.getters['tubingStringStore/isImportDialogVisible'];
         }
+    },
+    components: {
+        'msExcelImport-app': msExcelImport
     },
     data () {
         return {
@@ -137,15 +157,68 @@ export default {
             { name: "innerDiameter", label: "ID (in)", field: "", align: "left" }
         ],
         expanded: false,
-        visible: true
+        visible: true,
+        typeOfSection: "",
+        length: null,
+        measuredDepth: null,
+        size: null,
+        weight: null,
+        grade: "",
+        outerDiameter: null,
+        innerDiameter: null,
+        minimumYieldStrength: null,
+        itemDescription: "",
+        makeUpTorque: null,
+        overPullMargin: null
         }
   },
   methods: {
-      collapseExander() {
-          
-        var context = this;
-        context.expanded= false;
+      Import(){
+            this.$store.commit('dataImportStore/SetTypeOfInput', "Tubing String");
+            this.$store.commit('tubingStringStore/SetisImportDialogVisible', true);
+            
+      },
+      updateIsImportDialogVisible(){
+          var context =  this;
+          this.$store.commit('dataImportStore/SetTypeOfInput', "Tubing String");
+          this.$store.commit('wellPathStore/SetisImportDialogVisible', true);
+      },
+      PostPipe(){
+            var context =  this;
+            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+            this.$store.dispatch('tubingStringStore/PostPipe', {
+                companyDBConnectionString: Conn,
+                designId: selectedTorqueDragDesign.designId,
+                holeSection: {
+                    typeOfSection: context.typeOfSection,
+                    length:  parseFloat(context.length),
+                    measuredDepth:  parseFloat(context.measuredDepth),
+                    size:  parseFloat(context.size),
+                    weight:  parseFloat(context.weight),
+                    grade:  context.grade,
+                    outerDiameter:  parseFloat(context.outerDiameter),
+                    innerDiameter:  parseFloat(context.innerDiameter),
+                    minimumYieldStrength:  parseFloat(context.minimumYieldStrength),
+                    itemDescription:  parseFloat(context.itemDescription),
+                    makeUpTorque:  parseFloat(context.makeUpTorque),
+                    overPullMargin:  parseFloat(context.overPullMargin)
+                }
+            })
+
+            context.expanded = false;
       }
+  },
+  created(){
+      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var payload = {
+          companyDBConnectionString: Conn,
+          designId: selectedTorqueDragDesign.designId,
+          pipes: []
+      }
+      console.log(payload)
+      this.$store.dispatch('tubingStringStore/GetPipes', payload)
   }
 }
 </script>
