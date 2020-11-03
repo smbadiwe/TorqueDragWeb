@@ -108,11 +108,14 @@
                     </div>
 
                     <div class="col-12 q-pa-sm"> 
-                    <q-table  
+                    <q-table
+                    class="my-sticky-header-table"   
                     :data="pipes" 
                     :columns="columns" 
                     row-key="name" 
-                    >
+                    flat
+                    bordered
+                    :separator="separator">
 
 
                     <template v-slot:body="props">
@@ -149,6 +152,7 @@ export default {
     },
     data () {
         return {
+        separator: 'cell',
         columns: [
             { name: "typeOfSection", label: "Section Type", field: "", align: "left" },
             { name: "length", label: "Length (ft)", field: "", align: "left" },
@@ -189,8 +193,8 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('tubingStringStore/PostPipe', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId,
-                holeSection: {
+                designId: selectedTorqueDragDesign.id,
+                pipe: {
                     typeOfSection: context.typeOfSection,
                     length:  parseFloat(context.length),
                     measuredDepth:  parseFloat(context.measuredDepth),
@@ -202,7 +206,8 @@ export default {
                     minimumYieldStrength:  parseFloat(context.minimumYieldStrength),
                     itemDescription:  parseFloat(context.itemDescription),
                     makeUpTorque:  parseFloat(context.makeUpTorque),
-                    overPullMargin:  parseFloat(context.overPullMargin)
+                    overPullMargin:  parseFloat(context.overPullMargin),
+                    designId: selectedTorqueDragDesign.id
                 }
             })
 
@@ -214,11 +219,13 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId,
+          designId: selectedTorqueDragDesign.id,
           pipes: []
       }
       console.log(payload)
-      this.$store.dispatch('tubingStringStore/GetPipes', payload)
+      this.$store.dispatch('tubingStringStore/GetPipes', payload);
+      var tabCaption = "String Editor";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   }
 }
 </script>

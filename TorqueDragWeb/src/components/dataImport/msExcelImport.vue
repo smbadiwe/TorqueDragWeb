@@ -175,16 +175,16 @@ export default {
               var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
               switch(typeOfInput){
                 case "Well Path":
-                  this.$store.commit('dataImportStore/GetDevSurveyPreview', context.SelectedTorqueDragDesign.designId);
+                  this.$store.commit('dataImportStore/GetDevSurveyPreview', context.SelectedTorqueDragDesign.id);
                   break;
                 case "Hole":
-                  this.$store.commit('dataImportStore/GetHoleSectionPreview', context.SelectedTorqueDragDesign.designId);
+                  this.$store.commit('dataImportStore/GetHoleSectionPreview', context.SelectedTorqueDragDesign.id);
                   break;
                 case "Tubing String":
-                  this.$store.commit('dataImportStore/GetTubingStringPreview', context.SelectedTorqueDragDesign.designId);
+                  this.$store.commit('dataImportStore/GetTubingStringPreview', context.SelectedTorqueDragDesign.id);
                   break;
                 case "Fluid":
-                  this.$store.commit('dataImportStore/GetFluidPreview', context.SelectedTorqueDragDesign.designId);
+                  this.$store.commit('dataImportStore/GetFluidPreview', context.SelectedTorqueDragDesign.id);
                   break;
               }
             }
@@ -236,14 +236,14 @@ export default {
             case "Well Path":
               this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
                 deviationSurveys: context.previewSurveyData,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 companyDBConnectionString: Conn
               });
               break;
             case "Hole":
               this.$store.dispatch('holeStore/PostHoleSections', {
                 holeSections: context.previewHoleData,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 companyDBConnectionString: Conn,
                 holeSection: {}
               });
@@ -251,14 +251,14 @@ export default {
             case "Tubing String":
               this.$store.dispatch('tubingStringStore/PostPipes', {
                 pipes: context.previewTubingStringData,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 companyDBConnectionString: Conn
               });
               break;
             case "Fluid":
               this.$store.dispatch('fluidsStore/PostMudPVTs', {
                 mudPVTs: context.previewMudPVTData,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 companyDBConnectionString: Conn
               });
               break;

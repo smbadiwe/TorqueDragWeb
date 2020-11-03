@@ -1,85 +1,82 @@
 <template>
-    <div>
-        <div class="row bg-accent" style="height:100px;">
-            <div class="col-12">
-                <table style="width:100%">
-                    <tr>
-                        <td>
-                            <q-btn 
-                                style="margin-right:auto;margin-left:auto;display:block height:auto;width:auto"
-                                flat
-                                dense
-                                round
-                                color="green"
-                                bg-color="green"
-                                icon="menu">
-                            </q-btn>
-                        </td>
-                        <td>
-                            <q-btn 
-                                style="margin-right:auto;margin-left:auto;display:block height:auto;width:auto"
-                                flat
-                                dense
-                                round
-                                color="green"
-                                bg-color="green"
-                                icon="menu">
-                            </q-btn>
-                        </td>
-                        <td>
-                            <q-btn 
-                                style="margin-right:auto;margin-left:auto;display:block height:auto;width:auto"
-                                flat
-                                dense
-                                round
-                                color="green"
-                                bg-color="green"
-                                icon="menu">
-                            </q-btn>
-                        </td>
-                    </tr>
+   <div>
+        <div class="row bg-accent text-primary" style="height:140px;">
+               <div class="col-1 vl">
+                <div class="row" style="height:100px">
+                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                        clickable
+                        @click="createWellCase">
+                        <img
+                        class="object-fit-cover"
+                        src="~assets/images/well_1.jpg">
+                        <br/>
+                        New Well Case
+                    </div>
 
-                    <tr>
-                        <td>
-                            <div class="row" style="margin-right:auto;margin-left:auto;display:block; color:white">
-                                    <div class="col-12">Introduction</div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="row" style="margin-right:auto;margin-left:auto;display:block; color:white">
-                                    <div class="col-12">Introduction</div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="row" style="margin-right:auto;margin-left:auto;display:block; color:white">
-                                    <div class="col-12">Introduction</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </table>
+                    <q-dialog v-model="isCreateWellDesign" class="bg-accent">
+                    <div class="q-pa-sm bg-accent">
+                        <createWellDesign-app></createWellDesign-app>
+                    </div>
+                </q-dialog>
+
+                </div>
+
+                <!-- <div class="row" style="height:20px">
+                    <div class="col-12 q-pb-md q-pt-sm text-center">
+                        Simulation
+                    </div>
+                </div> -->
             </div>
         </div>
-        
-    </div>
+   </div>
 </template>
 
+<script>
+import createWellDesign from 'components/createWellDesign.vue';
+export default {
+    computed: {
+        isCreateWellDesign(){
+            return this.$store.getters['wellDesignStore/isCreateWellDesign'];
+        }
+    },
+    components: {
+        'createWellDesign-app': createWellDesign
+    },
+    data(){
+        return {
+        }
+
+    },
+    methods: {
+        createWellCase(){
+            this.$store.commit('wellDesignStore/ShowCreateWellDesign');
+        }
+    }
+}
+</script>
+
 <style>
-.my-card{
-    width: 100%;
-    height: 90px;
+.vl {
+  border-right: 2px solid rgba(24,24,24,1);
+  height: 140px;
 }
 
-.mycol{
-    border-style: ridge;
+.buttonHover:hover {
+  background-color: grey;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+#TrueTension:hover {
+  background-color: grey;
 }
-th, td {
-  padding: 5px;
-  text-align: left;    
+
+#Torque:hover {
+    background-color: grey;
+}
+
+.object-fit-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*magic*/
 }
 
 </style>

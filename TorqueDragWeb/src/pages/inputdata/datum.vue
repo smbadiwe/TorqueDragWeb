@@ -208,7 +208,7 @@ export default {
       var Conn = this.$store.getters['authStore/companyDBConnectionString'];
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
-              designId: selectedTorqueDragDesign.designId,
+              designId: selectedTorqueDragDesign.id,
               typeOfShore: context.typeOfShore,
               datumElevation: parseFloat(context.datumElevation),
               groundElevation: parseFloat(context.groundElevation),
@@ -217,7 +217,7 @@ export default {
               datumName: context.datumName
             },
             companyDBConnectionString: Conn,
-            designId: selectedTorqueDragDesign.designId
+            designId: selectedTorqueDragDesign.id
           });
 
           context.expanded = false;
@@ -229,9 +229,11 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId
+          designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('datumStore/GetDatums', payload)
+      var tabCaption = "Datum Details";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
    }
   }
 </script>

@@ -48,23 +48,27 @@
                 </q-dialog>
             </div>
 
-            <q-table  
-             :data="deviationSurveys" 
-             :columns="columns" 
-             row-key="name" 
-             binary-state-sort
-             style="width:100%;">
+            <div class="col-12 q-pa-sm"> 
+                <q-table
+                class="my-sticky-header-table"
+                :data="deviationSurveys" 
+                :columns="columns" 
+                row-key="name" 
+                flat
+                bordered
+                :separator="separator">
 
 
-            <template v-slot:body="props">
-                <q-tr
-                :props="props">
-                    <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
-                    <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
-                    <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
-                </q-tr>
-                </template>
-            </q-table>
+                <template v-slot:body="props">
+                    <q-tr
+                    :props="props">
+                        <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
+                        <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
+                        <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
+                    </q-tr>
+                    </template>
+                </q-table>
+            </div>
 
         </div>
     </div>
@@ -86,6 +90,7 @@ export default {
     },
      data () {
         return {
+        separator: 'cell',
         columns: [
             { name: "measuredDepth", label: "MD (ft)", field: "", align: "left" },
             { name: "inclination", label: "Inc (deg)", field: "", align: "left" },
@@ -105,12 +110,19 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId,
+          designId: selectedTorqueDragDesign.id,
           deviationSurveys: [],
           deviationSurveysString: ""
       }
       console.log(payload)
       this.$store.dispatch('wellPathStore/GetDeviationSurveys', payload)
+      var tabCaption = "Wellpath Editor";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   }
 }
 </script>
+
+<style>
+
+    
+</style>

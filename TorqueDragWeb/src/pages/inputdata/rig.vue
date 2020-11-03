@@ -60,6 +60,10 @@ export default {
             isBlockRating: true,
             isTorqueRating: true
         }
+    },
+    created(){
+      var tabCaption = "Rig Equipment";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
     }
 }
 </script>

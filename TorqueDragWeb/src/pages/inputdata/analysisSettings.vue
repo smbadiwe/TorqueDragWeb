@@ -215,7 +215,7 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('settingsStore/PostCommon', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 common: {}
             });
 
@@ -227,7 +227,7 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId
+          designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('settingsStore/GetCommon', payload);
   }

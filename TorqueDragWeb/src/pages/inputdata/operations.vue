@@ -271,7 +271,7 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('operationsStore/PostOperation', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 operation: {
                     isTrippingInChecked: context.isTrippingInChecked,
                     trippingInSpeed : parseFloat(context.trippingInSpeed),
@@ -293,7 +293,7 @@ export default {
                     hookLoadIDHM : parseFloat(context.hookLoadIDHM),
                     isIDHMTrippingOutChecked: context.isIDHMTrippingOutChecked,
                     isIDHMRotatingChecked : context.isIDHMRotatingChecked,
-                    designId: selectedTorqueDragDesign.designId
+                    designId: selectedTorqueDragDesign.id
                 }
             });
 
@@ -304,9 +304,11 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId
+          designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('operationsStore/GetOperation', payload);
+      var tabCaption = "Operational Parameters";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
       var context =  this;
       var operation = this.$store.getters['operationsStore/operation'];
 

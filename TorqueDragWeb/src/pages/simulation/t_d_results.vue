@@ -12,10 +12,14 @@
 
         <div class="row">
             <div class="col-12 q-pa-sm">
-                <q-table  
+                <q-table
+                    class="my-sticky-header-table"  
                     :data="PipeCalculatedVariables" 
                     :columns="columns" 
-                    row-key="name" >
+                    row-key="name"
+                    flat
+                    bordered
+                    :separator="separator">
 
 
                     <template v-slot:body="props">
@@ -51,15 +55,16 @@ export default {
     },
     data () {
         return {
+        separator: 'cell',
         columns: [
             { name: "typeOfSection", label: "Type Of Section", field: "", align: "left" },
-            { name: "length", label: "length (ft)", field: "", align: "left" },
+            { name: "length", label: "length (m)", field: "", align: "left" },
             { name: "pipeInnerArea", label: "Inner Area (sqin)", field: "", align: "left" },
             { name: "pipeOuterArea", label: "Ouetr Area (sqin)", field: "", align: "left" },
             { name: "pipeTotalWeight", label: "Total Weight (lbs)", field: "", align: "left" },
             { name: "buoyancyWeight", label: "Buoyancy Weight (lbs)", field: "", align: "left" },
             { name: "tensileStrength", label: "Tensile Strength", field: "", align: "left" },
-            { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (ft)", field: "", align: "left" },
+            { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (m)", field: "", align: "left" },
             { name: "topInclination", label: "Top Inclination (rad)", field: "", align: "left" },
             { name: "bottomInclination", label: "Bottom Inclination (rad)", field: "", align: "left" },
             { name: "topAzimuth", label: "Top Azimuth (rad)", field: "", align: "left" },

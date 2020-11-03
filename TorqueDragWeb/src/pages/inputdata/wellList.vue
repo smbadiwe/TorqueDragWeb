@@ -1,5 +1,6 @@
 <template>
-    <div class="col-12">
+    <div class="row">
+      <div class="col-12 q-pa-sm">
 
     <q-card class="my-card bg-secondary text-white" style="height:50px;">
       <q-card-section align="right">
@@ -7,85 +8,19 @@
       </q-card-section>
     </q-card>
 
-    <div class="row">
-        <div class="col-12 q-pa-sm"> 
-          <q-btn  icon="add_box"
-          size="sm"
-          flat
-          @click="ExpandExander">
-            <q-tooltip>
-              Add New Well
-            </q-tooltip>
-          </q-btn>
-        </div>
-        
-      </div>
-
-      <div class="row"
-        v-if="expanded">
-            <div class="col-12">
-                        <q-expansion-item
-                            v-model="expanded"
-                            dense
-                            dense-toggle
-                            expand-separator
-                            label="Add Well"
-                        >
-
-                        <q-card class="bg-primary">
-                            <q-card-section>
-                                
-                                <div class="row">
-
-                                <div class="col-12 q-pa-sm">
-                                    New Well
-                                    <br>
-                                    <hr/>
-                                </div>
-
-                                <div class="col-3 q-pa-sm">Design Name</div>
-                                <div class="col-6 q-pa-sm"><input v-model="designName"></div>
-                                <div class="col-3 q-pa-sm"></div>
-
-                        
-                            </div>
-                            </q-card-section>
-
-                            <q-card-actions align="right">
-                                <q-btn 
-                                    size="sm"
-                                    label="Add"
-                                    class="bg-primary"
-                                    @click="PostTorqueDragDesign">
-                                </q-btn>
-                            </q-card-actions>
-
-                            </q-card>
-
-                        </q-expansion-item>
-            </div>
-      </div>
-
     <q-scroll-area
         :visible="visible"
       style="height: 500px; width: 100%;"
     >
-        <q-list class="bg-accent text-primary"
-        v-model="selectedWellDesign">
-        <q-item 
-        v-for="torqueDragDesign in torqueDragDesigns" :key="torqueDragDesign.designName"
-        clickable v-ripple
-        @click="onItemSelectionChanged(torqueDragDesign)"
-        :active="torqueDragDesign.isSelected"
-        active-class="text-orange-10 mnu_active">
-
-            <q-item-section>{{ torqueDragDesign.designName }}</q-item-section>
-            <q-item-section
-                side class="text-primary">{{ torqueDragDesign.creationDate }}</q-item-section>
-        </q-item>
-
-        </q-list>
+        <q-tree
+          class="bg-accent text-primary"
+          :nodes="wellProjects"
+          default-expand-all
+          node-key="designId"
+          @update:selected="selectNode"
+          :selected.sync="selected"/>
     </q-scroll-area>
+    </div>
   </div>
 </template>
 
@@ -95,19 +30,34 @@ export default {
     companyId(){
       return this.$store.getters['authStore/companyId'];
     },
-    torqueDragDesigns(){
-      return this.$store.getters['wellDesignStore/torqueDragDesigns'];
-    },
     companyDBConnectionString(){
       return this.$store.getters['authStore/companyDBConnectionString'];
-    }
+    },
+    wellProjects(){
+        return this.$store.getters['wellDesignStore/wellProjects'];
+    },
+    torqueDragDesigns(){
+        return this.$store.getters['wellDesignStore/torqueDragDesigns'];
+    },
+    /* selected(){
+        return this.$store.getters['wellDesignStore/selected'];
+    }, */
+    /* selected: {
+           get(){
+             return this.$store.getters['wellDesignStore/selected'];
+           },
+           set(newName){
+             return newName
+           } 
+    } */
   },
   data () {
     return {
         visible: true,
         expanded: false,
         designName: "",
-        selectedWellDesign: {}
+        selectedWellDesign: {},
+        selected: null
     }
   }, 
   methods: {
@@ -135,15 +85,63 @@ export default {
 
           context.expanded = false;
     },
-    onItemSelectionChanged(torqueDragDesign){
-        this.$store.commit('wellDesignStore/GetSelectedTorqueDragDesign', torqueDragDesign)
-    },
+    selectNode (v) {
+            var context = this;
+             var i = 0;
+            var nCount = context.torqueDragDesigns.length;
+            context.selected = null
+            for(i = 0; i < nCount; i++){
+              //console.log("context.torqueDragDesigns[i].id: ", context.torqueDragDesigns[i].id);
+              if(v == context.torqueDragDesigns[i].id){
+                context.selected = context.torqueDragDesigns[i].designName
+              }
+              /* else{
+                context.selected = null
+              } */
+            }
+            console.log(context.selected);
+            //console.log(v);
+            if(v !== null){
+              this.$store.commit('wellDesignStore/GetSelectedTorqueDragDesign', {
+                id: v
+              })
+            }
+            return;
+    }
   },
   created() {
+      var context = this;
       var companyDBConnectionString = this.$store.getters['authStore/companyDBConnectionString'];
-      //var parts = companyDBConnectionString.split('\\');
-      //var output = parts.join('\\\\');
+      var torqueDragDesigns = this.$store.getters['wellDesignStore/torqueDragDesigns'];
+      var SelectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyDBConnectionString)
+
+   /*    var nlength= Object.keys(SelectedTorqueDragDesign).length;
+      console.log("nlength: ", nlength)
+      var i = 0;
+      var nCount = torqueDragDesigns.length;
+      console.log("nCount: ", nCount)
+      context.selected = null
+
+    if(nCount == 0){
+      this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyDBConnectionString)
+    }else{
+
+      if(nlength > 0){
+        for(i = 0; i < nCount; i++){
+          if(SelectedTorqueDragDesign.designId == torqueDragDesigns[i].id){
+            context.selected = torqueDragDesigns[i].designName
+            console.log("selected: ", context.selected);
+          }
+        }
+      }else{
+        SelectedTorqueDragDesign = torqueDragDesigns[0];
+        context.selected = torqueDragDesigns[0].designName;
+        console.log("SelectedTorqueDragDesign.id: ", SelectedTorqueDragDesign.id);
+            console.log("selected: ", context.selected);
+      }
+    } */
+
    }
 }
 </script>

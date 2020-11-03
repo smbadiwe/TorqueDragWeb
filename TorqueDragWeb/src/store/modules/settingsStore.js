@@ -57,7 +57,8 @@ const state = {
         courseLength: null,
         youngsModulus: null
     },
-    isFromDB: false
+    isFromDB: false,
+    tabCaption: 'Datum Details'
   }
 
   const getters = {
@@ -69,6 +70,9 @@ const state = {
     },
     isFromDB(state){
       return state.isFromDB;
+    },
+    tabCaption(state){
+      return state.tabCaption;
     }
 }
 
@@ -91,6 +95,9 @@ const mutations = {
     },
     PostCommon(state, payload){
       state.common = payload;
+    },
+    GetTabCaption(state, payload){
+      state.tabCaption = payload;
     }
 
 }

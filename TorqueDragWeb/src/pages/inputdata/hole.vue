@@ -138,11 +138,14 @@
             </div>
 
             <div class="col-12 q-pa-sm">
-                <q-table  
+                <q-table
+                    class="my-sticky-header-table"  
                     :data="holeSections" 
                     :columns="columns" 
                     row-key="name" 
-                    >
+                    flat
+                    bordered
+                    :separator="separator">
 
 
                     <template v-slot:body="props">
@@ -190,6 +193,7 @@ export default {
             top: null,
             bottom: null,
             frictionFactor: null,
+            separator: 'cell',
             columns: [
             { name: "typeOfHole", label: "Hole Type", field: "", align: "left" },
             { name: "outerDiameter", label: "Outer Diameter (in)", field: "", align: "left" },
@@ -231,7 +235,7 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('holeStore/PostHoleSection', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 holeSection: {
                 typeOfHole: context.typeOfHole,
                 outerDiameter: parseFloat(context.outerDiameter),
@@ -239,7 +243,8 @@ export default {
                 weight: parseFloat(context.weight),
                 topOfHole: parseFloat(context.top),
                 bottomOfHole: parseFloat(context.bottom),
-                frictionFactor:  parseFloat(context.frictionFactor)
+                frictionFactor:  parseFloat(context.frictionFactor),
+                designId: selectedTorqueDragDesign.id
                 }
             })
 
@@ -251,11 +256,13 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId,
+          designId: selectedTorqueDragDesign.id,
           holeSections: []
       }
       console.log(payload)
       this.$store.dispatch('holeStore/GetHoleSections', payload)
+      var tabCaption = "Hole Section Editor";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   }
 }
 </script>

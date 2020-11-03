@@ -650,6 +650,10 @@ export default {
             context.isNewFormationInflux = false; 
         }
 
+    },
+    created(){
+      var tabCaption = "Subsurface Properties Editor";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
     }
 }
 </script>

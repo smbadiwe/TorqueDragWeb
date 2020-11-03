@@ -128,10 +128,14 @@
                             </div>
 
                             <div class="col-12 q-pa-sm"> 
-                            <q-table  
+                            <q-table
+                            class="my-sticky-header-table"  
                             :data="mudPVTs" 
                             :columns="columns" 
-                            row-key="name">
+                            row-key="name"
+                            flat
+                            bordered
+                            :separator="separator">
 
 
                             <template v-slot:body="props">
@@ -185,6 +189,7 @@ export default {
     return {
       shape: 'line',
       picked: '',
+      separator: 'cell',
       columns: [
             { name: "temperature", label: "Temperature (deg F)", field: "", align: "left" },
             { name: "pressure", label: "Pressure (psi)", field: "", align: "left" },
@@ -212,7 +217,7 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('fluidsStore/PostFluid', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId,
+                designId: selectedTorqueDragDesign.id,
                 fluid: {
                     mudName: context.mudName,
                     description: context.description,
@@ -220,7 +225,7 @@ export default {
                     baseFluid: context.baseFluid,
                     rheologyModel: context.rheologyModel,
                     rheologyModelType: context.rheologyModelType,
-                    designId: selectedTorqueDragDesign.designId,
+                    designId: selectedTorqueDragDesign.id,
                 }
             })
       }
@@ -230,9 +235,11 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
           companyDBConnectionString: Conn,
-          designId: selectedTorqueDragDesign.designId
+          designId: selectedTorqueDragDesign.id
       }
-      this.$store.dispatch('fluidsStore/GetFluid', payload)
+      this.$store.dispatch('fluidsStore/GetFluid', payload);
+      var tabCaption = "Fluids Editor";
+      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   /*     mudName: context.mudName,
                     description: context.description,
                     mudBaseType: context.mudBaseType,

@@ -8,6 +8,7 @@ import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
 import simulationConsole from 'pages/simulation/simulationConsole.vue'
 import t_d_results from 'pages/simulation/t_d_results.vue'
+import schematic from 'pages/wellSchematics/schematic.vue'
 
 const routes = [
   {
@@ -59,6 +60,10 @@ const routes = [
       { 
         path: '/TrippingInDetails', 
         component: t_d_results
+      },
+      {
+        path: '/schematic',
+        component: schematic
       }
     ]
   },

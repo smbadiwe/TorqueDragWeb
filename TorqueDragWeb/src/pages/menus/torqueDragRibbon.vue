@@ -246,7 +246,7 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('simulationStore/RunSimulation', {
                 companyDBConnectionString: Conn,
-                designId: selectedTorqueDragDesign.designId
+                designId: selectedTorqueDragDesign.id
             });
 
         },
@@ -269,7 +269,7 @@ export default {
 <style scoped>
 
 .vl {
-  border-right: 2px solid #00a300;
+  border-right: 2px solid rgba(24,24,24,1);
   height: 140px;
 }
 

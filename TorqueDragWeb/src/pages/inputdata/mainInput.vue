@@ -5,7 +5,7 @@
     
     <q-card class="my-card bg-secondary text-white" style="height:50px;">
       <q-card-section align="right">
-        <div class="text-center text-subtitle1 q-pb-md">Input Data</div>
+        <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
           <!-- <q-icon name="close" /> -->
       </q-card-section>
     </q-card>
@@ -208,6 +208,9 @@ export default {
 computed:{
   selectedInputTab() {
          return this.$store.getters['datumStore/selectedInputTab'];
+    },
+    tabCaption() {
+         return this.$store.getters['settingsStore/tabCaption'];
     }
 },
 props: {
