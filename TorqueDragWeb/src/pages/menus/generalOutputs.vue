@@ -44,10 +44,10 @@ export default {
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyDBConnectionString: Conn,
                 designId: selectedTorqueDragDesign.id,
-                canvasDepth: 1000,
-                canvasWidth: 700,
-                xCanvasOffset: 100,
-                yCanvasOffset: 5
+                canvasDepth: 500,
+                canvasWidth: 800,
+                xCanvasOffset: 50,
+                yCanvasOffset: 20
             });
         }
     }

@@ -3,17 +3,25 @@
         <div class="row">
             <div class="col-12 q-pa-sm bg-accent">
                 <svg height="1000" width="700">
-                    <!-- <path 
+
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+
+                    <path 
                     v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id1"
                     :d="holeSegment.d1" :stroke="holeSegment.stroke"
-                    :stroke-width="holeSegment.strokeWidth_Shoe1" :fill="holeSegment.fill" />
+                    :stroke-width="holeSegment.strokeWidth" :fill="holeSegment.fill" />
 
                     <path 
                     v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id2"
                     :d="holeSegment.d2" :stroke="holeSegment.stroke"
-                    :stroke-width="holeSegment.strokeWidth_Shoe2" :fill="holeSegment.fill" />
+                    :stroke-width="holeSegment.strokeWidth" :fill="holeSegment.fill" />
 
-                    <polygon 
+                    <!-- <polygon 
                     :points="holeSegmentLast.d1_Shoe" 
                     :style="'fill:' + holeSegmentLast.fill + ';stroke:' + holeSegmentLast.stroke + ';stroke-width:' + holeSegmentLast.strokeWidth_Shoe1 + ';'" />
 
@@ -24,7 +32,17 @@
                     <path 
                     v-for="pipeSegment in schematicDTO.pipeSegments" :key="pipeSegment.id"
                     :d="pipeSegment.d" :stroke="pipeSegment.stroke"
-                    :stroke-width="pipeSegment.strokeWidth" :fill="pipeSegment.fill" />
+                    :stroke-width="pipeSegment.strokeWidth" fill="url(#grad1)" />
+
+                    <g stroke="black" stroke-width="2" fill="black">
+                        <circle 
+                        v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id3"
+                         :cx="holeSegment.cx1" :cy="holeSegment.cy1" :r="holeSegment.r" />
+
+                         <circle 
+                        v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id4"
+                         :cx="holeSegment.cx2" :cy="holeSegment.cy2" :r="holeSegment.r" />
+                    </g>
 
                 </svg>
             </div>
