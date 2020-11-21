@@ -55,6 +55,9 @@ const mutations = {
     ShowCreateWellDesign(state){
       state.isCreateWellDesign = true
     },
+    HideCreateWellDesign(state){
+      state.isCreateWellDesign = false
+    },
     PostTorqueDragDesign(state, payload){
         state.torqueDragDesign = payload.torqueDragDesign;
         if(payload.info == "No well data"){

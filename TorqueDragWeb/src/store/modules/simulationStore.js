@@ -5,10 +5,18 @@ const state = {
     visible: false,
     showSimulatedReturnData: true,
     schematicDTO: {},
-    holeSegmentLast:{}
+    holeSegmentLast:{},
+    xMax: 1000.0,
+    yMax: 1000.0
   }
 
   const getters = {
+    xMax(state){
+      return state.xMax;
+    },
+    yMax(state){
+      return state.yMax;
+    },
     PipeCalculatedVariables(state){
       return state.PipeCalculatedVariables;
     },
@@ -36,8 +44,12 @@ const mutations = {
     state.schematicDTO = payload;
     var nHoleSegments = state.schematicDTO.holeSegments.length;
     state.holeSegmentLast = state.schematicDTO.holeSegments[nHoleSegments-1];
+    state.xMax = state.schematicDTO.xMax;
+    state.yMax = state.schematicDTO.yMax;
     state.visible = false;
     state.showSimulatedReturnData = true
+    this.$router.push('/schematicView');
+    
 
   }
 
@@ -77,7 +89,8 @@ DrawSchematic(context, payload)
     context.state.showSimulatedReturnData = false
     
     //console.log("response: ", payload)
-    this.$router.push('/schematic');
+    //this.$router.push('/schematic');
+    
     return new Promise((resolve, reject) => {
        $http.post('Commons/DrawSchematic', payload)
         .then(response => {

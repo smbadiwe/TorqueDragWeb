@@ -9,6 +9,8 @@ import dockpage1 from 'pages/inputdata/dockpage1.vue'
 import simulationConsole from 'pages/simulation/simulationConsole.vue'
 import t_d_results from 'pages/simulation/t_d_results.vue'
 import schematic from 'pages/wellSchematics/schematic.vue'
+import effectiveTension from 'pages/fixedDepthPlots/effectiveTension.vue'
+import schematicView from 'pages/wellSchematics/schematicView.vue'
 
 const routes = [
   {
@@ -58,12 +60,20 @@ const routes = [
         component: simulationConsole
       },
       { 
-        path: '/TrippingInDetails', 
+        path: '/TrippingOutDetails', 
         component: t_d_results
       },
       {
         path: '/schematic',
         component: schematic
+      },
+      { 
+        path: '/effectiveTension', 
+        component: effectiveTension
+      },
+      {
+        path: '/schematicView',
+        component: schematicView
       }
     ]
   },

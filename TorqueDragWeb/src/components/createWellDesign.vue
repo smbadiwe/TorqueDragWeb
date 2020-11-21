@@ -175,6 +175,11 @@
                                     label="Add"
                                     @click="PostTorqueDragDesign">
                                 </q-btn>
+                                <q-btn 
+                                    size="sm"
+                                    label="Cancel"
+                                    @click="cancelCreation">
+                                </q-btn>
                             </q-card-actions>
 
                 </q-card>
@@ -230,6 +235,9 @@ export default {
         }
     },
     methods:{
+        cancelCreation(){
+             this.$store.commit('wellDesignStore/HideCreateWellDesign');
+        },
         onProjectNameSelectionChanged(e){
             var context = this;
             context.projectName = e.target.options[e.target.options.selectedIndex].text;

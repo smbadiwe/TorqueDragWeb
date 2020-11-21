@@ -178,7 +178,7 @@
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
+                        @click="TrippingOutDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_15.jpg">
@@ -228,7 +228,7 @@
                 
                 <div class="row" style="height:20px">
                     <div class="col-12 q-pb-md q-pt-sm text-center">
-                        Load & Stress Data
+                        Load and Stress Data
                     </div>
                 </div>
             </div>
@@ -251,7 +251,7 @@ export default {
 
         },
         EffectiveTension(){
-            console.log("EffectiveTension");
+            this.$router.push('/effectiveTension');
         },
         TrueTension(){
             console.log("TrueTension");
@@ -260,7 +260,10 @@ export default {
             console.log("Torque");
         },
         TrippingInDetails(){
-            this.$router.push('/TrippingInDetails');
+            
+        },
+        TrippingOutDetails(){
+            this.$router.push('/TrippingOutDetails');
         }
     }
 }
