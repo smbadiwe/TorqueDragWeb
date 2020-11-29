@@ -11,6 +11,7 @@ import t_d_results from 'pages/simulation/t_d_results.vue'
 import schematic from 'pages/wellSchematics/schematic.vue'
 import effectiveTension from 'pages/fixedDepthPlots/effectiveTension.vue'
 import schematicView from 'pages/wellSchematics/schematicView.vue'
+import chartAreaTorqueDrag from 'pages/dataVisualization/TorqueDrag/chartArea.vue'
 
 const routes = [
   {
@@ -74,6 +75,10 @@ const routes = [
       {
         path: '/schematicView',
         component: schematicView
+      },
+      {
+        path: '/chartAreaTorqueDrag',
+        component: chartAreaTorqueDrag
       }
     ]
   },

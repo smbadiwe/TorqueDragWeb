@@ -102,8 +102,8 @@ export default {
       isImportDialogVisible(){
         return this.$store.getters['wellPathStore/isImportDialogVisible'];
       },
-      companyDBConnectionString(){
-        return this.$store.getters['authStore/companyDBConnectionString'];
+      companyName(){
+        return this.$store.getters['authStore/companyName'];
       },
       SelectedTorqueDragDesign(){
         return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
@@ -202,7 +202,7 @@ export default {
         finishAction(){
           var context = this;
           var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
-          var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+          var Conn = this.$store.getters['authStore/companyName'];
           var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
 
           switch(typeOfInput){
@@ -237,14 +237,19 @@ export default {
               this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
                 deviationSurveys: context.previewSurveyData,
                 designId: selectedTorqueDragDesign.id,
-                companyDBConnectionString: Conn
+                companyName: Conn
               });
+              console.log("dev survey data:", {
+                deviationSurveys: context.previewSurveyData,
+                designId: selectedTorqueDragDesign.id,
+                companyName: Conn
+              })
               break;
             case "Hole":
               this.$store.dispatch('holeStore/PostHoleSections', {
                 holeSections: context.previewHoleData,
                 designId: selectedTorqueDragDesign.id,
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 holeSection: {}
               });
               break;
@@ -252,14 +257,14 @@ export default {
               this.$store.dispatch('tubingStringStore/PostPipes', {
                 pipes: context.previewTubingStringData,
                 designId: selectedTorqueDragDesign.id,
-                companyDBConnectionString: Conn
+                companyName: Conn
               });
               break;
             case "Fluid":
               this.$store.dispatch('fluidsStore/PostMudPVTs', {
                 mudPVTs: context.previewMudPVTData,
                 designId: selectedTorqueDragDesign.id,
-                companyDBConnectionString: Conn
+                companyName: Conn
               });
               break;
           }

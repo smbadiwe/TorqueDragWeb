@@ -140,8 +140,8 @@ import addDatum from 'components/inputdata/datum/addDatum.vue';
 import textbox from 'components/controls/textbox.vue';
 export default {
   computed: {
-    companyDBConnectionString(){
-      return this.$store.getters['authStore/companyDBConnectionString'];
+    companyName(){
+      return this.$store.getters['authStore/companyName'];
     },
     SelectedTorqueDragDesign(){
       return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
@@ -205,7 +205,7 @@ export default {
     PostDatum(){
       var context = this;
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
               designId: selectedTorqueDragDesign.id,
@@ -216,7 +216,7 @@ export default {
               wellHeadElevation: parseFloat(context.wellHeadElevation),
               datumName: context.datumName
             },
-            companyDBConnectionString: Conn,
+            companyName: Conn,
             designId: selectedTorqueDragDesign.id
           });
 
@@ -225,10 +225,10 @@ export default {
       
   },
   created() {
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('datumStore/GetDatums', payload)

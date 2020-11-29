@@ -6,7 +6,7 @@ const state =  {
     IdentityModel: {},
     user: {},
     administrator: {},
-    companyDBConnectionString: "",
+    companyName: "",
     companyId: {}
 
 }
@@ -25,8 +25,8 @@ const getters = {
     administrator(state){
         return state.administrator;
     },
-    companyDBConnectionString(state){
-        return state.companyDBConnectionString;
+    companyName(state){
+        return state.companyName;
     },
     companyId(state){
       return state.companyId;
@@ -39,7 +39,7 @@ const mutations = {
         console.log("loginDTO:", payload)
         state.Loginstatus= true;
         state.IdentityModel = payload.identity;
-        state.companyDBConnectionString = payload.companyDBConnectionString;
+        state.companyName = payload.companyName;
         state.companyId = payload.companyId;
         //state.user = payload.user;
         //state.administrator = payload.administrator;

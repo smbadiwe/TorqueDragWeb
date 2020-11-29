@@ -189,10 +189,10 @@ export default {
       },
       PostPipe(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('tubingStringStore/PostPipe', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 pipe: {
                     typeOfSection: context.typeOfSection,
@@ -215,10 +215,10 @@ export default {
       }
   },
   created(){
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id,
           pipes: []
       }

@@ -128,7 +128,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       var newPayload = {
-        companyDBConnectionString: payload.companyDBConnectionString,
+        companyName: payload.companyName,
         designId: payload.designId,
         common: {
                     activeFluid: context.activeFluid,

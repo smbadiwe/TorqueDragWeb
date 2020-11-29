@@ -267,10 +267,10 @@ export default {
     methods:{
         PostOperation(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('operationsStore/PostOperation', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 operation: {
                     isTrippingInChecked: context.isTrippingInChecked,
@@ -300,10 +300,10 @@ export default {
         }
     },
     created(){
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('operationsStore/GetOperation', payload);

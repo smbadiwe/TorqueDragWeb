@@ -223,7 +223,7 @@ const actions = {
         console.log("seen")
         console.log(payload);
          $http.post('TorqueDragDesigns/GetTorqueDragDesigns',  {
-            companyDBConnectionString: payload
+          companyName: payload
          })
           .then(response => {
               

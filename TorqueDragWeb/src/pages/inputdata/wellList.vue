@@ -30,8 +30,8 @@ export default {
     companyId(){
       return this.$store.getters['authStore/companyId'];
     },
-    companyDBConnectionString(){
-      return this.$store.getters['authStore/companyDBConnectionString'];
+    companyName(){
+      return this.$store.getters['authStore/companyName'];
     },
     wellProjects(){
         return this.$store.getters['wellDesignStore/wellProjects'];
@@ -80,7 +80,7 @@ export default {
                 designMonth: designMonth,
                 designYear:  designYear
             },
-            companyDBConnectionString: context.companyDBConnectionString
+            companyName: context.companyName
           });
 
           context.expanded = false;
@@ -111,10 +111,10 @@ export default {
   },
   created() {
       var context = this;
-      var companyDBConnectionString = this.$store.getters['authStore/companyDBConnectionString'];
+      var companyName = this.$store.getters['authStore/companyName'];
       var torqueDragDesigns = this.$store.getters['wellDesignStore/torqueDragDesigns'];
       var SelectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-      this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyDBConnectionString)
+      this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyName)
 
    /*    var nlength= Object.keys(SelectedTorqueDragDesign).length;
       console.log("nlength: ", nlength)

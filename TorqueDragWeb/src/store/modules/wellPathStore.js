@@ -39,7 +39,7 @@ const actions = {
 
        $http.post('DeviationSurveys/PostDeviationSurvey', {
         deviationSurveys: payload.deviationSurveys,
-        companyDBConnectionString: payload.companyDBConnectionString
+        companyName: payload.companyName
       })
         .then(response => {
             

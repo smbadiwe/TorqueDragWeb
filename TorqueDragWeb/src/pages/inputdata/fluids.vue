@@ -213,10 +213,10 @@ export default {
       },
       PostFluid(){
            var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('fluidsStore/PostFluid', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 fluid: {
                     mudName: context.mudName,
@@ -231,10 +231,10 @@ export default {
       }
   },
   created(){
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('fluidsStore/GetFluid', payload);

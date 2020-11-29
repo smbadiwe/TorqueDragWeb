@@ -173,6 +173,21 @@
             <hr/>
           </div>
         </div>
+
+        <div class="row">
+          <div v-if="isRibbonActiveHome"
+                class="col-12">
+                <homeRibbon-app></homeRibbon-app>
+          </div>
+          <div v-if="isRibbonGeneralOutputs"
+                class="col-12">
+                <generalOutputs-app></generalOutputs-app>
+          </div>
+          <div v-if="isTorqueDrag"
+                class="col-12">
+                <torqueDragRibbon-app></torqueDragRibbon-app>
+          </div>
+        </div>
       </q-header>
  
       
@@ -189,18 +204,6 @@
 
       <q-page-container>
         <div class="row" v-if="isInput">
-          <div v-if="isRibbonActiveHome"
-                class="col-12">
-                <homeRibbon-app></homeRibbon-app>
-          </div>
-          <div v-if="isRibbonGeneralOutputs"
-                class="col-12">
-                <generalOutputs-app></generalOutputs-app>
-          </div>
-          <div v-if="isTorqueDrag"
-                class="col-12">
-                <torqueDragRibbon-app></torqueDragRibbon-app>
-          </div>
           <div class="col-12"> 
             <div class="row">
               <div class="col-5 bg-primary q-pa-none">
@@ -214,19 +217,24 @@
           </div>
         </div>
 
+        <div class="row" v-else-if="isDataVisualization">
+          <div class="col-12"> 
+            <div class="row">
+              <div class="col-3 bg-primary q-pa-none">
+                <chartSeries-app></chartSeries-app>
+              </div>
+              <div class="col q-pa-sm">
+                 <router-view />
+              </div>
+              <div  
+               class="col-3 bg-primary q-pa-sm">
+              <chartProperties-app></chartProperties-app>
+            </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row" v-else>
-          <div v-if="isRibbonActiveHome"
-                class="col-12">
-                <homeRibbon-app></homeRibbon-app>
-          </div>
-          <div v-if="isRibbonGeneralOutputs"
-                class="col-12">
-                <generalOutputs-app></generalOutputs-app>
-          </div>
-          <div v-if="isTorqueDrag"
-                class="col-12">
-                <torqueDragRibbon-app></torqueDragRibbon-app>
-          </div>
             <div 
             class="col q-pa-sm"> 
               <router-view />
@@ -246,6 +254,7 @@
             class="col-3 bg-primary q-pa-sm">
               <analysisSettings-app></analysisSettings-app>
             </div>
+
         </div>
        
       </q-page-container>
@@ -262,6 +271,8 @@ import mainInput from 'pages/inputdata/mainInput.vue';
 import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
 import wellList from 'pages/inputdata/wellList.vue';
 import analysisSettings from 'pages/inputdata/analysisSettings.vue';
+import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
+import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
 
 export default {
   name: 'userLayout',
@@ -283,7 +294,9 @@ export default {
       'generalOutputs-app': generalOutputs,
       'torqueDragRibbon-app': torqueDragRibbon,
       'wellList-app': wellList,
-      'analysisSettings-app': analysisSettings
+      'analysisSettings-app': analysisSettings,
+      'chartSeries-app': chartSeries,
+      'chartProperties-app': chartProperties
       },
   data () {
     return {
@@ -312,6 +325,7 @@ export default {
       isRibbonActiveHome: false,
       isRibbonGeneralOutputs: false,
       isTorqueDrag: false,
+      isDataVisualization: false,
       inputsRibbonBgColor: '#191919',
       inputsRibbonTextColor: '#ffffff',
       homeRibbonBgColor: '',
@@ -401,6 +415,7 @@ export default {
         context.isInput = false;
         context.isSchematic = false;
         context.isTDAnalysis = false;
+        context.isDataVisualization = false;
       }
     },
     ShowSchematicView(){
@@ -413,6 +428,7 @@ export default {
         context.isInput = false;
         context.isTDAnalysis = false;
          context.isWellList = false;
+         context.isDataVisualization = false;
       }
     },
     ShowTDAnalysisView(){
@@ -424,6 +440,7 @@ export default {
         context.isInput = false;
         context.isSchematic = false;
         context.isWellList = false;
+        context.isDataVisualization = false;
       }
     },
     onItemClick () {
@@ -432,6 +449,21 @@ export default {
     logoutUser(){
       this.$store.dispatch('authStore/Logout')
     },
+    activateDataVisualization(){
+      var context  = this;
+      if(context.isDataVisualization == true){
+        context.isInput = false;
+        context.isTDAnalysis = false;
+        context.isInput = false;
+        context.isSchematic = false;
+        context.isWellList = fafalselse;
+      }
+    }
+  },
+  mounted() {
+    var context  = this;
+    context.isDataVisualization = this.$store.getters['dataVisualizationStore/isDataVisualization'];
+    context.activateDataVisualization();
   }
 }
 </script>

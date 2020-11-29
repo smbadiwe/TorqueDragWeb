@@ -39,10 +39,10 @@ export default {
     methods: {
         DrawSchematic(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('simulationStore/DrawSchematic', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 canvasDepth: 500,
                 canvasWidth: 800,

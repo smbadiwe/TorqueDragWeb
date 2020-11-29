@@ -231,10 +231,10 @@ export default {
         },
         PostHoleSection(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             this.$store.dispatch('holeStore/PostHoleSection', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 holeSection: {
                 typeOfHole: context.typeOfHole,
@@ -252,10 +252,10 @@ export default {
         }
     },
     created(){
-      var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id,
           holeSections: []
       }

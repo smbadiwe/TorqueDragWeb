@@ -211,8 +211,8 @@ export default {
         wellCases(){
             return this.$store.getters['wellDesignStore/wellCases'];
         },
-        companyDBConnectionString(){
-            return this.$store.getters['authStore/companyDBConnectionString'];
+        companyName(){
+            return this.$store.getters['authStore/companyName'];
         },
         companyId(){
             return this.$store.getters['authStore/companyId'];
@@ -383,7 +383,7 @@ export default {
                     wellboreName: context.wellboreName,
                     wellDesignName: context.wellDesignName
                 },
-                companyDBConnectionString: context.companyDBConnectionString
+                companyName: context.companyName
             });
 
         }

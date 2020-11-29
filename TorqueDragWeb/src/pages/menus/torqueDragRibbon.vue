@@ -25,58 +25,49 @@
                 <div class="row" style="height:100px">
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         clickable
-                        @click="EffectiveTension">
+                        @click="TrippingInPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_1.jpg">
                         <br/>
-                        Effective Tension
+                        Tripping In
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
+                        @click="TrippingOutPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_2.jpg">
                         <br/>
-                        True Tension
+                        Tripping Out
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
+                        @click="slideDrillingPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_3.jpg">
                         <br/>
-                        Torque
+                        Slide Drilling
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
-                            @click="EffectiveTension">
+                            @click="rotatingOnBottomPlots">
                             <img
                             class="object-fit-cover"
                             src="~assets/images/well_4.jpg">
                             <br/>
-                            Side Force
+                            Rotating On Bottom
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
+                        @click="rotatingOffBottomPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_5.jpg">
                         <br/>
-                        Fatique
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_6.jpg">
-                        <br/>
-                        String Clearance
+                        Rotating Off Bottom
                     </div>
 
                    
@@ -84,7 +75,7 @@
                 
                 <div class="row" style="height:20px">
                     <div class="col-12 q-pb-md q-pt-sm text-center">
-                        Fixed Depth Plots
+                        Plots
                     </div>
                 </div>
             </div>
@@ -242,15 +233,29 @@ export default {
     methods: {
         RunSimulation(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('simulationStore/RunSimulation', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id
             });
 
         },
-        EffectiveTension(){
+        TrippingInPlots(){
+            this.$store.commit('dataVisualizationStore/setIsDataVisualization', true);
+            this.$router.push('/chartAreaTorqueDrag');
+        },
+        TrippingOutPlots(){
+            this.$store.commit('dataVisualizationStore/setIsDataVisualization', true);
+            this.$router.push('/chartAreaTorqueDrag');
+        },
+        slideDrillingPlots(){
+            this.$router.push('/effectiveTension');
+        },
+        rotatingOnBottomPlots(){
+            this.$router.push('/effectiveTension');
+        },
+        rotatingOffBottomPlots(){
             this.$router.push('/effectiveTension');
         },
         TrueTension(){

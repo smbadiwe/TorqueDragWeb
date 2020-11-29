@@ -13,6 +13,7 @@ import dataImportStore from './modules/dataImportStore'
 import holeStore from './modules/holeStore'
 import operationsStore from './modules/operationsStore'
 import simulationStore from './modules/simulationStore'
+import dataVisualizationStore from './modules/dataVisualizationStore'
 
 Vue.use(Vuex)
 
@@ -39,7 +40,8 @@ export default function (/* { ssrContext } */) {
       dataImportStore,
       holeStore,
       operationsStore,
-      simulationStore
+      simulationStore,
+      dataVisualizationStore
     },
 
     // enable strict mode (adds overhead!)

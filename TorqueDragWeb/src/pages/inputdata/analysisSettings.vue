@@ -211,10 +211,10 @@ export default {
   methods: {
       PostCommon(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+            var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.dispatch('settingsStore/PostCommon', {
-                companyDBConnectionString: Conn,
+                companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 common: {}
             });
@@ -223,10 +223,10 @@ export default {
         }
   },
   created(){
-       var Conn = this.$store.getters['authStore/companyDBConnectionString'];
+       var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var payload = {
-          companyDBConnectionString: Conn,
+          companyName: Conn,
           designId: selectedTorqueDragDesign.id
       }
       this.$store.dispatch('settingsStore/GetCommon', payload);
