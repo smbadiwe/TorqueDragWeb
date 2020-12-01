@@ -61,10 +61,16 @@ const actions = {
 
   PostDatum(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.post('Datums/PostDatum', payload)
+       $http.post('Datums/PostDatum', payload, config)
         .then(response => {
             
           context.commit('PostDatum', response.data)              
@@ -79,10 +85,16 @@ const actions = {
   },
   GetDatums(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.post('Datums/GetDatums', payload)
+       $http.post('Datums/GetDatums', payload, config)
         .then(response => {
             
           context.commit('GetDatums', response.data)              
@@ -91,26 +103,6 @@ const actions = {
         })
         .catch(error => {
           console.log("GetTorqueDragDesigns error")
-          reject(error)
-        })
-    })
-  },
-  GetSelecteDatum(context, payload)
-  {
-      context.state.Account.base64String =  context.state.base64String;
-      context.state.Account.contributor_Id = payload;
-    return new Promise((resolve, reject) => {
-      console.log("seen")
-       $http.post('Accounts/OffPlatformPayment', context.state.Account)
-        .then(response => {
-            
-          context.commit('OffPlatformPayment', response.data)              
-            resolve(response)
-            
-        })
-        .catch(error => {
-          alert("Confirmation of payment was unsuccesful. Please try again")
-          console.log("payment error")
           reject(error)
         })
     })

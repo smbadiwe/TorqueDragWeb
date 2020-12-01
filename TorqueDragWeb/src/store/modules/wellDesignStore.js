@@ -202,9 +202,15 @@ const actions = {
 
     PostTorqueDragDesign(context, payload)
     {
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        }
+      }
+
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('TorqueDragDesigns/PostTorqueDragDesign', payload)
+         $http.post('TorqueDragDesigns/PostTorqueDragDesign', payload, config)
           .then(response => {
               
             context.commit('PostTorqueDragDesign', response.data)              
@@ -219,12 +225,18 @@ const actions = {
     },
     GetTorqueDragDesigns(context, payload)
     {
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        }
+      }
+
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload);
          $http.post('TorqueDragDesigns/GetTorqueDragDesigns',  {
           companyName: payload
-         })
+         }, config)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)

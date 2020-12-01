@@ -105,11 +105,15 @@ const mutations = {
 const actions = {
   GetCommon(context, payload)
   {
-
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
     return new Promise((resolve, reject) => {
   
       
-       $http.post('Commons/GetCommon', payload)
+       $http.post('Commons/GetCommon', payload, config)
         .then(response => {
             
           context.commit('GetCommon', response.data)              
@@ -124,6 +128,11 @@ const actions = {
   },
   PostCommon(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
     return new Promise((resolve, reject) => {
   
@@ -143,7 +152,7 @@ const actions = {
 
     }
       console.log("context.state.common:", context.state.common)
-       $http.post('Commons/PostCommon', newPayload)
+       $http.post('Commons/PostCommon', newPayload, config)
         .then(response => {
             
           context.commit('PostCommon', response.data)              

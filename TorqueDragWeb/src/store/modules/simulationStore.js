@@ -59,6 +59,12 @@ const actions = {
 
 RunSimulation(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
     this.$router.push('/simulationConsole');
@@ -66,7 +72,7 @@ RunSimulation(context, payload)
     console.log("response: ", payload)
 
     return new Promise((resolve, reject) => {
-       $http.post('Commons/RunSimulation', payload)
+       $http.post('Commons/RunSimulation', payload, config)
         .then(response => {
 
         console.log("response: ", response)
@@ -85,6 +91,11 @@ RunSimulation(context, payload)
   },
 DrawSchematic(context, payload)
 {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
     
@@ -92,7 +103,7 @@ DrawSchematic(context, payload)
     //this.$router.push('/schematic');
     
     return new Promise((resolve, reject) => {
-       $http.post('Commons/DrawSchematic', payload)
+       $http.post('Commons/DrawSchematic', payload, config)
         .then(response => {
 
         //console.log("response: ", response)

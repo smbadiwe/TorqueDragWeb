@@ -31,6 +31,12 @@ const mutations = {
 const actions = {
   PostDeviationSurvey(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.deviationSurveys = [];
     state.deviationSurveys = payload.deviationSurveys;
 
@@ -40,7 +46,7 @@ const actions = {
        $http.post('DeviationSurveys/PostDeviationSurvey', {
         deviationSurveys: payload.deviationSurveys,
         companyName: payload.companyName
-      })
+      }, config)
         .then(response => {
             
           context.commit('PostDeviationSurvey', response.data)              
@@ -55,12 +61,18 @@ const actions = {
   },
   GetDeviationSurveys(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.deviationSurveys = [];
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('DeviationSurveys/GetDeviationSurveys', payload)
+       $http.post('DeviationSurveys/GetDeviationSurveys', payload, config)
         .then(response => {
             
           context.commit('GetDeviationSurveys', response.data)              

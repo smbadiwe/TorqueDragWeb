@@ -37,13 +37,19 @@ const mutations = {
 const actions = {
   PostPipes(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.pipes = [];
     state.pipes = payload.pipes;
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/PostPipes', payload)
+       $http.post('Pipes/PostPipes', payload, config)
         .then(response => {
             
           context.commit('PostPipes', response.data)              
@@ -59,10 +65,15 @@ const actions = {
   PostPipe(context, payload)
   {
 
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/PostPipe', payload)
+       $http.post('Pipes/PostPipe', payload, config)
         .then(response => {
             
           context.commit('PostPipe', response.data)              
@@ -77,12 +88,18 @@ const actions = {
   },
   GetPipes(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.pipes = [];
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/GetPipes', payload)
+       $http.post('Pipes/GetPipes', payload, config)
         .then(response => {
             
           context.commit('GetPipes', response.data)              

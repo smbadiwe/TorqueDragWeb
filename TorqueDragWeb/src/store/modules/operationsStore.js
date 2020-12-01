@@ -44,11 +44,15 @@ const mutations = {
 const actions = {
   GetOperation(context, payload)
   {
-
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Operations/GetOperation', payload)
+       $http.post('Operations/GetOperation', payload, config)
         .then(response => {
             
           context.commit('GetOperation', response.data)              
@@ -63,11 +67,16 @@ const actions = {
   },
   PostOperation(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Operations/PostOperation', payload)
+       $http.post('Operations/PostOperation', payload, config)
         .then(response => {
             
           context.commit('PostOperation', response.data)              

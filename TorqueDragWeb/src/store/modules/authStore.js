@@ -70,7 +70,7 @@ const actions = {
     {
       context.state.visible = true
       context.state.showSimulatedReturnData = false
-  
+
       return new Promise((resolve, reject) => {
         console.log(payload)
          $http.post('Authentications/Login', payload)

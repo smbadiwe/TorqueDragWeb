@@ -53,11 +53,16 @@ const mutations = {
 const actions = {
   GetFluid(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Fluids/GetFluid', payload)
+       $http.post('Fluids/GetFluid', payload, config)
         .then(response => {
             
           context.commit('GetFluid', response.data);
@@ -73,11 +78,16 @@ const actions = {
   },
   GetMudPVTs(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('MudPVTs/GetMudPVTs', payload)
+       $http.post('MudPVTs/GetMudPVTs', payload, config)
         .then(response => {
             
           context.commit('GetMudPVTs', response.data);              
@@ -92,10 +102,16 @@ const actions = {
   },
   PostFluid(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Fluids/PostFluid', payload)
+       $http.post('Fluids/PostFluid', payload, config)
         .then(response => {
             
           context.commit('PostFluid', response.data)              
@@ -110,13 +126,19 @@ const actions = {
   },
   PostMudPVTs(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.mudPVTs = [];
     state.mudPVTs = payload.mudPVTs;
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('MudPVTs/PostMudPVTs', payload)
+       $http.post('MudPVTs/PostMudPVTs', payload, config)
         .then(response => {
             
           context.commit('PostMudPVTs', response.data)              

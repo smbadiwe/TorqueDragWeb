@@ -38,11 +38,16 @@ const actions = {
   GetHoleSections(context, payload)
   {
     state.holeSections = [];
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('HoleSections/GetHoleSections', payload)
+       $http.post('HoleSections/GetHoleSections', payload, config)
         .then(response => {
             
           context.commit('GetHoleSections', response.data)              
@@ -57,11 +62,15 @@ const actions = {
   },
   PostHoleSection(context, payload)
   {
-
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
     return new Promise((resolve, reject) => {
   
 
-       $http.post('HoleSections/PostHoleSection', payload)
+       $http.post('HoleSections/PostHoleSection', payload, config)
         .then(response => {
             
           context.commit('PostHoleSection', response.data)              
@@ -76,13 +85,19 @@ const actions = {
   },
   PostHoleSections(context, payload)
   {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
     state.holeSections = [];
     state.holeSections = payload.holeSections;
 
     return new Promise((resolve, reject) => {
   
       console.log("payload: ", payload)
-       $http.post('HoleSections/PostHoleSections', payload)
+       $http.post('HoleSections/PostHoleSections', payload, config)
         .then(response => {
             
           context.commit('PostHoleSections', response.data)              
