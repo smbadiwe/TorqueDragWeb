@@ -112,15 +112,35 @@ export default {
 
 				context.trippingIn.x.push(trippingInResults[i].tensionTopOfPipe/M);
 				context.trippingIn.y.push(md);
+			}
+
+			length = trippingOutResults.length;
+			for(i = 0; i < length; i++){
+				var md = trippingOutResults[i].bottomMeasuredDepth;
 
 				context.trippingOut.x.push(trippingOutResults[i].tensionTopOfPipe/M);
 				context.trippingOut.y.push(md);
+			}
+
+			length = drillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = drillingResults[i].bottomMeasuredDepth;
 
 				context.rotatingOnBottom.x.push(drillingResults[i].tensionTopOfPipe/M);
 				context.rotatingOnBottom.y.push(md);
+			}
+
+			length = slideDrillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = slideDrillingResults[i].bottomMeasuredDepth;
 
 				context.slideDrilling.x.push(slideDrillingResults[i].tensionTopOfPipe/M);
 				context.slideDrilling.y.push(md);
+			}
+
+			length = backReamingResults.length;
+			for(i = 0; i < length; i++){
+				var md = backReamingResults[i].bottomMeasuredDepth;
 
 				context.backReaming.x.push(backReamingResults[i].tensionTopOfPipe/M);
 				context.backReaming.y.push(md);

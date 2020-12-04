@@ -112,15 +112,35 @@ export default {
 
 				context.trippingIn.x.push(trippingInResults[i].normalForce/M);
 				context.trippingIn.y.push(md);
+			}
+
+			length = trippingOutResults.length;
+			for(i = 0; i < length; i++){
+				var md = trippingInResults[i].bottomMeasuredDepth;
 
 				context.trippingOut.x.push(trippingOutResults[i].normalForce/M);
 				context.trippingOut.y.push(md);
+			}
+
+			length = drillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = drillingResults[i].bottomMeasuredDepth;
 
 				context.rotatingOnBottom.x.push(drillingResults[i].normalForce/M);
 				context.rotatingOnBottom.y.push(md);
+			}
+
+			length = slideDrillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = slideDrillingResults[i].bottomMeasuredDepth;
 
 				context.slideDrilling.x.push(slideDrillingResults[i].normalForce/M);
 				context.slideDrilling.y.push(md);
+			}
+
+			length = backReamingResults.length;
+			for(i = 0; i < length; i++){
+				var md = backReamingResults[i].bottomMeasuredDepth;
 
 				context.backReaming.x.push(backReamingResults[i].normalForce/M);
 				context.backReaming.y.push(md);

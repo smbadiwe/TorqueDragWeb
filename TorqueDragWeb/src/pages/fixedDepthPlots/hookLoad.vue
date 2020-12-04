@@ -110,23 +110,44 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = trippingInResults[i].bottomMeasuredDepth;
 
-				context.trippingIn.x.push(trippingInResults[i].HookeLoadAtJoint/M);
+				context.trippingIn.x.push(trippingInResults[i].hookeLoadAtJoint/M);
 				context.trippingIn.y.push(md);
+			}
 
-				context.trippingOut.x.push(trippingOutResults[i].HookeLoadAtJoint/M);
+			length = trippingOutResults.length;
+			for(i = 0; i < length; i++){
+				var md = trippingOutResults[i].bottomMeasuredDepth;
+
+				context.trippingOut.x.push(trippingOutResults[i].hookeLoadAtJoint/M);
 				context.trippingOut.y.push(md);
+			}
 
-				context.rotatingOnBottom.x.push(drillingResults[i].HookeLoadAtJoint/M);
+			length = drillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = drillingResults[i].bottomMeasuredDepth;
+
+				context.rotatingOnBottom.x.push(drillingResults[i].hookeLoadAtJoint/M);
 				context.rotatingOnBottom.y.push(md);
+			}
 
-				context.slideDrilling.x.push(slideDrillingResults[i].HookeLoadAtJoint/M);
+			length = slideDrillingResults.length;
+			for(i = 0; i < length; i++){
+				var md = slideDrillingResults[i].bottomMeasuredDepth;
+
+				context.slideDrilling.x.push(slideDrillingResults[i].hookeLoadAtJoint/M);
 				context.slideDrilling.y.push(md);
+			}
 
-				context.backReaming.x.push(backReamingResults[i].HookeLoadAtJoint/M);
+			length = backReamingResults.length;
+			for(i = 0; i < length; i++){
+				var md = backReamingResults[i].bottomMeasuredDepth;
+
+				context.backReaming.x.push(backReamingResults[i].hookeLoadAtJoint/M);
 				context.backReaming.y.push(md);
 			}
-			//console.log("x: ", context.trippingIn.x);
-			//console.log("y: ", context.trippingIn.y);
+
+			console.log("x: ", context.trippingIn.x);
+			console.log("y: ", context.trippingIn.y);
 			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
 			var layout = { 
 				showlegend: true,

@@ -78,6 +78,10 @@
                             <div class="col-6 q-pa-sm"><input v-model="common.seaWaterDensity"></div>
                             <div class="col-3 q-pa-sm">lb/ft3</div>
 
+                            <div class="col-3 q-pa-sm">Young Modulus:</div>
+                            <div class="col-6 q-pa-sm"><input v-model="common.youngsModulus"></div>
+                            <div class="col-3 q-pa-sm">Mlbin4</div>
+
                         </div>
 
                      
@@ -204,7 +208,7 @@ export default {
         stepSize: null,
         seaWaterDensity: null,
         courseLength: 50,
-        youngsModulus: 20,
+        youngsModulus: null,
         message: ""
     }
   },

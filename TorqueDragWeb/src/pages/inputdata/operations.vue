@@ -108,13 +108,9 @@
                                             >
                                                     <div class="row">
 
-                                                        <div class="col-3 q-pa-sm">Speed</div>
-                                                        <div class="col-6 q-pa-sm"><input></div>
-                                                        <div class="col-3 q-pa-sm">ft/min</div>
-
-                                                        <div class="col-3 q-pa-sm">RPM</div>
-                                                        <div class="col-6 q-pa-sm"><input></div>
-                                                        <div class="col-3 q-pa-sm">rpm</div>
+                                                        <div class="col-3 q-pa-sm">WOB</div>
+                                                        <div class="col-6 q-pa-sm"><input v-model="weightOnBit"></div>
+                                                        <div class="col-3 q-pa-sm">kip/min</div>
                                                     </div>
                                             </q-expansion-item>
                                         </div>
@@ -168,13 +164,13 @@
                                             >
                                                     <div class="row">
 
-                                                            <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input></div>
-                                                            <div class="col-3 q-pa-sm">kip/min</div>
+                                                            <div class="col-3 q-pa-sm">Tripping Speed</div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="tripSpeedBackReam"></div>
+                                                            <div class="col-3 q-pa-sm">ft/min</div>
 
-                                                            <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                            <div class="col-6 q-pa-sm"><input></div>
-                                                            <div class="col-3 q-pa-sm">ft-lbf</div>
+                                                            <div class="col-3 q-pa-sm">RPM</div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="tripRPMBackReam"></div>
+                                                            <div class="col-3 q-pa-sm">rpm</div>
                                                     </div>
                                             </q-expansion-item>
                                         </div>
@@ -261,7 +257,9 @@ export default {
             weightOnBitIDHM : null,
             hookLoadIDHM : null,
             isIDHMTrippingOutChecked: false,
-            isIDHMRotatingChecked : false
+            isIDHMRotatingChecked : false,
+            tripSpeedBackReam: null,
+            tripRPMBackReam: null
         }
     },
     methods:{
@@ -293,6 +291,8 @@ export default {
                     hookLoadIDHM : parseFloat(context.hookLoadIDHM),
                     isIDHMTrippingOutChecked: context.isIDHMTrippingOutChecked,
                     isIDHMRotatingChecked : context.isIDHMRotatingChecked,
+                    tripSpeedBackReam : parseFloat(context.tripSpeedBackReam),
+                    tripRPMBackReam : parseFloat(context.tripRPMBackReam),
                     designId: selectedTorqueDragDesign.id
                 }
             });

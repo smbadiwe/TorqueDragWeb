@@ -171,7 +171,7 @@ export default {
             this.$router.push('/drag');
         },
         TrippingInDetails(){
-            this.$router.push('/trippingOutResults');
+            this.$router.push('/trippingInResults');
         },
         TrippingOutDetails(){
             this.$router.push('/trippingOutResults');
