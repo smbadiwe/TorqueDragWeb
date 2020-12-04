@@ -61,7 +61,6 @@
                             style="background:white;"
                              key="isHelicalBuckling" 
                              :props="props"></q-td>
-                            <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
                             <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
                             <q-td key="criticalSinusoidalBuckling" :props="props">{{ props.row.criticalSinusoidalBuckling }}</q-td>
                             <q-td key="criticalHelicalBuckling" :props="props">{{ props.row.criticalHelicalBuckling }}</q-td>

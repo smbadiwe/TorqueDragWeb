@@ -3,25 +3,27 @@ import { $http } from 'boot/axios'
 const state = {
     operation: {
         isTrippingInChecked: false,
-        trippingInSpeed : null,
-        trippingInRPM : null,
+        trippingInSpeed : 0,
+        trippingInRPM : 0,
         isTrippingOutChecked : false,
-        trippingOutSpeed : null,
-        trippingOutRPM : null,
+        trippingOutSpeed : 0,
+        trippingOutRPM : 0,
         isRotatingOnBottomChecked : false,
         isSlideDrillingChecked : false,
-        weightOnBit : null,
-        torqueAtBit : null,
+        weightOnBit : 0,
+        torqueAtBit : 0,
         isBackReamingChecked: false,
         isRotatingOffBottomChecked : false,
         isUserDefinedOperationsChecked : false,
         isHookLoad : false,
         isWeightOnBit : false,
         isIDHMTrippingInChecked : false,
-        weightOnBitIDHM : null,
-        hookLoadIDHM : null,
+        weightOnBitIDHM : 0,
+        hookLoadIDHM : 0,
         isIDHMTrippingOutChecked: false,
-        isIDHMRotatingChecked : false
+        isIDHMRotatingChecked : false,
+        tripSpeedBackReam: 0,
+        tripRPMBackReam: 0
     }
   }
 
@@ -36,6 +38,7 @@ const mutations = {
     state.operation = payload;
   },
   GetOperation(state, payload){
+    console.log(payload)
     state.operation = payload;
   }
 
@@ -73,9 +76,21 @@ const actions = {
       }
     }
 
+  
+    payload.operation.trippingInSpeed = parseFloat(payload.operation.trippingInSpeed);
+    payload.operation.trippingInRPM = parseFloat(payload.operation.trippingInRPM);
+    payload.operation.trippingOutSpeed = parseFloat(payload.operation.trippingOutSpeed);
+    payload.operation.trippingOutRPM = parseFloat(payload.operation.trippingOutRPM);
+    payload.operation.weightOnBit = parseFloat(payload.operation.weightOnBit);
+    payload.operation.torqueAtBit = parseFloat(payload.operation.torqueAtBit);
+    payload.operation.weightOnBitIDHM = parseFloat(payload.operation.weightOnBitIDHM);
+    payload.operation.hookLoadIDHM = parseFloat(payload.operation.hookLoadIDHM);
+    payload.operation.tripSpeedBackReam = parseFloat(payload.operation.tripSpeedBackReam)
+    payload.operation.tripRPMBackReam = parseFloat(payload.operation.tripRPMBackReam)
+
     return new Promise((resolve, reject) => {
   
-
+      
        $http.post('Operations/PostOperation', payload, config)
         .then(response => {
             

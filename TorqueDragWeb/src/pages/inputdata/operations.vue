@@ -32,7 +32,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isTrippingInChecked">
+                                            <input type="checkbox" id="checkbox" v-model="operation.isTrippingInChecked">
                                             <label for="checkbox"> Tripping In </label>
                                             <br>
                                             <hr/>
@@ -48,11 +48,11 @@
                                                     <div class="row">
 
                                                             <div class="col-3 q-pa-sm">Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="trippingInSpeed"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingInSpeed"></div>
                                                             <div class="col-3 q-pa-sm">ft/min</div>
 
                                                             <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="trippingInRPM"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingInRPM"></div>
                                                             <div class="col-3 q-pa-sm">rpm</div>
 
                                                     </div>
@@ -63,7 +63,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isTrippingOutChecked">
+                                            <input type="checkbox" id="checkbox" v-model="operation.isTrippingOutChecked">
                                             <label for="checkbox"> Tripping Out </label>
                                             <br>
                                             <hr/>
@@ -79,11 +79,11 @@
                                                     <div class="row">
 
                                                         <div class="col-3 q-pa-sm">Speed</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="trippingOutSpeed"></div>
+                                                        <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutSpeed"></div>
                                                         <div class="col-3 q-pa-sm">ft/min</div>
 
                                                         <div class="col-3 q-pa-sm">RPM</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="trippingOutRPM"></div>
+                                                        <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutRPM"></div>
                                                         <div class="col-3 q-pa-sm">rpm</div>
                                                     </div>
                                             </q-expansion-item>
@@ -93,7 +93,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isRotatingOnBottomChecked">
+                                            <input type="checkbox" id="checkbox" v-model="operation.isRotatingOnBottomChecked">
                                             <label for="checkbox"> Rotating On Bottom </label>
                                             <br>
                                             <hr/>
@@ -109,7 +109,7 @@
                                                     <div class="row">
 
                                                         <div class="col-3 q-pa-sm">WOB</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="weightOnBit"></div>
+                                                        <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBit"></div>
                                                         <div class="col-3 q-pa-sm">kip/min</div>
                                                     </div>
                                             </q-expansion-item>
@@ -119,7 +119,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isSlideDrillingChecked">
+                                            <input type="checkbox" id="checkbox" v-model="operation.isSlideDrillingChecked">
                                             <label for="checkbox"> Slide Drilling </label>
                                             <br>
                                             <hr/>
@@ -135,12 +135,12 @@
                                                     <div class="row">
 
                                                             <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="weightOnBit"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBitIDHM"></div>
                                                             <div class="col-3 q-pa-sm">kip/min</div>
 
                                                             <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="torqueAtBit"></div>
-                                                            <div class="col-3 q-pa-sm">ft-lbf</div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.torqueAtBit"></div>
+                                                            <div class="col-3 q-pa-sm">ft-klbf</div>
                                                     </div>
                                             </q-expansion-item>
                                         </div>
@@ -149,7 +149,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isBackReamingChecked">
+                                            <input type="checkbox" id="checkbox" v-model="operation.isBackReamingChecked">
                                             <label for="checkbox"> Back Reaming </label>
                                             <br>
                                             <hr/>
@@ -165,11 +165,11 @@
                                                     <div class="row">
 
                                                             <div class="col-3 q-pa-sm">Tripping Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="tripSpeedBackReam"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.tripSpeedBackReam"></div>
                                                             <div class="col-3 q-pa-sm">ft/min</div>
 
                                                             <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="tripRPMBackReam"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.tripRPMBackReam"></div>
                                                             <div class="col-3 q-pa-sm">rpm</div>
                                                     </div>
                                             </q-expansion-item>
@@ -224,9 +224,9 @@
 <script>
 export default {
     computed:{
-/*         operation() {
+       operation() {
         return this.$store.getters['operationsStore/operation'];
-        } */
+        } 
     },
     data() {
         return {
@@ -238,28 +238,7 @@ export default {
             expandedBackReaming: false,
             expandedRotatingOffBottom: false,
             checked: false,
-            isTrippingInChecked: false,
-            trippingInSpeed : null,
-            trippingInRPM : null,
-            isTrippingOutChecked : false,
-            trippingOutSpeed : null,
-            trippingOutRPM : null,
-            isRotatingOnBottomChecked : false,
-            isSlideDrillingChecked : false,
-            weightOnBit : null,
-            torqueAtBit : null,
-            isBackReamingChecked: false,
-            isRotatingOffBottomChecked : false,
             isUserDefinedOperationsChecked : false,
-            isHookLoad : false,
-            isWeightOnBit : false,
-            isIDHMTrippingInChecked : false,
-            weightOnBitIDHM : null,
-            hookLoadIDHM : null,
-            isIDHMTrippingOutChecked: false,
-            isIDHMRotatingChecked : false,
-            tripSpeedBackReam: null,
-            tripRPMBackReam: null
         }
     },
     methods:{
@@ -270,7 +249,8 @@ export default {
             this.$store.dispatch('operationsStore/PostOperation', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                operation: {
+                operation: context.operation
+                /* operation: {
                     isTrippingInChecked: context.isTrippingInChecked,
                     trippingInSpeed : parseFloat(context.trippingInSpeed),
                     trippingInRPM : parseFloat(context.trippingInRPM),
@@ -294,7 +274,7 @@ export default {
                     tripSpeedBackReam : parseFloat(context.tripSpeedBackReam),
                     tripRPMBackReam : parseFloat(context.tripRPMBackReam),
                     designId: selectedTorqueDragDesign.id
-                }
+                } */
             });
 
         }
@@ -309,8 +289,8 @@ export default {
       this.$store.dispatch('operationsStore/GetOperation', payload);
       var tabCaption = "Operational Parameters";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
-      var context =  this;
-      var operation = this.$store.getters['operationsStore/operation'];
+      //var context =  this;
+      /* var operation = this.$store.getters['operationsStore/operation'];
 
             isTrippingInChecked = operation.isTrippingInChecked
             context.trippingInSpeed = operation.trippingInSpeed
@@ -331,7 +311,7 @@ export default {
             context.weightOnBitIDHM = operation.weightOnBitIDHM
             context.hookLoadIDHM = operation.hookLoadIDHM
             context.isIDHMTrippingOutChecked = operation.isIDHMTrippingOutChecked
-            context.isIDHMRotatingChecked = operation.isIDHMRotatingChecked
+            context.isIDHMRotatingChecked = operation.isIDHMRotatingChecked */
   }
 }
 </script>
