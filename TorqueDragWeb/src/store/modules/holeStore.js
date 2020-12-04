@@ -47,7 +47,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('HoleSections/GetHoleSections', payload, config)
+       $http.get('HoleSections/GetHoleSections/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetHoleSections', response.data)              

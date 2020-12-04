@@ -227,16 +227,14 @@ const actions = {
     {
       let config = {
         headers: {
-          tenantcode: payload.companyName,
+          tenantcode: payload.identity.companyName,
         }
       }
 
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload);
-         $http.post('TorqueDragDesigns/GetTorqueDragDesigns',  {
-          companyName: payload
-         }, config)
+         $http.get('TorqueDragDesigns/GetTorqueDragDesigns', config)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)

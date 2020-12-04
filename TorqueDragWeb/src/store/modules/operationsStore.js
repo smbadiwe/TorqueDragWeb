@@ -52,7 +52,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Operations/GetOperation', payload, config)
+       $http.get('Operations/GetOperation/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetOperation', response.data)              

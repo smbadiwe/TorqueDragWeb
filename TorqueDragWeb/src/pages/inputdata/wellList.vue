@@ -110,37 +110,13 @@ export default {
     }
   },
   created() {
-      var context = this;
+      /* var context = this;
       var companyName = this.$store.getters['authStore/companyName'];
       var torqueDragDesigns = this.$store.getters['wellDesignStore/torqueDragDesigns'];
       var SelectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyName)
-
-   /*    var nlength= Object.keys(SelectedTorqueDragDesign).length;
-      console.log("nlength: ", nlength)
-      var i = 0;
-      var nCount = torqueDragDesigns.length;
-      console.log("nCount: ", nCount)
-      context.selected = null
-
-    if(nCount == 0){
-      this.$store.dispatch('wellDesignStore/GetTorqueDragDesigns', companyDBConnectionString)
-    }else{
-
-      if(nlength > 0){
-        for(i = 0; i < nCount; i++){
-          if(SelectedTorqueDragDesign.designId == torqueDragDesigns[i].id){
-            context.selected = torqueDragDesigns[i].designName
-            console.log("selected: ", context.selected);
-          }
-        }
-      }else{
-        SelectedTorqueDragDesign = torqueDragDesigns[0];
-        context.selected = torqueDragDesigns[0].designName;
-        console.log("SelectedTorqueDragDesign.id: ", SelectedTorqueDragDesign.id);
-            console.log("selected: ", context.selected);
-      }
-    } */
+    
+     */
 
    }
 }

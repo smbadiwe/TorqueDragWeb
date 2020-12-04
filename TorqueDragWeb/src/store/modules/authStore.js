@@ -76,7 +76,8 @@ const actions = {
          $http.post('Authentications/Login', payload)
           .then(response => {
               
-            context.commit('Login', response.data)              
+            context.commit('Login', response.data) 
+            context.dispatch('wellDesignStore/GetTorqueDragDesigns',  response.data, {root:true})             
               resolve(response)
               
           })

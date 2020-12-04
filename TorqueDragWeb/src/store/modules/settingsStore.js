@@ -113,7 +113,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       
-       $http.post('Commons/GetCommon', payload, config)
+       $http.get('Commons/GetCommon/'+ payload.designId, config)
         .then(response => {
             
           context.commit('GetCommon', response.data)              

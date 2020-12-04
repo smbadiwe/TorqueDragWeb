@@ -72,7 +72,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('DeviationSurveys/GetDeviationSurveys', payload, config)
+       $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetDeviationSurveys', response.data)              

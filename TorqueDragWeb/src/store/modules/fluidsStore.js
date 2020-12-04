@@ -62,7 +62,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Fluids/GetFluid', payload, config)
+       $http.get('Fluids/GetFluid/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetFluid', response.data);
@@ -87,7 +87,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('MudPVTs/GetMudPVTs', payload, config)
+       $http.get('MudPVTs/GetMudPVTs/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetMudPVTs', response.data);              

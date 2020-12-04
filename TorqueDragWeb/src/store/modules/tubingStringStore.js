@@ -99,7 +99,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/GetPipes', payload, config)
+       $http.get('Pipes/GetPipes/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetPipes', response.data)              

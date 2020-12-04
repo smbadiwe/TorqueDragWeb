@@ -94,7 +94,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.post('Datums/GetDatums', payload, config)
+       $http.get('Datums/GetDatums/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetDatums', response.data)              
