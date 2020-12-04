@@ -1,7 +1,11 @@
 import { $http } from 'boot/axios' 
 
 const state = {
-    PipeCalculatedVariables: [],
+  trippingInResults: [],
+  trippingOutResults: [],
+  drillingResults: [],
+  slideDrillingResults: [],
+  backReamingResults: [],
     visible: false,
     showSimulatedReturnData: true,
     schematicDTO: {},
@@ -17,8 +21,20 @@ const state = {
     yMax(state){
       return state.yMax;
     },
-    PipeCalculatedVariables(state){
-      return state.PipeCalculatedVariables;
+    trippingInResults(state){
+      return state.trippingInResults;
+    },
+    trippingOutResults(state){
+      return state.trippingOutResults;
+    },
+    drillingResults(state){
+      return state.drillingResults;
+    },
+    slideDrillingResults(state){
+      return state.slideDrillingResults;
+    },
+    backReamingResults(state){
+      return state.backReamingResults;
     },
     visible(state){
         return state.visible;
@@ -34,7 +50,11 @@ const state = {
 const mutations = {
     RunSimulation(state, payload){
     console.log("PipeCalculatedVariables: ", payload)
-    state.PipeCalculatedVariables = payload;
+    state.trippingInResults = payload.trippingInResults;
+    state.trippingOutResults = payload.trippingOutResults;
+    state.drillingResults = payload.drillingResults;
+    state.slideDrillingResults = payload.slideDrillingResults;
+    state.backReamingResults = payload.backReamingResults;
     state.visible = false;
     state.showSimulatedReturnData = true
 

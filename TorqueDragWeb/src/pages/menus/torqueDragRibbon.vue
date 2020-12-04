@@ -25,49 +25,49 @@
                 <div class="row" style="height:100px">
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                         clickable
-                        @click="TrippingInPlots">
+                        @click="effectiveTensionPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_1.jpg">
                         <br/>
-                        Tripping In
+                        Effective Tension
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrippingOutPlots">
+                        @click="normalForcePlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_2.jpg">
                         <br/>
-                        Tripping Out
+                        Normal Force
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="slideDrillingPlots">
+                        @click="hookLoadPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_3.jpg">
                         <br/>
-                        Slide Drilling
+                        Hook Load
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
-                            @click="rotatingOnBottomPlots">
+                            @click="torquePlots">
                             <img
                             class="object-fit-cover"
                             src="~assets/images/well_4.jpg">
                             <br/>
-                            Rotating On Bottom
+                            Torque
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="rotatingOffBottomPlots">
+                        @click="dragPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_5.jpg">
                         <br/>
-                        Rotating Off Bottom
+                        Drag
                     </div>
 
                    
@@ -83,7 +83,7 @@
             <div class="col vl">
                 <div class="row" style="height:100px">
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="EffectiveTension">
+                        @click="TrippingInDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_7.jpg">
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
+                        @click="TrippingOutDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_8.jpg">
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
+                        @click="RotatingOnBottomDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_9.jpg">
@@ -111,7 +111,7 @@
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
                             clickable
-                            @click="EffectiveTension">
+                            @click="SlideDrillingDetails">
                             <img
                             class="object-fit-cover"
                             src="~assets/images/well_10.jpg">
@@ -120,109 +120,23 @@
                     </div>
 
                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
+                        @click="BackReamingDetails">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_11.jpg">
                         <br/>
                         Back reaming
                     </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_12.jpg">
-                        <br/>
-                        Rotating Off Bottom
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_13.jpg">
-                        <br/>
-                        User Defined Operation
-                    </div>
-
                    
                 </div>
                 
                 <div class="row" style="height:20px">
                     <div class="col-12 q-pb-md q-pt-sm text-center">
-                        Stress Plots
+                        Report
                     </div>
                 </div>
             </div>
 
-            <div class="col vl">
-                <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        clickable
-                        @click="TrippingInDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_14.jpg">
-                        <br/>
-                        Tripping In Details
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrippingOutDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_15.jpg">
-                        <br/>
-                        Tripping Out Details
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_16.jpg">
-                        <br/>
-                        Rotating on Bottom Details
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                            clickable
-                            @click="EffectiveTension">
-                            <img
-                            class="object-fit-cover"
-                            src="~assets/images/well_17.jpg">
-                            <br/>
-                            Slide Drilling Details
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="TrueTension">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_18.jpg">
-                        <br/>
-                        Back reaming Details
-                    </div>
-
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        @click="Torque">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_19.jpg">
-                        <br/>
-                        Rotating Off Bottom Details
-                    </div>
-
-                   
-                </div>
-                
-                <div class="row" style="height:20px">
-                    <div class="col-12 q-pb-md q-pt-sm text-center">
-                        Load and Stress Data
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     
@@ -241,34 +155,35 @@ export default {
             });
 
         },
-        TrippingInPlots(){
-            this.$store.commit('dataVisualizationStore/setIsDataVisualization', true);
-            this.$router.push('/chartAreaTorqueDrag');
-        },
-        TrippingOutPlots(){
-            this.$store.commit('dataVisualizationStore/setIsDataVisualization', true);
-            this.$router.push('/chartAreaTorqueDrag');
-        },
-        slideDrillingPlots(){
+        effectiveTensionPlots(){
             this.$router.push('/effectiveTension');
         },
-        rotatingOnBottomPlots(){
-            this.$router.push('/effectiveTension');
+        normalForcePlots(){
+            this.$router.push('/normalForce');
         },
-        rotatingOffBottomPlots(){
-            this.$router.push('/effectiveTension');
+        hookLoadPlots(){
+            this.$router.push('/hookLoad');
         },
-        TrueTension(){
-            console.log("TrueTension");
+        torquePlots(){
+            this.$router.push('/torque');
         },
-        Torque(){
-            console.log("Torque");
+        dragPlots(){
+            this.$router.push('/drag');
         },
         TrippingInDetails(){
-            
+            this.$router.push('/trippingOutResults');
         },
         TrippingOutDetails(){
-            this.$router.push('/TrippingOutDetails');
+            this.$router.push('/trippingOutResults');
+        },
+        RotatingOnBottomDetails(){
+            this.$router.push('/rotatingOnBottomResults');
+        },
+        SlideDrillingDetails(){
+            this.$router.push('/slideDrillingResults');
+        },
+        BackReamingDetails(){
+            this.$router.push('/backReamingResults');
         }
     }
 }

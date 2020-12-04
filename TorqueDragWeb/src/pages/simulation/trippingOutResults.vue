@@ -14,7 +14,7 @@
             <div class="col-12 q-pa-sm">
                 <q-table
                     class="my-sticky-header-table"  
-                    :data="PipeCalculatedVariables" 
+                    :data="trippingOutResults" 
                     :columns="columns" 
                     row-key="name"
                     flat
@@ -38,16 +38,33 @@
                             <q-td key="topAzimuth" :props="props">{{ props.row.topAzimuth }}</q-td>
                             <q-td key="bottomAzimuth" :props="props">{{ props.row.bottomAzimuth }}</q-td>
                             <q-td key="dogLegSeverity" :props="props">{{ props.row.dogLegSeverity }}</q-td>
-                            <q-td key="tensionBottomOfPipeTripOut" :props="props">{{ props.row.tensionBottomOfPipeTripOut }}</q-td>
+                            <q-td key="tensionBottomOfPipe" :props="props">{{ props.row.tensionBottomOfPipe }}</q-td>
                             <q-td key="normalForce" :props="props">{{ props.row.normalForce }}</q-td>
-                            <q-td key="changeIntensionTripOut" :props="props">{{ props.row.changeIntensionTripOut }}</q-td>
-                            <q-td key="tensionTopOfPipeTripOut" :props="props">{{ props.row.tensionTopOfPipeTripOut }}</q-td>
-                            <q-td key="dragForce" :props="props">{{ props.row.dragForce }}</q-td>
+                            <q-td key="tensionTopOfPipe" :props="props">{{ props.row.tensionTopOfPipe }}</q-td>
                             <q-td key="totalDrag" :props="props">{{ props.row.totalDrag }}</q-td>
-                            <q-td key="trippinOutHookeLoadAtJoint" :props="props">{{ props.row.trippinOutHookeLoadAtJoint }}</q-td>
-                            <q-td key="torqueBottomTripOut" :props="props">{{ props.row.torqueBottomTripOut }}</q-td>
-                            <q-td key="torqueChangeTripOut" :props="props">{{ props.row.torqueChangeTripOut }}</q-td>
-                            <q-td key="torqueTopTripInOut" :props="props">{{ props.row.torqueTopTripInOut }}</q-td>
+                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.HookeLoadAtJoint }}</q-td>
+                            <q-td key="torqueBottom" :props="props">{{ props.row.torqueBottom }}</q-td>
+                            <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
+                            <q-td v-if="props.row.isSinusoidalBuckling"
+                            style="background:orange;"
+                             key="isSinusoidalBuckling" 
+                             :props="props"></q-td>
+                             <q-td v-else
+                            style="background:white;"
+                             key="isSinusoidalBuckling" 
+                             :props="props"></q-td>
+                             <q-td v-if="props.row.isHelicalBuckling"
+                            style="background:red;"
+                             key="isHelicalBuckling" 
+                             :props="props"></q-td>
+                             <q-td v-else
+                            style="background:white;"
+                             key="isHelicalBuckling" 
+                             :props="props"></q-td>
+                            <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
+                            <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
+                            <q-td key="criticalSinusoidalBuckling" :props="props">{{ props.row.criticalSinusoidalBuckling }}</q-td>
+                            <q-td key="criticalHelicalBuckling" :props="props">{{ props.row.criticalHelicalBuckling }}</q-td>
                         </q-tr>
                         </template>
                 </q-table>
@@ -59,8 +76,8 @@
 <script>
 export default {
     computed:{
-        PipeCalculatedVariables() {
-        return this.$store.getters['simulationStore/PipeCalculatedVariables'];
+        trippingOutResults() {
+        return this.$store.getters['simulationStore/trippingOutResults'];
         }
     },
     data () {
@@ -80,16 +97,18 @@ export default {
             { name: "topAzimuth", label: "Top Azimuth (rad)", field: "", align: "left" },
             { name: "bottomAzimuth", label: "Bottom Azimuth (rad)", field: "", align: "left" },
             { name: "dogLegSeverity", label: "DogLeg Severity", field: "", align: "left" },
-            { name: "tensionBottomOfPipeTripOut", label: "Bottom Tension (Ib)", field: "", align: "left" },
+            { name: "tensionBottomOfPipe", label: "Bottom Tension (Ib)", field: "", align: "left" },
             { name: "normalForce", label: "Normal Force (Ib)", field: "", align: "left" },
-            { name: "changeIntensionTripOut", label: "Tension Increment (Ib)", field: "", align: "left" },
-            { name: "tensionTopOfPipeTripOut", label: "Top Tension (Ib)", field: "", align: "left" },
-            { name: "dragForce", label: "Drag Force Increment (Ib)", field: "", align: "left" },
+            { name: "tensionTopOfPipe", label: "Top Tension (Ib)", field: "", align: "left" },
             { name: "totalDrag", label: "Drag Force (Ib)", field: "", align: "left" },
-            { name: "trippinOutHookeLoadAtJoint", label: "Hook Load (Ib)", field: "", align: "left" },
-            { name: "torqueBottomTripOut", label: "Bottom Torque (Ib)", field: "", align: "left" },
-            { name: "torqueChangeTripOut", label: "Torque Increment (Ib)", field: "", align: "left" },
-            { name: "torqueTopTripInOut", label: "Top Torque (Ib)", field: "", align: "left" }
+            { name: "HookeLoadAtJoint", label: "Hook Load (Ib)", field: "", align: "left" },
+            { name: "torqueBottom", label: "Bottom Torque (Ib)", field: "", align: "left" },
+            { name: "torqueTop", label: "Top Torque (Ib)", field: "", align: "left" },
+            { name: "isSinusoidalBuckling", label: "isSinusoidalBuckling", field: "", align: "left" },
+            { name: "isHelicalBuckling", label: "isHelicalBuckling", field: "", align: "left" },
+            { name: "criticalInclinationAngle", label: "critical Inc. (rad)", field: "", align: "left" },
+            { name: "criticalSinusoidalBuckling", label: "Sinusoidal Buckling (Ib)", field: "", align: "left" },
+            { name: "criticalHelicalBuckling", label: "Helical Buckling (Ib)", field: "", align: "left" }
         ]
     }
   },

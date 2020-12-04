@@ -110,19 +110,19 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = trippingInResults[i].bottomMeasuredDepth;
 
-				context.trippingIn.x.push(trippingInResults[i].tensionTopOfPipe/M);
+				context.trippingIn.x.push(trippingInResults[i].totalDrag/M);
 				context.trippingIn.y.push(md);
 
-				context.trippingOut.x.push(trippingOutResults[i].tensionTopOfPipe/M);
+				context.trippingOut.x.push(trippingOutResults[i].totalDrag/M);
 				context.trippingOut.y.push(md);
 
-				context.rotatingOnBottom.x.push(drillingResults[i].tensionTopOfPipe/M);
+				context.rotatingOnBottom.x.push(drillingResults[i].totalDrag/M);
 				context.rotatingOnBottom.y.push(md);
 
-				context.slideDrilling.x.push(slideDrillingResults[i].tensionTopOfPipe/M);
+				context.slideDrilling.x.push(slideDrillingResults[i].totalDrag/M);
 				context.slideDrilling.y.push(md);
 
-				context.backReaming.x.push(backReamingResults[i].tensionTopOfPipe/M);
+				context.backReaming.x.push(backReamingResults[i].totalDrag/M);
 				context.backReaming.y.push(md);
 			}
 			//console.log("x: ", context.trippingIn.x);
@@ -130,9 +130,9 @@ export default {
 			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
 			var layout = { 
 				showlegend: true,
-				title: 'Effective Tension Plot',
+				title: 'Drag Plot',
 				xaxis: {
-					title: 'Effective Tension (Klb)',
+					title: 'Drag (Klb)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,

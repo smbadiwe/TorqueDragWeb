@@ -7,9 +7,17 @@ import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
 import simulationConsole from 'pages/simulation/simulationConsole.vue'
-import t_d_results from 'pages/simulation/t_d_results.vue'
+import trippingInResults from 'pages/simulation/trippingInResults.vue'
+import trippingOutResults from 'pages/simulation/trippingOutResults.vue'
+import rotatingOnBottomResults from 'pages/simulation/rotatingOnBottomResults.vue'
+import slideDrillingResults from 'pages/simulation/slideDrillingResults.vue'
+import backReamingResults from 'pages/simulation/backReamingResults.vue'
 import schematic from 'pages/wellSchematics/schematic.vue'
 import effectiveTension from 'pages/fixedDepthPlots/effectiveTension.vue'
+import normalForce from 'pages/fixedDepthPlots/normalForce.vue'
+import hookLoad from 'pages/fixedDepthPlots/hookLoad.vue'
+import torque from 'pages/fixedDepthPlots/torque.vue'
+import drag from  'pages/fixedDepthPlots/drag.vue'
 import schematicView from 'pages/wellSchematics/schematicView.vue'
 import chartAreaTorqueDrag from 'pages/dataVisualization/TorqueDrag/chartArea.vue'
 
@@ -61,8 +69,24 @@ const routes = [
         component: simulationConsole
       },
       { 
-        path: '/TrippingOutDetails', 
-        component: t_d_results
+        path: '/trippingInResults', 
+        component: trippingInResults
+      },
+      { 
+        path: '/trippingOutResults', 
+        component: trippingOutResults
+      },
+      { 
+        path: '/rotatingOnBottomResults', 
+        component: rotatingOnBottomResults
+      },
+      { 
+        path: '/slideDrillingResults', 
+        component: slideDrillingResults
+      },
+      { 
+        path: '/backReamingResults', 
+        component: backReamingResults
       },
       {
         path: '/schematic',
@@ -72,6 +96,22 @@ const routes = [
         path: '/effectiveTension', 
         component: effectiveTension
       },
+      { 
+        path: '/normalForce', 
+        component: normalForce
+      },
+      { 
+        path: '/hookLoad', 
+        component: hookLoad
+      },
+      { 
+        path: '/torque', 
+        component: torque
+      }, 
+      { 
+        path: '/drag', 
+        component: drag
+      },      
       {
         path: '/schematicView',
         component: schematicView
