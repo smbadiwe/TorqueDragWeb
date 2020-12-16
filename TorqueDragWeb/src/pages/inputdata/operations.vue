@@ -179,7 +179,7 @@
 
                                     <div class="row">
                                         <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="isRotatingOffBottomChecked">
+                                            <input type="checkbox" id="checkbox">
                                             <label for="checkbox"> Rotating Off Bottom </label>
                                             <br>
                                             <hr/>
@@ -280,15 +280,22 @@ export default {
         }
     },
     created(){
-      var Conn = this.$store.getters['authStore/companyName'];
+     var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-      var payload = {
-          companyName: Conn,
-          designId: selectedTorqueDragDesign.id
+       var keys = Object.keys(selectedTorqueDragDesign);
+      var length = keys.length;
+      if(length > 0){
+        var payload = {
+        companyName: Conn,
+        designId: selectedTorqueDragDesign.id
+        }
+        this.$store.dispatch('operationsStore/GetOperation', payload);
+        var tabCaption = "Operational Parameters";
+        this.$store.commit('settingsStore/GetTabCaption', tabCaption);
       }
-      this.$store.dispatch('operationsStore/GetOperation', payload);
-      var tabCaption = "Operational Parameters";
-      this.$store.commit('settingsStore/GetTabCaption', tabCaption);
+
+
+
       //var context =  this;
       /* var operation = this.$store.getters['operationsStore/operation'];
 

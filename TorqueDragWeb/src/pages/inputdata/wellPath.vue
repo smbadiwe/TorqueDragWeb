@@ -65,6 +65,11 @@
                         <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
                         <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
                         <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
+                        <q-td key="trueVerticalDepth" :props="props">{{ props.row.trueVerticalDepth }}</q-td>
+                        <q-td key="northSouth" :props="props">{{ props.row.northSouth }}</q-td>
+                        <q-td key="eastWest" :props="props">{{ props.row.eastWest }}</q-td>
+                        <q-td key="verticalSection" :props="props">{{ props.row.verticalSection }}</q-td>
+                        <q-td key="verticalSection" :props="props">{{ props.row.doglegSeverity }}</q-td>
                     </q-tr>
                     </template>
                 </q-table>
@@ -92,9 +97,14 @@ export default {
         return {
         separator: 'cell',
         columns: [
-            { name: "measuredDepth", label: "MD (ft)", field: "", align: "left" },
-            { name: "inclination", label: "Inc (deg)", field: "", align: "left" },
-            { name: "azimuth", label: "Azi (deg)", field: "", align: "left" }
+            { name: "measuredDepth", label: "Measured Depth (ft)", field: "", align: "left" },
+            { name: "inclination", label: "Inclination (deg)", field: "", align: "left" },
+            { name: "azimuth", label: "Azimuth (deg)", field: "", align: "left" },
+            { name: "trueVerticalDepth", label: "True Vertical Depth (ft)", field: "", align: "left" },
+            { name: "northSouth", label: "North/South (ft)", field: "", align: "left" },
+            { name: "eastWest", label: "East/West (ft)", field: "", align: "left" },
+            { name: "verticalSection", label: "Vertical Section (ft)", field: "", align: "left" },
+            { name: "doglegSeverity", label: "Dogleg Severity (rad/100)", field: "", align: "left" }
         ]
     }
   },
@@ -122,7 +132,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.my-sticky-header-table{
+    /* height or max-height is important */
+  height: 500px;
+}
     
 </style>

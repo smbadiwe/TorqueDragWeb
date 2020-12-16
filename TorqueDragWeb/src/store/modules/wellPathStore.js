@@ -1,4 +1,5 @@
 import { $http } from 'boot/axios' 
+import { devCalcParams } from 'boot/devSurveyManager'
 
 const state = {
     deviationSurveys:[],
@@ -39,6 +40,8 @@ const actions = {
 
     state.deviationSurveys = [];
     state.deviationSurveys = payload.deviationSurveys;
+    devCalcParams.calculateDevParams(state.deviationSurveys);
+    state.deviationSurveys = devCalcParams.deviationSurveys;
 
     return new Promise((resolve, reject) => {
   
@@ -66,7 +69,7 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
-
+    
     state.deviationSurveys = [];
 
     return new Promise((resolve, reject) => {
@@ -74,6 +77,10 @@ const actions = {
 
        $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
         .then(response => {
+
+          console.log("response.data:", response.data)
+          devCalcParams.calculateDevParams(response.data)
+          console.log("DevCalcParams.DevParams: ", devCalcParams.deviationSurveys)
             
           context.commit('GetDeviationSurveys', response.data)              
             resolve(response)

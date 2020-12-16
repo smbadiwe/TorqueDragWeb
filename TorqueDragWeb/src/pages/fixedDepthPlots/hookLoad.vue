@@ -146,8 +146,8 @@ export default {
 				context.backReaming.y.push(md);
 			}
 
-			console.log("x: ", context.trippingIn.x);
-			console.log("y: ", context.trippingIn.y);
+			//console.log("x: ", context.trippingIn.x);
+			//console.log("y: ", context.trippingIn.y);
 			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
 			var layout = { 
 				showlegend: true,

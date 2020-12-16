@@ -45,22 +45,6 @@
                             <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.HookeLoadAtJoint }}</q-td>
                             <q-td key="torqueBottom" :props="props">{{ props.row.torqueBottom }}</q-td>
                             <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
-                            <q-td v-if="props.row.isSinusoidalBuckling"
-                            style="background:orange;"
-                             key="isSinusoidalBuckling" 
-                             :props="props"></q-td>
-                             <q-td v-else
-                            style="background:white;"
-                             key="isSinusoidalBuckling" 
-                             :props="props"></q-td>
-                             <q-td v-if="props.row.isHelicalBuckling"
-                            style="background:red;"
-                             key="isHelicalBuckling" 
-                             :props="props"></q-td>
-                             <q-td v-else
-                            style="background:white;"
-                             key="isHelicalBuckling" 
-                             :props="props"></q-td>
                             <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
                             <q-td key="criticalSinusoidalBuckling" :props="props">{{ props.row.criticalSinusoidalBuckling }}</q-td>
                             <q-td key="criticalHelicalBuckling" :props="props">{{ props.row.criticalHelicalBuckling }}</q-td>
@@ -103,8 +87,6 @@ export default {
             { name: "HookeLoadAtJoint", label: "Hook Load (Ib)", field: "", align: "left" },
             { name: "torqueBottom", label: "Bottom Torque (Ib)", field: "", align: "left" },
             { name: "torqueTop", label: "Top Torque (Ib)", field: "", align: "left" },
-            { name: "isSinusoidalBuckling", label: "isSinusoidalBuckling", field: "", align: "left" },
-            { name: "isHelicalBuckling", label: "isHelicalBuckling", field: "", align: "left" },
             { name: "criticalInclinationAngle", label: "critical Inc. (rad)", field: "", align: "left" },
             { name: "criticalSinusoidalBuckling", label: "Sinusoidal Buckling (Ib)", field: "", align: "left" },
             { name: "criticalHelicalBuckling", label: "Helical Buckling (Ib)", field: "", align: "left" }

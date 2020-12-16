@@ -266,3 +266,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.my-sticky-header-table{
+    /* height or max-height is important */
+  height: 500px;
+}
+    
+</style>

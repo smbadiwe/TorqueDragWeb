@@ -145,8 +145,16 @@ export default {
 				context.backReaming.x.push(backReamingResults[i].tensionTopOfPipe/M);
 				context.backReaming.y.push(md);
 			}
-			//console.log("x: ", context.trippingIn.x);
-			//console.log("y: ", context.trippingIn.y);
+			/* console.log("trippingIn.x: ", context.trippingIn.x);
+
+			console.log("trippingOut.x: ", context.trippingOut.x);
+
+			console.log("rotatingOnBottom.x: ", context.rotatingOnBottom.x);
+
+			console.log("trippingOut.x: ", context.slideDrilling.x);
+
+			console.log("trippingOut.x: ", context.backReaming.x); */
+
 			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
 			var layout = { 
 				showlegend: true,
@@ -210,6 +218,6 @@ export default {
         var context = this;
 		context.createChart();
 		
-        }
+    }
 }
 </script>
