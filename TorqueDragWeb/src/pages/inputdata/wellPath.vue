@@ -1,81 +1,86 @@
 <template>
-    <div>   
-        <div class="row">
-            <div class="col-12 q-pa-sm">
-                Vertical Section Definition
-                <br>
-                <hr/>
-           </div>
-
-            <div class="col-6 q-pa-sm">
-                Origin N: 
-            </div>
-            <div class="col-6 q-pa-sm">
-                0.00 ft 
+    <div> 
+        <q-scroll-area
+            :visible="visible"
+        style="height: 700px; width: 240px"
+        > 
+            <div class="row" id="wellpathpage">
+                <div class="col-12 q-pa-sm">
+                    Vertical Section Definition
+                    <br>
+                    <hr/>
             </div>
 
-             <div class="col-6 q-pa-sm">
-                Origin E: 
-            </div>
-            <div class="col-6 q-pa-sm">
-                0.00 ft 
-            </div>
+                <div class="col-6 q-pa-sm">
+                    Origin N: 
+                </div>
+                <div class="col-6 q-pa-sm">
+                    0.00 ft 
+                </div>
 
-             <div class="col-6 q-pa-sm">
-                Azimuth:
-            </div>
-            <div class="col-6 q-pa-sm">
-                142.69 degrees 
-            </div>
+                <div class="col-6 q-pa-sm">
+                    Origin E: 
+                </div>
+                <div class="col-6 q-pa-sm">
+                    0.00 ft 
+                </div>
 
-            <div class="col-12 q-pa-sm">
-                <hr/>
-           </div>
+                <div class="col-6 q-pa-sm">
+                    Azimuth:
+                </div>
+                <div class="col-6 q-pa-sm">
+                    142.69 degrees 
+                </div>
 
-            <div class="row" style="height:40px"></div>
-
-            <div class="col-12 q-pa-sm"> 
-                <q-btn 
-                    size="sm"
-                    label="Import"
-                    @click="updateIsImportDialogVisible">
-                </q-btn>
-
-                <q-dialog v-model="isImportDialogVisible" class="bg-accent">
-                    <div class="q-pa-sm bg-accent">
-                        <msExcelImport-app></msExcelImport-app>
-                    </div>
-                </q-dialog>
+                <div class="col-12 q-pa-sm">
+                    <hr/>
             </div>
 
-            <div class="col-12 q-pa-sm"> 
-                <q-table
-                class="my-sticky-header-table"
-                :data="deviationSurveys" 
-                :columns="columns" 
-                row-key="name" 
-                flat
-                bordered
-                :separator="separator">
+                <div class="row" style="height:40px"></div>
+
+                <div class="col-12 q-pa-sm"> 
+                    <q-btn 
+                        size="sm"
+                        label="Import"
+                        @click="updateIsImportDialogVisible">
+                    </q-btn>
+
+                    <q-dialog v-model="isImportDialogVisible" class="bg-accent">
+                        <div class="q-pa-sm bg-accent">
+                            <msExcelImport-app></msExcelImport-app>
+                        </div>
+                    </q-dialog>
+                </div>
+
+                <div class="col-12 q-pa-sm"> 
+                    <q-table
+                    class="my-sticky-header-table"
+                    :data="deviationSurveys" 
+                    :columns="columns" 
+                    row-key="name" 
+                    flat
+                    bordered
+                    :separator="separator">
 
 
-                <template v-slot:body="props">
-                    <q-tr
-                    :props="props">
-                        <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
-                        <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
-                        <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
-                        <q-td key="trueVerticalDepth" :props="props">{{ props.row.trueVerticalDepth }}</q-td>
-                        <q-td key="northSouth" :props="props">{{ props.row.northSouth }}</q-td>
-                        <q-td key="eastWest" :props="props">{{ props.row.eastWest }}</q-td>
-                        <q-td key="verticalSection" :props="props">{{ props.row.verticalSection }}</q-td>
-                        <q-td key="verticalSection" :props="props">{{ props.row.doglegSeverity }}</q-td>
-                    </q-tr>
-                    </template>
-                </q-table>
+                    <template v-slot:body="props">
+                        <q-tr
+                        :props="props">
+                            <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
+                            <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
+                            <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
+                            <q-td key="trueVerticalDepth" :props="props">{{ props.row.trueVerticalDepth }}</q-td>
+                            <q-td key="northSouth" :props="props">{{ props.row.northSouth }}</q-td>
+                            <q-td key="eastWest" :props="props">{{ props.row.eastWest }}</q-td>
+                            <q-td key="verticalSection" :props="props">{{ props.row.verticalSection }}</q-td>
+                            <q-td key="verticalSection" :props="props">{{ props.row.doglegSeverity }}</q-td>
+                        </q-tr>
+                        </template>
+                    </q-table>
+                </div>
+
             </div>
-
-        </div>
+        </q-scroll-area>
     </div>
 </template>
 
@@ -105,7 +110,8 @@ export default {
             { name: "eastWest", label: "East/West (ft)", field: "", align: "left" },
             { name: "verticalSection", label: "Vertical Section (ft)", field: "", align: "left" },
             { name: "doglegSeverity", label: "Dogleg Severity (rad/100)", field: "", align: "left" }
-        ]
+        ],
+         visible: true
     }
   },
   methods: {
@@ -134,8 +140,20 @@ export default {
 
 <style scoped>
 .my-sticky-header-table{
-    /* height or max-height is important */
-  height: 500px;
+   /* height or max-height is important */
+  height: 350px;
+  background-color: rgba(20,20,20,1);
+  top: 48px
+}
+
+
+#wellpathpage {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
 }
     
 </style>

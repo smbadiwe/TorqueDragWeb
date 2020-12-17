@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <div id="rigpage">
+        <q-scroll-area
+            :visible="visible"
+            style="height: 700px; width: 240px"
+            > 
         <div class="row q-pa-sm">
             <div class="col-12">
             Mechanical Limits
@@ -50,6 +54,7 @@
             </div>
     
         </div>
+        </q-scroll-area>
     </div>
 </template>
 
@@ -58,7 +63,8 @@ export default {
     data() {
         return {
             isBlockRating: true,
-            isTorqueRating: true
+            isTorqueRating: true,
+            visible: TextTrackCue
         }
     },
     created(){
@@ -67,3 +73,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+#rigpage {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
+}
+
+</style>

@@ -1,45 +1,30 @@
 <template>
     <div id="Menu_Tab">
-        <svg class="Rectangle_Page">
-            <rect id="Rectangle_Page" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
-            </rect>
-        </svg>
-        <svg class="Rectangle_78">
-            <rect id="Rectangle_78" rx="0" ry="0" x="0" y="0" width="34" height="900">
-            </rect>
-        </svg>
-        <svg class="Rectangle_75">
-            <rect id="Rectangle_75" rx="0" ry="0" x="0" y="0" width="34" height="900">
-            </rect>
-        </svg>
-        <analysis></analysis>
-        <dataReader></dataReader>
-        <docksite></docksite>
-        <menubar></menubar>
-        <inputviewleft></inputviewleft>
-        <reports></reports>
-
+		<svg class="Rectangle_Page">
+			<rect id="Rectangle_Page" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
+			</rect>
+		</svg>
+		<menubar></menubar>
+		<inputviewleft></inputviewleft>
+		<router-view />
+		<inputviewright></inputviewright>
 
     </div>
 </template>
 
 <script>
-import analysis from 'components/uiComponents/analysis.vue';
-import dataReader from 'components/uiComponents/dataReader.vue';
+
 import docksite from 'components/uiComponents/docksite.vue';
 import menubar from 'components/uiComponents/menubar.vue';
 import inputviewleft from 'components/uiComponents/inputviewleft.vue';
-import reports from 'components/uiComponents/reports.vue';
 import inputviewright from 'components/uiComponents/inputviewright.vue';
 
 export default {
     components: { 
-       analysis,
-       dataReader,
+
        docksite,
        menubar,
        inputviewleft,
-	  reports,
 	  inputviewright
       }
     
@@ -101,18 +86,7 @@ export default {
 	left: 0px;
 	top: 0px;
 }
-#Rectangle_78 {
-	fill: rgba(20,20,20,1);
-}
-.Rectangle_78 {
-	position: absolute;
-	overflow: visible;
-	width: 34px;
-	height: 900px;
-	left: 1885px;
-	top: 180px;
-}
-#Rectangle_75 {
+/* #Rectangle_75 {
 	fill: rgba(20,20,20,1);
 }
 .Rectangle_75 {
@@ -122,8 +96,9 @@ export default {
 	height: 900px;
 	left: 2px;
 	top: 180px;
-}
-#Component_53__2 {
+} */
+
+/* #Component_53__2 {
 	position: absolute;
 	width: 297.333px;
 	height: 394px;
@@ -181,8 +156,9 @@ export default {
 	font-weight: lighter;
 	font-size: 18px;
 	color: rgba(214,214,214,1);
-}
-#Component_53__12 {
+} */
+
+/* #Component_53__12 {
 	position: absolute;
 	width: 293.333px;
 	height: 34px;
@@ -223,8 +199,9 @@ export default {
 	font-weight: lighter;
 	font-size: 18px;
 	color: rgba(214,214,214,1);
-}
-#Group_24 {
+} */
+
+/* #Group_24 {
 	position: absolute;
 	width: 1325.667px;
 	height: 877px;
@@ -566,8 +543,9 @@ export default {
 	height: 34px;
 	left: 0px;
 	top: 0px;
-}
-#Top_Rectangle {
+} */
+
+/* #Top_Rectangle {
 	position: absolute;
 	width: 1920px;
 	height: 139px;
@@ -1303,7 +1281,7 @@ export default {
 	left: 3.346px;
 	top: 0px;
 	transform: matrix(1,0,0,1,0,0);
-}
+} */
 
 /* #Component_53__1 {
 	position: absolute;
@@ -1883,7 +1861,7 @@ export default {
 	color: rgba(214,214,214,1);
 } */
 
-#Rectangle_76 {
+/* #Rectangle_76 {
 	opacity: 0.25;
 	fill: rgba(2,0,17,1);
 }
@@ -2028,8 +2006,9 @@ export default {
 	font-weight: lighter;
 	font-size: 18px;
 	color: rgba(214,214,214,1);
-}
-#Component_39__1 {
+} */
+
+/* #Component_39__1 {
 	position: absolute;
 	width: 70px;
 	height: 28px;
@@ -2100,8 +2079,9 @@ export default {
 	left: 0.809px;
 	top: 5.25px;
 	transform: matrix(1,0,0,1,0,0);
-}
-#Icon_feather-save_fv {
+} */
+
+/* #Icon_feather-save_fv {
 	position: absolute;
 	width: 21.4px;
 	height: 21.4px;
@@ -2162,8 +2142,8 @@ export default {
 	left: 4.756px;
 	top: 0px;
 	transform: matrix(1,0,0,1,0,0);
-}
-#menu-down {
+} */
+/* #menu-down {
 	position: absolute;
 	width: 30px;
 	height: 29px;
@@ -2254,8 +2234,9 @@ export default {
 	left: 0px;
 	top: 11.637px;
 	transform: matrix(1,0,0,1,0,0);
-}
-#Component_53__3 {
+} */
+
+/* #Component_53__3 {
 	position: absolute;
 	width: 20.5px;
 	height: 21.5px;
@@ -2297,8 +2278,9 @@ export default {
 	height: 19px;
 	left: 0px;
 	top: 0px;
-}
-#General_tab_Component_f {
+} */
+
+/* #General_tab_Component_f {
 	position: absolute;
 	width: 151px;
 	height: 42px;
@@ -2352,6 +2334,6 @@ export default {
 	font-weight: normal;
 	font-size: 20px;
 	color: rgba(227,227,227,1);
-}
+} */
 
 </style>

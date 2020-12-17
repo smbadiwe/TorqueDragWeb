@@ -1,5 +1,10 @@
 <template>
-    <div>
+    <div id="tubingstringpage">
+        <q-scroll-area
+            :visible="visible"
+            style="height: 700px; width: 240px"
+            > 
+
                 <div class="row q-pa-sm">
                     <div class="col-3">String name:</div>
                     <div class="col-3">Assembly</div>
@@ -132,6 +137,7 @@
                     </div>
         
             </div>
+        </q-scroll-area>
 
     </div>
 </template>
@@ -232,9 +238,25 @@ export default {
 
 <style scoped>
 
-    .login-input{
+    .my-sticky-header-table{
+    /* height or max-height is important */
+    height: 350px;
+    background-color: rgba(20,20,20,1);
+    top: 48px
+    }
+
+    /* .login-input{
         font-size:14px;
         background-color: white;
-    }
+    } */
+
+    #tubingstringpage {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
+}
 
 </style>

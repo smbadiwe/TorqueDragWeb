@@ -1,223 +1,227 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-12 q-pa-sm text-right"> 
-                    <q-btn 
-                    allign="right"
-                        size="sm"
-                            label="Save"
-                            @click="PostOperation">
-                    </q-btn>
-                </div>
-        </div>
+    <div id="operationspage">
+        <q-scroll-area
+            :visible="visible"
+            style="height: 700px; width: 240px"
+            > 
+            <div class="row">
+                <div class="col-12 q-pa-sm text-right"> 
+                        <q-btn 
+                        allign="right"
+                            size="sm"
+                                label="Save"
+                                @click="PostOperation">
+                        </q-btn>
+                    </div>
+            </div>
 
-        <div class="row" style="height: 450px;">
+            <div class="row" style="height: 450px;">
 
-            <div class="col-12">
-                <q-expansion-item
-                    v-model="expandedTDrmalAnalysis"
-                    dense
-                    dense-toggle
-                    expand-separator
-                    label="T & D Normal Analysis"
-                    class="text-left"
-                    >
+                <div class="col-12">
+                    <q-expansion-item
+                        v-model="expandedTDrmalAnalysis"
+                        dense
+                        dense-toggle
+                        expand-separator
+                        label="T & D Normal Analysis"
+                        class="text-left"
+                        >
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-12">
-                            <q-card class="my-card" flat > 
+                            <div class="col-12">
+                                <q-card class="my-card" flat > 
 
-                                <q-card-section class="bg-primary text-white text-center">
+                                    <q-card-section class="bg-primary text-white text-center">
 
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="operation.isTrippingInChecked">
-                                            <label for="checkbox"> Tripping In </label>
-                                            <br>
-                                            <hr/>
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isTrippingInChecked">
+                                                <label for="checkbox"> Tripping In </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedTrippingIn"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
+
+                                                                <div class="col-3 q-pa-sm">Speed</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.trippingInSpeed"></div>
+                                                                <div class="col-3 q-pa-sm">ft/min</div>
+
+                                                                <div class="col-3 q-pa-sm">RPM</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.trippingInRPM"></div>
+                                                                <div class="col-3 q-pa-sm">rpm</div>
+
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
                                         </div>
+                                
 
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedTrippingIn"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isTrippingOutChecked">
+                                                <label for="checkbox"> Tripping Out </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedTrippingOut"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
 
                                                             <div class="col-3 q-pa-sm">Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingInSpeed"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutSpeed"></div>
                                                             <div class="col-3 q-pa-sm">ft/min</div>
 
                                                             <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingInRPM"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutRPM"></div>
                                                             <div class="col-3 q-pa-sm">rpm</div>
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
 
-                                                    </div>
-                                            </q-expansion-item>
-                                        </div>
-                                    </div>
-                            
-
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="operation.isTrippingOutChecked">
-                                            <label for="checkbox"> Tripping Out </label>
-                                            <br>
-                                            <hr/>
                                         </div>
 
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedTrippingOut"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isRotatingOnBottomChecked">
+                                                <label for="checkbox"> Rotating On Bottom </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
 
-                                                        <div class="col-3 q-pa-sm">Speed</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutSpeed"></div>
-                                                        <div class="col-3 q-pa-sm">ft/min</div>
-
-                                                        <div class="col-3 q-pa-sm">RPM</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutRPM"></div>
-                                                        <div class="col-3 q-pa-sm">rpm</div>
-                                                    </div>
-                                            </q-expansion-item>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="operation.isRotatingOnBottomChecked">
-                                            <label for="checkbox"> Rotating On Bottom </label>
-                                            <br>
-                                            <hr/>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedRotatingOnBottom"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
-
-                                                        <div class="col-3 q-pa-sm">WOB</div>
-                                                        <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBit"></div>
-                                                        <div class="col-3 q-pa-sm">kip/min</div>
-                                                    </div>
-                                            </q-expansion-item>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="operation.isSlideDrillingChecked">
-                                            <label for="checkbox"> Slide Drilling </label>
-                                            <br>
-                                            <hr/>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedSlideDrilling"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedRotatingOnBottom"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
 
                                                             <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBitIDHM"></div>
+                                                            <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBit"></div>
                                                             <div class="col-3 q-pa-sm">kip/min</div>
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
 
-                                                            <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.torqueAtBit"></div>
-                                                            <div class="col-3 q-pa-sm">ft-klbf</div>
-                                                    </div>
-                                            </q-expansion-item>
                                         </div>
 
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isSlideDrillingChecked">
+                                                <label for="checkbox"> Slide Drilling </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
 
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox" v-model="operation.isBackReamingChecked">
-                                            <label for="checkbox"> Back Reaming </label>
-                                            <br>
-                                            <hr/>
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedSlideDrilling"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
+
+                                                                <div class="col-3 q-pa-sm">WOB</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBitIDHM"></div>
+                                                                <div class="col-3 q-pa-sm">kip/min</div>
+
+                                                                <div class="col-3 q-pa-sm">Torque at bit</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.torqueAtBit"></div>
+                                                                <div class="col-3 q-pa-sm">ft-klbf</div>
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
+
                                         </div>
 
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedBackReaming"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isBackReamingChecked">
+                                                <label for="checkbox"> Back Reaming </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
 
-                                                            <div class="col-3 q-pa-sm">Tripping Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.tripSpeedBackReam"></div>
-                                                            <div class="col-3 q-pa-sm">ft/min</div>
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedBackReaming"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
 
-                                                            <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.tripRPMBackReam"></div>
-                                                            <div class="col-3 q-pa-sm">rpm</div>
-                                                    </div>
-                                            </q-expansion-item>
+                                                                <div class="col-3 q-pa-sm">Tripping Speed</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.tripSpeedBackReam"></div>
+                                                                <div class="col-3 q-pa-sm">ft/min</div>
+
+                                                                <div class="col-3 q-pa-sm">RPM</div>
+                                                                <div class="col-6 q-pa-sm"><input v-model="operation.tripRPMBackReam"></div>
+                                                                <div class="col-3 q-pa-sm">rpm</div>
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-12 q-pa-sm text-left">
+                                                <input type="checkbox" id="checkbox">
+                                                <label for="checkbox"> Rotating Off Bottom </label>
+                                                <br>
+                                                <hr/>
+                                            </div>
 
-                                    <div class="row">
-                                        <div class="col-12 q-pa-sm text-left">
-                                            <input type="checkbox" id="checkbox">
-                                            <label for="checkbox"> Rotating Off Bottom </label>
-                                            <br>
-                                            <hr/>
+                                            <div class="col-12">
+                                                <q-expansion-item
+                                                    v-model="expandedRotatingOffBottom"
+                                                    dense
+                                                    dense-toggle
+                                                    expand-separator
+                                                >
+                                                        <div class="row">
+
+                                                                <div class="col-3 q-pa-sm">WOB</div>
+                                                                <div class="col-6 q-pa-sm"><input></div>
+                                                                <div class="col-3 q-pa-sm">kip/min</div>
+
+                                                                <div class="col-3 q-pa-sm">Torque at bit</div>
+                                                                <div class="col-6 q-pa-sm"><input></div>
+                                                                <div class="col-3 q-pa-sm">ft-lbf</div>
+                                                        </div>
+                                                </q-expansion-item>
+                                            </div>
+
                                         </div>
 
-                                        <div class="col-12">
-                                            <q-expansion-item
-                                                v-model="expandedRotatingOffBottom"
-                                                dense
-                                                dense-toggle
-                                                expand-separator
-                                            >
-                                                    <div class="row">
+                                    </q-card-section>
 
-                                                            <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input></div>
-                                                            <div class="col-3 q-pa-sm">kip/min</div>
-
-                                                            <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                            <div class="col-6 q-pa-sm"><input></div>
-                                                            <div class="col-3 q-pa-sm">ft-lbf</div>
-                                                    </div>
-                                            </q-expansion-item>
-                                        </div>
-
-                                    </div>
-
-                                </q-card-section>
-
-                            </q-card>
+                                </q-card>
+                            </div>
                         </div>
-                    </div>
 
-                </q-expansion-item>
+                    </q-expansion-item>
+                </div>
             </div>
-        </div>
 
-        
+        </q-scroll-area>
     </div>
 </template>
 
@@ -230,6 +234,7 @@ export default {
     },
     data() {
         return {
+            visible: true,
             expandedTDrmalAnalysis: true,
             expandedTrippingIn: false,
             expandedTrippingOut: false,
@@ -326,5 +331,14 @@ export default {
 <style scoped>
 .my-card {
     border: none;
+}
+
+#operationspage {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
 }
 </style>

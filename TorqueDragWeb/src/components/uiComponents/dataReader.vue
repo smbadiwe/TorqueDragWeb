@@ -17,6 +17,56 @@
     </div>
 </template>
 
-<style>
+<script>
+export default {
+    
+}
+</script>
+
+<style scoped>
+
+#Component_53__12 {
+	position: absolute;
+	width: 293.333px;
+	height: 34px;
+	left: 1625px;
+	top: 987px;
+	overflow: visible;
+}
+#Group_36_ {
+	position: absolute;
+	width: 293.333px;
+	height: 34px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_90_ba {
+	fill: url(#Path_90_ba);
+}
+.Path_90_ba {
+	overflow: visible;
+	position: absolute;
+	width: 293.333px;
+	height: 34px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Data_Reader {
+	left: 99px;
+	top: 5px;
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: lighter;
+	font-size: 18px;
+	color: rgba(214,214,214,1);
+}
 
 </style>
+

@@ -293,3 +293,1074 @@ export default {
     
 }
 </script>
+
+<style scoped>
+
+#Top_Rectangle {
+	position: absolute;
+	width: 1920px;
+	height: 139px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_2 {
+	fill: rgba(50,50,50,1);
+}
+.Rectangle_2 {
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 139px;
+	left: 0px;
+	top: 0px;
+}
+#Rectangle_1 {
+	opacity: 0;
+	fill: rgba(83,83,83,1);
+}
+.Rectangle_1 {
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Component_41__9 {
+	position: absolute;
+	width: 53px;
+	height: 22px;
+	left: 1832px;
+	top: 75px;
+	overflow: visible;
+	transition: all 0.1s ease-out;
+	--web-animation: fadein 0.1s ease-out;
+	--web-action-type: page;
+	--web-action-target: PE.html;
+	cursor: pointer;
+}
+#Rectangle_67 {
+	fill: rgba(121,121,121,1);
+}
+.Rectangle_67 {
+	position: absolute;
+	overflow: visible;
+	width: 53px;
+	height: 22px;
+	left: 0px;
+	top: 0px;
+}
+#Rectangle_68 {
+	fill: rgba(50,50,50,1);
+}
+.Rectangle_68 {
+	position: absolute;
+	overflow: visible;
+	width: 30px;
+	height: 18px;
+	left: 20px;
+	top: 2px;
+}
+#Icon_ionic-ios-moon {
+	fill: rgba(50,50,50,1);
+}
+.Icon_ionic-ios-moon {
+	overflow: visible;
+	position: absolute;
+	width: 9.594px;
+	height: 10.468px;
+	left: 6.334px;
+	top: 5.766px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Component_55__1 {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 1756px;
+	top: 70px;
+	overflow: visible;
+}
+#Rectangle_2092 {
+	opacity: 0;
+	fill: rgba(121,121,121,1);
+}
+.Rectangle_2092 {
+	position: absolute;
+	overflow: visible;
+	width: 32px;
+	height: 32px;
+	left: 0px;
+	top: 0px;
+}
+#Icon_feather-layout {
+	position: absolute;
+	width: 22.603px;
+	height: 21.733px;
+	left: 4.699px;
+	top: 5.633px;
+	overflow: visible;
+}
+#Path_5 {
+	fill: transparent;
+	stroke: rgba(121,121,121,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_5 {
+	overflow: visible;
+	position: absolute;
+	width: 24.603px;
+	height: 23.733px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_6 {
+	fill: transparent;
+	stroke: rgba(121,121,121,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_6 {
+	overflow: visible;
+	position: absolute;
+	width: 22.909px;
+	height: 2px;
+	left: 1px;
+	top: 6.367px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_7 {
+	fill: transparent;
+	stroke: rgba(121,121,121,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_7 {
+	overflow: visible;
+	position: absolute;
+	width: 2px;
+	height: 17.367px;
+	left: 7.301px;
+	top: 6.367px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#General_tab_Component {
+	position: absolute;
+	width: 173px;
+	height: 42px;
+	left: 403px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_cg {
+	position: absolute;
+	width: 173px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16 {
+	fill: rgba(83,83,83,1);
+}
+.Path_16 {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 191px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Torque__Drag {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 132px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#General_tab_Component_cj {
+	position: absolute;
+	width: 134px;
+	height: 42px;
+	left: 577px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_ck {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_ck {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_cl {
+	position: absolute;
+	width: 134px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_cm {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_cm {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 152px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Hydraulics {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 93px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#General_tab_Component_co {
+	position: absolute;
+	width: 164px;
+	height: 42px;
+	left: 712px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_cp {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_cp {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_cq {
+	position: absolute;
+	width: 164px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_cr {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_cr {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 182px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Centralization {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 123px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#General_tab_Component_ct {
+	position: absolute;
+	width: 167px;
+	height: 42px;
+	left: 877px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_cu {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_cu {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_cv {
+	position: absolute;
+	width: 167px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_cw {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_cw {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 185px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Swab__Surge {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 126px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#General_tab_Component_cy {
+	position: absolute;
+	width: 139px;
+	height: 42px;
+	left: 1197px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_cz {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_cz {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_c {
+	position: absolute;
+	width: 139px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_c {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_c {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 157px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Cementing {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 98px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#Home_tab_Component {
+	position: absolute;
+	width: 105px;
+	height: 42px;
+	left: 297px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_c {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_c {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_da {
+	position: absolute;
+	width: 105px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_da {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_da {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 123px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Output {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 64px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#Logo_Small {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 11px;
+	top: 5px;
+	overflow: visible;
+}
+#Mask_Group_4 {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Component_37__1 {
+	position: absolute;
+	width: 155px;
+	height: 35px;
+	left: 1754px;
+	top: 0px;
+	overflow: visible;
+}
+#Component_16__1_db {
+	position: absolute;
+	width: 155px;
+	height: 35px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_37_dc {
+	fill: rgba(50,50,50,1);
+	stroke: rgba(70,70,70,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_37_dc {
+	position: absolute;
+	overflow: visible;
+	width: 155px;
+	height: 35px;
+	left: 0px;
+	top: 0px;
+}
+#Component_14__1_dd {
+	position: absolute;
+	width: 33px;
+	height: 34px;
+	left: 60px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_60_de {
+	opacity: 0;
+	fill: rgba(255,255,255,1);
+}
+.Rectangle_60_de {
+	position: absolute;
+	overflow: visible;
+	width: 33px;
+	height: 34px;
+	left: 0px;
+	top: 0px;
+}
+#Union_9_df {
+	fill: rgba(168,168,168,1);
+}
+.Union_9_df {
+	overflow: visible;
+	position: absolute;
+	width: 20px;
+	height: 18.013px;
+	left: 7px;
+	top: 10px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path-9_21__dg {
+	position: absolute;
+	width: 32px;
+	height: 33px;
+	left: 9px;
+	top: 1px;
+	overflow: visible;
+}
+#path-9_21__dh {
+	fill: rgba(168,168,168,1);
+}
+.path-9_21__dh {
+	overflow: visible;
+	position: absolute;
+	width: 14.055px;
+	height: 3.516px;
+	left: 9px;
+	top: 16px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Rectangle_59_di {
+	opacity: 0;
+	fill: rgba(255,255,255,1);
+}
+.Rectangle_59_di {
+	position: absolute;
+	overflow: visible;
+	width: 32px;
+	height: 33px;
+	left: 0px;
+	top: 0px;
+}
+#Component_15__1_dj {
+	position: absolute;
+	width: 30px;
+	height: 34px;
+	left: 116px;
+	top: 0px;
+	overflow: visible;
+}
+#Union_8_dk {
+	fill: rgba(168,168,168,1);
+}
+.Union_8_dk {
+	overflow: visible;
+	position: absolute;
+	width: 12.312px;
+	height: 12.318px;
+	left: 9px;
+	top: 13px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Rectangle_61_dl {
+	opacity: 0;
+	fill: rgba(255,255,255,1);
+}
+.Rectangle_61_dl {
+	position: absolute;
+	overflow: visible;
+	width: 30px;
+	height: 34px;
+	left: 0px;
+	top: 0px;
+}
+#Component_38__1 {
+	position: absolute;
+	width: 330px;
+	height: 42px;
+	left: 1420px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_36 {
+	fill: rgba(32,59,83,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_36 {
+	position: absolute;
+	overflow: visible;
+	width: 330px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#New_Sample_Saved_Case {
+	left: 32px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 230px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+#Icon_feather-save {
+	opacity: 0.4;
+	position: absolute;
+	width: 15.057px;
+	height: 15.057px;
+	left: 286.472px;
+	top: 14.472px;
+	overflow: visible;
+}
+#Path_17 {
+	fill: transparent;
+	stroke: rgba(227,227,227,1);
+	stroke-width: 1.2000000476837158px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_17 {
+	overflow: visible;
+	position: absolute;
+	width: 16.257px;
+	height: 16.257px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_18 {
+	fill: transparent;
+	stroke: rgba(227,227,227,1);
+	stroke-width: 1.2000000476837158px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_18 {
+	overflow: visible;
+	position: absolute;
+	width: 9.565px;
+	height: 7.892px;
+	left: 3.346px;
+	top: 8.365px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_19 {
+	fill: transparent;
+	stroke: rgba(227,227,227,1);
+	stroke-width: 1.2000000476837158px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_19 {
+	overflow: visible;
+	position: absolute;
+	width: 7.892px;
+	height: 5.382px;
+	left: 3.346px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+#General_tab_Component_f {
+	position: absolute;
+	width: 151px;
+	height: 42px;
+	left: 1045px;
+	top: 0px;
+	overflow: visible;
+}
+#Drop_down_ga {
+	opacity: 0;
+	fill: rgba(50,50,50,1);
+}
+.Drop_down_ga {
+	position: absolute;
+	overflow: visible;
+	width: 96px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
+#Menu_Tab_gb {
+	position: absolute;
+	width: 151px;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_16_gc {
+	fill: rgba(83,83,83,1);
+}
+.Path_16_gc {
+	filter: drop-shadow(0px 3px 6px rgba(53, 53, 53, 0.161));
+	overflow: visible;
+	position: absolute;
+	width: 169px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Well_Control {
+	left: 21px;
+	top: 8px;
+	position: absolute;
+	overflow: visible;
+	width: 110px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
+
+#Component_39__1 {
+	position: absolute;
+	width: 70px;
+	height: 28px;
+	left: 185px;
+	top: 9px;
+	overflow: visible;
+}
+#Icon_material-undo {
+	position: absolute;
+	width: 29px;
+	height: 28px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_63 {
+	opacity: 0;
+	fill: rgba(255,255,255,1);
+}
+.Rectangle_63 {
+	position: absolute;
+	overflow: visible;
+	width: 29px;
+	height: 28px;
+	left: 0px;
+	top: 0px;
+}
+#Icon_material-undo_fr {
+	fill: rgba(83,83,83,1);
+}
+.Icon_material-undo_fr {
+	overflow: visible;
+	position: absolute;
+	width: 22.993px;
+	height: 16.5px;
+	left: 4.271px;
+	top: 5.25px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Icon_material-redo {
+	position: absolute;
+	width: 29px;
+	height: 28px;
+	left: 41px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_64 {
+	opacity: 0;
+	fill: rgba(255,255,255,1);
+}
+.Rectangle_64 {
+	position: absolute;
+	overflow: visible;
+	width: 29px;
+	height: 28px;
+	left: 0px;
+	top: 0px;
+}
+#Icon_material-redo_fu {
+	fill: rgba(83,83,83,1);
+}
+.Icon_material-redo_fu {
+	overflow: visible;
+	position: absolute;
+	width: 22.996px;
+	height: 16.5px;
+	left: 0.809px;
+	top: 5.25px;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+#Icon_feather-save_fv {
+	position: absolute;
+	width: 21.4px;
+	height: 21.4px;
+	left: 131.3px;
+	top: 11.3px;
+	overflow: visible;
+}
+#Path_17_fw {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 1.7999999523162842px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_17_fw {
+	overflow: visible;
+	position: absolute;
+	width: 23.2px;
+	height: 23.2px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_18_fx {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 1.7999999523162842px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_18_fx {
+	overflow: visible;
+	position: absolute;
+	width: 13.689px;
+	height: 11.311px;
+	left: 4.756px;
+	top: 11.889px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_19_fy {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 1.7999999523162842px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_19_fy {
+	overflow: visible;
+	position: absolute;
+	width: 11.311px;
+	height: 7.744px;
+	left: 4.756px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+#menu-down {
+	position: absolute;
+	width: 30px;
+	height: 29px;
+	left: 69px;
+	top: 6px;
+	overflow: visible;
+}
+#Rectangle_47_f {
+	fill: transparent;
+}
+.Rectangle_47_f {
+	position: absolute;
+	overflow: visible;
+	width: 30px;
+	height: 29px;
+	left: 0px;
+	top: 0px;
+}
+#Rectangle_47_f {
+	fill: transparent;
+}
+.Rectangle_47_f {
+	position: absolute;
+	overflow: visible;
+	width: 30px;
+	height: 29px;
+	left: 0px;
+	top: 0px;
+}
+#Icon_feather-menu {
+	position: absolute;
+	width: 19.112px;
+	height: 11.637px;
+	left: 5.247px;
+	top: 10.181px;
+	overflow: visible;
+}
+#Path_68 {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_68 {
+	overflow: visible;
+	position: absolute;
+	width: 21.112px;
+	height: 2px;
+	left: 0px;
+	top: 5.819px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_69 {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_69 {
+	overflow: visible;
+	position: absolute;
+	width: 21.112px;
+	height: 2px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_70 {
+	fill: transparent;
+	stroke: rgba(83,83,83,1);
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_70 {
+	overflow: visible;
+	position: absolute;
+	width: 21.112px;
+	height: 2px;
+	left: 0px;
+	top: 11.637px;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+#Component_53__3 {
+	position: absolute;
+	width: 20.5px;
+	height: 21.5px;
+	left: 1371px;
+	top: 13px;
+	overflow: visible;
+}
+#Line_14 {
+	fill: transparent;
+	stroke: rgba(121,121,121,1);
+	stroke-width: 3px;
+	stroke-linejoin: miter;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_14 {
+	overflow: visible;
+	position: absolute;
+	width: 8.242px;
+	height: 8.243px;
+	left: 16.5px;
+	top: 17.5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Rectangle_2089 {
+	fill: transparent;
+	stroke: rgba(121,121,121,1);
+	stroke-width: 3.5px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_2089 {
+	position: absolute;
+	overflow: visible;
+	width: 19px;
+	height: 19px;
+	left: 0px;
+	top: 0px;
+}
+
+</style>

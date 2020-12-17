@@ -2,7 +2,7 @@
   <div>
     <q-scroll-area
         :visible="visible"
-      style="height: 500px; width: 240px"
+      style="height: 700px; width: 240px"
     >
       <div id="datumpage">
       

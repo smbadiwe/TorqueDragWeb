@@ -56,3 +56,154 @@ export default {
     
 }
 </script>
+
+<style scoped>
+
+#Rectangle_76 {
+	opacity: 0.25;
+	fill: rgba(2,0,17,1);
+}
+.Rectangle_76 {
+	position: absolute;
+	overflow: visible;
+	width: 1848px;
+	height: 50px;
+	left: 36px;
+	top: 1030px;
+}
+#Group_35 {
+	position: absolute;
+	width: 137px;
+	height: 16px;
+	left: 1735px;
+	top: 1047px;
+	overflow: visible;
+}
+#Group_34 {
+	position: absolute;
+	width: 73px;
+	height: 16px;
+	left: 28px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_73 {
+	fill: rgba(52,52,52,1);
+}
+.Rectangle_73 {
+	position: absolute;
+	overflow: visible;
+	width: 70px;
+	height: 4px;
+	left: 3px;
+	top: 6px;
+}
+#Component_51__1 {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Ellipse_1 {
+	fill: rgba(38,38,38,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 3px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Ellipse_1 {
+	position: absolute;
+	overflow: visible;
+	width: 16px;
+	height: 16px;
+	left: 0px;
+	top: 0px;
+}
+#Polygon_2 {
+	fill: rgba(177,177,177,1);
+}
+.Polygon_2 {
+	overflow: hidden;
+	position: absolute;
+	width: 10px;
+	height: 6px;
+	left: 0px;
+	top: 5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Polygon_3 {
+	fill: rgba(177,177,177,1);
+}
+.Polygon_3 {
+	overflow: hidden;
+	position: absolute;
+	width: 12px;
+	height: 8px;
+	left: 2px;
+	top: 4px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Subtraction_1 {
+	fill: rgba(177,177,177,1);
+}
+.Subtraction_1 {
+	overflow: visible;
+	position: absolute;
+	width: 9px;
+	height: 11px;
+	left: 115px;
+	top: 3px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Polygon_5 {
+	fill: rgba(177,177,177,1);
+}
+.Polygon_5 {
+	overflow: hidden;
+	position: absolute;
+	width: 18px;
+	height: 14px;
+	left: 119px;
+	top: 1px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Group_38 {
+	position: absolute;
+	width: 293.333px;
+	height: 34px;
+	left: 1625px;
+	top: 949px;
+	overflow: visible;
+}
+#Path_90_fm {
+	fill: url(#Path_90_fm);
+}
+.Path_90_fm {
+	overflow: visible;
+	position: absolute;
+	width: 293.333px;
+	height: 34px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Reports {
+	left: 117px;
+	top: 5px;
+	position: absolute;
+	overflow: visible;
+	width: 60px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: lighter;
+	font-size: 18px;
+	color: rgba(214,214,214,1);
+}
+
+</style>

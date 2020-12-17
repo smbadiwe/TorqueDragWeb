@@ -25,6 +25,10 @@
                 v-bind:issubsurface="issubsurface"
                 v-bind:isoperations="isoperations"></headers>
             
+             <svg class="Rectangle_75">
+                <rect id="Rectangle_75" rx="0" ry="0" x="0" y="0" width="34" height="900">
+                </rect>
+            </svg>
             <datumbutton v-on:showdatum="updatedatum"></datumbutton>
             <wellpathbutton v-on:showwellpath="updatewellpath"></wellpathbutton>
             <holebutton v-on:showhole="updatehole"></holebutton>
@@ -34,13 +38,7 @@
             <subsurfacebutton v-on:showsubsurface="updatesubsurface"></subsurfacebutton>
             <operationsbutton v-on:showoperations="updateoperations"></operationsbutton>
 
-        </div>
-
-        <settingsbutton></settingsbutton>
-        <sensitivitybutton></sensitivitybutton>
-        <schematicbutton></schematicbutton>
-        
-       
+        </div>    
        
     </div>
 </template>
@@ -194,6 +192,18 @@ export default {
 </script>
 
 <style scoped>
+
+#Rectangle_75 {
+	fill: rgba(20,20,20,1);
+}
+.Rectangle_75 {
+	position: absolute;
+	overflow: visible;
+	width: 34px;
+	height: 900px;
+	left: 2px;
+	top: 180px;
+}
 
 #Component_53__1 {
 	position: absolute;

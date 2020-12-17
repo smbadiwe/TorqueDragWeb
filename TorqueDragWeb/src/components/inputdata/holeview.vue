@@ -1,11 +1,8 @@
 <template>
     <div>
         <svg class="Rectangle_79_du_holeview">
-            <linearGradient id="rect_holeview" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
-                <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
-                <stop offset="0.6109" stop-color="#444" stop-opacity="1"></stop>
-                <stop offset="1" stop-color="#767676" stop-opacity="1"></stop>
-            </linearGradient>
+            <rect id="Rectangle_79_du_holeview" rx="0" ry="0" x="0" y="0" width="297.333" height="877">
+            </rect>
         </svg>
 
         <div id="Group_37_dw_holeview">
@@ -44,15 +41,6 @@ export default {
 	top: 0px;
 }
 
- #rect_holeview {
-	fill: url(#rect_holeview);
-	stroke: rgba(112,112,112,1);
-	stroke-width: 1px;
-	stroke-linejoin: miter;
-	stroke-linecap: butt;
-	stroke-miterlimit: 4;
-	shape-rendering: auto;
-}
 
 #Group_37_dw_holeview {
 	opacity: 0.7;

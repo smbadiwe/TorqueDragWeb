@@ -20,6 +20,7 @@ import torque from 'pages/fixedDepthPlots/torque.vue'
 import drag from  'pages/fixedDepthPlots/drag.vue'
 import schematicView from 'pages/wellSchematics/schematicView.vue'
 import chartAreaTorqueDrag from 'pages/dataVisualization/TorqueDrag/chartArea.vue'
+import docksite from 'components/uiComponents/docksite.vue'
 
 const routes = [
   {
@@ -34,7 +35,13 @@ const routes = [
   },
   {
     path: '/newLayout',
-    component: newLayout
+    component: newLayout,
+    children: [
+      { 
+        path: '/newLayout', 
+        component: docksite
+      }
+    ]
   },
   {
     path: '/newLayout2',
