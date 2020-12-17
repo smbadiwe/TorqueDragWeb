@@ -523,10 +523,10 @@ export default {
 }
   
 
-  .q-table__top,
+  /* .q-table__top,
   .q-table__bottom,
   thead tr:first-child th {
-    /* bg color is important for th; just specify one */
+    
     background-color: #c1f4cd;
   }
     
@@ -538,7 +538,7 @@ export default {
     
   thead tr:first-child th {
       top: 0;
-  }
+  } */
     
 
   /* this is when the loading indicator appears */

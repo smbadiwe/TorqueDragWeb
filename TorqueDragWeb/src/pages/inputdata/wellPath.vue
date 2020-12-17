@@ -54,12 +54,14 @@
 
                 <div class="col-12 q-pa-sm"> 
                     <q-table
-                    class="my-sticky-header-table"
                     :data="deviationSurveys" 
                     :columns="columns" 
                     row-key="name" 
                     flat
                     bordered
+                    class="my-sticky-header-table"
+                    dark
+                    color="amber"
                     :separator="separator">
 
 
@@ -140,10 +142,7 @@ export default {
 
 <style scoped>
 .my-sticky-header-table{
-   /* height or max-height is important */
-  height: 350px;
-  background-color: rgba(20,20,20,1);
-  top: 48px
+  height: 450px;
 }
 
 

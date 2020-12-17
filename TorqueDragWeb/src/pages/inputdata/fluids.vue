@@ -2,7 +2,7 @@
     <div id="fluidspage">
          <q-scroll-area
             :visible="visible"
-            style="height: 700px; width: 240px"
+            style="height: 770px; width: 240px"
             > 
             <div class="row">
                 <div class="col-12">
@@ -132,13 +132,15 @@
                                 </div>
 
                                 <div class="col-12 q-pa-sm"> 
-                                <q-table
-                                class="my-sticky-header-table"  
+                                <q-table  
                                 :data="mudPVTs" 
                                 :columns="columns" 
                                 row-key="name"
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
                                 :separator="separator">
 
 
@@ -272,9 +274,6 @@ export default {
 }
 
 .my-sticky-header-table{
-    /* height or max-height is important */
-    height: 350px;
-    background-color: rgba(20,20,20,1);
-    top: 48px
-    }
+    height: 280px;
+}
 </style>

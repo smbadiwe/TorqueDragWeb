@@ -17,7 +17,7 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="4 data points">
+                        label="0 data points">
 
                         <div class="row">
                             <div class="col-12 q-pa-sm"> 
@@ -91,13 +91,16 @@
 
                             <div class="col-12 q-pa-sm"> 
                                 <q-table  
-                                class="my-sticky-header-table" 
                                 :data="porePressures" 
                                 :columns="columnsPorePressure" 
                                 row-key="name" 
                                 binary-state-sort
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
+
                                 :separator="separator">
 
 
@@ -131,7 +134,7 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="1 data point">
+                        label="0 data point">
 
                         <div class="row">
                             <div class="col-12 q-pa-sm"> 
@@ -204,14 +207,16 @@
                             </div>
 
                             <div class="col-12 q-pa-sm"> 
-                                <q-table  
-                                class="my-sticky-header-table" 
+                                <q-table   
                                 :data="fractureGradients" 
                                 :columns="columnsFractureGradient" 
                                 row-key="name" 
                                 binary-state-sort
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
                                 :separator="separator">
 
 
@@ -245,7 +250,7 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="29 data point">
+                        label="0 data point">
 
                         <div class="row">
                             <div class="col-12 q-pa-sm"> 
@@ -320,13 +325,15 @@
 
                             <div class="col-12 q-pa-sm"> 
                                 <q-table
-                                class="my-sticky-header-table"   
                                 :data="formationTops" 
                                 :columns="columnsFormationTop" 
                                 row-key="name" 
                                 binary-state-sort
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
                                 :separator="separator">
 
 
@@ -360,7 +367,7 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="29 data point">
+                        label="0 data point">
 
                         <div class="row">
                             <div class="col-12 q-pa-sm"> 
@@ -435,13 +442,15 @@
 
                             <div class="col-12 q-pa-sm"> 
                                 <q-table  
-                                class="my-sticky-header-table" 
                                 :data="geothermalGradients" 
                                 :columns="columnsGeothermalGradient" 
                                 row-key="name" 
                                 binary-state-sort
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
                                 :separator="separator">
 
 
@@ -475,7 +484,7 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="29 data point">
+                        label="0 data point">
 
                         <div class="row">
                             <div class="col-12 q-pa-sm"> 
@@ -549,14 +558,16 @@
                             </div>
 
                             <div class="col-12 q-pa-sm"> 
-                                <q-table 
-                                class="my-sticky-header-table"  
+                                <q-table   
                                 :data="formationInfluxes" 
                                 :columns="columnsFormationInflux" 
                                 row-key="name" 
                                 binary-state-sort
                                 flat
                                 bordered
+                                class="my-sticky-header-table"
+                                dark
+                                color="amber"
                                 :separator="separator">
 
 
@@ -698,11 +709,7 @@ export default {
 }
 
 .my-sticky-header-table{
-    /* height or max-height is important */
-    height: 350px;
-    background-color: rgba(20,20,20,1);
-    top: 48px
-    }
-</style>
+  height: 450px;
+}
 
 </style>
