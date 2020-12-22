@@ -1,191 +1,193 @@
 <template>
-    <div class="row">
-        <div class="col-2">
-        </div>
+    <div>
+        <div class="row">
+            <div class="col-2">
+            </div>
 
-        <div class="col-12 q-pa-sm">
-             <q-card class="bg-accent">
-                            <q-card-section>
-                                
-                                <div class="row">
+            <div class="col-12 q-pa-sm">
+                <q-card>
+                                <q-card-section id="cardsection">
+                                    
+                                    <div class="row">
 
-                                <div class="col-12 q-pa-sm">
-                                    Create Well Design
-                                    <br>
-                                    <hr/>
-                                </div>
+                                    <div class="col-12 q-pa-sm">
+                                        Create Well Design
+                                        <br>
+                                        <hr/>
+                                    </div>
 
-                                <div class="col-3 q-pa-sm">Project:</div>
-                                <div v-if="isNewProject" class="col-6 q-pa-sm"><input v-model="projectName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="projectName"
-                                        id="" 
-                                        v-model="projectName"
-                                        v-on:change="onProjectNameSelectionChanged($event)">
-                                        <option
-                                            v-for="projectName in projectNames" :key="projectName">
-                                            {{ projectName }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewProjectToggleg">
-                                        <q-tooltip>
-                                        Add Project
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
+                                    <div class="col-3 q-pa-sm">Project:</div>
+                                    <div v-if="isNewProject" class="col-6 q-pa-sm"><input v-model="projectName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="projectName"
+                                            id="" 
+                                            v-model="projectName"
+                                            v-on:change="onProjectNameSelectionChanged($event)">
+                                            <option
+                                                v-for="projectName in projectNames" :key="projectName">
+                                                {{ projectName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewProjectToggleg">
+                                            <q-tooltip>
+                                            Add Project
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
 
-                                <div class="col-3 q-pa-sm">Field:</div>
-                                <div v-if="isNewField" class="col-6 q-pa-sm"><input v-model="fieldName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="fieldName"
-                                        id="" 
-                                        v-model="fieldName"
-                                        v-on:change="onFieldNameSelectionChanged($event)">
-                                        <option
-                                            v-for="fieldName in fieldNames" :key="fieldName">
-                                            {{ fieldName }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewFieldToggleg">
-                                        <q-tooltip>
-                                        Add Field
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
+                                    <div class="col-3 q-pa-sm">Field:</div>
+                                    <div v-if="isNewField" class="col-6 q-pa-sm"><input v-model="fieldName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="fieldName"
+                                            id="" 
+                                            v-model="fieldName"
+                                            v-on:change="onFieldNameSelectionChanged($event)">
+                                            <option
+                                                v-for="fieldName in fieldNames" :key="fieldName">
+                                                {{ fieldName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewFieldToggleg">
+                                            <q-tooltip>
+                                            Add Field
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
 
-                                <div class="col-3 q-pa-sm">Well:</div>
-                                <div v-if="isNewWell" class="col-6 q-pa-sm"><input v-model="wellName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="wellName"
-                                        id="" 
-                                        v-model="wellName"
-                                        v-on:change="onWellNameSelectionChanged($event)">
-                                        <option
-                                            v-for="wellName in wellNames" :key="wellName">
-                                            {{ wellName }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewWellToggleg">
-                                        <q-tooltip>
-                                        Add Well
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
+                                    <div class="col-3 q-pa-sm">Well:</div>
+                                    <div v-if="isNewWell" class="col-6 q-pa-sm"><input v-model="wellName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="wellName"
+                                            id="" 
+                                            v-model="wellName"
+                                            v-on:change="onWellNameSelectionChanged($event)">
+                                            <option
+                                                v-for="wellName in wellNames" :key="wellName">
+                                                {{ wellName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewWellToggleg">
+                                            <q-tooltip>
+                                            Add Well
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
 
-                                <div class="col-3 q-pa-sm">Wellbore:</div>
-                                <div v-if="isNewWellbore" class="col-6 q-pa-sm"><input v-model="wellboreName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="wellboreName"
-                                        id="" 
-                                        v-model="wellboreName"
-                                        v-on:change="onWellboreNameSelectionChanged($event)">
-                                        <option
-                                            v-for="wellboreName in wellboreNames" :key="wellboreName">
-                                            {{ wellboreName }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewWellboreToggleg">
-                                        <q-tooltip>
-                                        Add Wellbore
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
+                                    <div class="col-3 q-pa-sm">Wellbore:</div>
+                                    <div v-if="isNewWellbore" class="col-6 q-pa-sm"><input v-model="wellboreName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="wellboreName"
+                                            id="" 
+                                            v-model="wellboreName"
+                                            v-on:change="onWellboreNameSelectionChanged($event)">
+                                            <option
+                                                v-for="wellboreName in wellboreNames" :key="wellboreName">
+                                                {{ wellboreName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewWellboreToggleg">
+                                            <q-tooltip>
+                                            Add Wellbore
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
 
-                                <div class="col-3 q-pa-sm">Well Design:</div>
-                                <div v-if="isNewWellDesign" class="col-6 q-pa-sm"><input v-model="wellDesignName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="wellDesignName"
-                                        id="" 
-                                        v-model="wellDesignName"
-                                        v-on:change="onWellDesignNameSelectionChanged($event)">
-                                        <option
-                                            v-for="wellDesignName in wellDesignNames" :key="wellDesignName">
-                                            {{ wellDesignName }}
-                                        </option>
-                                    </select>
+                                    <div class="col-3 q-pa-sm">Well Design:</div>
+                                    <div v-if="isNewWellDesign" class="col-6 q-pa-sm"><input v-model="wellDesignName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="wellDesignName"
+                                            id="" 
+                                            v-model="wellDesignName"
+                                            v-on:change="onWellDesignNameSelectionChanged($event)">
+                                            <option
+                                                v-for="wellDesignName in wellDesignNames" :key="wellDesignName">
+                                                {{ wellDesignName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewWellDesignToggleg">
+                                            <q-tooltip>
+                                            Add Well Design
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
+
+
+                                    <div class="col-3 q-pa-sm">Well Case:</div>
+                                    <div v-if="isNewWellCase" class="col-6 q-pa-sm"><input v-model="designName"></div>
+                                    <div v-else class="col-6 q-pa-sm">
+                                        <select style="width:100%;"
+                                            name="designName"
+                                            id="" 
+                                            v-model="designName"
+                                            v-on:change="onWellCaseNameSelectionChanged($event)">
+                                            <option
+                                                v-for="wellCase in wellCases" :key="wellCase">
+                                                {{ wellCase }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 q-pa-sm">
+                                        <!-- <q-btn  icon="add_box"
+                                        size="sm"
+                                        flat
+                                        @click="isNewWellCaseToggleg">
+                                            <q-tooltip>
+                                            Add Well Case
+                                            </q-tooltip>
+                                        </q-btn> -->
+                                    </div>
+                            
                                 </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewWellDesignToggleg">
-                                        <q-tooltip>
-                                        Add Well Design
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
+                                </q-card-section>
 
+                                <q-card-actions align="right" id="cardaction">
+                                    <q-btn 
+                                        size="sm"
+                                        label="Add"
+                                        @click="PostTorqueDragDesign">
+                                    </q-btn>
+                                    <q-btn 
+                                        size="sm"
+                                        label="Cancel"
+                                        @click="cancelCreation">
+                                    </q-btn>
+                                </q-card-actions>
 
-                                <div class="col-3 q-pa-sm">Well Case:</div>
-                                <div v-if="isNewWellCase" class="col-6 q-pa-sm"><input v-model="designName"></div>
-                                <div v-else class="col-6 q-pa-sm">
-                                     <select style="width:100%;"
-                                        name="designName"
-                                        id="" 
-                                        v-model="designName"
-                                        v-on:change="onWellCaseNameSelectionChanged($event)">
-                                        <option
-                                            v-for="wellCase in wellCases" :key="wellCase">
-                                            {{ wellCase }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-3 q-pa-sm">
-                                    <!-- <q-btn  icon="add_box"
-                                    size="sm"
-                                    flat
-                                    @click="isNewWellCaseToggleg">
-                                        <q-tooltip>
-                                        Add Well Case
-                                        </q-tooltip>
-                                    </q-btn> -->
-                                </div>
-                        
-                            </div>
-                            </q-card-section>
+                    </q-card>
+            </div>
 
-                            <q-card-actions align="right">
-                                <q-btn 
-                                    size="sm"
-                                    label="Add"
-                                    @click="PostTorqueDragDesign">
-                                </q-btn>
-                                <q-btn 
-                                    size="sm"
-                                    label="Cancel"
-                                    @click="cancelCreation">
-                                </q-btn>
-                            </q-card-actions>
-
-                </q-card>
-        </div>
-
-        <div class="col-2">
+            <div class="col-2">
+            </div>
         </div>
     </div>
 </template>
@@ -393,3 +395,30 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+#cardsection {
+    white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+    background-color:  rgba(27,27,27,1);;
+}
+
+#cardaction {
+    white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+    background-color:   rgba(27,27,27,1);;
+}
+
+
+</style>

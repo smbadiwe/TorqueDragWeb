@@ -4,10 +4,20 @@
 			<rect id="Rectangle_Page" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
 			</rect>
 		</svg>
+		
+		<div v-if="isLayout1">
+			<inputviewleft></inputviewleft>
+			<router-view />
+			<inputviewright></inputviewright>
+		</div>
+
+		<div v-if="isLayout2">
+			<introLeft></introLeft>
+			<router-view />
+		</div>
+
 		<menubar></menubar>
-		<inputviewleft></inputviewleft>
-		<router-view />
-		<inputviewright></inputviewright>
+		
 
     </div>
 </template>
@@ -18,6 +28,7 @@ import docksite from 'components/uiComponents/docksite.vue';
 import menubar from 'components/uiComponents/menubar.vue';
 import inputviewleft from 'components/uiComponents/inputviewleft.vue';
 import inputviewright from 'components/uiComponents/inputviewright.vue';
+import introLeft from 'components/uiComponents/introLeft.vue';
 
 export default {
     components: { 
@@ -25,8 +36,15 @@ export default {
        docksite,
        menubar,
        inputviewleft,
-	  inputviewright
-      }
+	  inputviewright,
+	  introLeft
+	},
+	data(){
+		return {
+			isLayout1: false,
+			isLayout2: true
+		}
+	}
     
 }
 </script>

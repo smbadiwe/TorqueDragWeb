@@ -10,7 +10,12 @@
                 </rect>
             </svg>
         </div>
-        <div onclick="application.goToTargetView(event)" id="Component_41__9" class="Component_41___9">
+
+		<div id="Menupanel_Rectangle">
+			<torqueDragRibbon></torqueDragRibbon>
+		</div>
+
+		<div onclick="application.goToTargetView(event)" id="Component_41__9" class="Component_41___9">
             <svg class="Rectangle_67">
                 <rect id="Rectangle_67" rx="10" ry="10" x="0" y="0" width="53" height="22">
                 </rect>
@@ -134,6 +139,7 @@
                 </div>
             </div>
         </div>
+
         <div id="General_tab_Component" class="General_tab_Component">
             <svg class="Drop_down">
                 <rect id="Drop_down" rx="0" ry="0" x="0" y="0" width="96" height="42">
@@ -149,6 +155,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <div id="General_tab_Component_cj" class="General_tab_Component">
             <svg class="Drop_down_ck">
                 <rect id="Drop_down_ck" rx="0" ry="0" x="0" y="0" width="96" height="42">
@@ -285,12 +294,16 @@
                 </svg>
             </div>
         </div>
+        
     </div>
 </template>
 
 <script>
+import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
 export default {
-    
+    components: {
+		torqueDragRibbon
+	}
 }
 </script>
 
@@ -305,7 +318,7 @@ export default {
 	overflow: visible;
 }
 #Rectangle_2 {
-	fill: rgba(50,50,50,1);
+	fill: rgba(50,50,50,1); 
 }
 .Rectangle_2 {
 	position: absolute;
@@ -1362,5 +1375,16 @@ export default {
 	left: 0px;
 	top: 0px;
 }
+
+#Menupanel_Rectangle {
+	position: absolute;
+	width: 1920px;
+	height: 60px;
+	left: 0px;
+	top: 30px;
+	overflow: visible;
+	background-color:  rgba(50,50,50,1); 
+}
+
 
 </style>

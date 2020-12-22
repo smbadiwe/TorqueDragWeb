@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="row bg-accent text-primary" style="height:140px;">
-              <div class="col-1 vl">
-                <div class="row" style="height:100px">
-                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+        <div class="row" id="torquedragmenu">
+              <div class="col-2 vl">
+                <div class="row buttonTD1">
+                     <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
                         clickable
                         @click="RunSimulation">
                         <img
@@ -11,19 +11,26 @@
                         src="~assets/images/well_1.jpg">
                         <br/>
                         Run
-                    </div>
+                    </div> -->
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Run"
+                        class="text-capitalize"
+                        @click="RunSimulation">
+                    </q-btn>
                 </div>
 
-                <div class="row" style="height:20px">
-                    <div class="col-12 q-pb-md q-pt-sm text-center">
+                <div class="row">
+                    <div class="col-12 q-pb-sm q-pt-sm text-center">
                         Simulation
                     </div>
                 </div>
             </div>
 
-            <div class="col vl">
-                <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+            <div class="col-5 vl">
+                <div class="row buttonTD1">
+                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
                         clickable
                         @click="effectiveTensionPlots">
                         <img
@@ -31,27 +38,51 @@
                         src="~assets/images/well_1.jpg">
                         <br/>
                         Effective Tension
-                    </div>
+                    </div> -->
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Effective Tension"
+                        class="text-capitalize"
+                        @click="effectiveTensionPlots">
+                    </q-btn>
+
+                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="normalForcePlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_2.jpg">
                         <br/>
                         Normal Force
-                    </div>
+                    </div> -->
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Normal Force"
+                        class="text-capitalize"
+                        @click="normalForcePlots">
+                    </q-btn>
+
+                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="hookLoadPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_3.jpg">
                         <br/>
                         Hook Load
-                    </div>
+                    </div> -->
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Hook Load"
+                        class="text-capitalize"
+                        @click="hookLoadPlots">
+                    </q-btn>
+
+                   <!--  <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                             clickable
                             @click="torquePlots">
                             <img
@@ -59,30 +90,46 @@
                             src="~assets/images/well_4.jpg">
                             <br/>
                             Torque
-                    </div>
+                    </div> -->
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Torque"
+                        class="text-capitalize"
+                        @click="torquePlots">
+                    </q-btn>
+
+                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="dragPlots">
                         <img
                         class="object-fit-cover"
                         src="~assets/images/well_5.jpg">
                         <br/>
                         Drag
-                    </div>
+                    </div> -->
+
+                    <q-btn 
+                        flat
+                        size="md" 
+                        label="Drag"
+                        class="text-capitalize"
+                        @click="dragPlots">
+                    </q-btn>
 
                    
                 </div>
                 
-                <div class="row" style="height:20px">
+                <div class="row">
                     <div class="col-12 q-pb-md q-pt-sm text-center">
                         Plots
                     </div>
                 </div>
             </div>
 
-            <div class="col vl">
-                <div class="row" style="height:100px">
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+            <div class="col-5 vl">
+                <div class="row buttonTD1">
+                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="TrippingInDetails">
                         <img
                         class="object-fit-cover"
@@ -91,7 +138,7 @@
                         Tripping In
                     </div>
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
                         @click="TrippingOutDetails">
                         <img
                         class="object-fit-cover"
@@ -100,7 +147,7 @@
                         Tripping Out
                     </div>
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="RotatingOnBottomDetails">
                         <img
                         class="object-fit-cover"
@@ -109,7 +156,7 @@
                         Rotating On Bottom
                     </div>
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                             clickable
                             @click="SlideDrillingDetails">
                             <img
@@ -119,7 +166,7 @@
                             Slide Drilling
                     </div>
 
-                    <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
+                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
                         @click="BackReamingDetails">
                         <img
                         class="object-fit-cover"
@@ -130,7 +177,7 @@
                    
                 </div>
                 
-                <div class="row" style="height:20px">
+                <div class="row">
                     <div class="col-12 q-pb-md q-pt-sm text-center">
                         Report
                     </div>
@@ -191,9 +238,27 @@ export default {
 
 <style scoped>
 
+#torquedragmenu {
+	position: absolute;
+	width: 1700px;
+	height: 60px;
+	left: 0px;
+	top: 30px;
+	overflow: visible;
+	background-color:  rgba(50,50,50,1); 
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
+}
+
+
+
 .vl {
   border-right: 2px solid rgba(24,24,24,1);
-  height: 140px;
+  height: 60px;
 }
 
 .buttonHover:hover {
@@ -212,6 +277,13 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover; /*magic*/
+}
+.buttonTD1 {
+    height:40px;
+}
+
+.buttonTD2 {
+    height:30px;
 }
 
 

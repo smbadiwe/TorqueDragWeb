@@ -21,6 +21,8 @@ import drag from  'pages/fixedDepthPlots/drag.vue'
 import schematicView from 'pages/wellSchematics/schematicView.vue'
 import chartAreaTorqueDrag from 'pages/dataVisualization/TorqueDrag/chartArea.vue'
 import docksite from 'components/uiComponents/docksite.vue'
+import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
+import createWell from 'components/uiComponents/createWell.vue'
 
 const routes = [
   {
@@ -37,8 +39,16 @@ const routes = [
     path: '/newLayout',
     component: newLayout,
     children: [
+      {
+        path: '/newLayout',
+        component: introDockSite1
+      },
+      {
+        path: '/createWell',
+        component: createWell
+      },
       { 
-        path: '/newLayout', 
+        path: '/docksite', 
         component: docksite
       }
     ]
