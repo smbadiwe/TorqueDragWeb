@@ -5,7 +5,9 @@
             </rect>
         </svg>
 
-        <div id="Button" class="Button">
+        <div 
+		@click="openSavedCases"
+		id="Button" class="Button">
             <svg class="Rectangle_4">
                 <rect id="Rectangle_4" rx="23" ry="23" x="0" y="0" width="165" height="46">
                 </rect>
@@ -50,7 +52,7 @@
                 <span>Home</span>
             </div>
         </div>
-        <div onclick="application.goToTargetView(event)" id="Button_" class="Button">
+        <div @click="showCreateWell" id="Button_" class="Button">
             <svg class="Rectangle_4_ba">
                 <rect id="Rectangle_4_ba" rx="23" ry="23" x="0" y="0" width="161" height="46">
                 </rect>
@@ -64,7 +66,14 @@
 
 <script>
 export default {
-    
+    methods: {
+		showCreateWell(){
+			this.$router.push('/createWell');
+		},
+		openSavedCases(){
+			this.$store.commit('authStore/showLayout1');
+		}
+	}
 }
 </script>
 

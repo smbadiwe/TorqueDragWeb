@@ -9,7 +9,8 @@
             <path id="Path_67_fb" d="M 0 0 L 122 0 L 122 34 L 0 34 L 0 0 Z">
             </path>
         </svg>
-        <div id="Sensitivity">
+        <div id="Sensitivity"
+		@click="showsensitivity">
             <span>Sensitivity</span>
         </div>
     </div>
@@ -17,6 +18,11 @@
 
 <script>
 export default {
+	methods:{
+		showsensitivity(){
+			this.$emit('showsensitivity');
+		}	
+	}
     
 }
 </script>

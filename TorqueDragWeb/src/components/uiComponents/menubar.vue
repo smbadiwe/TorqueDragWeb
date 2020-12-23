@@ -11,7 +11,8 @@
             </svg>
         </div>
 
-		<div id="Menupanel_Rectangle">
+		<div v-if="isTorqueDragRibbonVisible" 
+		id="Menupanel_Rectangle">
 			<torqueDragRibbon></torqueDragRibbon>
 		</div>
 
@@ -140,7 +141,10 @@
             </div>
         </div>
 
-        <div id="General_tab_Component" class="General_tab_Component">
+        <div 
+		clickable
+		@click="toggleTorqueDragRibbon"
+		id="General_tab_Component" class="General_tab_Component">
             <svg class="Drop_down">
                 <rect id="Drop_down" rx="0" ry="0" x="0" y="0" width="96" height="42">
                 </rect>
@@ -303,6 +307,21 @@ import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
 export default {
     components: {
 		torqueDragRibbon
+	},
+	data(){
+		return {
+			isTorqueDragRibbonVisible: false
+		}
+	},
+	methods: {
+		toggleTorqueDragRibbon(){
+			var context =  this;
+			if(context.isTorqueDragRibbonVisible == true){
+				context.isTorqueDragRibbonVisible = false
+			}else {
+				context.isTorqueDragRibbonVisible = true;
+			}
+		}
 	}
 }
 </script>

@@ -9,7 +9,8 @@
             <path id="Path_67_e" d="M 0 0 L 110 0 L 110 34 L 0 34 L 0 0 Z">
             </path>
         </svg>
-        <div id="Settings">
+        <div id="Settings"
+		 @click="showsettings">
             <span>Settings</span>
         </div>
     </div>
@@ -17,6 +18,11 @@
 
 <script>
 export default {
+	methods:{
+		showsettings(){
+			this.$emit('showsettings');
+		}	
+	}
     
 }
 </script>

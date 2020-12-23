@@ -14,8 +14,8 @@
                 <path id="Path_90_z" d="M 0 0 L 293.3332214355469 0 L 293.3332214355469 34 L 0 34 L 0 0 Z">
                 </path>
             </svg>
-            <div id="Analysis">
-                <span>Analysis</span>
+            <div id="Schematics">
+                <span>Schematics</span>
             </div>
         </div>
     </div> 
@@ -74,7 +74,7 @@ export default {
 	top: 0px;
 	transform: matrix(1,0,0,1,0,0);
 }
-#Analysis {
+#Schematics {
 	left: 116px;
 	top: 5px;
 	position: absolute;

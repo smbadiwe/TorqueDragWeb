@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row" id="torquedragmenu">
-              <div class="col-2 vl">
+              <div class="col-1 vl">
                 <div class="row buttonTD1">
                      <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
                         clickable
@@ -12,11 +12,15 @@
                         <br/>
                         Run
                     </div> -->
+
                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Run"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="RunSimulation">
                     </q-btn>
                 </div>
@@ -28,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="col-5 vl">
+            <div class="col vl">
                 <div class="row buttonTD1">
                     <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
                         clickable
@@ -40,80 +44,58 @@
                         Effective Tension
                     </div> -->
 
-                    <q-btn 
+                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Effective Tension"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="effectiveTensionPlots">
                     </q-btn>
 
-                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
-                        @click="normalForcePlots">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_2.jpg">
-                        <br/>
-                        Normal Force
-                    </div> -->
-
                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Normal Force"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="normalForcePlots">
                     </q-btn>
 
-                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
-                        @click="hookLoadPlots">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_3.jpg">
-                        <br/>
-                        Hook Load
-                    </div> -->
-
                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Hook Load"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="hookLoadPlots">
                     </q-btn>
 
-                   <!--  <div class="col q-pa-sm text-caption buttonHover buttonTD2"
-                            clickable
-                            @click="torquePlots">
-                            <img
-                            class="object-fit-cover"
-                            src="~assets/images/well_4.jpg">
-                            <br/>
-                            Torque
-                    </div> -->
-
                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Torque"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="torquePlots">
                     </q-btn>
 
-                    <!-- <div class="col q-pa-sm text-caption buttonHover buttonTD2"
-                        @click="dragPlots">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_5.jpg">
-                        <br/>
-                        Drag
-                    </div> -->
-
-                    <q-btn 
+                     <q-btn 
+                        icon="phone" 
                         flat
                         size="md" 
                         label="Drag"
                         class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="dragPlots">
                     </q-btn>
 
@@ -127,53 +109,63 @@
                 </div>
             </div>
 
-            <div class="col-5 vl">
+            <div class="col vl">
                 <div class="row buttonTD1">
-                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
+
+                    <q-btn 
+                        icon="phone" 
+                        flat
+                        size="md" 
+                        label="Tripping In"
+                        class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="TrippingInDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_7.jpg">
-                        <br/>
-                        Tripping In
-                    </div>
+                    </q-btn>
 
-                    <div class="col q-pa-sm text-caption buttonHover buttonTD2" 
+                    <q-btn 
+                        icon="phone" 
+                        flat
+                        size="md" 
+                        label="Tripping Out"
+                        class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="TrippingOutDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_8.jpg">
-                        <br/>
-                        Tripping Out
-                    </div>
+                    </q-btn>
 
-                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
+                    <q-btn 
+                        icon="phone" 
+                        flat
+                        size="md" 
+                        label="Rotating On Bottom"
+                        class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="RotatingOnBottomDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_9.jpg">
-                        <br/>
-                        Rotating On Bottom
-                    </div>
+                    </q-btn>
 
-                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
-                            clickable
-                            @click="SlideDrillingDetails">
-                            <img
-                            class="object-fit-cover"
-                            src="~assets/images/well_10.jpg">
-                            <br/>
-                            Slide Drilling
-                    </div>
+                    <q-btn 
+                        icon="phone" 
+                        flat
+                        size="md" 
+                        label="Slide Drilling"
+                        class="text-capitalize"
+                        stack 
+                        glossy 
+                        @click="SlideDrillingDetails">
+                    </q-btn>
 
-                    <div class="col q-pa-sm text-caption buttonHover buttonTD2"
+                    <q-btn 
+                        icon="phone" 
+                        flat
+                        size="md" 
+                        label="Back reaming"
+                        class="text-capitalize"
+                        stack 
+                        glossy 
                         @click="BackReamingDetails">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_11.jpg">
-                        <br/>
-                        Back reaming
-                    </div>
+                    </q-btn>
                    
                 </div>
                 
@@ -258,7 +250,7 @@ export default {
 
 .vl {
   border-right: 2px solid rgba(24,24,24,1);
-  height: 60px;
+  height: 70px;
 }
 
 .buttonHover:hover {

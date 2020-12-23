@@ -7,7 +7,9 @@ const state =  {
     user: {},
     administrator: {},
     companyName: "",
-    companyId: {}
+    companyId: {},
+    isLayout1: false,
+    isLayout2: true
 
 }
 
@@ -30,6 +32,12 @@ const getters = {
     },
     companyId(state){
       return state.companyId;
+    },
+    isLayout1(state){
+      return state.isLayout1;
+    },
+    isLayout2(state){
+      return state.isLayout2;
     }
 }
 
@@ -60,8 +68,12 @@ const mutations = {
         state.Loginstatus= true;
         state.IdentityModel = {}
         this.$router.push('/');
+    },
+    showLayout1(state){
+      state.isLayout1 = true;
+      state.isLayout2 = false;
+      this.$router.push('/docksite');
     }
-
 
 }
 

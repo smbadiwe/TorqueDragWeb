@@ -9,7 +9,8 @@
                 <path id="Path_67_fd" d="M 0 0 L 125 0 L 125 34 L 0 34 L 0 0 Z">
                 </path>
             </svg>
-            <div id="Schematic">
+            <div id="Schematic"
+			@click="showschematics">
                 <span>Schematic</span>
             </div>
         </div>
@@ -17,6 +18,11 @@
 
 <script>
 export default {
+	methods:{
+		showschematics(){
+			this.$emit('showschematics');
+		}	
+	}
     
 }
 </script>

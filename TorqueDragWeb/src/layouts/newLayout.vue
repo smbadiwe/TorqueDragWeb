@@ -39,10 +39,17 @@ export default {
 	  inputviewright,
 	  introLeft
 	},
+	computed: {
+		isLayout1() {
+        return this.$store.getters['authStore/isLayout1'];
+		},
+		isLayout2() {
+        return this.$store.getters['authStore/isLayout2'];
+        }
+	},
 	data(){
 		return {
-			isLayout1: false,
-			isLayout2: true
+		
 		}
 	}
     
