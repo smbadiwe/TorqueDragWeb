@@ -1,9 +1,6 @@
 <template>
     <div id="subsurfacepage">
-        <q-scroll-area
-            :visible="visible"
-            style="height: 700px; width: 240px"
-            > 
+
             <div class="row">
                 <div class="col-12 q-pa-sm text-left">
                     Pore Pressure
@@ -587,7 +584,7 @@
                     </q-expansion-item>
                 </div>
             </div>
-        </q-scroll-area>
+       
     </div>
 </template>
 

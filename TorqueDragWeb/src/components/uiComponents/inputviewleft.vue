@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="Component_53__1" class="Component_53___1">
+        <div id="Component_53__1" :style="'width: '+ win_width + 'px;'">
 
             <inputdataleft 
                 v-bind:isdefaultviewleft="isdefaultviewleft"
@@ -39,7 +39,6 @@
             <operationsbutton v-on:showoperations="updateoperations"></operationsbutton>
 
         </div>    
-       
     </div>
 </template>
 
@@ -74,6 +73,14 @@ export default {
         sensitivitybutton,
         schematicbutton,
         inputdataleft,
+    },
+    computed: {
+        win_width() {
+            return ((297.333/1920) * this.$q.screen.width);
+        },
+        win_height() {
+            return this.$q.screen.height;
+        }
     },
     data(){
         return {
@@ -207,7 +214,7 @@ export default {
 
 #Component_53__1 {
 	position: absolute;
-	width: 297.333px;
+	/* width: 297.333px; */
 	height: 877px;
 	left: 0px;
 	top: 144px;

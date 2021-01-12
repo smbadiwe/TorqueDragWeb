@@ -63,8 +63,8 @@ export default {
     methods:{
         showsettings(){
             var context =  this;
-            context.issettingsheader = false,
-            context.issensitivityheader =  true;
+            context.issettingsheader = true,
+            context.issensitivityheader =  false;
             context.isschematicsheader = false;
         },
         showsensitivity(){

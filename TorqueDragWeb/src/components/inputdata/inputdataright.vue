@@ -1,15 +1,15 @@
 <template>
     <div>
         <settingsview v-if="issettingsheader"></settingsview>
-        <schematicsview v-if="issensitivityheader"></schematicsview>
-        <sensitivityview v-if="isschematicsheader"></sensitivityview>
+        <schematicsview v-if="isschematicsheader"></schematicsview>
+        <sensitivityview v-if="issensitivityheader"></sensitivityview>
     </div>
 </template>
 
 <script>
-import settingsview from 'components/inputdata/settingsview.vue';
-import schematicsview from 'components/inputdata/schematicsview.vue';
-import sensitivityview from 'components/inputdata/sensitivityview.vue';
+import settingsview from 'pages/inputdata/analysisSettings.vue'
+import schematicsview from 'pages/inputdata/wellList.vue';
+import sensitivityview from 'pages/inputdata/sensitivity.vue';
 
 export default {
     components:{

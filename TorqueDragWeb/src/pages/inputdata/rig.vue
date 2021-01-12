@@ -1,9 +1,5 @@
 <template>
     <div id="rigpage">
-        <q-scroll-area
-            :visible="visible"
-            style="height: 700px; width: 240px"
-            > 
         <div class="row q-pa-sm">
             <div class="col-12">
             Mechanical Limits
@@ -54,7 +50,7 @@
             </div>
     
         </div>
-        </q-scroll-area>
+       
     </div>
 </template>
 

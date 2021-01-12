@@ -1,9 +1,6 @@
 <template>
     <div>
-        <q-scroll-area
-            :visible="visible"
-            style="height: 700px; width: 240px"
-            > 
+       
             <div class="row" id="holepage">
                 <div class="col-12 q-pa-sm"> 
                     <q-btn 
@@ -170,7 +167,7 @@
                 </div>
 
             </div>
-        </q-scroll-area>
+        
 
     </div>
 </template>

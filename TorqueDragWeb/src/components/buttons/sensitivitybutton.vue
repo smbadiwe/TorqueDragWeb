@@ -1,5 +1,5 @@
 <template>
-     <div id="Component_31__50" class="Component_31___50">
+     <div  id="Component_31__50" class="Component_31___50">
         <svg class="Path_67_fb" viewBox="0 0 122 34">
             <linearGradient id="Path_67_fb" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
                 <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
@@ -18,6 +18,18 @@
 
 <script>
 export default {
+	computed:{
+    winwidth() {
+            var wd = (this.$q.screen.width/ 12.0)* 3.0;
+            console.log(wd);
+            return wd;
+      }
+},
+	data(){
+		return {
+
+		}
+	},
 	methods:{
 		showsensitivity(){
 			this.$emit('showsensitivity');
@@ -33,8 +45,8 @@ export default {
 	position: absolute;
 	width: 34px;
 	height: 122px;
-	left: 1885px;
-	top: 290px;
+	left: 395px; 
+    top: 112px;
 	overflow: visible;
 }
 #Path_67_fb {

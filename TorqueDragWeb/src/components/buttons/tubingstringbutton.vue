@@ -36,7 +36,7 @@ export default {
 	width: 34px;
 	height: 96px;
 	left: 2px;
-	top: 343px;
+	top: 309px;
 	overflow: visible;
 }
 #Path_67_ed {

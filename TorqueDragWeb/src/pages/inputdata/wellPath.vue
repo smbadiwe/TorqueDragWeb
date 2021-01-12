@@ -54,14 +54,15 @@
 
                 <div class="col-12 q-pa-sm"> 
                     <q-table
+                    color="white"
+                    card-class="bg-primary text-white"
+                    table-class="text-white"
+                    table-header-class="text-white"
                     :data="deviationSurveys" 
                     :columns="columns" 
                     row-key="name" 
                     flat
                     bordered
-                    class="my-sticky-header-table"
-                    dark
-                    color="amber"
                     :separator="separator">
 
 
@@ -69,13 +70,13 @@
                         <q-tr
                         :props="props">
                             <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
+                            <q-td key="trueVerticalDepth" :props="props">{{ props.row.trueVerticalDepth }}</q-td>
                             <q-td key="inclination" :props="props">{{ props.row.inclination }}</q-td>
                             <q-td key="azimuth" :props="props">{{ props.row.azimuth }}</q-td>
-                            <q-td key="trueVerticalDepth" :props="props">{{ props.row.trueVerticalDepth }}</q-td>
                             <q-td key="northSouth" :props="props">{{ props.row.northSouth }}</q-td>
                             <q-td key="eastWest" :props="props">{{ props.row.eastWest }}</q-td>
                             <q-td key="verticalSection" :props="props">{{ props.row.verticalSection }}</q-td>
-                            <q-td key="verticalSection" :props="props">{{ props.row.doglegSeverity }}</q-td>
+                            <q-td key="doglegSeverity" :props="props">{{ props.row.doglegSeverity }}</q-td>
                         </q-tr>
                         </template>
                     </q-table>
@@ -105,9 +106,9 @@ export default {
         separator: 'cell',
         columns: [
             { name: "measuredDepth", label: "Measured Depth (ft)", field: "", align: "left" },
+            { name: "trueVerticalDepth", label: "True Vertical Depth (ft)", field: "", align: "left" },
             { name: "inclination", label: "Inclination (deg)", field: "", align: "left" },
             { name: "azimuth", label: "Azimuth (deg)", field: "", align: "left" },
-            { name: "trueVerticalDepth", label: "True Vertical Depth (ft)", field: "", align: "left" },
             { name: "northSouth", label: "North/South (ft)", field: "", align: "left" },
             { name: "eastWest", label: "East/West (ft)", field: "", align: "left" },
             { name: "verticalSection", label: "Vertical Section (ft)", field: "", align: "left" },
@@ -144,6 +145,13 @@ export default {
 .my-sticky-header-table{
   height: 450px;
 }
+
+.q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    
+    background-color: black
+  }
 
 
 #wellpathpage {

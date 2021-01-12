@@ -1,101 +1,50 @@
 <template>
- <div v-bind:style="mainStyle">
+ <div>
      <q-layout view="hHh lpR fFf">
          <q-header>
-             <div class="row">
-                <div class="col-2"  :style="'height:' + headerHeight + 'px; background:' + dimgray + ';'">
-
+            <div id="Top_Rectangle" :style="'width: '+ win_width + 'px;'">
+                <svg class="Rectangle_2" :style="'width: '+ win_width + 'px;'">
+                    <rect id="Rectangle_2"
+                    rx="0" ry="0" x="0" y="0" :width="win_width" height="139">
+                    </rect>
+                </svg>
+                <svg class="Rectangle_1" :style="'width: '+ win_width + 'px;'">
+                    <rect id="Rectangle_1"
+                     rx="0" ry="0" x="0" y="0" :width="win_width" height="42">
+                    </rect>
+                </svg>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    
                 </div>
-                <div class="col-6"   :style="'height:' + headerHeight + 'px;'">
+                <div class="col-7">
                     <div class="row">
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
+                        <div class="col q-pa-sm TextClass">
                             Output
                         </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
+                        <div class="col q-pa-sm TextClass">
                             Torque & Drag
                         </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
+                        <div class="col q-pa-sm TextClass">
                             Hydraulics
                         </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
-                            Centralization
-                        </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
-                            Swab & Surge
-                        </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
-                            Well Control
-                        </div>
-                        <div class="col q-pa-sm text-center" :style="'font-size:' + menubarFontSize + 'px; background:' + darkgrey + ';'">
-                            Cementing
+
+                        <div class="col q-pa-sm TextClass">
+                            Surge & Swab
                         </div>
                     </div>
                 </div>
-                <div class="col-4"  :style="'height:' + headerHeight + 'px; background:' + dimgray + ';'">
+                <div class="col-3">
 
                 </div>
-             </div>
+            </div>
          </q-header>
 
          <q-page-container>
-             <div class="row">
-
-            <div class="col-2" :style="'height:' + GetBodyHeight() + 'px;'">
-                <div class="row">
-                    <div class="col-12 text-center" :style="'height:20px;' + 'background: ' + primary + '; font-size:' + menubarFontSize + 'px;'"
-                    >
-                        <svg>
-
-                        <text x="1" y="1" 
-                        :style="'color:' + fontcolor + '; background: ' + primary + '; font-size:' + menubarFontSize + 'px;'">A nice rectangle</text>
-                        </svg>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 bg-orange">
-                        <div class="row">
-                            <div id="rotate-text">
-                                <p>Datum</p>
-                            </div>
-                            <div id="rotate-text">
-                                <p>WellPath</p>
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div
-                                class="container q-pa-md">
-                                <span>Well Path</span>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="col-10 bg-green">
-                    </div>
-                </div>
-            </div>
-            <div class="col-8" :style="'height:' + GetBodyHeight() + 'px;'">
-                <router-view />
-            </div>
-            <div class="col-2 bg-red" :style="'height:' + GetBodyHeight() + 'px;'">
-                <svg 
-                    :width="win_widthTwoOverTwelve" 
-                    :height="GetBodyHeight()">
-                    <rect 
-                    :width="win_widthTwoOverTwelve" 
-                    :height="GetBodyHeight()"
-                    :style="'fill:' + primary + '; stroke-width:' + strokeWidth + ';stroke:' + stroke" />
-
-                </svg>
-            </div>
-             </div>
+           
          </q-page-container>
 
-         <footer>
-             <div class="row">
-                 <div class="col-12"  :style="'height:' + footerHeight + 'px; background:' + primary + ';'">
-
-                </div>
-             </div>
-         </footer>
      </q-layout>
  </div>
 </template>
@@ -106,94 +55,65 @@ export default {
         win_width() {
             return this.$q.screen.width;
         },
-        win_widthOneOverFive() {
-            return this.$q.screen.width /7.0;
-        },
-        win_widthTwoOverTwelve() {
-            return 2 * (this.$q.screen.width /12.0)
-        },
-        win_widthFourOverFive() {
-            return 4 * (this.$q.screen.width /7.0)
-        },
         win_height() {
             return this.$q.screen.height;
-        },
-        bodyHeight2() {
-            var context =  this;
-            return this.$q.screen.height - 200;
         }
     },
     data() {
         return {
-            darkgrey: '#A9A9A9',
-            grey: '#808080',
-            dimgray: '#696969',
-            primary:'rgba(24,24,24,1)',
-            headerHeight: 30,
-            headerHeight2: 150,
-            footerHeight: 30,
-            menubarFontSize: 12,
-            strokeWidth:1,
-            stroke: '#ffffff',
-            fontcolor: '#ffffff',
-            mainStyle: {
-                // background: '#474f57',
-                color: '#ffffff',
-                //fontFamily: 'Times New Roman',
-                //fontStyle: 'italic',
-                //fontSizeAdjust: '0.58'
-            },
         }
     },
     methods: {
-        GetBodyHeight(){
-            var context =  this;
-            var bodyHeight = context.win_height - context.headerHeight - context.footerHeight;
-            console.log(bodyHeight)
-            return bodyHeight;
-        }
+
     }
 
 }
 </script>
 
 <style>
-      .container{
-        -webkit-transform:  translateY(-100%) rotate(90deg) ;
-        transform:  translateY(-100%) rotate(90deg);
-        -webkit-transform-origin: left bottom;
-        transform-origin: left bottom;
-        margin:0px;
-        background-color:rgba(24,24,24,1);
-        color:white;       
-    }
+   
+   #Top_Rectangle {
+	position: absolute;;
+	height: 139px;
+    /* width: 1920px; */
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_2 {
+	fill: rgba(50,50,50,1);
+}
+.Rectangle_2 {
+	position: absolute;
+	overflow: visible;
+	height: 139px;
+    width: 1920px;
+	left: 0px;
+	top: 0px;
+}
+#Rectangle_1 {
+	opacity: 0;
+	fill: rgba(83,83,83,1);
+}
+.Rectangle_1 {
+	position: absolute;
+	overflow: visible;
+	height: 42px;
+	left: 0px;
+	top: 0px;
+}
 
-    p{
-        font: 12px;
-        /* letter-spacing: 2px; */
-        background:rgba(24,24,24,1);
-        color:#fff;
-        margin: 0 0 10px 0;
-        padding: 5px 10px;
-        line-height: 24px;
-        /* padding: 5px 10px; 
-        margin: 0 0 10px 0;
-        line-height: 24px; */
-    }
-
-    .transF p{
-        top: 0;
-        left: 0;
-        background: none;
-        transform-origin: 0 0;
-        transform: rotate(180deg);
-    }
-
-    #rotate-text {
-        top: 0;
-        left: 0;
-        width: 150px;
-        transform: rotate(270deg);
-        }
+.TextClass {
+    height: 42px;
+	overflow: visible;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+    background-color: rgba(50,50,50,1);
+}
 </style>
 

@@ -25,7 +25,7 @@
 <script>
 
 import docksite from 'components/uiComponents/docksite.vue';
-import menubar from 'components/uiComponents/menubar.vue';
+import menubar from 'components/uiComponents/menubar2.vue';
 import inputviewleft from 'components/uiComponents/inputviewleft.vue';
 import inputviewright from 'components/uiComponents/inputviewright.vue';
 import introLeft from 'components/uiComponents/introLeft.vue';
@@ -45,11 +45,24 @@ export default {
 		},
 		isLayout2() {
         return this.$store.getters['authStore/isLayout2'];
-        }
+		},
+		splitterStyle () {
+			return {
+				height: '1080px',// Math.min(600, 0.66 * this.width) + 'px',
+				width: this.width + 'px'
+			}
+		}
 	},
 	data(){
 		return {
-		
+			//  splitterModel: 150 // start at 150px,
+			 width: 400,
+      		 splitterModel: 50 // start at 50%
+		}
+	},
+	methods: {
+		onResize ({ width }) {
+			this.width = width
 		}
 	}
     

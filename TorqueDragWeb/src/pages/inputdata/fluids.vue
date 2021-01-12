@@ -1,9 +1,6 @@
 <template>
     <div id="fluidspage">
-         <q-scroll-area
-            :visible="visible"
-            style="height: 770px; width: 240px"
-            > 
+
             <div class="row">
                 <div class="col-12">
                     <q-card class="my-card" 
@@ -173,7 +170,6 @@
 
                 </div>
             </div>
-         </q-scroll-area>
 
     </div>
 </template>

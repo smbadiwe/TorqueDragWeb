@@ -1,9 +1,9 @@
 <template>
   <div>
-    <q-scroll-area
+    <!-- <q-scroll-area
         :visible="visible"
-      style="height: 700px; width: 240px"
-    >
+      style="height: 700px; width:100%"
+    > -->
       <div id="datumpage">
       
           <!-- <textbox-Component></textbox-Component> -->
@@ -35,12 +35,6 @@
                       <q-card-section> -->
                           
                           <div class="row">
-
-                            <div class="col-12 q-pa-sm">
-                              New Datum
-                              <br>
-                              <hr/>
-                            </div>
 
                             <div class="col-3 q-pt-sm">Shore</div>
                             <div class="col-5 q-pa-sm"><input v-model="typeOfShore"></div>
@@ -92,10 +86,10 @@
 
 
         <div class="row">
-          <div class="col-md-6 col-sm-12 q-pa-sm">
+          <div class="col-md-3 col-sm-12 q-pa-sm">
               Select Datum: 
             </div>
-            <div class="col-md-6 col-sm-12 q-pa-sm">
+            <div class="col-md-9 col-sm-12 q-pa-sm">
             <select style="width:100%;"
               name="NameOfDatum"
               id="" 
@@ -142,7 +136,8 @@
 
       
       </div>
-    </q-scroll-area>
+
+    <!-- </q-scroll-area> -->
   </div>
 </template>
 
@@ -251,6 +246,7 @@ export default {
     font-weight: lighter;
     font-size: 15px;
     color: rgba(214,214,214,1);
+    background-color: rgba(24,24,24,1);
 }
 
 </style>

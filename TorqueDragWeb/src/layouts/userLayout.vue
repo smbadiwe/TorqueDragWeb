@@ -1,265 +1,184 @@
 <template>
-  <div v-bind:style="mainStyle" class="bg-primary">
-    <q-layout view="hHh lpR fFf">
-      <q-header>
+  <!-- <div class="bg-primary"> -->
 
+    <q-layout view="hHh lpR fFf" class="bg-primary">
+    <q-header elevated>
 
-        <div class="q-pa-sm q-pl-md row items-center bg-secondary">
-            <!--  <q-btn
-            flat
-            dense
-            round
-            icon="menu"
-            aria-label="Menu"
-            @click="leftDrawerOpen = !leftDrawerOpen"
-            /> -->
+    <q-bar class="q-pa-sm q-pl-md row bg-secondary" >
+            
+          <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+          <q-icon name="laptop_chromebook"/>
+          
 
-           
+              <q-tabs 
+            v-model="tab"
+            no-caps
+            outside-arrows
+            mobile-arrows
+            class="mytab text-white shadow-2 col-9"
+          >
+            <q-tab name="output" label="Output"
+             @click="ShowFileRibbon('General Outputs')"/>
+            <q-tab name="torquedrag" label="Torque & Drag" 
+            @click="ShowFileRibbon('Torque & Drag')"/>
+            <q-tab name="hydraulics" label="Hydraulics" />
+             <q-tab name="swabsurge" label="Swab & Surge" />
+            <q-tab name="centralization" label="Centralization" />
+            <q-tab name="wellcontrol" label="Well Control" />
+            <q-tab name="cementing" label="Cementing" />
+          </q-tabs>
+          <!-- <div>Google Chrome</div> -->
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-              flat
-            size="md" 
-            label="Settings"
-            class="text-capitalize">
-           </q-btn>
+          <!-- <q-space/> -->
+
+          <!-- <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Output
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-              flat
-            size="md" 
-            label="Home"
-            class="text-capitalize"
-            @click="ShowFileRibbon('Home')">
-           </q-btn>
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Torque & Drag
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-            flat
-           size="md" 
-           label="View"
-           class="text-capitalize">
-            <q-menu fit>
-              <div class="q-pa-md bg-accent" style="max-width: 350px">
-                <q-list>
-                  <q-item clickable v-ripple
-                  @click="ShowInputView">
-                    <q-item-section>Inputs</q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-ripple
-                  @click="ShowWellListView">
-                    <q-item-section>WellList</q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-ripple
-                  @click="ShowSchematicView">
-                    <q-item-section>Schematic</q-item-section>
-                  </q-item>
-
-                  <q-item clickable v-ripple
-                  @click="ShowTDAnalysisView">
-                    <q-item-section>Analysis Settings</q-item-section>
-                  </q-item>
-                  
-                </q-list>
-              </div>
-            </q-menu>
-           </q-btn>
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Hydraulics
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-              flat
-            size="md" 
-            label="General Outputs"
-            class="text-capitalize"
-            @click="ShowFileRibbon('General Outputs')">
-           </q-btn>
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Centralization
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-              flat
-            size="md" 
-            label="Torque & Drag"
-            class="text-capitalize"
-            @click="ShowFileRibbon('Torque & Drag')">
-           </q-btn>
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Swab & Surge
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-            flat
-           size="md" 
-           label="Hydraulics"
-           class="text-capitalize">
-            <q-menu fit>
-              <div class="q-pa-md bg-accent" style="width:600px; height:100px">
-              </div>
-            </q-menu>
-           </q-btn>
-          </div>
-
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md"
-           @click="ShowFileRibbon('Surge & Swab')">
-            Surge & Swab
-          </div>
-
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md"
-           @click="ShowFileRibbon('Well Control')">
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
             Well Control
           </div>
 
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-           <q-btn 
-              flat
-            size="md" 
-            label="Cementing"
-            class="text-capitalize"
-            @click="ShowFileRibbon('Cementing')">
-           </q-btn>
-          </div>
-
-          <div class="cursor-pointer non-selectable q-pr-md q-pl-md">
-            <q-btn 
-              flat
-            size="md" 
-            label="Tubing Stress Analysis"
-            class="text-capitalize"
-            @click="ShowFileRibbon('Tubing Stress Analysis')">
-           </q-btn>
-          </div>
+          <div class="col q-px-md menutab cursor-pointer non-selectable">
+            Cementing
+          </div> -->
 
          
 
           <q-space />
+          <q-btn dense flat round icon="menu" @click="right = !right" />
+          <q-btn dense flat icon="minimize" />
+          <q-btn dense flat icon="crop_square" />
+          <q-btn dense flat icon="close" />
+    </q-bar>
 
-          <div>
-           <q-btn 
-           v-if="Loginstatus"
-           size="sm" 
-           avatar>
-            <q-avatar
-            size="sm" 
-            color="white" text-color="primary">
-                  {{ IdentityModel.userName.charAt(0) }}
-            </q-avatar>
-            <q-menu fit>
-              <q-list dense class="text-grey-9 text-caption bg-primary">
-                  <q-item
-                    class="bg-primary text-white">
-                    <q-btn 
-                        class="q-mr-md" 
-                        size="sm" 
-                        style="margin-left:auto; margin-right:auto; display:block;"
-                        dense icon="color_lens"
-                        @click="logoutUser">
-                        Logout
-                      </q-btn>
-                  </q-item>
-              </q-list>
-            </q-menu>
-           </q-btn>
-          </div>
+    <div class="row items-center bg-dark" style="height: 100px;">
+       
+      <div v-if="isRibbonActiveHome"
+            class="col-12">
+            <homeRibbon-app></homeRibbon-app>
+      </div>
+      <div v-if="isRibbonGeneralOutputs"
+            class="col-12">
+            <generalOutputs-app></generalOutputs-app>
+      </div> 
+      <div v-if="isTorqueDrag"
+          class="col-12">
+            <torqueDragRibbon-app></torqueDragRibbon-app>
+      </div>
+    </div>
 
-        
-        </div>
+    </q-header>
 
-        <div class="row">
-          <div class="col-12">
-            <hr/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div v-if="isRibbonActiveHome"
-                class="col-12">
-                <homeRibbon-app></homeRibbon-app>
-          </div>
-          <div v-if="isRibbonGeneralOutputs"
-                class="col-12">
-                <generalOutputs-app></generalOutputs-app>
-          </div>
-          <div v-if="isTorqueDrag"
-                class="col-12">
-                <torqueDragRibbon-app></torqueDragRibbon-app>
-          </div>
-        </div>
-      </q-header>
- 
-      
     <q-drawer
       v-model="leftDrawerOpen"
-      width="500"
-      >
-        <div
-          class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <!-- <mainInput-app></mainInput-app> -->
-       </div>
-        
+       show-if-above
+      :width="450"
+      bordered
+      content-class="bg-primary"
+    >
+         <div class="col-12 bg-primary q-pa-none">
+            <mainInput-app
+            :visibility="isInput"></mainInput-app>
+          </div>
+    </q-drawer>
+
+    <q-drawer 
+    v-model="right" 
+    show-if-above 
+    side="right" 
+    :width="450"
+    bordered
+    content-class="bg-primary">
+          <div class="col-12 bg-primary q-pa-none">
+            <mainInputRight
+            :visibility="isInput"></mainInputRight>
+          </div>
     </q-drawer>
 
       <q-page-container>
-        <div class="row" v-if="isInput">
-          <div class="col-12"> 
-            <div class="row">
-              <div class="col-5 bg-primary q-pa-none">
-                <mainInput-app
-                :visibility="isInput"></mainInput-app>
-              </div>
-              <div class="col-7 q-pa-sm">
-                 <router-view />
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="row" v-else-if="isDataVisualization">
-          <div class="col-12"> 
-            <div class="row">
-              <div class="col-3 bg-primary q-pa-none">
-                <chartSeries-app></chartSeries-app>
-              </div>
-              <div class="col q-pa-sm">
-                 <router-view />
-              </div>
-              <div  
-               class="col-3 bg-primary q-pa-sm">
-              <chartProperties-app></chartProperties-app>
-            </div>
-            </div>
+    <div class="row">
+      <div class="col-12"> 
+         <router-view />
+        <!-- <div class="row">
+          <div class="col-3 bg-primary q-pa-none">
+            <mainInput-app
+            :visibility="isInput"></mainInput-app>
           </div>
-        </div>
-
-        <div class="row" v-else>
-            <div 
-            class="col q-pa-sm"> 
+          <div class="col-9 q-pa-sm">
               <router-view />
-            </div>
-            <div 
-            v-if="isWellList" 
-            class="col-3 bg-primary q-pa-sm">
-              <wellList-app></wellList-app>
-            </div>
-            <div 
-            v-if="isSchematic" 
-            class="col-3 bg-primary q-pa-sm">
+          </div>
+        </div> -->
+      </div>
+    </div>
 
-            </div>
-            <div 
-            v-if="isTDAnalysis" 
+    <!-- <div class="row" v-else-if="isDataVisualization">
+      <div class="col-12"> 
+        <div class="row">
+          <div class="col-3 bg-primary q-pa-none">
+            <chartSeries-app></chartSeries-app>
+          </div>
+          <div class="col q-pa-sm">
+              <router-view />
+          </div>
+          <div  
             class="col-3 bg-primary q-pa-sm">
-              <analysisSettings-app></analysisSettings-app>
-            </div>
+          <chartProperties-app></chartProperties-app>
+        </div>
+        </div>
+      </div>
+    </div>
+ -->
+
+    <!-- <div class="row" v-else>
+        <div 
+        class="col q-pa-sm"> 
+          <router-view />
+        </div>
+        <div 
+        v-if="isWellList" 
+        class="col-3 bg-primary q-pa-sm">
+          <wellList-app></wellList-app>
+        </div>
+        <div 
+        v-if="isSchematic" 
+        class="col-3 bg-primary q-pa-sm">
 
         </div>
-       
+        <div 
+        v-if="isTDAnalysis" 
+        class="col-3 bg-primary q-pa-sm">
+          <analysisSettings-app></analysisSettings-app>
+        </div>
+
+    </div> -->
       </q-page-container>
     </q-layout>
-  </div>
+  <!-- </div> -->
 </template>
 
 
@@ -268,11 +187,14 @@
 import homeRibbon from 'pages/menus/homeRibbon.vue';
 import generalOutputs from 'pages/menus/generalOutputs.vue';
 import mainInput from 'pages/inputdata/mainInput.vue';
+import mainInputRight from 'pages/inputdata/mainInputRight.vue';
+import testRibbon from 'pages/menus/testRibbon.vue';
 import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
 import wellList from 'pages/inputdata/wellList.vue';
 import analysisSettings from 'pages/inputdata/analysisSettings.vue';
 import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
 import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
+
 
 export default {
   name: 'userLayout',
@@ -296,25 +218,28 @@ export default {
       'wellList-app': wellList,
       'analysisSettings-app': analysisSettings,
       'chartSeries-app': chartSeries,
-      'chartProperties-app': chartProperties
+      'chartProperties-app': chartProperties,
+      testRibbon,
+      mainInputRight
       },
   data () {
     return {
       leftDrawerOpen: false,
-      isInput:false,
+      right: false,
+      isInput:true,
       isWellList:true,
       isSchematic:false,
       isTDAnalysis:false,
-      tab: 'mails',
+      tab: 'output',
       isfileRibbon: false,
       ribbonStyle: {
           display: 'inline'
       },
       mainStyle: {
           // background: '#474f57',
+          //fontStyle: 'italic',
           color: '#ffffff',
           fontFamily: 'Times New Roman',
-          fontStyle: 'italic',
           fontSizeAdjust: '0.58'
       },
       primaryColor   : '#191919',
@@ -468,7 +393,32 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#Rectangle_2 {
+	fill: rgba(50,50,50,1); 
+}
+
+.Rectangle_2 {
+	position: absolute;
+	overflow: visible;
+	height: 50px;
+}
+
+#Rectangle_1 {
+	opacity: 0;
+	fill: rgba(83,83,83,1);
+}
+
+.menutab {
+	width: 64px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(227,227,227,1);
+}
 .q-drawer {
     background: #474f57;
 }
@@ -522,13 +472,14 @@ export default {
   height: 500px;
 }
   
-
-  /* .q-table__top,
+  .q-table__top,
   .q-table__bottom,
   thead tr:first-child th {
     
-    background-color: #c1f4cd;
+    background-color: black
   }
+
+  /* 
     
 
   thead tr th {
@@ -545,5 +496,9 @@ export default {
   .q-table--loading thead tr:last-child th {
     /* height of all previous header rows */
     top: 48px
+  }
+
+  .mytab {
+    background-color: rgba(112,112,112,1);
   }
 </style>

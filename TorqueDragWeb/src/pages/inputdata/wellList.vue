@@ -1,26 +1,23 @@
 <template>
-    <div class="row">
-      <div class="col-12 q-pa-sm">
-
-    <q-card class="my-card bg-secondary text-white" style="height:50px;">
-      <q-card-section align="right">
-        <div class="text-center text-subtitle1 q-pb-md">Well List</div>
-      </q-card-section>
-    </q-card>
-
-    <q-scroll-area
+  <div>
+     <!-- <q-scroll-area
         :visible="visible"
-      style="height: 500px; width: 100%;"
-    >
-        <q-tree
-          class="bg-accent text-primary"
-          :nodes="wellProjects"
-          default-expand-all
-          node-key="designId"
-          @update:selected="selectNode"
-          :selected.sync="selected"/>
-    </q-scroll-area>
-    </div>
+        id="scrollview"
+    > -->
+      <div id="schematicspace">
+            <div class="row">
+              <div class="col-12 q-pa-sm">
+                <q-tree
+                  class="bg-accent text-primary"
+                  :nodes="wellProjects"
+                  default-expand-all
+                  node-key="designId"
+                  @update:selected="selectNode"
+                  :selected.sync="selected"/>
+            </div>
+          </div>
+       </div>
+     <!-- </q-scroll-area> -->
   </div>
 </template>
 
@@ -121,3 +118,20 @@ export default {
    }
 }
 </script>
+
+<style scoped>
+
+#schematicspace {
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
+}
+#scrollview {
+    height: 390px;
+     width: 240px;
+}
+
+</style>

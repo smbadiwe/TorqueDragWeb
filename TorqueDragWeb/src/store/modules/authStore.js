@@ -9,12 +9,25 @@ const state =  {
     companyName: "",
     companyId: {},
     isLayout1: false,
-    isLayout2: true
+    isLayout2: true,
+    activeViews: {
+      isdefaultviewleft:true,
+      isdatum: false,
+      iswellpath: false,
+      ishole: false,
+      istubingstring: false,
+      isrig: false,
+      isfluids: false,
+      issubsurface: false,
+      isoperations: false
+    }
 
 }
 
 const getters = {
-    
+    activeViews(state){
+      return state.activeViews;
+    },
     Loginstatus(state){
         return state.Loginstatus;
     },
@@ -42,7 +55,10 @@ const getters = {
 }
 
 const mutations = {
-
+    SetActiveViews(state, payload){
+      state.activeViews = payload;
+      console.log("activeViews: ", payload);
+    },
     Login(state, payload){
         console.log("loginDTO:", payload)
         state.Loginstatus= true;

@@ -1,9 +1,9 @@
 <template>
   <div 
-  v-bind:style="tabStyle" class="col-12 bg-primary">
+  class="col-12 bg-primary">
 
     
-    <q-card class="my-card bg-secondary text-white" style="height:50px;">
+    <q-card class="my-card text-white" style="height:50px;">
       <q-card-section align="right">
         <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
           <!-- <q-icon name="close" /> -->
@@ -12,12 +12,11 @@
 
     <q-scroll-area
         :visible="visible"
-      style="height: 500px; width: 100%;"
+      style="height: 1000px; width: 100%;"
     >
 
         <div class="row"> 
-          <div class="col-3">
-            <!-- <q-toolbar class="bg-primary text-white text-caption text-capitalize shadow-2 rounded-borders"> -->
+   <!--        <div class="col-3">
             <q-tabs
           v-model="tab"
               vertical
@@ -40,11 +39,51 @@
               <q-tab class="rotate-270 text-capitalize" name="Operations" label="Operations" v-bind:style="qtabStyle"
               style="width: 80px; height: 90px;"  />
             </q-tabs>
-            <!-- </q-toolbar> -->
+          </div> -->
+          
+         <!--  <svg  :style="'width: '+ winwidth + 'px;'" class="Path_67_ew" :viewBox="'0 0 ' + winwidth + ' 845'">
+            <linearGradient id="Path_67_ew" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
+                <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
+                <stop offset="0.6109" stop-color="#444" stop-opacity="1"></stop>
+                <stop offset="1" stop-color="#767676" stop-opacity="1"></stop>
+            </linearGradient>
+            <path id="Path_67_ew" :d="'M 0 0 L ' + winwidth + ' 0 L ' + winwidth + ' 845 L 0 845 L 0 0 Z'">
+            </path>
+        </svg>
+ -->
+
+      <!-- <svg  :style="'width: '+ winwidth + 'px;'" class="Path_67_ew" :viewBox="'0 0 ' + winwidth + ' 845'">
+            <linearGradient id="Path_67_ew" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
+                <stop offset="0" stop-color="rgba(24,24,24,1)" stop-opacity="1"></stop>
+                <stop offset="0.6109" stop-color="rgba(24,24,24,1)" stop-opacity="1"></stop>
+                <stop offset="1" stop-color="rgba(24,24,24,1)" stop-opacity="1"></stop>
+            </linearGradient>
+            <path id="Path_67_ew" :d="'M 0 0 L ' + winwidth + ' 0 L ' + winwidth + ' 845 L 0 845 L 0 0 Z'">
+            </path>
+        </svg> -->
+        <!-- <svg class="Rectangle_79_du_datumview">
+          :style="'width: '+ win_width + 'px;'"
+        <rect id="Rectangle_79_du_datumview" rx="0" ry="0" x="0" y="0" width="297.333" height="877">
+              </rect>
+        </svg> -->
+
+          <div class="col-2">
+            <buttonBarLeft v-on:updateprop="updateprop($event)"></buttonBarLeft>
           </div>
 
-          <div class="col-9">
-            <q-tab-panels
+          <div id="Group_37_dw_datumview" class="col-10">
+
+            <inputdataleft
+                v-bind:isdatum="isdatum"
+                v-bind:iswellpath="iswellpath"
+                v-bind:ishole="ishole"
+                v-bind:istubingstring="istubingstring"
+                v-bind:isrig="isrig"
+                v-bind:isfluids="isfluids"
+                v-bind:issubsurface="issubsurface"
+                v-bind:isoperations="isoperations"></inputdataleft>
+
+           <!--  <q-tab-panels
               v-model="tab"
               animated
               swipeable
@@ -102,7 +141,8 @@
                 </div>
               </q-tab-panel>
 
-            </q-tab-panels>
+            </q-tab-panels> -->
+
           </div>
         </div>
 
@@ -195,14 +235,16 @@
 </template>
 
 <script>
-import datumn from 'pages/inputdata/datum.vue';
-import wellPath from 'pages/inputdata/wellPath.vue'
+import inputdataleft from 'components/inputdata/inputdataleft.vue';
+import buttonBarLeft from 'components/buttons/buttonBarLeft.vue';
+/* import wellPath from 'pages/inputdata/wellPath.vue'
 import hole from 'pages/inputdata/hole.vue'
 import tubingString from 'pages/inputdata/tubingString.vue'
 import rig from 'pages/inputdata/rig.vue'
 import fluids from 'pages/inputdata/fluids.vue'
 import subsurface from 'pages/inputdata/subsurface.vue'
 import operations from 'pages/inputdata/operations.vue'
+ */
 
 export default {
 computed:{
@@ -211,6 +253,11 @@ computed:{
     },
     tabCaption() {
          return this.$store.getters['settingsStore/tabCaption'];
+    },
+    winwidth() {
+            var wd = (this.$q.screen.width/ 12.0)* 3.0;
+            console.log(wd);
+            return wd;
     }
 },
 props: {
@@ -220,14 +267,16 @@ props: {
   }
 },
  components:{
-     'datumn-app': datumn,
+    /*  'datumn-app': datumn,
      'wellPath-app': wellPath,
      'hole-app': hole,
      'tubingString-app': tubingString,
      'rig-app': rig,
      'fluids-app': fluids,
      'subsurface-app': subsurface,
-     'operations-app': operations
+     'operations-app': operations, */
+     buttonBarLeft,
+     inputdataleft
   },
   data () {
     return {
@@ -236,30 +285,39 @@ props: {
       tab: 'Datum',
       visible: true,
       splitterModel: 10,
-      tabStyle: {
-          // background: '#474f57',
-          color: '#ffffff',
-          fontFamily: 'Times New Roman',
-          fontStyle: 'italic',
-          fontSizeAdjust: '0.58'
-      },
-      qtabStyle: {
-        //width: 'auto',
-        //height: '70px',
-        marginLeft:'auto',
-        marginRight:'auto',
-        display:'block',
-      }
+      isdefaultviewleft:true,
+      isdatum: false,
+      iswellpath: false,
+      ishole: false,
+      istubingstring: false,
+      isrig: false,
+      isfluids: false,
+      issubsurface: false,
+      isoperations: false
     }
   },
   methods:{
     CloseView(){
       var context = this;
       context.visibility =  false;
+    },
+    updateprop(ev){
+      var context =  this;
+        context.isdatum = ev.isdatum;
+        context.iswellpath = ev.iswellpath;
+        context.ishole = ev.ishole;
+        context.istubingstring = ev.istubingstring;
+        context.isrig = ev.isrig;
+        context.isfluids = ev.isfluids;
+        context.issubsurface = ev.issubsurface;
+        context.isoperations = ev.isoperations;
+        console.log("ev: ", ev);
     }
+
   },
   created(){
-
+    var wd = (this.$q.screen.width/ 12.0)* 3.0;
+            //console.log(wd);
   }
 }
 </script>
@@ -267,11 +325,45 @@ props: {
 <style scoped>
 .my-card {
   width: 100%;
+  background-color: rgba(112,112,112,1);
   }
 .mypanel {
   /* border-style: groove; */
   }
 .q-tab-panel {
     padding: 16px;
+}
+.vl {
+  border-right: 2px solid rgba(112,112,112,1);
+  height: 840px;
+}
+
+#Path_67_ew {
+	fill: url(#Path_67_ew);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+  }
+
+.Path_67_ew {
+    overflow: visible;
+    position: absolute;
+    /* width: 500px; */
+    height: 845px;
+    left: 0px;
+    top: 0px;
+  }
+
+  #Group_37_dw_datumview {
+	/* opacity: 0.7;
+	 position: absolute;
+	width: 245px;
+	height: 781.564px;
+	left: 55.494px;
+	top: 70.436px;
+	overflow: visible; */
 }
 </style>

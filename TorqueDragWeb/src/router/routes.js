@@ -56,12 +56,12 @@ const routes = [
   {
     path: '/newLayout2',
     component: newLayout2,
-    children: [
+ /*    children: [
       { 
         path: '/newLayout2', 
         component: dockpage1
       }
-    ]
+    ] */
   },
   {
     path: '/main',

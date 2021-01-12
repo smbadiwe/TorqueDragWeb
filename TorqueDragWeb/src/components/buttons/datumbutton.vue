@@ -21,6 +21,16 @@ export default {
     methods:{
         showdatum(){
             this.$emit('showdatum');
+             /* this.$store.commit('authStore/SetActiveViews', {
+                isdatum: true,
+                iswellpath: false,
+                ishole: false,
+                istubingstring: false,
+                isrig: false,
+                isfluids: false,
+                issubsurface: false,
+                isoperations: false
+            }); */
         }
     }
     
@@ -33,9 +43,9 @@ export default {
         position: absolute;
         width: 34px;
         height: 102px;
-        left: 2px;
-        top: 36px;
         overflow: visible;
+        left: 2px;
+        top: 2px;
     }
 
     #Path_67_ew {

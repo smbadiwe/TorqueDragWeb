@@ -1,22 +1,22 @@
 <template>
     <div>
-        <div id="Top_Rectangle">
-            <svg class="Rectangle_2">
-                <rect id="Rectangle_2" rx="0" ry="0" x="0" y="0" width="1920" height="139">
+        <div id="Top_Rectangle" :style="'width: '+ win_width + 'px;'">
+            <svg class="Rectangle_2" :style="'width: '+ win_width + 'px;'">
+                <rect id="Rectangle_2" rx="0" ry="0" x="0" y="0" :width="win_width" height="139">
                 </rect>
             </svg>
-            <svg class="Rectangle_1">
-                <rect id="Rectangle_1" rx="0" ry="0" x="0" y="0" width="1920" height="42">
+            <svg class="Rectangle_1" :style="'width: '+ win_width + 'px;'">
+                <rect id="Rectangle_1" rx="0" ry="0" x="0" y="0" :width="win_width" height="42">
                 </rect>
             </svg>
         </div>
 
 		<div v-if="isTorqueDragRibbonVisible" 
-		id="Menupanel_Rectangle">
+		id="Menupanel_Rectangle" :style="'width: '+ win_width + 'px;'">
 			<torqueDragRibbon></torqueDragRibbon>
 		</div>
 
-		<div onclick="application.goToTargetView(event)" id="Component_41__9" class="Component_41___9">
+		<div id="Component_41__9" class="Component_41___9">
             <svg class="Rectangle_67">
                 <rect id="Rectangle_67" rx="10" ry="10" x="0" y="0" width="53" height="22">
                 </rect>
@@ -318,7 +318,15 @@ import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
 export default {
     components: {
 		torqueDragRibbon
-	},
+    },
+    computed: {
+        win_width() {
+            return this.$q.screen.width;
+        },
+        win_height() {
+            return this.$q.screen.height;
+        }
+    },
 	data(){
 		return {
 			isTorqueDragRibbonVisible: false
@@ -341,7 +349,7 @@ export default {
 
 #Top_Rectangle {
 	position: absolute;
-	width: 1920px;
+	/* width: 1920px; */
 	height: 139px;
 	left: 0px;
 	top: 0px;
@@ -353,7 +361,7 @@ export default {
 .Rectangle_2 {
 	position: absolute;
 	overflow: visible;
-	width: 1920px;
+	/* width: 1920px; */
 	height: 139px;
 	left: 0px;
 	top: 0px;
@@ -365,7 +373,7 @@ export default {
 .Rectangle_1 {
 	position: absolute;
 	overflow: visible;
-	width: 1920px;
+	/* width: 1920px; */
 	height: 42px;
 	left: 0px;
 	top: 0px;
@@ -1408,7 +1416,7 @@ export default {
 
 #Menupanel_Rectangle {
 	position: absolute;
-	width: 1920px;
+	/* width: 1920px; */
 	height: 60px;
 	left: 0px;
 	top: 30px;

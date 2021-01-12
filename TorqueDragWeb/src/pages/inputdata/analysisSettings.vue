@@ -1,9 +1,9 @@
 <template>
 <div>
-    <q-scroll-area
+    <!-- <q-scroll-area
         :visible="visible"
         id="scrollview"
-    >
+    > -->
         <div id="settigspage">
             <div class="row">
                     <div class="col-12 q-pa-sm text-right"> 
@@ -178,7 +178,7 @@
             </div>
             </div>
         </div>
-    </q-scroll-area>
+    <!-- </q-scroll-area> -->
 </div>
 </template>
 

@@ -33,8 +33,8 @@ export default {
 	position: absolute;
 	width: 34px;
 	height: 125px;
-	left: 1885px;
-	top: 411px;
+	left: 395px;
+	top: 234px;
 	overflow: visible;
 }
 #Path_67_fd {

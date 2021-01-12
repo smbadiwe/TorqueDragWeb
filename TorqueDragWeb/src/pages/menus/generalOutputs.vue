@@ -1,29 +1,198 @@
 <template>
-   <div>
-        <div class="row bg-accent text-primary" style="height:140px;">
-               <div class="col-1 vl">
-                <div class="row" style="height:100px">
-                     <div class="col q-pa-sm text-caption buttonHover" style="height:50px;"
-                        clickable
-                        @click="DrawSchematic">
-                        <img
-                        class="object-fit-cover"
-                        src="~assets/images/well_1.jpg">
-                        <br/>
-                        Draw Well
-                    </div>
+  <div>
+    <q-toolbar class=" bg-dark text-white q-my-md">
 
+       <div>
+            <div class="row buttonTD1">
+                  <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Vertical Section"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
                 </div>
 
-                <div class="row" style="height:20px">
-                    <div class="col-12 q-pb-md q-pt-sm text-center">
-                        Well Schematic
-                    </div>
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Plain View"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
                 </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Inclination"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Azimuth"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Dogleg Severity"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Build"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Walk"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Absolute Tortuosity"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Relative Tortuosity"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Geothmermal Gradient"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="WellPath Table"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Deviated Schematic"
+                    class="text-capitalize"
+                    stack 
+                    @click="DrawSchematic"
+                    >
+                    </q-btn>
+                </div>
+
+                <div class="q-pa-sm text-caption col">
+                    <q-btn 
+                    icon="play_arrow" 
+                    flat
+                    stretch
+                    size="sm" 
+                    label="Formation Tops"
+                    class="text-capitalize"
+                    stack 
+                    >
+                    </q-btn>
+                </div>
+
             </div>
-        </div>
-   </div>
+
+          <!-- <div class="row buttonTD2">
+          </div>
+
+            <div class="row buttonTD3">
+                <div class="col-12 q-pt-sm text-center">
+                    Simulation
+                </div>
+            </div> -->
+       </div>
+
+    
+      
+    </q-toolbar>
+  </div>
 </template>
+
 
 <script>
 export default {
@@ -54,10 +223,31 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+#torquedragmenu {
+	
+    /* width: 1700px;
+    left: 0px;
+    top: 30px;
+    position: absolute;
+    overflow: visible; */
+    
+	height: 80px;
+	background-color:  rgba(50,50,50,1); 
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 15px;
+    color: rgba(214,214,214,1);
+}
+
+
+
 .vl {
   border-right: 2px solid rgba(24,24,24,1);
-  height: 140px;
+  height: 70px;
 }
 
 .buttonHover:hover {
@@ -77,5 +267,20 @@ export default {
   height: 100%;
   object-fit: cover; /*magic*/
 }
+
+.buttonTD1 {
+    height:40px;
+}
+
+.buttonTD2 {
+    height:10px;
+}
+
+.buttonTD3 {
+    height:20px;
+}
+
+
+</style>>
 
 </style>

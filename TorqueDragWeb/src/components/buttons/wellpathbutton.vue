@@ -22,6 +22,16 @@ export default {
     methods:{
         showwellpath(){
             this.$emit('showwellpath');
+            /* this.$store.commit('authStore/SetActiveViews', {
+                isdatum: false,
+                iswellpath: true,
+                ishole: false,
+                istubingstring: false,
+                isrig: false,
+                isfluids: false,
+                issubsurface: false,
+                isoperations: false
+            }); */
         }
     }
     
@@ -35,7 +45,7 @@ export default {
         width: 34px;
         height: 116px;
         left: 2px;
-        top: 138px;
+        top: 104px;
         overflow: visible;
     }
 
