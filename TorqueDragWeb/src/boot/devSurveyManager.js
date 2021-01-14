@@ -19,6 +19,10 @@ var calculateDevParams = function calculate(devParams){
     function getChangeInNorth(changeInMeasuredDepth, inclination, azimuth){
         let changeInNorth = 0;
         changeInNorth = changeInMeasuredDepth * Math.sin(inclination) * Math.cos(azimuth);
+        console.log("changeInMeasuredDepth: ", changeInMeasuredDepth);
+        console.log("inclination: ", inclination);
+        console.log("azimuth: ", azimuth);
+        console.log("changeInNorth: ", changeInNorth);
         return changeInNorth;
     }
     
@@ -59,16 +63,19 @@ var calculateDevParams = function calculate(devParams){
 
         let dMD = devParams[i].measuredDepth - devParams[i-1].measuredDepth
         let changeInNorth = getChangeInNorth(dMD, incl, azi);
+  
         devParams[i].northSouth = devParams[i-1].northSouth + changeInNorth;
         let changeInEast = getChangeInEast(dMD, incl, azi);
+      
         devParams[i].eastWest = devParams[i-1].eastWest + changeInEast;
         devParams[i].trueVerticalDepth = devParams[i-1].trueVerticalDepth 
-        + getChangeInTrueVerticalDepth(dMD,
-            incl);
+        + getChangeInTrueVerticalDepth(dMD, incl);
+       
             devParams[i].verticalSection = devParams[i-1].verticalSection 
         + getChaneInHorizontalDisplacement(changeInNorth, changeInEast);
 
         devParams[i].doglegSeverity = tangentialMethod(dMD, inclLower, aziLower, incl, azi) * 100.0;
+      
     }
 
     console.log("devParams: ", devParams)

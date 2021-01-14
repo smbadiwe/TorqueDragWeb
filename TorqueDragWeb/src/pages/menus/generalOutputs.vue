@@ -210,6 +210,11 @@ export default {
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Deviated Schematic",
+                route: "schematicView"
+            });
+
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
@@ -218,6 +223,10 @@ export default {
                 xCanvasOffset: 50,
                 yCanvasOffset: 20
             });
+
+            
+
+
         }
     }
 }

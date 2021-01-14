@@ -801,7 +801,12 @@ const mutations = {
                         azimuth: azi,
                         designId: payload,
                         doglegSeverity: 0,
-                        isSelected: false
+                        isSelected: false,
+                        northSouth : 0,
+                        eastWest: 0,
+                        trueVerticalDepth: 0,
+                        verticalSection: 0,
+                        tol: ""
                     })
 
                 }

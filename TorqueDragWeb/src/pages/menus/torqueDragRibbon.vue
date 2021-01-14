@@ -222,34 +222,64 @@ export default {
 
         },
         effectiveTensionPlots(){
-            this.$router.push('/effectiveTension');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Effective Tension",
+                route: 'effectiveTension'
+            });
         },
         normalForcePlots(){
-            this.$router.push('/normalForce');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Normal Force",
+                route: "normalForce"
+            });
         },
         hookLoadPlots(){
-            this.$router.push('/hookLoad');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Hook Load",
+                route: 'hookLoad'
+            });
         },
         torquePlots(){
-            this.$router.push('/torque');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Torque",
+                route: 'torque'
+            });
         },
         dragPlots(){
-            this.$router.push('/drag');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Drag",
+                route: 'drag'
+            });
         },
         TrippingInDetails(){
-            this.$router.push('/trippingInResults');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Tripping In",
+                route: 'trippingInResults'
+            });
         },
         TrippingOutDetails(){
-            this.$router.push('/trippingOutResults');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Tripping Out",
+                route: 'trippingOutResults'
+            });
         },
         RotatingOnBottomDetails(){
-            this.$router.push('/rotatingOnBottomResults');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Rotating On Bottom",
+                route: 'rotatingOnBottomResults'
+            });
         },
         SlideDrillingDetails(){
-            this.$router.push('/slideDrillingResults');
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Slide Drilling Report",
+                route: 'slideDrillingResults'
+            });
         },
         BackReamingDetails(){
-            this.$router.push('/backReamingResults');
+            this.$store.commit('authStore/AddOutputTab',  {
+                name: "Back Reaming Report",
+                route: 'backReamingResults'
+            });
         }
     }
 }

@@ -1,12 +1,12 @@
 <template>
-    <div class="bg-accent">
+    <div class="bg-primary">
         <div class="row" v-show="showSimulatedReturnData">
             <div class="col-12 q-pa-sm bg-accent" style="height:500px;">
 
             </div>
         </div>
         <div class="row">
-            <div class="col-12 q-pa-sm bg-accent">
+            <div class="col-12 q-pa-sm bg-primary">
                  <q-inner-loading :showing="visible">
                     <q-spinner-gears size="100px" color="primary" />
                 </q-inner-loading>

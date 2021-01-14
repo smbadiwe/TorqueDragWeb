@@ -12,7 +12,7 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          @click="UpdateLeftDrawerOpen"
         />
           <q-icon name="laptop_chromebook"/>
           
@@ -69,10 +69,11 @@
          
 
           <q-space />
-          <q-btn dense flat round icon="menu" @click="right = !right" />
+          <q-btn dense flat round icon="menu" @click="UpdateRightDrawerOpen" />
           <q-btn dense flat icon="minimize" />
           <q-btn dense flat icon="crop_square" />
-          <q-btn dense flat icon="close" />
+          <q-btn dense flat icon="close"
+          @click="logoutUser" />
     </q-bar>
 
     <div class="row items-center bg-dark" style="height: 100px;">
@@ -107,7 +108,7 @@
     </q-drawer>
 
     <q-drawer 
-    v-model="right" 
+    v-model="rightDrawerOpen" 
     show-if-above 
     side="right" 
     :width="450"
@@ -123,7 +124,7 @@
 
     <div class="row">
       <div class="col-12"> 
-         <router-view />
+         <dockView></dockView>
         <!-- <div class="row">
           <div class="col-3 bg-primary q-pa-none">
             <mainInput-app
@@ -194,6 +195,7 @@ import wellList from 'pages/inputdata/wellList.vue';
 import analysisSettings from 'pages/inputdata/analysisSettings.vue';
 import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
 import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
+import dockView from 'pages/inputdata/dockView.vue';
 
 
 export default {
@@ -201,13 +203,19 @@ export default {
   computed: {
     IdentityModel(){
           return this.$store.getters['authStore/IdentityModel'];
-        },
+    },
     Loginstatus(){
       return this.$store.getters['authStore/Loginstatus'];
     },
     menuTabs() {
          return this.$store.getters['settingsStore/menuTabs'];
-    }
+    },
+   /*  leftDrawerOpen(){
+          return this.$store.getters['authStore/leftDrawerOpen'];
+    },
+    right(){
+          return this.$store.getters['authStore/right'];
+    } */
   },
   components: { 
       'fileRibbon-app': fileRibbon,
@@ -220,12 +228,13 @@ export default {
       'chartSeries-app': chartSeries,
       'chartProperties-app': chartProperties,
       testRibbon,
-      mainInputRight
+      mainInputRight,
+      dockView
       },
   data () {
     return {
       leftDrawerOpen: false,
-      right: false,
+      rightDrawerOpen: false,
       isInput:true,
       isWellList:true,
       isSchematic:false,
@@ -261,6 +270,24 @@ export default {
     }
   },
   methods:{
+      UpdateLeftDrawerOpen(){
+        var context =  this;
+        context.leftDrawerOpen = !context.leftDrawerOpen;
+        this.$store.commit('authStore/UpdateDockViewWidth', {
+          leftDrawerOpen: context.leftDrawerOpen,
+          rightDrawerOpen: context.rightDrawerOpen 
+        })
+
+      },
+      UpdateRightDrawerOpen(){
+        var context =  this;
+        context.rightDrawerOpen = !context.rightDrawerOpen;
+        this.$store.commit('authStore/UpdateDockViewWidth', {
+          leftDrawerOpen: context.leftDrawerOpen,
+          rightDrawerOpen: context.rightDrawerOpen 
+        })
+
+      },
       ShowFileRibbon(selectedRibbonName){
           var context =  this;
           var i = 0;

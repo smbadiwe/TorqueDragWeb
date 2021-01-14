@@ -68,7 +68,7 @@ const mutations = {
     state.yMax = state.schematicDTO.yMax;
     state.visible = false;
     state.showSimulatedReturnData = true
-    this.$router.push('/schematicView');
+    //this.$router.push('/schematicView');
     
 
   }
@@ -87,7 +87,7 @@ RunSimulation(context, payload)
 
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
-    this.$router.push('/simulationConsole');
+    //this.$router.push('/simulationConsole');
 
     console.log("response: ", payload)
 

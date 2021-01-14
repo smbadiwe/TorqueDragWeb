@@ -47,7 +47,7 @@ const actions = {
   
 
        $http.post('DeviationSurveys/PostDeviationSurvey', {
-        deviationSurveys: payload.deviationSurveys,
+        deviationSurveys: state.deviationSurveys,
         companyName: payload.companyName
       }, config)
         .then(response => {

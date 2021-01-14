@@ -1,4 +1,5 @@
 import { $http } from 'boot/axios'
+import { stat } from 'fs';
 
 const state =  {
 
@@ -20,11 +21,29 @@ const state =  {
       isfluids: false,
       issubsurface: false,
       isoperations: false
-    }
+    },
+    dockViewWidth: screen.width,
+    outputTabs: [
+      {
+        name: 'General',
+        isActive: false,
+        route: 'simulationConsole'
+      }
+    ],
+    outputTabNames: ['General']
 
 }
 
 const getters = {
+    outputTabNames(state){
+      return state.outputTabNames;
+    },
+    outputTabs(state){
+      return state.outputTabs;
+    },
+    dockViewWidth(state){
+      return state.dockViewWidth;
+    },
     activeViews(state){
       return state.activeViews;
     },
@@ -55,6 +74,65 @@ const getters = {
 }
 
 const mutations = {
+    AddOutputTab(state, payload){
+      var i = 0, len = state.outputTabs.length;
+      var check = false;
+      for(i = 0; i < len; i++){
+        if(payload.name == state.outputTabs[i].name){
+          check = true;
+          break;
+        }
+      }
+
+      
+      if(check ==  false){
+        state.outputTabs.push({
+          name: payload.name,
+          isActive: false,
+          route: payload.route
+        });
+
+        state.outputTabNames.push(payload.name);
+        console.log(state.outputTabs)
+
+        var route = '/' + payload.route;
+            console.log(route)
+            this.$router.push(route);
+
+        
+      }
+    },
+    RemoveOutputTab(state, payload){
+      const index = state.outputTabNames.indexOf(payload.name);
+      console.log(state.outputTabNames)
+      if (index > -1) {
+        state.outputTabNames.splice(index, 1);
+        state.outputTabs.splice(index, 1);
+        var len = state.outputTabs.length;
+        if(len > 0)
+        {
+          var route = '/' + state.outputTabs[len-1].route;
+          this.$router.push(route);
+        }
+      }
+      console.log(state.outputTabs);
+      
+    },
+    UpdateDockViewWidth(state, payload){
+      console.log(state.dockViewWidth)
+      if(payload.leftDrawerOpen == true)
+      {
+        state.dockViewWidth = state.dockViewWidth - 450.0;
+        console.log("dockViewWidth: removed leftDrawerOpen ", state.dockViewWidth)
+      }
+
+      if(payload.rightDrawerOpen == true)
+      {
+        state.dockViewWidth = state.dockViewWidth - 450.0;
+        console.log("dockViewWidth: removed rightDrawerOpen ", state.dockViewWidth)
+      }
+
+    },
     SetActiveViews(state, payload){
       state.activeViews = payload;
       console.log("activeViews: ", payload);

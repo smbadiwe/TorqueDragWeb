@@ -24,6 +24,7 @@ import docksite from 'components/uiComponents/docksite.vue'
 import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
 import createWell from 'components/uiComponents/createWell.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -77,10 +78,6 @@ const routes = [
     path: '/userLayout',
     component: userLayout,
     children: [
-      { 
-        path: '', 
-        component: landingpage
-      },
       { 
         path: '/simulationConsole', 
         component: simulationConsole
