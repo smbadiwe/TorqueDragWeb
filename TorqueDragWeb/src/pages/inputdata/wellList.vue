@@ -8,10 +8,10 @@
             <div class="row">
               <div class="col-12 q-pa-sm">
                 <q-tree
-                  class="bg-accent text-primary"
+                  class="bg-primary text-white"
                   :nodes="wellProjects"
-                  default-expand-all
                   node-key="designId"
+                  default-expand-all
                   @update:selected="selectNode"
                   :selected.sync="selected"/>
             </div>

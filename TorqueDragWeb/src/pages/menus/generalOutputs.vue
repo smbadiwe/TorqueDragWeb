@@ -197,6 +197,11 @@
 <script>
 export default {
     computed: {
+        dockViewWidth(){
+            var wd =this.$store.getters['authStore/dockViewWidth'];
+            console.log("Width: ", wd);
+            return wd;
+        },
     },
     components: {
     },
@@ -212,14 +217,14 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Deviated Schematic",
-                route: "schematicView"
+                route: "schematic"
             });
 
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                canvasDepth: 500,
-                canvasWidth: 800,
+                canvasDepth: 800,
+                canvasWidth: context.dockViewWidth,
                 xCanvasOffset: 50,
                 yCanvasOffset: 20
             });

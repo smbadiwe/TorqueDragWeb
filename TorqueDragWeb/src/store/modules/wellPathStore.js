@@ -42,14 +42,12 @@ const actions = {
     state.deviationSurveys = payload.deviationSurveys;
     devCalcParams.calculateDevParams(state.deviationSurveys);
     state.deviationSurveys = devCalcParams.deviationSurveys;
+    payload.deviationSurveys = state.deviationSurveys;
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('DeviationSurveys/PostDeviationSurvey', {
-        deviationSurveys: state.deviationSurveys,
-        companyName: payload.companyName
-      }, config)
+       $http.post('DeviationSurveys/PostDeviationSurvey', payload, config)
         .then(response => {
             
           context.commit('PostDeviationSurvey', response.data)              
@@ -79,8 +77,8 @@ const actions = {
         .then(response => {
 
           console.log("response.data:", response.data)
-          devCalcParams.calculateDevParams(response.data)
-          console.log("DevCalcParams.DevParams: ", devCalcParams.deviationSurveys)
+          //devCalcParams.calculateDevParams(response.data)
+          //console.log("DevCalcParams.DevParams: ", devCalcParams.deviationSurveys)
             
           context.commit('GetDeviationSurveys', response.data)              
             resolve(response)

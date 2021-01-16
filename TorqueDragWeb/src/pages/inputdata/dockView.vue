@@ -63,8 +63,9 @@ export default {
             this.$store.commit('authStore/RemoveOutputTab', selectedTab);
         },
         ShowActivePage(selectedTab){
-            var context = this;
-            context.tab = selectedTab.route;
+            var route = '/' + selectedTab.route;
+            this.$router.push(route);
+            console.log("route :", route )
         }
     },
     created(){

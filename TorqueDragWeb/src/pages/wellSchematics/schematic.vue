@@ -1,6 +1,29 @@
 <template>
-    <div class="bg-accent">
-        <div class="row">
+    <div class="row bg-accent" style="height: 1100px;">
+
+        <div class="row bg-accent" style="height: 200px;">
+
+        </div>
+
+        <div  style="height: 800px;">
+            <svg class="formation0"  height="800" width="1300">
+                 <rect  id="formation" width="1300" height="780"  x="0" y="20">
+                </rect>
+
+                    <path 
+                    v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id2"
+                    :d="holeSegment.dc" :stroke="holeSegment.stroke"
+                    :stroke-width="holeSegment.strokeWidth" fill="#9896A5" />
+
+                    <path 
+                    v-for="pipeSegment in schematicDTO.pipeSegments" :key="pipeSegment.id"
+                    :d="pipeSegment.d" :stroke="pipeSegment.stroke"
+                    :stroke-width="pipeSegment.strokeWidth" fill="#9896A5" />
+                    <!-- fill="#9896A5" -->
+            </svg>
+        </div>
+
+        <!-- <div class="row">
             <div class="col-12 q-pa-sm bg-accent">
                 <svg height="1000" width="700">
 
@@ -21,14 +44,7 @@
                     :d="holeSegment.d2" :stroke="holeSegment.stroke"
                     :stroke-width="holeSegment.strokeWidth" :fill="holeSegment.fill" />
 
-                    <!-- <polygon 
-                    :points="holeSegmentLast.d1_Shoe" 
-                    :style="'fill:' + holeSegmentLast.fill + ';stroke:' + holeSegmentLast.stroke + ';stroke-width:' + holeSegmentLast.strokeWidth_Shoe1 + ';'" />
-
-                     <polygon 
-                    :points="holeSegmentLast.d2_Shoe" 
-                    :style="'fill:' + holeSegmentLast.fill + ';stroke:' + holeSegmentLast.stroke + ';stroke-width:' + holeSegmentLast.strokeWidth_Shoe2 + ';'" />
- -->
+      
                     <path 
                     v-for="pipeSegment in schematicDTO.pipeSegments" :key="pipeSegment.id"
                     :d="pipeSegment.d" :stroke="pipeSegment.stroke"
@@ -46,20 +62,19 @@
 
                 </svg>
             </div>
-        </div>
-        <!-- <div class="row">
-            <div class="col-12 q-pa-sm bg-accent">
-                 <q-inner-loading :showing="visible">
-                    <q-spinner-gears size="100px" color="primary" />
-                </q-inner-loading>
-            </div>
         </div> -->
+
     </div>
 </template>
 
 <script>
 export default {
     computed:{
+        dockViewWidth(){
+            var wd =this.$store.getters['authStore/dockViewWidth'];
+            console.log("Width: ", wd);
+            return wd;
+        },
         visible(){
             return this.$store.getters['simulationStore/visible'];
         },
@@ -75,3 +90,31 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+.formation0 {
+	/* fill: rgba(71, 53, 53, 0.993);
+	stroke: rgba(71, 53, 53, 0.993); */
+    fill: #e8e3e3;
+	stroke:#e8e3e3;
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+
+#formation {
+	/* fill: rgba(71, 53, 53, 0.993);
+	stroke: rgba(71, 53, 53, 0.993); */
+    fill: rgba(71, 53, 53, 0.993);
+	stroke: rgba(71, 53, 53, 0.993);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+
+</style>

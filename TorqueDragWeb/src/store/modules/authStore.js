@@ -119,8 +119,9 @@ const mutations = {
       
     },
     UpdateDockViewWidth(state, payload){
+      state.dockViewWidth = 900;// screen.width;
       console.log(state.dockViewWidth)
-      if(payload.leftDrawerOpen == true)
+      /* if(payload.leftDrawerOpen == true)
       {
         state.dockViewWidth = state.dockViewWidth - 450.0;
         console.log("dockViewWidth: removed leftDrawerOpen ", state.dockViewWidth)
@@ -131,7 +132,7 @@ const mutations = {
         state.dockViewWidth = state.dockViewWidth - 450.0;
         console.log("dockViewWidth: removed rightDrawerOpen ", state.dockViewWidth)
       }
-
+ */
     },
     SetActiveViews(state, payload){
       state.activeViews = payload;
