@@ -219,13 +219,13 @@ export default {
                 name: "Deviated Schematic",
                 route: "schematic"
             });
-
+//context.dockViewWidth
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 canvasDepth: 800,
-                canvasWidth: context.dockViewWidth,
-                xCanvasOffset: 50,
+                canvasWidth: 800,
+                xCanvasOffset: 100,
                 yCanvasOffset: 20
             });
 

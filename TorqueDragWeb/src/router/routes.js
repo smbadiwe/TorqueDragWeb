@@ -3,6 +3,8 @@ import mainLayout from 'layouts/MainLayout.vue'
 import userLayout from 'layouts/userLayout.vue'
 import newLayout from 'layouts/newLayout.vue'
 import newLayout2 from 'layouts/newLayout2.vue'
+import companyLayout from 'layouts/companyLayout.vue'
+import registrationLayout from 'layouts/registrationLayout.vue'
 import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
@@ -23,6 +25,8 @@ import chartAreaTorqueDrag from 'pages/dataVisualization/TorqueDrag/chartArea.vu
 import docksite from 'components/uiComponents/docksite.vue'
 import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
 import createWell from 'components/uiComponents/createWell.vue'
+import createCompany from 'pages/registration/createCompany.vue'
+import createUser from 'pages/registration/createUser.vue'
 
 
 const routes = [
@@ -33,6 +37,26 @@ const routes = [
       { 
         path: '', 
         component: loginapge
+      }
+    ]
+  },
+  {
+    path: '/companyLayout',
+    component: companyLayout,
+    children: [
+      {
+        path: '/companyLayout',
+        component: createCompany
+      }
+    ]
+  },
+  {
+    path: '/registrationLayout',
+    component: registrationLayout,
+    children: [
+      {
+        path: '/registrationLayout',
+        component: createUser
       }
     ]
   },

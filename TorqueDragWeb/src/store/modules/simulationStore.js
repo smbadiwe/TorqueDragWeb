@@ -11,10 +11,14 @@ const state = {
     schematicDTO: {},
     holeSegmentLast:{},
     xMax: 1000.0,
-    yMax: 1000.0
+    yMax: 1000.0,
+    segmentPipeList: []
   }
 
   const getters = {
+    segmentPipeList(state){
+      return state.segmentPipeList;
+    },
     xMax(state){
       return state.xMax;
     },
@@ -70,7 +74,9 @@ const mutations = {
     state.showSimulatedReturnData = true
     //this.$router.push('/schematicView');
     
-
+  },
+  DrawPipeBuckledSections(state, payload){
+    state.segmentPipeList = payload;
   }
 
 }
@@ -134,6 +140,32 @@ DrawSchematic(context, payload)
         })
         .catch(error => {
           console.log("DrawSchematic error")
+          context.state.visible = false;
+          context.state.showSimulatedReturnData = true
+          reject(error)
+        })
+    })
+  },
+DrawPipeBuckledSections(context, payload)
+{
+    context.state.visible = true;
+    context.state.showSimulatedReturnData = false
+    
+    //console.log("response: ", payload)
+    //this.$router.push('/schematic');
+    
+    return new Promise((resolve, reject) => {
+      $http.post('Commons/DrawPipeBuckledSections', payload)
+        .then(response => {
+
+        //console.log("response: ", response)
+
+          context.commit('DrawPipeBuckledSections', response.data)              
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("DrawPipeBuckledSections error")
           context.state.visible = false;
           context.state.showSimulatedReturnData = true
           reject(error)
