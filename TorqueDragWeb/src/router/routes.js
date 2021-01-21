@@ -27,7 +27,7 @@ import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
 import createWell from 'components/uiComponents/createWell.vue'
 import createCompany from 'pages/registration/createCompany.vue'
 import createUser from 'pages/registration/createUser.vue'
-
+import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity.vue'
 
 const routes = [
   {
@@ -105,6 +105,10 @@ const routes = [
       { 
         path: '/simulationConsole', 
         component: simulationConsole
+      },
+      {
+        path: '/doglegSeverity',
+        component: doglegSeverity
       },
       { 
         path: '/trippingInResults', 

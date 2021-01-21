@@ -19,6 +19,30 @@ const state = {
         {
             variableName: 'Azimuth',
             isSelected: false
+        },
+        {
+            variableName: 'True Vertical Depth',
+            isSelected: false
+        },
+        {
+            variableName: 'North/South',
+            isSelected: false
+        },
+        {
+            variableName: 'East/West',
+            isSelected: false
+        },
+        {
+            variableName: 'Vertical Section',
+            isSelected: false
+        },
+        {
+            variableName: 'Dogleg Severity',
+            isSelected: false
+        },
+        {
+            variableName: 'Tol',
+            isSelected: false
         }
     ],
     devSurveyVariablesInBuilt2: [
@@ -32,6 +56,30 @@ const state = {
         },
         {
             variableName: 'Azimuth',
+            isSelected: false
+        },
+        {
+            variableName: 'True Vertical Depth',
+            isSelected: false
+        },
+        {
+            variableName: 'North/South',
+            isSelected: false
+        },
+        {
+            variableName: 'East/West',
+            isSelected: false
+        },
+        {
+            variableName: 'Vertical Section',
+            isSelected: false
+        },
+        {
+            variableName: 'Dogleg Severity',
+            isSelected: false
+        },
+        {
+            variableName: 'Tol',
             isSelected: false
         }
     ],
@@ -769,6 +817,12 @@ const mutations = {
         var MD = 0;
         var inc = 0;
         var azi = 0;
+        var tvd = 0;
+        var ns = 0;
+        var ew = 0;
+        var vsection = 0;
+        var dleg = 0;
+        var toll = ""
         var i = 0;
         var j = 0;
         var jCount = state.MappedVariables.length;
@@ -792,6 +846,25 @@ const mutations = {
                                     case "Azimuth":
                                         azi = obj[state.MappedVariables[j].SheetHeaderName];
                                         break;
+                                    case "True Vertical Depth":
+                                        tvd = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "North/South":
+                                        ns = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "East/West":
+                                        ew = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Vertical Section":
+                                        vsection = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Dogleg Severity":
+                                        dleg = obj[state.MappedVariables[j].SheetHeaderName];
+                                        break;
+                                    case "Tol":
+                                        toll = obj[state.MappedVariables[j].SheetHeaderName];
+                                    break;
+                                            
                                 }
                     }
 
@@ -800,13 +873,13 @@ const mutations = {
                         inclination: inc,
                         azimuth: azi,
                         designId: payload,
-                        doglegSeverity: 0,
+                        doglegSeverity: dleg,
                         isSelected: false,
-                        northSouth : 0,
-                        eastWest: 0,
-                        trueVerticalDepth: 0,
-                        verticalSection: 0,
-                        tol: ""
+                        northSouth : ns,
+                        eastWest: ew,
+                        trueVerticalDepth: tvd,
+                        verticalSection: vsection,
+                        tol: toll
                     })
 
                 }

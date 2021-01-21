@@ -98,3 +98,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.my-sticky-header-table{
+  height: 650px;
+}
+
+.q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    
+    background-color: black
+  }
+</style>

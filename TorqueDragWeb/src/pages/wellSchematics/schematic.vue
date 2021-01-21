@@ -1,5 +1,5 @@
 <template>
-    <div class="row bg-accent" style="height: 1100px;">
+    <div class="bg-accent" style="height: 1100px;">
 
         <div class="row q-pa-md bg-accent">
             <div class="col-6 bg-accent">
@@ -19,6 +19,9 @@
                     </option>
                 </select>
             </div>
+        </div>
+        
+        <div class="row q-pa-md bg-accent">
             <div class="col-12 bg-accent" style="height: 100px;">
 
             </div>
@@ -26,6 +29,7 @@
 
         <div  
         v-if="isOperation"
+        class="row q-pa-md"
         style="height: 800px;"
         >
             <svg 

@@ -69,6 +69,7 @@
          
 
           <q-space />
+          <q-btn dense flat round :icon="visibilityIcon" @click="ToggleRibbonVisibility" />
           <q-btn dense flat round icon="menu" @click="UpdateRightDrawerOpen" />
           <q-btn dense flat icon="minimize" />
           <q-btn dense flat icon="crop_square" />
@@ -76,7 +77,9 @@
           @click="logoutUser" />
     </q-bar>
 
-    <div class="row items-center bg-dark" style="height: 100px;">
+    <div 
+    v-if="isRibbonVisible"
+    class="row items-center bg-dark" style="height: 100px;">
        
       <div v-if="isRibbonActiveHome"
             class="col-12">
@@ -233,6 +236,7 @@ export default {
       },
   data () {
     return {
+      isRibbonVisible: true,
       leftDrawerOpen: false,
       rightDrawerOpen: false,
       isInput:true,
@@ -257,7 +261,7 @@ export default {
       inActiveTextcolor: '#ffffff',
       isRibbonActiveInputs: false,
       isRibbonActiveHome: false,
-      isRibbonGeneralOutputs: false,
+      isRibbonGeneralOutputs: true,
       isTorqueDrag: false,
       isDataVisualization: false,
       inputsRibbonBgColor: '#191919',
@@ -265,11 +269,27 @@ export default {
       homeRibbonBgColor: '',
       homeRibbonTextColor: '',
       GeneralOutputsBgColor: '',
-      GeneralOutputsTextColor: ''
+      GeneralOutputsTextColor: '',
+      visibilityIcon: "visibility"
 
     }
   },
   methods:{
+      ToggleRibbonVisibility(){
+        var context =  this;
+        if(context.isRibbonVisible == true)
+        {
+          context.isRibbonVisible = false;
+          context.visibilityIcon = "visibility_off";
+        }
+        else
+        {
+          context.isRibbonVisible = true;
+          context.visibilityIcon = "visibility";
+        }
+
+        console.log("isRibbonVisible: ", context.isRibbonVisible);
+      },
       UpdateLeftDrawerOpen(){
         var context =  this;
         context.leftDrawerOpen = !context.leftDrawerOpen;

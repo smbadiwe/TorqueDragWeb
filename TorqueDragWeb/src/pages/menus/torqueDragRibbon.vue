@@ -224,8 +224,11 @@ export default {
         effectiveTensionPlots(){
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Effective Tension",
-                route: 'effectiveTension'
+                route: 'chart'
             });
+
+            //chart
+            //effectiveTension
         },
         normalForcePlots(){
             this.$store.commit('authStore/AddOutputTab', {

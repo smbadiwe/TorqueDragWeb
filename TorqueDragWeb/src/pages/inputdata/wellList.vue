@@ -1,23 +1,24 @@
 <template>
-  <div>
+  <div class="bg-primary">
      <!-- <q-scroll-area
         :visible="visible"
         id="scrollview"
     > -->
       <div id="schematicspace">
             <div class="row">
-              <div class="col-12 q-pa-sm">
+              <div class="col-12 q-pa-sm  text-white">
                 <q-tree
-                  class="bg-primary text-white"
                   :nodes="wellProjects"
                   node-key="designId"
                   default-expand-all
                   @update:selected="selectNode"
-                  :selected.sync="selected"/>
+                  :selected.sync="selected"
+                  dark/>
             </div>
           </div>
        </div>
-     <!-- </q-scroll-area> -->
+     <!-- </q-scroll-area>  
+                  default-expand-all-->
   </div>
 </template>
 

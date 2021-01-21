@@ -65,6 +65,7 @@
                     label="Dogleg Severity"
                     class="text-capitalize"
                     stack 
+                    @click="doglegSeverityPlot"
                     >
                     </q-btn>
                 </div>
@@ -195,6 +196,7 @@
 
 
 <script>
+
 export default {
     computed: {
         dockViewWidth(){
@@ -211,6 +213,12 @@ export default {
 
     },
     methods: {
+        doglegSeverityPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Dogleg Serverity",
+                route: "doglegSeverity"
+            });
+        },
         DrawSchematic(){
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];

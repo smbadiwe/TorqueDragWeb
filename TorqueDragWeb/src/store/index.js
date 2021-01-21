@@ -16,6 +16,7 @@ import simulationStore from './modules/simulationStore'
 import dataVisualizationStore from './modules/dataVisualizationStore'
 import companyStore from './modules/companyStore'
 import userStore from './modules/userStore'
+import chartStore from './modules/chartStore'
 
 Vue.use(Vuex)
 
@@ -45,7 +46,8 @@ export default function (/* { ssrContext } */) {
       simulationStore,
       dataVisualizationStore,
       companyStore,
-      userStore
+      userStore,
+      chartStore
     },
 
     // enable strict mode (adds overhead!)
