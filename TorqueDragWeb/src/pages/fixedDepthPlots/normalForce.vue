@@ -151,6 +151,7 @@ export default {
 			var layout = { 
 				showlegend: true,
 				title: 'Normal Force Plot',
+				height: 900,
 				xaxis: {
 					title: 'Normal Force (Klb)',
 					titlefont: {

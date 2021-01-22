@@ -50,6 +50,9 @@ export default {
         },
         outputTabs(){
             return this.$store.getters['authStore/outputTabs'];
+        },
+        outputTabNames(){
+            return this.$store.getters['authStore/outputTabNames'];
         }
     },
     data() {

@@ -1,6 +1,7 @@
 <template>
-    <div class="bg-accent">
-        <div class="row">
+    <div style="height: 1100px;">
+        <chart></chart>
+      <!--   <div class="row">
         </div>
         <div class="row">
             <q-bar class="col-12 q-pa-sm row bg-secondary" >
@@ -25,17 +26,19 @@
         <div class="row">
             <div :id="myDiv" class="col-12 bg-accent" >
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-
+import chart from  'pages/dataVisualization/chart.vue'
 import Plotly from 'plotly.js-dist'
-import {copy} from '../../boot/utils'
-
+import {copy} from '../../../boot/utils'
 export default {
-    computed:{
+    components:{
+        chart
+    },
+     computed:{
         seriesCollection(){
             var srsCollection = this.$store.getters['chartStore/seriesCollection'];
             // console.log("chart.seriesCollection", srsCollection);
@@ -52,7 +55,7 @@ export default {
         return{
             selectedYVariable: "",
             seriesCollection2: [],
-            myDiv: "myDiv"
+            myDiv: "VerticalSection"
         }
     },
     methods: {
@@ -85,9 +88,16 @@ export default {
             }
         }
     },
-    mounted(){
-        //var context =  this;
-        //Plotly.newPlot('myDiv', context.seriesCollection, context.layout);
+    created(){
+        var Conn = this.$store.getters['authStore/companyName'];
+        var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+        var payload = {
+            companyName: Conn,
+            designId: selectedTorqueDragDesign.id,
+            xVariableName: "Vertical Section",
+            chartId: "VerticalSection"
+        }
+        this.$store.dispatch('wellPathStore/LoadDevSurveySeriesCollection', payload);
     }
 }
 </script>

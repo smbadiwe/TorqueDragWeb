@@ -8,7 +8,7 @@ const state = {
     layout: {
       showlegend: true,
       title: "Gas Rate",
-      height: 1000,
+      height: 900,
       xaxis: {
         title: "",
         titlefont: {
@@ -53,8 +53,7 @@ const state = {
         mirror: "ticks",
         gridcolor: "#bdbdbd",
         gridwidth: 2,
-        zerolinecolor: "#969696",
-        zerolinewidth: 4,
+        zerolinewidth: 0,
         linecolor: "#636363",
         linewidth: 4
       }
@@ -176,7 +175,7 @@ const actions = {
     context.state.deviationSurveys = [];
     context.state.seriesStore =[]
     context.state.seriesCollection =[]
-
+ 
     return new Promise((resolve, reject) => {
   
 
@@ -193,13 +192,19 @@ const actions = {
                                 "True Vertical Depth",
                                 "Inclination",
                                 "Azimuth",
-                                "Vertical Section"]
+                                "Vertical Section",
+                                "Dogleg Severity",
+                                "North/South",
+                                "East/West"]
 
               var length = context.state.deviationSurveys.length;
               var variableNamesCount = variableNames.length;
-
+              var xvalue = 0;
+              var xaxisTitle = "";
             
               for (i = 0; i < variableNamesCount; i++) {
+                if(payload.xVariableName != variableNames[i]) 
+                {
 
                 var series = {
                   x: [],
@@ -209,9 +214,49 @@ const actions = {
                 };
 
                   for (j = 0; j < length; j++) {
-
-                      var doglegSeverity = context.state.deviationSurveys[j].doglegSeverity;
-                      series.x.push(doglegSeverity);
+                      
+                      switch(payload.xVariableName) {
+                        case "Measured Depth":
+                          xvalue = context.state.deviationSurveys[j].measuredDepth;
+                          xaxisTitle = "Measured Depth (ft)";
+                          series.x.push(xvalue);
+                          break;
+                        case "True Vertical Depth":
+                          xvalue = context.state.deviationSurveys[j].trueVerticalDepth;
+                          xaxisTitle = "True Vertical Depth (ft)";
+                          series.x.push(xvalue);
+                          break;
+                        case "Inclination":
+                          xvalue = context.state.deviationSurveys[j].inclination;
+                          xaxisTitle = "Inclination (deg)";
+                          series.x.push(xvalue);
+                          break;
+                        case "Azimuth":
+                          xvalue = context.state.deviationSurveys[j].azimuth;
+                          xaxisTitle = "Azimuth (deg)";
+                          series.x.push(xvalue);
+                          break;
+                        case "Vertical Section":
+                          xvalue = context.state.deviationSurveys[j].verticalSection;
+                          xaxisTitle = "Vertical Section (ft)";
+                          series.x.push(xvalue);
+                          break;
+                        case "Dogleg Severity":
+                          xvalue = context.state.deviationSurveys[j].doglegSeverity;
+                          xaxisTitle = "Dogleg Severity (deg/100ft)";
+                          series.x.push(xvalue);
+                          break;
+                        case "North/South":
+                          xvalue = context.state.deviationSurveys[j].northSouth;
+                          xaxisTitle = "North/South (ft)";
+                          series.x.push(xvalue);
+                          break;
+                        case "East/West":
+                          xvalue = context.state.deviationSurveys[j].eastWest;
+                          xaxisTitle = "East/West (ft)";
+                          series.x.push(xvalue);
+                          break;
+                      }
                       
 
 
@@ -240,10 +285,19 @@ const actions = {
                           series.y.push(context.state.deviationSurveys[j].verticalSection);
                           series.yaxisTitle = "Vertical Section (ft)";
                           break;
+                        case "North/South":
+                          series.y.push(context.state.deviationSurveys[j].verticalSection);
+                          series.yaxisTitle = "North/South (ft)";
+                          break;
+                        case "East/West":
+                          series.y.push(context.state.deviationSurveys[j].verticalSection);
+                          series.yaxisTitle = "East/West (ft)";
+                          break;
                       }
                   }
 
                   context.state.seriesStore.push(copy(series));
+                }
                 }
 
                 
@@ -256,18 +310,22 @@ const actions = {
                   },
                   mode: "lines",
                   type: "scatter",
-                  name: "Dogleg Severity"
+                  name: payload.xVariableName
                 };
 
-                context.state.layout.xaxis.title = "Dogleg Severity (deg/100ft)";
+                context.state.layout.xaxis.title = xaxisTitle;
                 context.state.layout.yaxis.title = context.state.seriesStore[0].yaxisTitle;
                 context.state.layout.title = "";
                 context.state.seriesCollection.push(copy(series1));
 
+                
+              console.log("series: ", series1);
               context.dispatch('chartStore/SetChartData',  {
                 layout: context.state.layout,
                 seriesCollection: context.state.seriesCollection,
-                seriesStore: context.state.seriesStore
+                seriesStore: context.state.seriesStore,
+                xVariableName: payload.xVariableName,
+                chartId: payload.chartId
               }, {root:true})                
             resolve(response)
             

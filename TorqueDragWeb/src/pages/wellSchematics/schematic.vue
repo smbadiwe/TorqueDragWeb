@@ -2,10 +2,10 @@
     <div class="bg-accent" style="height: 1100px;">
 
         <div class="row q-pa-md bg-accent">
-            <div class="col-6 bg-accent">
+            <div class="col-4 bg-accent">
                 Select Operation:
             </div>
-            <div class="col-6 bg-accent">
+            <div class="col-4 bg-accent">
                 <select
                     name="NameOfOperation"
                     id="" 
@@ -19,28 +19,56 @@
                     </option>
                 </select>
             </div>
-        </div>
-        
-        <div class="row q-pa-md bg-accent">
-            <div class="col-12 bg-accent" style="height: 100px;">
 
+             <div class="col-4 q-pa-sm bg-primary text-left">
+                 <div class="row">
+                     <div class="col-12">
+                         <!--  -->
+                         <q-card class="my-card bg-primary text-white">
+                            <q-card-section align="center">
+                                <div class="text-center text-subtitle1 q-pa-sm">Buckling</div>
+                            </q-card-section>
+                          </q-card>
+                     </div>
+                 </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <hr style="color: white;"/>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-6 q-pa-sm">
+                         <svg height="30" width="40">
+                             <rect  fill="orange" width="40" height="30"  x="0" y="0">
+                            </rect>
+                         </svg>
+                    </div>
+                    <div class="col-6 q-pa-sm text-center text-subtitle1 text-white">
+                        Helical
+                    </div>
+                    <div class="col-6 q-pa-sm">
+                        <svg height="30" width="40">
+                             <rect  fill="yellow" width="40" height="30"  x="0" y="0">
+                            </rect>
+                         </svg>
+                    </div>
+                    <div class="col-6 q-pa-sm text-center text-subtitle1 text-white">
+                        Sinusiodal
+                    </div>
+                 </div>
             </div>
         </div>
+        
 
         <div  
         v-if="isOperation"
         class="row q-pa-md"
         style="height: 800px;"
         >
-            <svg 
-            class="formation0"  :height="schematicDTO.yMax + 100" :width="schematicDTO.xMax + 100">
-                 <!-- <defs>
-                    <linearGradient id="grad1" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
-                        <stop offset="0" stop-color="#9896A5" stop-opacity="1"></stop>
-                        <stop offset="0.6109" stop-color="#9896A5" stop-opacity="1"></stop>
-                        <stop offset="1" stop-color="#9896A5" stop-opacity="1"></stop>
-                    </linearGradient>
-                </defs> -->
+            <svg class="formation0"  :height="schematicDTO.yMax + 100" :width="schematicDTO.xMax + 100">
 
                  <rect  id="formation" :width="schematicDTO.xMax + 100" :height="schematicDTO.yMax + 50"  x="0" y="20">
                 </rect>

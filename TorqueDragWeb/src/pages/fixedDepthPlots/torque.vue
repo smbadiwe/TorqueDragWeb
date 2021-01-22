@@ -151,6 +151,7 @@ export default {
 			var layout = { 
 				showlegend: true,
 				title: 'Torque Plot',
+				height: 900,
 				xaxis: {
 					title: 'Torque (Klb)',
 					titlefont: {

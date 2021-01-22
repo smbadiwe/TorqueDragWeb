@@ -159,6 +159,7 @@ export default {
 			var layout = { 
 				showlegend: true,
 				title: 'Effective Tension Plot',
+				height: 900,
 				xaxis: {
 					title: 'Effective Tension (Klb)',
 					titlefont: {

@@ -13,6 +13,7 @@
                     label="Vertical Section"
                     class="text-capitalize"
                     stack 
+                    @click="verticalSectionPlot"
                     >
                     </q-btn>
                 </div>
@@ -26,6 +27,7 @@
                     label="Plain View"
                     class="text-capitalize"
                     stack 
+                    @click="planViewPlot"
                     >
                     </q-btn>
                 </div>
@@ -39,6 +41,7 @@
                     label="Inclination"
                     class="text-capitalize"
                     stack 
+                    @click="inclinationPlot"
                     >
                     </q-btn>
                 </div>
@@ -52,6 +55,7 @@
                     label="Azimuth"
                     class="text-capitalize"
                     stack 
+                    @click="azimuthPlot"
                     >
                     </q-btn>
                 </div>
@@ -215,8 +219,32 @@ export default {
     methods: {
         doglegSeverityPlot(){
             this.$store.commit('authStore/AddOutputTab', {
-                name: "Dogleg Serverity",
+                name: "Dogleg Severity",
                 route: "doglegSeverity"
+            });
+        },
+        verticalSectionPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Vertical Section",
+                route: "verticalSection"
+            });
+        },
+        planViewPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Plan View",
+                route: "planView"
+            });
+        },
+        inclinationPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Inclination",
+                route: "inclination"
+            });
+        },
+        azimuthPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Azimuth",
+                route: "azimuth"
             });
         },
         DrawSchematic(){
@@ -233,7 +261,7 @@ export default {
                 designId: selectedTorqueDragDesign.id,
                 canvasDepth: 800,
                 canvasWidth: 800,
-                xCanvasOffset: 100,
+                xCanvasOffset: 400,
                 yCanvasOffset: 20
             });
 

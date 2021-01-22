@@ -151,6 +151,7 @@ export default {
 			var layout = { 
 				showlegend: true,
 				title: 'Drag Plot',
+				height: 900,
 				xaxis: {
 					title: 'Drag (Klb)',
 					titlefont: {

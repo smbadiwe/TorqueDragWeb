@@ -152,6 +152,7 @@ export default {
 			var layout = { 
 				showlegend: true,
 				title: 'Hook Load Plot',
+				height: 900,
 				xaxis: {
 					title: 'Hook Load (Klb)',
 					titlefont: {

@@ -28,6 +28,10 @@ import createWell from 'components/uiComponents/createWell.vue'
 import createCompany from 'pages/registration/createCompany.vue'
 import createUser from 'pages/registration/createUser.vue'
 import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity.vue'
+import verticalSection from 'pages/dataVisualization/OutputPlots/verticalSection.vue'
+import planView from 'pages/dataVisualization/OutputPlots/planView.vue'
+import inclination from 'pages/dataVisualization/OutputPlots/inclination.vue'
+import azimuth from 'pages/dataVisualization/OutputPlots/azimuth.vue'
 
 const routes = [
   {
@@ -109,6 +113,22 @@ const routes = [
       {
         path: '/doglegSeverity',
         component: doglegSeverity
+      },
+      {
+        path: '/verticalSection',
+        component: verticalSection
+      },
+      {
+        path: '/planView',
+        component: planView
+      },
+      {
+        path: '/inclination',
+        component: inclination
+      },
+      {
+        path: '/azimuth',
+        component: azimuth
       },
       { 
         path: '/trippingInResults', 
