@@ -27,7 +27,7 @@ const state =  {
       {
         name: 'General',
         isActive: false,
-        route: 'simulationConsole'
+        route: 'commonPage'
       }
     ],
     outputTabNames: ['General']

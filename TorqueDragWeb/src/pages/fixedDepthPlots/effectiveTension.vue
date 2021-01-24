@@ -79,6 +79,26 @@ export default {
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Back Reaming',
+			},
+			helicalBuckling: {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline'
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Helical Buckling',
+			},
+			sinusoidalBuckling: {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline'
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Sinusoidal Buckling',
 			}
 
         }
@@ -104,6 +124,11 @@ export default {
 			context.slideDrilling.y = [];
 			context.backReaming.x = [];
 			context.backReaming.y = [];
+			context.helicalBuckling.x = [];
+			context.helicalBuckling.y = [];
+			context.sinusoidalBuckling.x = [];
+			context.sinusoidalBuckling.y = [];
+			
 			
 			var M =1000.0;
 			var i = 0;
@@ -145,6 +170,17 @@ export default {
 				context.backReaming.x.push(backReamingResults[i].tensionTopOfPipe/M);
 				context.backReaming.y.push(md);
 			}
+
+			length = trippingInResults.length;
+			for(i = 0; i < length; i++){
+				var md = trippingInResults[i].bottomMeasuredDepth;
+
+				context.helicalBuckling.x.push(trippingInResults[i].criticalHelicalBuckling/M);
+				context.helicalBuckling.y.push(md);
+
+				context.sinusoidalBuckling.x.push(trippingInResults[i].criticalSinusoidalBuckling/M);
+				context.sinusoidalBuckling.y.push(md);
+			}
 			/* console.log("trippingIn.x: ", context.trippingIn.x);
 
 			console.log("trippingOut.x: ", context.trippingOut.x);
@@ -155,7 +191,8 @@ export default {
 
 			console.log("trippingOut.x: ", context.backReaming.x); */
 
-			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
+			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom,
+			 context.slideDrilling, context.backReaming, context.helicalBuckling, context.sinusoidalBuckling];
 			var layout = { 
 				showlegend: true,
 				title: 'Effective Tension Plot',

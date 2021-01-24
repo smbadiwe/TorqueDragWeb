@@ -24,6 +24,15 @@ export default {
         showSimulatedReturnData(){
         return this.$store.getters['simulationStore/showSimulatedReturnData'];
         },
+    },
+    created(){
+        var context =  this;
+            var Conn = this.$store.getters['authStore/companyName'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            this.$store.dispatch('simulationStore/RunSimulation', {
+                companyName: Conn,
+                designId: selectedTorqueDragDesign.id
+            });
     }
 }
 </script>

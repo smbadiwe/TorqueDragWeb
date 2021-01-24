@@ -9,6 +9,7 @@ import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
 import simulationConsole from 'pages/simulation/simulationConsole.vue'
+import commonPage from 'pages/simulation/commonPage.vue'
 import trippingInResults from 'pages/simulation/trippingInResults.vue'
 import trippingOutResults from 'pages/simulation/trippingOutResults.vue'
 import rotatingOnBottomResults from 'pages/simulation/rotatingOnBottomResults.vue'
@@ -27,11 +28,11 @@ import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
 import createWell from 'components/uiComponents/createWell.vue'
 import createCompany from 'pages/registration/createCompany.vue'
 import createUser from 'pages/registration/createUser.vue'
-import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity.vue'
+import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity2.vue'
 import verticalSection from 'pages/dataVisualization/OutputPlots/verticalSection.vue'
 import planView from 'pages/dataVisualization/OutputPlots/planView.vue'
 import inclination from 'pages/dataVisualization/OutputPlots/inclination.vue'
-import azimuth from 'pages/dataVisualization/OutputPlots/azimuth.vue'
+import azimuth from 'pages/dataVisualization/OutputPlots/azimuth2.vue'
 
 const routes = [
   {
@@ -106,6 +107,10 @@ const routes = [
     path: '/userLayout',
     component: userLayout,
     children: [
+      {
+        path: '/commonPage',
+        component: commonPage
+      },
       { 
         path: '/simulationConsole', 
         component: simulationConsole

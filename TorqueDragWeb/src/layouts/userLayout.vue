@@ -123,7 +123,7 @@
           </div>
     </q-drawer>
 
-      <q-page-container>
+      <q-page-container class="bg-primary">
 
     <div class="row">
       <div class="col-12"> 

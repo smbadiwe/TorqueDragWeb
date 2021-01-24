@@ -12,11 +12,19 @@ const state = {
     holeSegmentLast:{},
     xMax: 1000.0,
     yMax: 1000.0,
-    segmentPipeList: []
+    segmentPipeList: [],
+    holeSegmentLabels: [],
+    tubingSegmentLabels: []
   }
 
   const getters = {
-    segmentPipeList(state){
+    tubingSegmentLabels(state){
+      return state.tubingSegmentLabels;
+    },
+    holeSegmentLabels(state){
+      return state.holeSegmentLabels;
+    },
+   segmentPipeList(state){
       return state.segmentPipeList;
     },
     xMax(state){
@@ -77,6 +85,12 @@ const mutations = {
   },
   DrawPipeBuckledSections(state, payload){
     state.segmentPipeList = payload;
+  },
+  DrawHoleSegmentLabel(state, payload){
+    state.holeSegmentLabels = payload;
+  },
+  DrawTubingSegmentLabel(state, payload){
+    state.tubingSegmentLabels = payload;
   }
 
 }
@@ -148,6 +162,7 @@ DrawSchematic(context, payload)
   },
 DrawPipeBuckledSections(context, payload)
 {
+  
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
     
@@ -171,7 +186,69 @@ DrawPipeBuckledSections(context, payload)
           reject(error)
         })
     })
-  }
+  },
+  DrawHoleSegmentLabel(context, payload2)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload2.companyName,
+      }
+    }
+      context.state.visible = true;
+      context.state.showSimulatedReturnData = false
+      
+      //console.log("response: ", payload)
+      //this.$router.push('/schematic');
+      
+      return new Promise((resolve, reject) => {
+        $http.post('Commons/DrawHoleSegmentLabel', payload2.payload, config)
+          .then(response => {
+
+          //console.log("response: ", response)
+
+            context.commit('DrawHoleSegmentLabel', response.data)              
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log("DrawHoleSegmentLabel error")
+            context.state.visible = false;
+            context.state.showSimulatedReturnData = true
+            reject(error)
+          })
+      })
+    },
+  DrawTubingSegmentLabel(context, payload2)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload2.companyName,
+      }
+    }
+      context.state.visible = true;
+      context.state.showSimulatedReturnData = false
+      
+      //console.log("response: ", payload)
+      //this.$router.push('/schematic');
+      
+      return new Promise((resolve, reject) => {
+        $http.post('Commons/DrawTubingSegmentLabel', payload2.payload, config)
+          .then(response => {
+
+          //console.log("response: ", response)
+
+            context.commit('DrawTubingSegmentLabel', response.data)              
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log("DrawTubingSegmentLabel error")
+            context.state.visible = false;
+            context.state.showSimulatedReturnData = true
+            reject(error)
+          })
+      })
+    }
 
 }
 

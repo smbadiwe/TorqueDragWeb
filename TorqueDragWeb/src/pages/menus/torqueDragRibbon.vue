@@ -212,12 +212,9 @@ export default {
     },
     methods: {
         RunSimulation(){
-            var context =  this;
-            var Conn = this.$store.getters['authStore/companyName'];
-            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
-            this.$store.dispatch('simulationStore/RunSimulation', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Simulation Log",
+                route: 'simulationConsole'
             });
 
         },

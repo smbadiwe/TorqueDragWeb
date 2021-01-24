@@ -72,7 +72,7 @@ export default {
         }
     },
     created(){
-        this.$router.push('/simulationConsole');
+        this.$router.push('/commonPage');
     }
     
 }

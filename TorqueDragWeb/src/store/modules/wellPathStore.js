@@ -254,6 +254,7 @@ const actions = {
                         case "East/West":
                           xvalue = context.state.deviationSurveys[j].eastWest;
                           xaxisTitle = "East/West (ft)";
+                          context.state.layout.yaxis.autorange = "";
                           series.x.push(xvalue);
                           break;
                       }
@@ -286,11 +287,11 @@ const actions = {
                           series.yaxisTitle = "Vertical Section (ft)";
                           break;
                         case "North/South":
-                          series.y.push(context.state.deviationSurveys[j].verticalSection);
+                          series.y.push(context.state.deviationSurveys[j].northSouth);
                           series.yaxisTitle = "North/South (ft)";
                           break;
                         case "East/West":
-                          series.y.push(context.state.deviationSurveys[j].verticalSection);
+                          series.y.push(context.state.deviationSurveys[j].eastWest);
                           series.yaxisTitle = "East/West (ft)";
                           break;
                       }

@@ -42,7 +42,7 @@
                             <q-td key="normalForce" :props="props">{{ props.row.normalForce }}</q-td>
                             <q-td key="tensionTopOfPipe" :props="props">{{ props.row.tensionTopOfPipe }}</q-td>
                             <q-td key="totalDrag" :props="props">{{ props.row.totalDrag }}</q-td>
-                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.HookeLoadAtJoint }}</q-td>
+                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.hookeLoadAtJoint }}</q-td>
                             <q-td key="torqueBottom" :props="props">{{ props.row.torqueBottom }}</q-td>
                             <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
                             <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
