@@ -23,7 +23,10 @@ const state = {
         isIDHMTrippingOutChecked: false,
         isIDHMRotatingChecked : false,
         tripSpeedBackReam: 0,
-        tripRPMBackReam: 0
+        tripRPMBackReam: 0,
+        torqueAtBitDrillingOperation: 0,
+        torqueAtBitBackReaming: 0,
+        overpullBackReaming: 0
     }
   }
 
@@ -87,6 +90,9 @@ const actions = {
     payload.operation.hookLoadIDHM = parseFloat(payload.operation.hookLoadIDHM);
     payload.operation.tripSpeedBackReam = parseFloat(payload.operation.tripSpeedBackReam)
     payload.operation.tripRPMBackReam = parseFloat(payload.operation.tripRPMBackReam)
+    payload.operation.torqueAtBitDrillingOperation = parseFloat(payload.operation.torqueAtBitDrillingOperation)
+    payload.operation.torqueAtBitBackReaming = parseFloat(payload.operation.torqueAtBitBackReaming)
+    payload.operation.overpullBackReaming = parseFloat(payload.operation.overpullBackReaming)
 
     return new Promise((resolve, reject) => {
   

@@ -3,7 +3,7 @@
    class="col-12 bg-primary">
 
     
-    <q-card class="my-card text-white" style="height:50px;">
+    <q-card class="my-card text-accent" style="height:50px;">
       <q-card-section align="right">
         <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
           <!-- <q-icon name="close" /> -->
@@ -113,6 +113,7 @@ props: {
         context.issettingsheader = ev.issettingsheader;
         context.issensitivityheader = ev.issensitivityheader;
         context.isschematicsheader = ev.isschematicsheader;
+         console.log("showschematics buttonBarRight")
         console.log("ev: ", ev);
     }
   },

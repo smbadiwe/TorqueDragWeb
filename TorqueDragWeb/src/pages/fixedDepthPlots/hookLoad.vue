@@ -114,6 +114,8 @@ export default {
 				context.trippingIn.y.push(md);
 			}
 
+			console.log(context.trippingIn.x);
+
 			length = trippingOutResults.length;
 			for(i = 0; i < length; i++){
 				var md = trippingOutResults[i].bottomMeasuredDepth;
@@ -148,12 +150,13 @@ export default {
 
 			//console.log("x: ", context.trippingIn.x);
 			//console.log("y: ", context.trippingIn.y);
-			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
+			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming]; //context.backReaming
 			var layout = { 
 				showlegend: true,
 				title: 'Hook Load Plot',
 				height: 900,
 				xaxis: {
+					rangemode: 'tozero',
 					title: 'Hook Load (Klb)',
 					titlefont: {
 					family: 'Arial, sans-serif',
@@ -179,6 +182,7 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
+					rangemode: 'tozero',
 					autorange: "reversed",
 					title: 'Measured Depth (ft)',
 					titlefont: {

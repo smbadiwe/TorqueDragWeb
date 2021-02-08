@@ -49,11 +49,11 @@
                                                         <div class="row">
 
                                                                 <div class="col-3 q-pa-sm">Speed</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.trippingInSpeed"></div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingInSpeed"></div>
                                                                 <div class="col-3 q-pa-sm">ft/min</div>
 
                                                                 <div class="col-3 q-pa-sm">RPM</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.trippingInRPM"></div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingInRPM"></div>
                                                                 <div class="col-3 q-pa-sm">rpm</div>
 
                                                         </div>
@@ -80,11 +80,11 @@
                                                         <div class="row">
 
                                                             <div class="col-3 q-pa-sm">Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutSpeed"></div>
+                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingOutSpeed"></div>
                                                             <div class="col-3 q-pa-sm">ft/min</div>
 
                                                             <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.trippingOutRPM"></div>
+                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingOutRPM"></div>
                                                             <div class="col-3 q-pa-sm">rpm</div>
                                                         </div>
                                                 </q-expansion-item>
@@ -110,8 +110,13 @@
                                                         <div class="row">
 
                                                             <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBit"></div>
-                                                            <div class="col-3 q-pa-sm">kip/min</div>
+                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.weightOnBit"></div>
+                                                            <div class="col-3 q-pa-sm">kip</div>
+
+                                                            <div class="col-3 q-pa-sm">Torque at bit</div>
+                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBitDrillingOperation"></div>
+                                                            <div class="col-3 q-pa-sm">ft-lbf</div>
+                                                            
                                                         </div>
                                                 </q-expansion-item>
                                             </div>
@@ -136,11 +141,11 @@
                                                         <div class="row">
 
                                                                 <div class="col-3 q-pa-sm">WOB</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.weightOnBitIDHM"></div>
-                                                                <div class="col-3 q-pa-sm">kip/min</div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.weightOnBitIDHM"></div>
+                                                                <div class="col-3 q-pa-sm">kip</div>
 
                                                                 <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.torqueAtBit"></div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBit"></div>
                                                                 <div class="col-3 q-pa-sm">ft-klbf</div>
                                                         </div>
                                                 </q-expansion-item>
@@ -165,13 +170,13 @@
                                                 >
                                                         <div class="row">
 
-                                                                <div class="col-3 q-pa-sm">Tripping Speed</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.tripSpeedBackReam"></div>
-                                                                <div class="col-3 q-pa-sm">ft/min</div>
+                                                                <div class="col-3 q-pa-sm">Overpull</div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.overpullBackReaming"></div>
+                                                                <div class="col-3 q-pa-sm">kip</div>
 
-                                                                <div class="col-3 q-pa-sm">RPM</div>
-                                                                <div class="col-6 q-pa-sm"><input v-model="operation.tripRPMBackReam"></div>
-                                                                <div class="col-3 q-pa-sm">rpm</div>
+                                                                <div class="col-3 q-pa-sm">Torque at bit</div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBitBackReaming"></div>
+                                                                <div class="col-3 q-pa-sm">ft-lbf</div>
                                                         </div>
                                                 </q-expansion-item>
                                             </div>
@@ -196,11 +201,11 @@
                                                         <div class="row">
 
                                                                 <div class="col-3 q-pa-sm">WOB</div>
-                                                                <div class="col-6 q-pa-sm"><input></div>
-                                                                <div class="col-3 q-pa-sm">kip/min</div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
+                                                                <div class="col-3 q-pa-sm">kip</div>
 
                                                                 <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                                <div class="col-6 q-pa-sm"><input></div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
                                                                 <div class="col-3 q-pa-sm">ft-lbf</div>
                                                         </div>
                                                 </q-expansion-item>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-toolbar class=" bg-dark text-white q-my-md">
+    <q-toolbar class=" bg-dark text-accent q-my-md">
 
        <div>
             <div class="row buttonTD1">
@@ -9,7 +9,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Run"
                     class="text-capitalize"
                     stack 
@@ -23,7 +23,13 @@
           </div>
 
             <div class="row buttonTD3">
-                <div class="col-12 q-pt-sm text-center">
+                <!-- <q-card 
+                    class="col-12 bg-secondary text-accent">
+                        <q-card-section align="center">
+                            <div class="text-center text-subtitle1 q-pa-sm">Simulation</div>
+                        </q-card-section>
+                </q-card> -->
+                <div class="col-12 q-pa-sm text-center">
                     Simulation
                 </div>
             </div>
@@ -37,7 +43,7 @@
                 <q-btn 
                     icon="legend_toggle" 
                     flat
-                    size="sm" 
+                    :size="size" 
                     label="Effective Tension"
                     class="text-capitalize"
                     stack 
@@ -50,7 +56,7 @@
                     icon="align_horizontal_center"
                     stretch 
                     flat
-                    size="sm"  
+                    :size="size" 
                     label="Normal Force"
                     class="text-capitalize"
                     stack
@@ -63,7 +69,7 @@
                     icon="align_horizontal_left" 
                     stretch
                     flat
-                    size="sm"  
+                    :size="size"   
                     label="Hook Load"
                     class="text-capitalize"
                     stack 
@@ -76,7 +82,7 @@
                     icon="align_horizontal_right" 
                     stretch
                     flat
-                    size="sm" 
+                    :size="size" 
                     label="Torque"
                     class="text-capitalize"
                     stack
@@ -89,7 +95,7 @@
                     icon="align_vertical_bottom" 
                     stretch
                     flat
-                    size="sm" 
+                    :size="size" 
                     label="Drag"
                     class="text-capitalize"
                     stack
@@ -104,7 +110,7 @@
         </div>
         
         <div class="row buttonTD3">
-            <div class="col-12 q-pt-sm text-center">
+            <div class="col-12 q-pa-sm text-center">
                 Plots
             </div>
         </div>
@@ -119,7 +125,7 @@
                 <q-btn 
                     icon="table_chart" 
                     flat
-                    size="sm" 
+                    :size="size" 
                     label="Tripping In"
                     class="text-capitalize"
                     stack 
@@ -132,7 +138,7 @@
                     icon="table_rows"
                     stretch 
                     flat
-                    size="sm"  
+                    :size="size" 
                     label="Tripping Out"
                     class="text-capitalize"
                     stack 
@@ -145,7 +151,7 @@
                     icon="reorder" 
                     stretch
                     flat
-                    size="sm"  
+                    :size="size"   
                     label="Rotating On Bottom"
                     class="text-capitalize"
                     stack 
@@ -158,7 +164,7 @@
                     icon="view_list" 
                     stretch
                     flat
-                    size="sm" 
+                    :size="size"  
                     label="Slide Drilling"
                     class="text-capitalize"
                     stack
@@ -171,7 +177,7 @@
                     icon="list_alt" 
                     stretch
                     flat
-                    size="sm" 
+                    :size="size" 
                     label="Back reaming"
                     class="text-capitalize"
                     stack 
@@ -186,7 +192,7 @@
         </div>
         
         <div class="row buttonTD3">
-            <div class="col-12 q-pt-sm text-center">
+            <div class="col-12 q-pa-sm text-center">
                 Report
             </div>
         </div>
@@ -208,6 +214,11 @@ export default {
         },
         win_height() {
             return this.$q.screen.height;
+        }
+    },
+    data(){
+        return {
+            size: "md"
         }
     },
     methods: {
@@ -308,7 +319,7 @@ export default {
 
 
 .vl {
-  border-right: 2px solid rgba(24,24,24,1);
+  border-right: 2px solid rgba(255,255,255,1);
   height: 70px;
 }
 
@@ -331,7 +342,7 @@ export default {
 }
 
 .buttonTD1 {
-    height:40px;
+    height:80px;
 }
 
 .buttonTD2 {
@@ -344,5 +355,3 @@ export default {
 
 
 </style>>
-
-</style>

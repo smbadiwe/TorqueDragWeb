@@ -147,7 +147,7 @@ export default {
 			}
 			//console.log("x: ", context.trippingIn.x);
 			//console.log("y: ", context.trippingIn.y);
-			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming];
+			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling]; // context.backReaming
 			var layout = { 
 				showlegend: true,
 				title: 'Torque Plot',

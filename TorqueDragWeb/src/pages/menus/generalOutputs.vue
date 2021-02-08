@@ -9,7 +9,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Vertical Section"
                     class="text-capitalize"
                     stack 
@@ -23,7 +23,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Plain View"
                     class="text-capitalize"
                     stack 
@@ -37,7 +37,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Inclination"
                     class="text-capitalize"
                     stack 
@@ -51,7 +51,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Azimuth"
                     class="text-capitalize"
                     stack 
@@ -65,7 +65,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size"  
                     label="Dogleg Severity"
                     class="text-capitalize"
                     stack 
@@ -79,7 +79,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Build"
                     class="text-capitalize"
                     stack 
@@ -93,7 +93,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Walk"
                     class="text-capitalize"
                     stack 
@@ -106,7 +106,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size"  
                     label="Absolute Tortuosity"
                     class="text-capitalize"
                     stack 
@@ -119,7 +119,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="Relative Tortuosity"
                     class="text-capitalize"
                     stack 
@@ -132,7 +132,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size"  
                     label="Geothmermal Gradient"
                     class="text-capitalize"
                     stack 
@@ -145,7 +145,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size" 
                     label="WellPath Table"
                     class="text-capitalize"
                     stack 
@@ -158,7 +158,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size"  
                     label="Deviated Schematic"
                     class="text-capitalize"
                     stack 
@@ -172,7 +172,7 @@
                     icon="play_arrow" 
                     flat
                     stretch
-                    size="sm" 
+                    :size="size"  
                     label="Formation Tops"
                     class="text-capitalize"
                     stack 
@@ -213,6 +213,7 @@ export default {
     },
     data(){
         return {
+            size: "md"
         }
 
     },
@@ -296,7 +297,7 @@ export default {
 
 
 .vl {
-  border-right: 2px solid rgba(24,24,24,1);
+  border-right: 2px solid rgba(255,255,255,1);
   height: 70px;
 }
 
@@ -319,7 +320,7 @@ export default {
 }
 
 .buttonTD1 {
-    height:40px;
+    height:80px;
 }
 
 .buttonTD2 {
@@ -332,5 +333,3 @@ export default {
 
 
 </style>>
-
-</style>

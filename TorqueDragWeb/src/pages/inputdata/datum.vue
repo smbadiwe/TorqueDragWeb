@@ -21,7 +21,7 @@
           
         </div>
           
-        <div class="row"
+        <div class="row text-accent"
         v-if="expanded">
         <div class="col-12">
                   <q-expansion-item
@@ -37,27 +37,27 @@
                           <div class="row">
 
                             <div class="col-3 q-pt-sm">Shore</div>
-                            <div class="col-5 q-pa-sm"><input v-model="typeOfShore"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="typeOfShore"></div>
                             <div class="col-4"></div>
 
                             <div class="col-3 q-pt-sm">Datum Name</div>
-                            <div class="col-5 q-pa-sm"><input v-model="datumName"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="datumName"></div>
                             <div class="col-4"></div>
 
                             <div class="col-3 q-pt-sm">Datum Elevation (ft)</div>
-                            <div class="col-5 q-pa-sm"><input v-model="datumElevation"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="datumElevation"></div>
                             <div class="col-4"></div>
 
                             <div class="col-3 q-pt-sm">Ground Elevation (ft)</div>
-                            <div class="col-5 q-pa-sm"><input v-model="groundElevation"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="groundElevation"></div>
                             <div class="col-4"></div>
 
                             <div class="col-3 q-pt-sm">WellHead Elevation (ft)</div>
-                            <div class="col-5 q-pa-sm"><input v-model="wellHeadElevation"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="wellHeadElevation"></div>
                             <div class="col-4"></div>
 
                             <div class="col-3 q-pt-sm">Air Gap (ft)</div>
-                            <div class="col-5 q-pa-sm"><input v-model="airGap"></div>
+                            <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="airGap"></div>
                             <div class="col-4"></div>
 
                             <q-btn 
@@ -85,12 +85,13 @@
         </div>
 
 
-        <div class="row">
+        <div class="row text-accent">
           <div class="col-md-3 col-sm-12 q-pa-sm">
               Select Datum: 
             </div>
             <div class="col-md-9 col-sm-12 q-pa-sm">
             <select style="width:100%;"
+            class="text-center bg-positive text-accent"
               name="NameOfDatum"
               id="" 
               v-on:change="onDatumSelectionChanged($event)">
@@ -107,28 +108,28 @@
             <hr/>
           </div>
 
-          <div class="col-md-3 col-sm-12 q-pt-sm">Shore</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.typeOfShore"></div>
+          <div class="col-md-3 col-sm-12 q-pt-sm text-accent">Shore</div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.typeOfShore"></div>
           <div class="col-3"></div>
 
           <div class="col-md-3 col-sm-12 q-pt-sm">Datum Name</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumName"></div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.datumName"></div>
           <div class="col-3"></div>
 
           <div class="col-md-3 col-sm-12 q-pt-sm">Datum Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.datumElevation"></div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.datumElevation"></div>
           <div class="col-3"></div>
 
           <div class="col-md-3 col-sm-12 q-pt-sm">Ground Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.groundElevation"></div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.groundElevation"></div>
           <div class="col-3"></div>
 
           <div class="col-md-3 col-sm-12 q-pt-sm">WellHead Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.wellHeadElevation"></div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.wellHeadElevation"></div>
           <div class="col-3"></div>
 
           <div class="col-md-3 col-sm-12 q-pt-sm">Air Gap (ft)</div>
-          <div class="col-6 q-pa-sm"><input v-model="selectedDatum.airGap"></div>
+          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.airGap"></div>
           <div class="col-3"></div>
   
         </div>
@@ -246,7 +247,6 @@ export default {
     font-weight: lighter;
     font-size: 15px;
     color: rgba(214,214,214,1);
-    background-color: rgba(24,24,24,1);
 }
 
 </style>

@@ -55,7 +55,10 @@ const state = {
         stepSize: null,
         seaWaterDensity: null,
         courseLength: null,
-        youngsModulus: null
+        youngsModulus: null,
+        blockWeight: null,
+        percentOfYield: null,
+        bucklingLimitFactor: 1.0
     },
     isFromDB: false,
     tabCaption: 'Datum Details'
@@ -147,6 +150,9 @@ const actions = {
                     seaWaterDensity : parseFloat(context.state.common.seaWaterDensity),
                     courseLength : parseFloat(context.state.common.courseLength),
                     youngsModulus : parseFloat(context.state.common.youngsModulus),
+                    blockWeight:  parseFloat(context.state.common.blockWeight),
+                    percentOfYield: parseFloat(context.state.common.percentOfYield),
+                    bucklingLimitFactor: parseFloat(context.state.common.bucklingLimitFactor),
                     designId: payload.designId
                 }
 

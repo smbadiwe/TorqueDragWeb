@@ -135,7 +135,7 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = trippingInResults[i].bottomMeasuredDepth;
 
-				context.trippingIn.x.push(trippingInResults[i].tensionTopOfPipe/M);
+				context.trippingIn.x.push(trippingInResults[i].tensionBottomOfPipe/M);
 				context.trippingIn.y.push(md);
 			}
 
@@ -143,7 +143,7 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = trippingOutResults[i].bottomMeasuredDepth;
 
-				context.trippingOut.x.push(trippingOutResults[i].tensionTopOfPipe/M);
+				context.trippingOut.x.push(trippingOutResults[i].tensionBottomOfPipe/M);
 				context.trippingOut.y.push(md);
 			}
 
@@ -151,7 +151,7 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = drillingResults[i].bottomMeasuredDepth;
 
-				context.rotatingOnBottom.x.push(drillingResults[i].tensionTopOfPipe/M);
+				context.rotatingOnBottom.x.push(drillingResults[i].tensionBottomOfPipe/M);
 				context.rotatingOnBottom.y.push(md);
 			}
 
@@ -159,7 +159,7 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = slideDrillingResults[i].bottomMeasuredDepth;
 
-				context.slideDrilling.x.push(slideDrillingResults[i].tensionTopOfPipe/M);
+				context.slideDrilling.x.push(slideDrillingResults[i].tensionBottomOfPipe/M);
 				context.slideDrilling.y.push(md);
 			}
 
@@ -167,7 +167,7 @@ export default {
 			for(i = 0; i < length; i++){
 				var md = backReamingResults[i].bottomMeasuredDepth;
 
-				context.backReaming.x.push(backReamingResults[i].tensionTopOfPipe/M);
+				context.backReaming.x.push(backReamingResults[i].tensionBottomOfPipe/M);
 				context.backReaming.y.push(md);
 			}
 
@@ -191,8 +191,15 @@ export default {
 
 			console.log("trippingOut.x: ", context.backReaming.x); */
 
-			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom,
-			 context.slideDrilling, context.backReaming, context.helicalBuckling, context.sinusoidalBuckling];
+			/* var data = [context.trippingIn, context.trippingOut,
+						context.rotatingOnBottom, context.slideDrilling,
+						context.backReaming, context.helicalBuckling,
+						 context.sinusoidalBuckling]; */
+
+						 var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom,
+									context.slideDrilling, context.backReaming, context.helicalBuckling,
+						 			context.sinusoidalBuckling];
+			
 			var layout = { 
 				showlegend: true,
 				title: 'Effective Tension Plot',
@@ -249,7 +256,8 @@ export default {
 					linewidth: 4
 				 	} 
 				};
-			Plotly.newPlot('myDiv', data, layout);
+			var config = {responsive: true}
+			Plotly.newPlot('myDiv', data, layout, config);
         }
     },
     mounted() {

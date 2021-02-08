@@ -6,13 +6,16 @@
     > -->
       <div id="schematicspace">
             <div class="row">
-              <div class="col-12 q-pa-sm  text-white">
+              <div class="col-12 q-pa-sm  text-accent bg-primary">
                 <q-tree
                   :nodes="wellProjects"
                   node-key="designId"
                   default-expand-all
                   @update:selected="selectNode"
                   :selected.sync="selected"
+                  color="accent"
+                  control-color="accent"
+                  text-color="accent"
                   dark/>
             </div>
           </div>
@@ -128,7 +131,7 @@ export default {
     font-style: normal;
     font-weight: lighter;
     font-size: 15px;
-    color: rgba(214,214,214,1);
+    /* color: rgba(214,214,214,1); */
 }
 #scrollview {
     height: 390px;

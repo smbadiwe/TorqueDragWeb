@@ -4,7 +4,7 @@
     <q-layout view="hHh lpR fFf" class="bg-primary">
     <q-header elevated>
 
-    <q-bar class="q-pa-sm q-pl-md row bg-secondary" >
+    <q-bar class="q-pa-none row bg-secondary" >
             
           <q-btn
           flat
@@ -17,13 +17,23 @@
           <q-icon name="laptop_chromebook"/>
           
 
-              <q-tabs 
+            <!-- shadow-2 -->
+            <q-tabs 
             v-model="tab"
             no-caps
-            outside-arrows
             mobile-arrows
-            class="mytab text-white shadow-2 col-9"
+            outside-arrows
+            class="mytab text-accent col-9"
           >
+          
+            <q-btn style="background: rgba(45,66,123,1);" label="DP Well Engineering">
+                <q-menu>
+                  <leftSideMenu></leftSideMenu>
+                </q-menu>
+            </q-btn>
+
+            <q-space/>
+
             <q-tab name="output" label="Output"
              @click="ShowFileRibbon('General Outputs')"/>
             <q-tab name="torquedrag" label="Torque & Drag" 
@@ -79,7 +89,7 @@
 
     <div 
     v-if="isRibbonVisible"
-    class="row items-center bg-dark" style="height: 100px;">
+    class="row items-center bg-dark" style="height: 150px;">
        
       <div v-if="isRibbonActiveHome"
             class="col-12">
@@ -199,6 +209,7 @@ import analysisSettings from 'pages/inputdata/analysisSettings.vue';
 import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
 import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
 import dockView from 'pages/inputdata/dockView.vue';
+import leftSideMenu from 'pages/menus/leftSideMenu.vue';
 
 
 export default {
@@ -232,7 +243,8 @@ export default {
       'chartProperties-app': chartProperties,
       testRibbon,
       mainInputRight,
-      dockView
+      dockView,
+      leftSideMenu
       },
   data () {
     return {

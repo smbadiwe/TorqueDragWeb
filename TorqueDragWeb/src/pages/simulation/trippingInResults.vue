@@ -31,7 +31,6 @@
                             <q-td key="pipeOuterArea" :props="props">{{ props.row.pipeOuterArea }}</q-td>
                             <q-td key="pipeTotalWeight" :props="props">{{ props.row.pipeTotalWeight }}</q-td>
                             <q-td key="buoyancyWeight" :props="props">{{ props.row.buoyancyWeight }}</q-td>
-                            <q-td key="tensileStrength" :props="props">{{ props.row.tensileStrength }}</q-td>
                             <q-td key="bottomMeasuredDepth" :props="props">{{ props.row.bottomMeasuredDepth }}</q-td>
                             <q-td key="topInclination" :props="props">{{ props.row.topInclination }}</q-td>
                             <q-td key="bottomInclination" :props="props">{{ props.row.bottomInclination }}</q-td>
@@ -42,7 +41,9 @@
                             <q-td key="normalForce" :props="props">{{ props.row.normalForce }}</q-td>
                             <q-td key="tensionTopOfPipe" :props="props">{{ props.row.tensionTopOfPipe }}</q-td>
                             <q-td key="totalDrag" :props="props">{{ props.row.totalDrag }}</q-td>
-                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.hookeLoadAtJoint }}</q-td>
+                            <q-td key="tensileStrength" :props="props">{{ props.row.tensileStrength }}</q-td>
+                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.hookeLoadAtJointTop }}</q-td>
+                            <q-td key="overPullMargin" :props="props">{{ props.row.overPullMargin }}</q-td>
                             <q-td key="torqueBottom" :props="props">{{ props.row.torqueBottom }}</q-td>
                             <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
                             <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
@@ -73,7 +74,6 @@ export default {
             { name: "pipeOuterArea", label: "Outer Area (sqin)", field: "", align: "left" },
             { name: "pipeTotalWeight", label: "Total Weight (lbs)", field: "", align: "left" },
             { name: "buoyancyWeight", label: "Buoyancy Weight (lbs)", field: "", align: "left" },
-            { name: "tensileStrength", label: "Tensile Strength", field: "", align: "left" },
             { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (m)", field: "", align: "left" },
             { name: "topInclination", label: "Top Inclination (rad)", field: "", align: "left" },
             { name: "bottomInclination", label: "Bottom Inclination (rad)", field: "", align: "left" },
@@ -84,7 +84,9 @@ export default {
             { name: "normalForce", label: "Normal Force (Ib)", field: "", align: "left" },
             { name: "tensionTopOfPipe", label: "Top Tension (Ib)", field: "", align: "left" },
             { name: "totalDrag", label: "Drag Force (Ib)", field: "", align: "left" },
+            { name: "tensileStrength", label: "Tensile Strength", field: "", align: "left" },
             { name: "HookeLoadAtJoint", label: "Hook Load (Ib)", field: "", align: "left" },
+            { name: "overPullMargin", label: "Overpull Margin (Ib)", field: "", align: "left" },
             { name: "torqueBottom", label: "Bottom Torque (Ib)", field: "", align: "left" },
             { name: "torqueTop", label: "Top Torque (Ib)", field: "", align: "left" },
             { name: "criticalInclinationAngle", label: "critical Inc. (rad)", field: "", align: "left" },

@@ -9,7 +9,7 @@
             class="mytab text-white shadow-2 col-9"
           >
 
-            <q-tab class="taboutput"
+            <q-tab class="taboutput vl"
             v-for="outputTab in outputTabs" :key="outputTab.name"
             :name="outputTab.route">
                 <div class="row"> 
@@ -88,5 +88,10 @@ export default {
 	font-size: 18px;
 	color: rgba(214,214,214,1);
     background-color: rgba(45,66,123,1);
+}
+
+.vl {
+  border-left: 2px solid rgba(255,255,255, 1);
+  height: 50px;
 }
 </style>

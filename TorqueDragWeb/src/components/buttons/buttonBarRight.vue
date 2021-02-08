@@ -46,10 +46,12 @@ export default {
             this.$emit('updatepropRight', context.activeViews);
         },
         showschematics(){
+            
             var context =  this;
             context.activeViews.issettingsheader = false,
             context.activeViews.issensitivityheader =  false;
             context.activeViews.isschematicsheader = true;
+            //console.log("showschematics buttonBarRight")
             this.$emit('updatepropRight', context.activeViews);
         }
     }

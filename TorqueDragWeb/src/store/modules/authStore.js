@@ -76,10 +76,13 @@ const getters = {
 const mutations = {
     AddOutputTab(state, payload){
       var i = 0, len = state.outputTabs.length;
+      
       var check = false;
+      console.log(check);
       for(i = 0; i < len; i++){
         if(payload.name == state.outputTabs[i].name){
           check = true;
+          console.log(check);
           break;
         }
       }
@@ -93,6 +96,23 @@ const mutations = {
         });
 
         state.outputTabNames.push(payload.name);
+        console.log(state.outputTabs)
+
+        var route = '/' + payload.route;
+            console.log(route)
+            this.$router.push(route);
+
+        
+      }
+
+      if(check ==  true){
+        /* state.outputTabs.push({
+          name: payload.name,
+          isActive: false,
+          route: payload.route
+        }); */
+
+        //state.outputTabNames.push(payload.name);
         console.log(state.outputTabs)
 
         var route = '/' + payload.route;

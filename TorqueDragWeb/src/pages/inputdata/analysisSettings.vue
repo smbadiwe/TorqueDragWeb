@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="bg-primary text-accent">
     <!-- <q-scroll-area
         :visible="visible"
         id="scrollview"
@@ -45,7 +45,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Start MD (ft):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.startMeasuredDepth"></div>
+                                    <div class="col-6 q-pa-sm"><input style="background:white;" v-model="common.startMeasuredDepth"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-3 q-pa-sm">End MD (ft)</div>
@@ -102,7 +102,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Block weight (kip):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                                    <div class="col-6 q-pa-sm"><input v-model="common.blockWeight"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm text-left">
@@ -146,7 +146,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Buckling limit factor:</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                                    <div class="col-6 q-pa-sm"><input v-model="common.bucklingLimitFactor"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm">
@@ -156,7 +156,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Use % of yield:</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                                    <div class="col-6 q-pa-sm"><input v-model="common.percentOfYield"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm">
@@ -205,7 +205,8 @@ export default {
         seaWaterDensity: null,
         courseLength: 50,
         youngsModulus: null,
-        message: ""
+        message: "",
+        blockWeight: null
     }
   },
   methods: {
@@ -241,7 +242,6 @@ export default {
     font-style: normal;
     font-weight: lighter;
     font-size: 15px;
-    color: rgba(214,214,214,1);
 }
 #scrollview {
     height: 390px;
