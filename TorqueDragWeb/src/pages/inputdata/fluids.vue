@@ -19,13 +19,13 @@
                             <div class="row">
                                 <div class="col-3 q-pa-sm">Name:</div>
                                 <div class="col-3"></div>
-                                <div class="col-6 q-pa-sm"><input v-model="mudName"></div>
+                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="mudName"></div>
                             </div>
 
                             <div class="row">
                                 <div class="col-3 q-pa-sm">Description:</div>
                                 <div class="col-3"></div>
-                                <div class="col-6 q-pa-sm"><input v-model="description"></div>
+                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="description"></div>
                             </div>
 
                             <div class="row">
@@ -39,7 +39,9 @@
                                     Mud base type: 
                                 </div>
                                 <div class="col-6 q-pa-sm">
-                                <select v-model="mudBaseType" style="width:100%;">
+                                <select v-model="mudBaseType"
+                                class="text-center bg-positive text-accent"
+                                style="width:100%;">
                                         <option>Brine</option>
                                         <option>Oil</option>
                                         <option>Water</option>
@@ -51,7 +53,9 @@
                                     Base Fluid: 
                                 </div>
                                 <div class="col-6 q-pa-sm">
-                                <select v-model="baseFluid" style="width:100%;">
+                                <select v-model="baseFluid" 
+                                class="text-center bg-positive text-accent"
+                                style="width:100%;">
                                         <option>Brine</option>
                                         <option>Oil</option>
                                         <option>Water</option>
@@ -72,7 +76,9 @@
                                     Rheology model: 
                                 </div>
                                 <div class="col-6 q-pa-sm">
-                                <select v-model="rheologyModel" style="width:100%;">
+                                <select v-model="rheologyModel" 
+                                class="text-center bg-positive text-accent"
+                                style="width:100%;">
                                         <option>Bingham Plastic</option>
                                         <option>Power law</option>
                                         <option>Herschel Bulkley</option>
@@ -121,8 +127,8 @@
                                         @click="Import">
                                     </q-btn>
 
-                                    <q-dialog v-model="isImportDialogVisible" class="bg-accent">
-                                    <div class="q-pa-sm bg-accent">
+                                    <q-dialog v-model="isImportDialogVisible" class="bg-primary">
+                                    <div class="q-pa-sm bg-primary">
                                         <msExcelImport-app></msExcelImport-app>
                                     </div>
                                 </q-dialog>
@@ -130,14 +136,13 @@
 
                                 <div class="col-12 q-pa-sm"> 
                                 <q-table  
-                                :data="mudPVTs" 
-                                :columns="columns" 
-                                row-key="name"
-                                flat
-                                bordered
                                 class="my-sticky-header-table"
+                                :data="mudPVTs"
+                                :columns="columns"
+                                row-key="name"
                                 dark
                                 color="amber"
+                                bordered
                                 :separator="separator">
 
 
@@ -214,11 +219,13 @@ export default {
       Import(){
             this.$store.commit('dataImportStore/SetTypeOfInput', "Fluid");
             this.$store.commit('fluidsStore/SetisImportDialogVisible', true);
+            this.$store.commit('dataImportStore/SetimportDialogCaption', "Import Fluid Parameters");
       },
       PostFluid(){
            var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             this.$store.dispatch('fluidsStore/PostFluid', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
@@ -230,6 +237,7 @@ export default {
                     rheologyModel: context.rheologyModel,
                     rheologyModelType: context.rheologyModelType,
                     designId: selectedTorqueDragDesign.id,
+                    userId: IdentityModel.id
                 }
             })
       }
@@ -237,9 +245,11 @@ export default {
   created(){
       var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var payload = {
           companyName: Conn,
-          designId: selectedTorqueDragDesign.id
+          designId: selectedTorqueDragDesign.id,
+          userId: IdentityModel.id
       }
       this.$store.dispatch('fluidsStore/GetFluid', payload);
       var tabCaption = "Fluids Editor";

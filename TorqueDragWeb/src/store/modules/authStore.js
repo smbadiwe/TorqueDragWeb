@@ -2,7 +2,10 @@ import { $http } from 'boot/axios'
 import { stat } from 'fs';
 
 const state =  {
-
+  statusBar: {
+      actionMessage: "",
+      visibility: false
+    },
     Loginstatus: false,
     IdentityModel: {},
     user: {},
@@ -35,6 +38,9 @@ const state =  {
 }
 
 const getters = {
+  statusBar(state){
+      return state.statusBar;
+    },
     outputTabNames(state){
       return state.outputTabNames;
     },
@@ -74,6 +80,10 @@ const getters = {
 }
 
 const mutations = {
+  setStatusMessageBarVisibility(state, payload){
+      state.statusBar.visibility = payload.visibility;
+      state.statusBar.actionMessage = payload.actionMessage;
+    },
     AddOutputTab(state, payload){
       var i = 0, len = state.outputTabs.length;
       
@@ -204,6 +214,11 @@ const actions = {
           .then(response => {
               
             context.commit('Login', response.data) 
+            context.commit('setStatusMessageBarVisibility',  
+            {
+              actionMessage: response.data.info,
+              visibility: true
+            });
             context.dispatch('wellDesignStore/GetTorqueDragDesigns',  response.data, {root:true})             
               resolve(response)
               

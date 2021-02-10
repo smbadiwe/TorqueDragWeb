@@ -1,61 +1,69 @@
 <template>
-  <div class="q-pa-md bg-accent">
-<!--     <q-scroll-area
-        :visible="visible"  
-      style="height: 500px; width: 500px;"
-    > -->
+  <div class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
+      <div class="row">
+              <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
+                  <div>{{ importDialogCaption }}</div>
+                  <q-space />
+                  <q-btn dense flat icon="close"
+                  @click="cancelCreation" />
+              </q-bar>
+        </div>
+
       <q-stepper
         v-model="ImportDataStep"
         vertical
-        color="primary"
+        color="accent"
         animated
         style="width: 500px;"
-        class="bg-accent"
+        class="bg-primary"
       >
         <q-step
+          class="bg-primary"
           :name="1"
           title="Select MS Excel Worksheet"
           :done="ImportDataStep > 1">
-          <div class="bg-accent">
-              <readExcelSheets-app class="bg-accent">
+          <div class="bg-primary">
+              <readExcelSheets-app class="bg-primary">
               </readExcelSheets-app>
           </div>
 
-          <q-stepper-navigation class="bg-accent">
+          <q-stepper-navigation class="bg-primary">
             <q-btn @click="moveForward(1)" color="primary" label="Next" />
           </q-stepper-navigation>
         </q-step>
 
         <q-step
+          class="bg-primary"
           :name="2"
           title="Map Variables"
           :done="ImportDataStep > 2"
         >
-          <div class="bg-accent">
+          <div class="bg-primary">
             <mapExcelVariables-app v-if="isWellPath"></mapExcelVariables-app>
             <mapHoleData-app v-if="isHole"></mapHoleData-app>
             <mapTubingData-app v-if="isTubingString"></mapTubingData-app>
             <mapFluidData-app v-if="isFluid"></mapFluidData-app>
           </div>
 
-          <q-stepper-navigation class="bg-accent">
+          <q-stepper-navigation class="bg-primary">
             <q-btn @click="moveForward(2)" color="primary" label="Next" />
-            <q-btn flat @click="moveBackward(2)" color="primary" label="Back" class="q-ml-sm" />
+            <q-btn flat @click="moveBackward(2)" color="accent" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
 
         <q-step
+        class="bg-primary"
           :name="3"
           title="Map Units"
           :done="ImportDataStep > 3"
         >
-          <div class="bg-accent">
+          <div class="bg-primary">
             <!-- <contactDataComponent></contactDataComponent> -->
           </div>
 
-          <q-stepper-navigation class="bg-accent">
+          <q-stepper-navigation class="bg-primary">
             <q-btn @click="moveForward(3)" color="primary" label="Next" />
-            <q-btn flat @click="moveBackward(3)" color="primary" label="Back" class="q-ml-sm" />
+            <q-btn flat @click="moveBackward(3)" color="accent" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
 
@@ -71,9 +79,9 @@
             <previewFluidData-app v-if="isFluid"></previewFluidData-app>
           </div>
 
-          <q-stepper-navigation class="bg-accent">
+          <q-stepper-navigation class="bg-primary">
             <q-btn color="primary" label="Finish" @click="finishAction"/>
-            <q-btn flat @click="moveBackward(4)" color="primary" label="Back" class="q-ml-sm" />
+            <q-btn flat @click="moveBackward(4)" color="accent" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
       </q-stepper>
@@ -96,6 +104,9 @@ import previewFluidData from 'components/dataImport/fluidDataImport/previewFluid
 
 export default {
     computed: {
+      importDialogCaption(){
+        return this.$store.getters['dataImportStore/importDialogCaption'];
+      },
       previewSurveyData(){
         return this.$store.getters['dataImportStore/previewSurveyData'];
       },
@@ -140,9 +151,14 @@ export default {
      }
     },
     methods: {
+        cancelCreation(){
+          this.$store.commit('wellPathStore/SetisImportDialogVisible', false);
+        },
         moveForward (currentStep){
             var context =  this;
             var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+
 
           switch(typeOfInput){
             case "Well Path":
@@ -175,16 +191,28 @@ export default {
               var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
               switch(typeOfInput){
                 case "Well Path":
-                  this.$store.commit('dataImportStore/GetDevSurveyPreview', context.SelectedTorqueDragDesign.id);
+                  this.$store.commit('dataImportStore/GetDevSurveyPreview', {
+                    designId: context.SelectedTorqueDragDesign.id,
+                    userId: IdentityModel.id
+                  });
                   break;
                 case "Hole":
-                  this.$store.commit('dataImportStore/GetHoleSectionPreview', context.SelectedTorqueDragDesign.id);
+                  this.$store.commit('dataImportStore/GetHoleSectionPreview', {
+                    designId: context.SelectedTorqueDragDesign.id,
+                    userId: IdentityModel.id
+                  });
                   break;
                 case "Tubing String":
-                  this.$store.commit('dataImportStore/GetTubingStringPreview', context.SelectedTorqueDragDesign.id);
+                  this.$store.commit('dataImportStore/GetTubingStringPreview', {
+                    designId: context.SelectedTorqueDragDesign.id,
+                    userId: IdentityModel.id
+                  });
                   break;
                 case "Fluid":
-                  this.$store.commit('dataImportStore/GetFluidPreview', context.SelectedTorqueDragDesign.id);
+                  this.$store.commit('dataImportStore/GetFluidPreview', {
+                    designId: context.SelectedTorqueDragDesign.id,
+                    userId: IdentityModel.id
+                  });
                   break;
               }
             }
@@ -204,6 +232,7 @@ export default {
           var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
           var Conn = this.$store.getters['authStore/companyName'];
           var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+          var IdentityModel = this.$store.getters['authStore/IdentityModel'];
 
           switch(typeOfInput){
             case "Well Path":
@@ -237,18 +266,15 @@ export default {
               this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
                 deviationSurveys: context.previewSurveyData,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 companyName: Conn
               });
-              console.log("dev survey data:", {
-                deviationSurveys: context.previewSurveyData,
-                designId: selectedTorqueDragDesign.id,
-                companyName: Conn
-              })
               break;
             case "Hole":
               this.$store.dispatch('holeStore/PostHoleSections', {
                 holeSections: context.previewHoleData,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 companyName: Conn,
                 holeSection: {}
               });
@@ -257,6 +283,7 @@ export default {
               this.$store.dispatch('tubingStringStore/PostPipes', {
                 pipes: context.previewTubingStringData,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 companyName: Conn
               });
               break;
@@ -264,6 +291,7 @@ export default {
               this.$store.dispatch('fluidsStore/PostMudPVTs', {
                 mudPVTs: context.previewMudPVTData,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 companyName: Conn
               });
               break;
@@ -304,3 +332,13 @@ export default {
     }
   }
 </script>
+
+<style scoped>
+
+.dialogBorder {
+  border: 2px solid rgba(112,112,112,1);
+    max-height: 700px;
+  /* height: 50px; */
+}
+
+</style>

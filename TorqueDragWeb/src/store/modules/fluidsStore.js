@@ -59,10 +59,12 @@ const actions = {
       }
     }
 
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Fluids/GetFluid/' + payload.designId, config)
+       $http.get('Fluids/GetFluid/' + ids, config)
         .then(response => {
             
           context.commit('GetFluid', response.data);
@@ -83,11 +85,12 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('MudPVTs/GetMudPVTs/' + payload.designId, config)
+       $http.get('MudPVTs/GetMudPVTs/' + ids, config)
         .then(response => {
             
           context.commit('GetMudPVTs', response.data);              
@@ -134,7 +137,7 @@ const actions = {
 
     state.mudPVTs = [];
     state.mudPVTs = payload.mudPVTs;
-
+    
     return new Promise((resolve, reject) => {
   
 

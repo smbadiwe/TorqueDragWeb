@@ -30,6 +30,8 @@
                       dense-toggle
                       expand-separator
                       label="Add Datum"
+                      clickable
+                      @click="ExpandExander2"
                   >
                       <!-- <q-card>
                       <q-card-section> -->
@@ -60,7 +62,10 @@
                             <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="airGap"></div>
                             <div class="col-4"></div>
 
+                            <div style="height: 50px;"></div>
+
                             <q-btn 
+                              align="right"
                               class="text-right"
                               size="sm"
                               label="Add"
@@ -85,7 +90,9 @@
         </div>
 
 
-        <div class="row text-accent">
+        <div 
+        v-if="expanded2"
+        class="row text-accent">
           <div class="col-md-3 col-sm-12 q-pa-sm">
               Select Datum: 
             </div>
@@ -182,13 +189,23 @@ export default {
       airGap: "",
       wellHeadElevation: "",
       datumName: "",
-      visible: true
+      visible: true,
+      expanded2: true
     }
   },
   methods: {
     ExpandExander(){
       var context = this;
       context.expanded = true;
+      context.expanded2 = false
+    },
+    ExpandExander2(){
+      var context = this;
+      if(context.expanded == true){
+        context.expanded2 = false
+      }else{
+        context.expanded2 = true
+      }
     },
     onDatumSelectionChanged(e){
       var context = this;
@@ -205,6 +222,7 @@ export default {
     PostDatum(){
       var context = this;
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var Conn = this.$store.getters['authStore/companyName'];
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
@@ -214,22 +232,26 @@ export default {
               groundElevation: parseFloat(context.groundElevation),
               airGap: parseFloat(context.airGap),
               wellHeadElevation: parseFloat(context.wellHeadElevation),
-              datumName: context.datumName
+              datumName: context.datumName,
+              userId: IdentityModel.id
             },
             companyName: Conn,
             designId: selectedTorqueDragDesign.id
           });
 
           context.expanded = false;
+          context.expanded2 = true
     }
       
   },
   created() {
       var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var payload = {
           companyName: Conn,
-          designId: selectedTorqueDragDesign.id
+          designId: selectedTorqueDragDesign.id,
+          userId: IdentityModel.id
       }
       this.$store.dispatch('datumStore/GetDatums', payload)
       var tabCaption = "Datum Details";

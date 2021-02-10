@@ -92,9 +92,9 @@ props: {
   },
   data () {
     return {
-        issettingsheader:true,
+        issettingsheader:false,
         issensitivityheader: false,
-        isschematicsheader: false,
+        isschematicsheader: true,
         dense: false,
         // visibility:true,
         tab: 'Datum',

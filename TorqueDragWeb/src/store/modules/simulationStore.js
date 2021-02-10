@@ -110,9 +110,10 @@ RunSimulation(context, payload)
     //this.$router.push('/simulationConsole');
 
     console.log("response: ", payload)
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
-       $http.post('Commons/RunSimulation', payload, config)
+       $http.get('Commons/RunSimulation/' + ids, config)
         .then(response => {
 
         console.log("response: ", response)

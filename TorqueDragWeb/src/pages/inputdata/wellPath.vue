@@ -11,26 +11,14 @@
                     <hr/>
             </div>
 
-                <div class="col-6 q-pa-sm">
-                    Origin N: 
-                </div>
-                <div class="col-6 q-pa-sm">
-                    0.00 ft 
-                </div>
+                <div class="col-6 q-pt-sm">Origin N (ft): </div>
+                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
 
-                <div class="col-6 q-pa-sm">
-                    Origin E: 
-                </div>
-                <div class="col-6 q-pa-sm">
-                    0.00 ft 
-                </div>
+                <div class="col-6 q-pt-sm">Origin E (ft): </div>
+                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
 
-                <div class="col-6 q-pa-sm">
-                    Azimuth:
-                </div>
-                <div class="col-6 q-pa-sm">
-                    142.69 degrees 
-                </div>
+                <div class="col-6 q-pt-sm">Azimuth (degrees):</div>
+                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
 
                 <div class="col-12 q-pa-sm">
                     <hr/>
@@ -45,8 +33,8 @@
                         @click="updateIsImportDialogVisible">
                     </q-btn>
 
-                    <q-dialog v-model="isImportDialogVisible" class="bg-accent">
-                        <div class="q-pa-sm bg-accent">
+                    <q-dialog v-model="isImportDialogVisible" class="bg-secondary">
+                        <div class="q-pa-sm bg-secondary">
                             <msExcelImport-app></msExcelImport-app>
                         </div>
                     </q-dialog>
@@ -54,14 +42,12 @@
 
                 <div class="col-12 q-pa-sm"> 
                     <q-table
-                    color="white"
-                    card-class="bg-primary text-white"
-                    table-class="text-white"
-                    table-header-class="text-white"
-                    :data="deviationSurveys" 
-                    :columns="columns" 
-                    row-key="name" 
-                    flat
+                    class="my-sticky-header-table"
+                    :data="deviationSurveys"
+                    :columns="columns"
+                    row-key="name"
+                    dark
+                    color="amber"
                     bordered
                     :separator="separator">
 
@@ -122,14 +108,18 @@ export default {
           var context =  this;
           this.$store.commit('dataImportStore/SetTypeOfInput', "Well Path");
           this.$store.commit('wellPathStore/SetisImportDialogVisible', true);
+          this.$store.commit('dataImportStore/SetimportDialogCaption', "Import Deviation Survey");
+   
       }
   },
   created(){
       var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel']
       var payload = {
           companyName: Conn,
           designId: selectedTorqueDragDesign.id,
+          userId: IdentityModel.id,
           deviationSurveys: [],
           deviationSurveysString: ""
       }
@@ -143,7 +133,7 @@ export default {
 
 <style scoped>
 .my-sticky-header-table{
-  height: 450px;
+  height: 400px;
 }
 
 .q-table__top,

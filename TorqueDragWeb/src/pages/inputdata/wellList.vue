@@ -1,27 +1,32 @@
 <template>
-  <div class="bg-primary">
-     <!-- <q-scroll-area
-        :visible="visible"
-        id="scrollview"
-    > -->
-      <div id="schematicspace">
-            <div class="row">
+  <div class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
+    
+          <div class="row">
+              <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
+                  <div>Well Explorer</div>
+                  <q-space />
+                  <q-btn dense flat icon="delete_forever"
+                  @click="deleteAction" />
+                  <q-btn dense flat icon="close"
+                  @click="closeAction" />
+              </q-bar>
+          </div>
+
+          <div class="row bg-primary" id="schematicspace">
               <div class="col-12 q-pa-sm  text-accent bg-primary">
                 <q-tree
                   :nodes="wellProjects"
-                  node-key="designId"
-                  default-expand-all
+                  node-key="id"
                   @update:selected="selectNode"
                   :selected.sync="selected"
+                  default-expand-all
                   color="accent"
-                  control-color="accent"
+                  control-color="blue"
                   text-color="accent"
                   dark/>
             </div>
+
           </div>
-       </div>
-     <!-- </q-scroll-area>  
-                  default-expand-all-->
   </div>
 </template>
 
@@ -39,6 +44,12 @@ export default {
     },
     torqueDragDesigns(){
         return this.$store.getters['wellDesignStore/torqueDragDesigns'];
+    },
+    companies(){
+        return this.$store.getters['wellDesignStore/externalcompanyNames'];
+    },
+    projects(){
+        return this.$store.getters['wellDesignStore/projectNames'];
     },
     /* selected(){
         return this.$store.getters['wellDesignStore/selected'];
@@ -58,13 +69,44 @@ export default {
         expanded: false,
         designName: "",
         selectedWellDesign: {},
-        selected: null
+        selected: null,
+        ticked: [],
+        expanded: [],
+        uniqueId: "",
+        selectedCompany: "",
+        selectedProject: ""
     }
   }, 
   methods: {
+    closeAction(){
+      this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
+    },
     ExpandExander(){
       var context = this;
       context.expanded = true;
+    },
+    createUniqueId()
+    {
+      var context =  this;
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+
+      context.uniqueId = context.externalcompanyName.toLowerCase() +
+                    context.projectName.toLowerCase() +
+                    context.siteName.toLowerCase() +
+                    context.wellName.toLowerCase() +
+                    context.wellboreName.toLowerCase() +
+                    context.wellDesignName.toLowerCase() +
+                    context.designName.toLowerCase() +
+                    IdentityModel.id.ToString();
+
+    },
+    deleteAction(){
+      var context = this;
+      context.createUniqueId();
+      this.$store.dispatch('wellDesignStore/DeleteTorqueDragDesign', {
+        uniqueId: context.uniqueId,
+        companyName: context.companyName
+      });
     },
     PostTorqueDragDesign(){
       var context = this;
@@ -86,25 +128,14 @@ export default {
 
           context.expanded = false;
     },
-    selectNode (v) {
+    selectNode (_wellCaseId) {
             var context = this;
-             var i = 0;
-            var nCount = context.torqueDragDesigns.length;
-            context.selected = null
-            for(i = 0; i < nCount; i++){
-              //console.log("context.torqueDragDesigns[i].id: ", context.torqueDragDesigns[i].id);
-              if(v == context.torqueDragDesigns[i].id){
-                context.selected = context.torqueDragDesigns[i].designName
-              }
-              /* else{
-                context.selected = null
-              } */
-            }
+
             console.log(context.selected);
-            //console.log(v);
-            if(v !== null){
-              this.$store.commit('wellDesignStore/GetSelectedTorqueDragDesign', {
-                id: v
+            if(_wellCaseId !== null){
+              this.$store.dispatch('wellDesignStore/PostSelectedWellDesign', {
+                wellCaseId: _wellCaseId,
+                companyName: context.companyName
               })
             }
             return;
@@ -136,6 +167,12 @@ export default {
 #scrollview {
     height: 390px;
      width: 240px;
+}
+
+.dialogBorder {
+  border: 2px solid rgba(112,112,112,1);
+    max-height: 700px;
+  /* height: 50px; */
 }
 
 </style>

@@ -1,6 +1,7 @@
 import { $http } from 'boot/axios' 
 
 const state = {
+    importDialogCaption: "",
     MsExcelWbBook:{
         sheetNames: [],
         sheetsData: [],
@@ -310,6 +311,9 @@ const state = {
   }
 
   const getters = {
+    importDialogCaption(state){
+        return state.importDialogCaption;
+    },
     MsExcelWbBook(state){
         return state.MsExcelWbBook;
     },
@@ -382,6 +386,9 @@ const state = {
 }
 
 const mutations = {
+    SetimportDialogCaption(state, payload,){
+        state.importDialogCaption = payload;
+    },
     GetMsExcelWbBook(state, payload){
         state.MsExcelWbBook.sheetNames = payload.sheetNames;
         state.MsExcelWbBook.sheetsData = payload.sheetsData;
@@ -872,7 +879,8 @@ const mutations = {
                         measuredDepth: MD,
                         inclination: inc,
                         azimuth: azi,
-                        designId: payload,
+                        designId: payload.designId,
+                        userId: payload.userId,
                         doglegSeverity: dleg,
                         isSelected: false,
                         northSouth : ns,
@@ -944,7 +952,8 @@ const mutations = {
                         topOfHole: top,
                         bottomOfHole: bottom,
                         frictionFactor: frictionFactor,
-                        designId: payload,
+                        designId: payload.designId,
+                        userId: payload.userId,
                         isSelected: false
                     })
 
@@ -1040,7 +1049,8 @@ const mutations = {
                         itemDescription: itemDescription,
                         makeUpTorque: makeUpTorque,
                         overPullMargin: overPullMargin,
-                        designId: payload,
+                        designId: payload.designId,
+                        userId: payload.userId,
                         isSelected: false
                     })
 
@@ -1100,7 +1110,8 @@ const mutations = {
                         density: density,
                         plasticViscoity: plasticViscoity,
                         yieldPoint: yieldPoint,
-                        designId: payload
+                        designId: payload.designId,
+                        userId: payload.userId,
                     })
 
                 }

@@ -143,11 +143,12 @@ const actions = {
     }
     
     state.deviationSurveys = [];
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
+       $http.get('DeviationSurveys/GetDeviationSurveys/' + ids, config)
         .then(response => {
 
           console.log("response.data:", response.data)
@@ -175,11 +176,12 @@ const actions = {
     context.state.deviationSurveys = [];
     context.state.seriesStore =[]
     context.state.seriesCollection =[]
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
  
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
+       $http.get('DeviationSurveys/GetDeviationSurveys/' + ids, config)
         .then(response => {
 
           

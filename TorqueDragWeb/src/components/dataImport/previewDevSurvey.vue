@@ -1,12 +1,16 @@
 <template>
-    <div class="q-pa-sm bg-accent">
+    <div class="q-pa-sm bg-primary text-accent">
         <div class="row">
             <div class="col-12">
                  <q-table  
-                    :data="previewSurveyData" 
-                    :columns="columns" 
-                    row-key="name" 
-                    binary-state-sort
+                    class="my-sticky-header-table"
+                    :data="previewSurveyData"
+                    :columns="columns"
+                    row-key="name"
+                    dark
+                    color="amber"
+                    bordered
+                    :separator="separator"
                     style="width:100%;">
 
 
@@ -33,7 +37,7 @@ export default {
     },
     data() {
         return {
-
+            separator: 'cell',
             columns: [
                 { name: "measuredDepth", label: "MD (ft)", field: "", align: "left" },
                 { name: "inclination", label: "Inc (deg)", field: "", align: "left" },

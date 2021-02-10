@@ -91,11 +91,13 @@ export default {
     created(){
         var Conn = this.$store.getters['authStore/companyName'];
         var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+        var IdentityModel = this.$store.getters['authStore/IdentityModel'];
         var payload = {
             companyName: Conn,
             designId: selectedTorqueDragDesign.id,
             xVariableName: "Vertical Section",
-            chartId: "VerticalSection"
+            chartId: "VerticalSection",
+            userId: IdentityModel.id
         }
         this.$store.dispatch('wellPathStore/LoadDevSurveySeriesCollection', payload);
     }

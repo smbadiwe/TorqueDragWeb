@@ -44,10 +44,12 @@ const actions = {
       }
     }
 
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
     return new Promise((resolve, reject) => {
   
 
-       $http.get('HoleSections/GetHoleSections/' + payload.designId, config)
+       $http.get('HoleSections/GetHoleSections/' + ids, config)
         .then(response => {
             
           context.commit('GetHoleSections', response.data)              

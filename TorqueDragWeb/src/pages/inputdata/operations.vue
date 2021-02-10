@@ -252,9 +252,11 @@ export default {
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             this.$store.dispatch('operationsStore/PostOperation', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 operation: context.operation
                 /* operation: {
                     isTrippingInChecked: context.isTrippingInChecked,
@@ -288,12 +290,14 @@ export default {
     created(){
      var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel']
        var keys = Object.keys(selectedTorqueDragDesign);
       var length = keys.length;
       if(length > 0){
         var payload = {
         companyName: Conn,
-        designId: selectedTorqueDragDesign.id
+        designId: selectedTorqueDragDesign.id,
+        userId: IdentityModel.id
         }
         this.$store.dispatch('operationsStore/GetOperation', payload);
         var tabCaption = "Operational Parameters";

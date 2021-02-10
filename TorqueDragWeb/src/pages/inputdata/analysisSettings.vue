@@ -45,15 +45,15 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Start MD (ft):</div>
-                                    <div class="col-6 q-pa-sm"><input style="background:white;" v-model="common.startMeasuredDepth"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.startMeasuredDepth"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-3 q-pa-sm">End MD (ft)</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.endMeasuredDepth"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.endMeasuredDepth"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-3 q-pa-sm">Step size (ft):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.stepSize"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.stepSize"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm text-left"> 
@@ -70,11 +70,11 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Sea water density (lb/ft3):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.seaWaterDensity"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.seaWaterDensity"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-3 q-pa-sm">Young Modulus (Mlbin4):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.youngsModulus"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.youngsModulus"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                 </div>
@@ -102,7 +102,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Block weight (kip):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.blockWeight"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.blockWeight"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm text-left">
@@ -111,11 +111,11 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Lines shung:</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="message"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-3 q-pa-sm">Mechanical Efficiency (%):</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="message"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="message"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm">
@@ -146,7 +146,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Buckling limit factor:</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.bucklingLimitFactor"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.bucklingLimitFactor"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm">
@@ -156,7 +156,7 @@
                                     </div>
 
                                     <div class="col-3 q-pa-sm">Use % of yield:</div>
-                                    <div class="col-6 q-pa-sm"><input v-model="common.percentOfYield"></div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.percentOfYield"></div>
                                     <div class="col-3 q-pa-sm"></div>
 
                                     <div class="col-12 q-pa-sm">
@@ -214,9 +214,11 @@ export default {
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel']
             this.$store.dispatch('settingsStore/PostCommon', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
                 common: {}
             });
 
@@ -226,9 +228,12 @@ export default {
   created(){
        var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+      console.log('userId', IdentityModel.id);
       var payload = {
           companyName: Conn,
-          designId: selectedTorqueDragDesign.id
+          designId: selectedTorqueDragDesign.id,
+          userId: IdentityModel.id
       }
       this.$store.dispatch('settingsStore/GetCommon', payload);
   }

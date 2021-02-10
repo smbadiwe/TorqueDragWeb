@@ -113,10 +113,11 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
     return new Promise((resolve, reject) => {
   
       
-       $http.get('Commons/GetCommon/'+ payload.designId, config)
+       $http.get('Commons/GetCommon/'+ ids, config)
         .then(response => {
             
           context.commit('GetCommon', response.data)              
@@ -153,7 +154,8 @@ const actions = {
                     blockWeight:  parseFloat(context.state.common.blockWeight),
                     percentOfYield: parseFloat(context.state.common.percentOfYield),
                     bucklingLimitFactor: parseFloat(context.state.common.bucklingLimitFactor),
-                    designId: payload.designId
+                    designId: payload.designId,
+                    userId: payload.userId
                 }
 
     }

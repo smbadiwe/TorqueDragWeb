@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-accent">
+    <div class="bg-primary text-accent">
         <div class="row">
             <div class="col-12">
                  <q-card class="my-card bg-secondary text-white" style="height:50px;">
@@ -10,14 +10,15 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 q-pa-sm">
+        <div class="row bg-primary">
+            <div class="col-12 bg-primary">
                 <q-table
-                    class="my-sticky-header-table"  
-                    :data="trippingOutResults" 
-                    :columns="columns" 
+                    class="my-sticky-header-table"
+                    :data="trippingOutResults"
+                    :columns="columns"
                     row-key="name"
-                    flat
+                    dark
+                    color="amber"
                     bordered
                     :separator="separator">
 
@@ -101,3 +102,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.my-sticky-header-table{
+  height: 650px;
+}
+
+.q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    
+    background-color: black
+  }
+</style>

@@ -1,23 +1,24 @@
 <template>
-    <div>
+    <div class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
         <div class="row">
-            <div class="col-2">
-            </div>
+              <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
+                  <div>Create Well Design</div>
+                  <q-space />
+                  <q-btn dense flat icon="close"
+                  @click="cancelCreation" />
+              </q-bar>
+          </div>
+
+        <div class="row">
 
             <div class="col-12 q-pa-sm">
                 <q-card>
-                    <q-card-section class="bg-primary text-accent">
-                        <div class="col-12 text-center">
-                            Create Well Design
-                        </div>
-                    </q-card-section>
-                    
                     <q-card-section class="bg-primary text-accent text-center">
                         
                         <div class="row">
 
                         <div class="col-3 q-pa-sm">Comapny:</div>
-                        <input class="col-9 q-pa-sm" v-model="companyName" v-on:keyup="searchCompanyname">
+                        <input class="col-9 q-pa-sm" v-model="externalcompanyName" v-on:keyup="searchCompanyname">
                         <p class="col-12 q-pa-sm text-warning">{{ companyNameMessage }}</p>
 
                         <div class="col-3 q-pa-sm">Project:</div>
@@ -25,7 +26,7 @@
                         <p class="col-12 q-pa-sm text-warning">{{ projectNameMessage }}</p>
 
                         <div class="col-3 q-pa-sm">Site:</div>
-                        <input class="col-9 q-pa-sm" v-model="siteName">
+                        <input class="col-9 q-pa-sm" v-model="siteName" v-on:keyup="searchSitename">
                         <p class="col-12 q-pa-sm text-warning">{{ siteNameMessage }}</p>
 
                         <div class="col-3 q-pa-sm">Well:</div>
@@ -47,23 +48,15 @@
                     </div>
                     </q-card-section>
 
-                    <q-card-actions align="right" class="bg-secondary text-accent">
+                    <q-card-actions align="right" class="bg-primary text-accent">
                         <q-btn 
                             size="sm"
                             label="Add"
                             @click="PostTorqueDragDesign">
                         </q-btn>
-                        <q-btn 
-                            size="sm"
-                            label="Cancel"
-                            @click="cancelCreation">
-                        </q-btn>
                     </q-card-actions>
 
                     </q-card>
-            </div>
-
-            <div class="col-2">
             </div>
         </div>
     </div>
@@ -89,7 +82,7 @@ export default {
             isNewWellCase: true,
            
 
-            companyName: '',
+            externalcompanyName: '',
             dense: false,
             companyNameMessage: "",
             projectName: "",
@@ -109,8 +102,28 @@ export default {
     },
     methods:{
         searchCompanyname(){
-            var context = this;
-            console.log('searchCompanyname')
+            var externalcompanyNames = this.$store.getters['wellDesignStore/externalcompanyNames'];
+            var i = 0;
+            var context =  this;
+            var length = externalcompanyNames.length;
+            for(i = 0; i < length; i++){
+                if(context.externalcompanyName.toLowerCase() == externalcompanyNames[i].toLowerCase()){
+                    context.externalcompanyName = "This company already exists!"
+                    return
+                }
+            }
+        },
+        searchSitename(){
+            var siteNames = this.$store.getters['wellDesignStore/siteNames'];
+            var i = 0;
+            var context =  this;
+            var length = siteNames.length;
+            for(i = 0; i < length; i++){
+                if(context.siteName.toLowerCase() == siteNames[i].toLowerCase()){
+                    context.siteNameMessage = "This site already exists!"
+                    return
+                }
+            }
         },
         searchProjectname(){
             var projectNames = this.$store.getters['wellDesignStore/projectNames'];
@@ -173,7 +186,7 @@ export default {
             }
         },
         cancelCreation(){
-             this.$store.commit('wellDesignStore/HideCreateWellDesign', false);
+             this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
         },
         PostTorqueDragDesign(){
         var context = this;
@@ -193,7 +206,9 @@ export default {
                     fieldName: context.fieldName,
                     wellName: context.wellName,
                     wellboreName: context.wellboreName,
-                    wellDesignName: context.wellDesignName
+                    wellDesignName: context.wellDesignName,
+                    siteName: context.siteName,
+                    externalcompanyName: context.externalcompanyName
                 },
                 companyName: context.companyName
             });
@@ -238,5 +253,10 @@ export default {
   margin-bottom: 12px;
 }
 
+.dialogBorder {
+  border: 2px solid rgba(112,112,112,1);
+    max-height: 700px;
+  /* height: 50px; */
+}
 
 </style>

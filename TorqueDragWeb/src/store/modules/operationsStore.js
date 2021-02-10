@@ -55,10 +55,13 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
+
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Operations/GetOperation/' + payload.designId, config)
+       $http.get('Operations/GetOperation/' + ids, config)
         .then(response => {
             
           context.commit('GetOperation', response.data)              
@@ -93,6 +96,8 @@ const actions = {
     payload.operation.torqueAtBitDrillingOperation = parseFloat(payload.operation.torqueAtBitDrillingOperation)
     payload.operation.torqueAtBitBackReaming = parseFloat(payload.operation.torqueAtBitBackReaming)
     payload.operation.overpullBackReaming = parseFloat(payload.operation.overpullBackReaming)
+    payload.operation.userId = payload.userId;
+    payload.operation.designId = payload.designId;
 
     return new Promise((resolve, reject) => {
   

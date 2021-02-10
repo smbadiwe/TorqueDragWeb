@@ -1,5 +1,5 @@
 <template>
-    <div class="row bg-positive  text-accent" style="height: 500px;">
+    <div class="row bg-positive  text-accent" style="width: 800px;">
         <div class="col-4 q-pa-sm">   
             <q-list bordered>
                 <q-item 
@@ -14,11 +14,12 @@
                     <q-item-section>{{ item.label}}</q-item-section>
                 </q-item>
 
-                 <q-separator accent horizontal/>
+                 <q-separator dark horizontal/>
 
                 <q-item 
                 v-for="item in menuList2" :key="item.label"
-                clickable v-ripple>
+                clickable v-ripple
+                 @click="listItemClickAction(item.label)">
                     <q-item-section avatar>
                     <q-icon color="accent" 
                     :name="item.iconName" />
@@ -36,6 +37,14 @@
             </div>
         </q-dialog>
 
+        <q-dialog v-model="isWellExplorer" class="bg-primary">
+            <div class="q-pa-sm bg-primary">
+                <wellList></wellList>
+            </div>
+        </q-dialog>
+
+        <q-separator vertical dark />
+
         <div class="col-8 q-pa-sm">
 
         </div>
@@ -44,14 +53,19 @@
 
 <script>
 import createWellDesign from "components/createWellDesign.vue"
+import wellList from "pages/inputdata/wellList.vue"
 export default {
     computed:{
          isCreateWellDesign(){
             return this.$store.getters['wellDesignStore/isCreateWellDesign'];
+        },
+        isWellExplorer(){
+            return this.$store.getters['wellDesignStore/isWellExplorer'];
         }
     },
     components:{
-        createWellDesign
+        createWellDesign,
+        wellList
     },
     data () {
     return {
@@ -79,6 +93,10 @@ export default {
               iconName: "reorder"
           },
           {
+              label: "Well Explorer",
+              iconName: "account_tree"
+          },
+          {
               label: "Exit",
               iconName: "disabled_by_default"
           }
@@ -90,22 +108,35 @@ export default {
           var context = this;
           switch(selectedItem){
               case "New":
-                  this.$store.commit('wellDesignStore/ShowCreateWellDesign', true);
+                  this.$store.commit('wellDesignStore/SetCreateWellDesign', true);
+                  this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
              case "Open":
-                  context.createWellVisibility = false;
+                 this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                 this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
             case "Save":
-                  context.createWellVisibility = false;
+                  this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                  this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
             case "Save As":
-                  context.createWellVisibility = false;
+                  this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                  this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
             case "Recent Projects":
-                  context.createWellVisibility = false;
+                  this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                  this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
+            case "Well Explorer":
+                console.log("Well Explorer 1")
+                this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                console.log("Well Explorer 2")
+                this.$store.commit('wellDesignStore/SetIsWellExplorer', true);
+                console.log("Well Explorer 3")
+                break;
             case "Exit":
-                  context.createWellVisibility = false;
+                  this.$store.commit('wellDesignStore/SetCreateWellDesign', false);
+                  this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
                   break;
           }
       }

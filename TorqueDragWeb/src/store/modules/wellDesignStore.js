@@ -1,6 +1,8 @@
 import { $http } from 'boot/axios' 
 
 const state = {
+    siteNames: [],
+    externalcompanyNames: [],
     torqueDragDesign:{},
     torqueDragDesigns: [],
     SelectedTorqueDragDesign: {},
@@ -12,10 +14,24 @@ const state = {
     wellCases: [],
     wellProjects: [],
     selected: null,
-    isCreateWellDesign: false
+    isCreateWellDesign: false,
+    isWellExplorer: false,
+    caption: "DP Well Engineering"
   }
 
 const getters = {
+  caption(state){
+    return state.caption;
+  },
+  externalcompanyNames(state){
+    return state.externalcompanyNames;
+  },
+  siteNames(state){
+    return state.siteNames;
+  },
+    isWellExplorer(state){
+      return state.isWellExplorer;
+    },
     torqueDragDesign(state){
       return state.torqueDragDesign;
     },
@@ -52,11 +68,11 @@ const getters = {
 }
 
 const mutations = {
-    ShowCreateWellDesign(state){
-      state.isCreateWellDesign = true
+    SetIsWellExplorer(state, payload){
+      state.isWellExplorer =  payload;
     },
-    HideCreateWellDesign(state){
-      state.isCreateWellDesign = false
+    SetCreateWellDesign(state, payload){
+      state.isCreateWellDesign = payload
     },
     PostTorqueDragDesign(state, payload){
         state.torqueDragDesign = payload.torqueDragDesign;
@@ -71,52 +87,13 @@ const mutations = {
         state.isCreateWellDesign = false
   },
   GetTorqueDragDesigns(state, payload){
-      state.wellProjects = payload.wellProjects;  
+      state.wellProjects = payload.companies;  
       state.torqueDragDesigns = payload.torqueDragDesigns;
       state.SelectedTorqueDragDesign = state.torqueDragDesigns[0];
   },
   GetSelectedTorqueDragDesign(state, payload){
     state.SelectedTorqueDragDesign = payload;
-    /* nlength= Object.keys(state.SelectedTorqueDragDesign).length;
-    console.log("nlength: ", nlength)
-    if(nlength > 0){
-      var wellProject = null;
-
-      var field = wellProject.children[0];
-      var well = field.children[0];
-      var wellbore = well.children[0];
-      var wellDesign = wellbore.children[0];
-      state.projectNames =[]
-      state.fieldNames =[]
-      state.wellNames =[]
-      state.wellboreNames =[]
-      state.wellDesignNames =[]
-      state.wellCases = []
-      var i = 0;
-      for(i = 0; i < state.wellProjects.length; i++){
-        state.projectNames.push(state.wellProjects[i].label)
-      }
-
-      for(i = 0; i < wellProject.children.length; i++){
-        state.fieldNames.push(wellProject.children[i].label)
-      }
-
-      for(i = 0; i < field.children.length; i++){
-        state.wellNames.push(field.children[i].label)
-      }
-
-      for(i = 0; i < well.children.length; i++){
-        state.wellboreNames.push(well.children[i].label)
-      }
-
-      for(i = 0; i < wellbore.children.length; i++){
-        state.wellDesignNames.push(wellbore.children[i].label)
-      }
-
-      for(i = 0; i < wellDesign.children.length; i++){
-        state.wellCases.push(wellDesign.children[i].label)
-      }
-    } */
+    console.log(state.SelectedTorqueDragDesign)
   },
   GetListsofData(state){
     var nlength= Object.keys(state.SelectedTorqueDragDesign).length;
@@ -213,7 +190,48 @@ const actions = {
          $http.post('TorqueDragDesigns/PostTorqueDragDesign', payload, config)
           .then(response => {
               
-            context.commit('PostTorqueDragDesign', response.data)              
+            context.commit('PostTorqueDragDesign', response.data);
+            context.commit('authStore/setStatusMessageBarVisibility',  
+            {
+              actionMessage: response.data.info,
+              visibility: true
+            }, 
+            {root:true});
+            //              
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log("PostTorqueDragDesign error")
+            reject(error)
+          })
+      })
+    },
+    PostSelectedWellDesign(context, payload)
+    {
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        }
+      }
+
+      return new Promise((resolve, reject) => {
+        console.log(payload)
+         $http.post('TorqueDragDesigns/PostSelectedWellDesign', {
+          wellCaseId: payload.wellCaseId,
+          torqueDragDesigns: context.state.torqueDragDesigns
+         }, config)
+          .then(response => {
+              
+            context.commit('GetSelectedTorqueDragDesign', response.data);
+            context.state.caption ="DP Well Engineering (" + response.data.designName + ")";
+            context.commit('authStore/setStatusMessageBarVisibility',  
+            {
+              actionMessage: response.data.designName + " selected",
+              visibility: true
+            }, 
+            {root:true});
+            //              
               resolve(response)
               
           })
@@ -234,11 +252,41 @@ const actions = {
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload);
-         $http.get('TorqueDragDesigns/GetTorqueDragDesigns', config)
+         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.identity.id, config)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)
             context.commit('GetListsofData');              
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log("GetTorqueDragDesigns error")
+            reject(error)
+          })
+      })
+    },
+    DeleteTorqueDragDesign(context, payload){
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        }
+      }
+
+      return new Promise((resolve, reject) => {
+        console.log("seen")
+        console.log(payload);
+         $http.get('TorqueDragDesigns/DeleteTorqueDragDesign/' + payload.uniqueId, config)
+          .then(response => {
+              
+            context.commit('DeleteTorqueDragDesign', response.data);
+            context.commit('authStore/setStatusMessageBarVisibility',  
+            {
+              actionMessage: response.info,
+              visibility: true
+            }, 
+            {root:true});
+
               resolve(response)
               
           })

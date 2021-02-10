@@ -100,11 +100,13 @@ export default {
     created(){
         var Conn = this.$store.getters['authStore/companyName'];
         var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+        var IdentityModel = this.$store.getters['authStore/IdentityModel'];
         var payload = {
             companyName: Conn,
             designId: selectedTorqueDragDesign.id,
             xVariableName: "Dogleg Severity",
-            chartId: "DoglegSeverity"
+            chartId: "DoglegSeverity",
+            userId: IdentityModel.id
         }
         this.$store.dispatch('wellPathStore/LoadDevSurveySeriesCollection', payload);
 

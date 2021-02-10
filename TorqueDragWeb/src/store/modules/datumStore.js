@@ -91,10 +91,12 @@ const actions = {
       }
     }
 
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.get('Datums/GetDatums/' + payload.designId, config)
+       $http.get('Datums/GetDatums/' + ids, config)
         .then(response => {
             
           context.commit('GetDatums', response.data)              

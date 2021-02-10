@@ -96,10 +96,12 @@ const actions = {
 
     state.pipes = [];
 
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Pipes/GetPipes/' + payload.designId, config)
+       $http.get('Pipes/GetPipes/' + ids, config)
         .then(response => {
             
           context.commit('GetPipes', response.data)              

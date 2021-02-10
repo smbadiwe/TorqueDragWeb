@@ -13,11 +13,12 @@
         <div class="row">
             <div class="col-12 q-pa-sm">
                 <q-table
-                    class="my-sticky-header-table"  
-                    :data="backReamingResults" 
-                    :columns="columns" 
+                    class="my-sticky-header-table"
+                    :data="backReamingResults"
+                    :columns="columns"
                     row-key="name"
-                    flat
+                    dark
+                    color="amber"
                     bordered
                     :separator="separator">
 
@@ -98,3 +99,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.my-sticky-header-table{
+  height: 650px;
+}
+
+.q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    
+    background-color: black
+  }
+</style>

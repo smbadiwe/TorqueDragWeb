@@ -1,7 +1,7 @@
 <template>
-    <div class="q-pa-sm bg-accent">
+    <div class="q-pa-sm bg-primary text-accent">
 
-        <div class="row">
+        <div class="row bg-primary">
 
             <div class="col q-pa-sm">
                 <div class="row">

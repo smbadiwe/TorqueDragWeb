@@ -359,6 +359,7 @@ export default {
                 
                 var Conn = this.$store.getters['authStore/companyName'];
                 var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+                var IdentityModel = this.$store.getters['authStore/IdentityModel'];
   
 
                 this.$store.dispatch('simulationStore/DrawHoleSegmentLabel', {
@@ -369,7 +370,8 @@ export default {
                         yListHole1:  context.schematicDTO.holeSegments[0].yListHole1,
                         xListHole2:  context.schematicDTO.holeSegments[0].xListHole2,
                         yListHole2:  context.schematicDTO.holeSegments[0].yListHole2,
-                        pipeMDs: context.schematicDTO.holeSegments[0].pipeMDs
+                        pipeMDs: context.schematicDTO.holeSegments[0].pipeMDs,
+                        userId: IdentityModel.id
                         }
                     }
                 );
@@ -382,6 +384,7 @@ export default {
             if(evt == true){
                 var Conn = this.$store.getters['authStore/companyName'];
                 var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+                var IdentityModel = this.$store.getters['authStore/IdentityModel'];
                 this.$store.dispatch('simulationStore/DrawTubingSegmentLabel', {
                 companyName: Conn,
                 payload: {

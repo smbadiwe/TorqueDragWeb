@@ -11,7 +11,7 @@
             </svg>
             <div id="Schematic"
 			@click="showschematics">
-                <span>Schematic</span>
+                <span>Well Explorer</span>
             </div>
         </div>
 </template>

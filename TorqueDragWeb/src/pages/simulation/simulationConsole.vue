@@ -29,9 +29,11 @@ export default {
         var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             this.$store.dispatch('simulationStore/RunSimulation', {
                 companyName: Conn,
-                designId: selectedTorqueDragDesign.id
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id
             });
     }
 }

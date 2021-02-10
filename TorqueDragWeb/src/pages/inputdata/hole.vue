@@ -131,8 +131,8 @@
                                         @click="Import">
                                     </q-btn>
 
-                    <q-dialog v-model="isImportDialogVisible" class="bg-accent">
-                        <div class="q-pa-sm bg-accent">
+                    <q-dialog v-model="isImportDialogVisible" class="bg-primary">
+                        <div class="q-pa-sm bg-primary">
                             <msExcelImport-app></msExcelImport-app>
                         </div>
                     </q-dialog>
@@ -140,14 +140,13 @@
 
                 <div class="col-12 q-pa-sm">
                     <q-table
-                        :data="holeSections" 
-                        :columns="columns" 
-                        row-key="name" 
-                        flat
-                        bordered
                         class="my-sticky-header-table"
+                        :data="holeSections"
+                        :columns="columns"
+                        row-key="name"
                         dark
                         color="amber"
+                        bordered
                         :separator="separator">
 
 
@@ -214,6 +213,7 @@ export default {
         Import(){
             this.$store.commit('dataImportStore/SetTypeOfInput', "Hole");
             this.$store.commit('holeStore/SetisImportDialogVisible', true);
+            this.$store.commit('dataImportStore/SetimportDialogCaption', "Import Hole Sections");
             
         },
         ShowHoleSection(selectedHeader){
@@ -238,7 +238,7 @@ export default {
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-            this.$store.dispatch('holeStore/PostHoleSection', {
+            /* this.$store.dispatch('holeStore/PostHoleSection', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 holeSection: {
@@ -251,7 +251,7 @@ export default {
                 frictionFactor:  parseFloat(context.frictionFactor),
                 designId: selectedTorqueDragDesign.id
                 }
-            })
+            }) */
 
             context.expanded = false;
         }
@@ -259,9 +259,11 @@ export default {
     created(){
       var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      var IdentityModel = this.$store.getters['authStore/IdentityModel']
       var payload = {
           companyName: Conn,
           designId: selectedTorqueDragDesign.id,
+          userId: IdentityModel.id,
           holeSections: []
       }
       console.log(payload)

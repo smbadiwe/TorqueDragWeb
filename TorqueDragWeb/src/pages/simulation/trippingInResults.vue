@@ -13,11 +13,12 @@
         <div class="row">
             <div class="col-12 q-pa-sm">
                 <q-table
-                    class="my-sticky-header-table"  
-                    :data="trippingInResults" 
-                    :columns="columns" 
+                    class="my-sticky-header-table"
+                    :data="trippingInResults"
+                    :columns="columns"
                     row-key="name"
-                    flat
+                    dark
+                    color="amber"
                     bordered
                     :separator="separator">
 

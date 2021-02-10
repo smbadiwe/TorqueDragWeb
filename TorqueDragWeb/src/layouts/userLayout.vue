@@ -26,7 +26,7 @@
             class="mytab text-accent col-9"
           >
           
-            <q-btn style="background: rgba(45,66,123,1);" label="DP Well Engineering">
+            <q-btn style="background: rgba(45,66,123,1);" :label="caption">
                 <q-menu>
                   <leftSideMenu></leftSideMenu>
                 </q-menu>
@@ -89,7 +89,7 @@
 
     <div 
     v-if="isRibbonVisible"
-    class="row items-center bg-dark" style="height: 150px;">
+    class="row items-center bg-info" style="height: 150px;">
        
       <div v-if="isRibbonActiveHome"
             class="col-12">
@@ -103,6 +103,18 @@
           class="col-12">
             <torqueDragRibbon-app></torqueDragRibbon-app>
       </div>
+    </div>
+
+    <div class="row"
+    v-if="statusBar.visibility">
+      <q-bar class="col-12 q-pa-none bg-secondary" >
+        <div class="q-pa-sm text-warning">
+          {{ statusBar.actionMessage }}
+        </div>
+        <q-space />
+        <q-btn dense flat icon="close"
+          @click="closeStatusMessageBar" />
+      </q-bar>
     </div>
 
     </q-header>
@@ -215,6 +227,9 @@ import leftSideMenu from 'pages/menus/leftSideMenu.vue';
 export default {
   name: 'userLayout',
   computed: {
+    caption(){
+          return this.$store.getters['wellDesignStore/caption'];
+    },
     IdentityModel(){
           return this.$store.getters['authStore/IdentityModel'];
     },
@@ -224,6 +239,9 @@ export default {
     menuTabs() {
          return this.$store.getters['settingsStore/menuTabs'];
     },
+    statusBar(){
+      return this.$store.getters['authStore/statusBar'];
+    }
    /*  leftDrawerOpen(){
           return this.$store.getters['authStore/leftDrawerOpen'];
     },
@@ -287,6 +305,12 @@ export default {
     }
   },
   methods:{
+      closeStatusMessageBar(){
+        this.$store.commit('authStore/setStatusMessageBarVisibility', {
+            actionMessage: "",
+            visibility: false
+            });
+      },
       ToggleRibbonVisibility(){
         var context =  this;
         if(context.isRibbonVisible == true)

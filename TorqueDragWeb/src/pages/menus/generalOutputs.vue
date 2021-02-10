@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-toolbar class=" bg-dark text-white q-my-md">
+    <q-toolbar class=" bg-info text-white q-my-md">
 
        <div>
             <div class="row buttonTD1">
@@ -252,18 +252,20 @@ export default {
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Deviated Schematic",
                 route: "schematic"
             });
-//context.dockViewWidth
+
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 canvasDepth: 800,
                 canvasWidth: 800,
                 xCanvasOffset: 400,
-                yCanvasOffset: 20
+                yCanvasOffset: 20,
+                userId: IdentityModel.id
             });
 
             

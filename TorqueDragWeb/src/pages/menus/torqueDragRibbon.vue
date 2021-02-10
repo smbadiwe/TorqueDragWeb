@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-toolbar class=" bg-dark text-accent q-my-md">
+    <q-toolbar class=" bg-info text-accent q-my-md">
 
        <div>
             <div class="row buttonTD1">
