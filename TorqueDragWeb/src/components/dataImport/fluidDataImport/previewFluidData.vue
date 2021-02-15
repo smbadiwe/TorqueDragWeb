@@ -1,11 +1,16 @@
 <template>
-    <div class="q-pa-sm bg-accent">
+    <div class="q-pa-sm bg-primary text-accent">
         <div class="row">
             <div class="col-12 q-pa-sm">
                  <q-table  
-                    :data="previewMudPVTData" 
-                    :columns="columns" 
-                    row-key="name">
+                    :data="previewMudPVTData"
+                    :columns="columns"
+                    row-key="name"
+                    dark
+                    color="amber"
+                    bordered
+                    :separator="separator"
+                    style="width:100%;">
 
 
                     <template v-slot:body="props">
@@ -34,7 +39,7 @@ export default {
     },
     data() {
         return {
-
+            separator: 'cell',
             columns: [
                 { name: "temperature", label: "Temperature (deg F)", field: "", align: "left" },
                 { name: "pressure", label: "Pressure (psi)", field: "", align: "left" },

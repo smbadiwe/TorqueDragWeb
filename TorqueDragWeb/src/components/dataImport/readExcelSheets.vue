@@ -10,7 +10,8 @@
                         <select
                             name="NameOfSheet"
                             id="" 
-                            v-on:change="onItemSelectionChanged($event)">
+                            v-on:change="onItemSelectionChanged($event)"
+                            class="text-center bg-positive text-accent">
                            <!--  <option disabled>
                                 Please select sheet Name
                             </option> -->
@@ -83,7 +84,7 @@ export default {
 
                 var wsname = workbook.SheetNames[j]; // Take the first sheet，wb.SheetNames[0] :Take the name of the first sheet in the sheets
                 _sheetNames.push(wsname);
-                var ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); // Generate JSON table content，wb.Sheets[Sheet名]    Get the data of the first sheet
+                var ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname], {defval:""}); // Generate JSON table content，wb.Sheets[Sheet名]    Get the data of the first sheet
 
 
                 const excellist = [];  // Clear received data

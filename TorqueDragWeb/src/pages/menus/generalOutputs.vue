@@ -5,178 +5,204 @@
        <div>
             <div class="row buttonTD1">
                   <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="Vertical Section"
                     class="text-capitalize"
                     stack 
                     @click="verticalSectionPlot"
                     >
+                     <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_1.jpg">
+                    </q-avatar></span>
+                    Vertical Section
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="Plain View"
                     class="text-capitalize"
                     stack 
                     @click="planViewPlot"
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_2.jpg">
+                    </q-avatar></span>
+                    Plain View
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
                     <q-btn 
-                    icon="play_arrow" 
                     flat
                     stretch
                     :size="size" 
-                    label="Inclination"
                     class="text-capitalize"
                     stack 
                     @click="inclinationPlot"
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_3.jpg">
+                    </q-avatar></span>
+                    Inclination
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="Azimuth"
                     class="text-capitalize"
                     stack 
                     @click="azimuthPlot"
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_4.jpg">
+                    </q-avatar></span>
+                    Azimuth
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size"  
-                    label="Dogleg Severity"
                     class="text-capitalize"
                     stack 
                     @click="doglegSeverityPlot"
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_5.jpg">
+                    </q-avatar></span>
+                    Dogleg Severity
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
                     <q-btn 
-                    icon="play_arrow" 
                     flat
                     stretch
                     :size="size" 
-                    label="Build"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_6.jpg">
+                    </q-avatar></span>
+                    Build
                     </q-btn>
                 </div>
 
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="Walk"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_7.jpg">
+                    </q-avatar></span>
+                    Walk
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
                     <q-btn 
-                    icon="play_arrow" 
                     flat
                     stretch
                     :size="size"  
-                    label="Absolute Tortuosity"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_8.jpg">
+                    </q-avatar></span>
+                    Absolute Tortuosity
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="Relative Tortuosity"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_9.jpg">
+                    </q-avatar></span>
+                    Relative Tortuosity
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
                     <q-btn 
-                    icon="play_arrow" 
                     flat
                     stretch
                     :size="size"  
-                    label="Geothmermal Gradient"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_10.jpg">
+                    </q-avatar></span>
+                    Geothmermal Gradient
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size" 
-                    label="WellPath Table"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_11.jpg">
+                    </q-avatar></span>
+                    WellPath Table
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
                     <q-btn 
-                    icon="play_arrow" 
                     flat
                     stretch
                     :size="size"  
-                    label="Deviated Schematic"
                     class="text-capitalize"
                     stack 
                     @click="DrawSchematic"
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_12.jpg">
+                    </q-avatar></span>
+                    Deviated Schematic
                     </q-btn>
                 </div>
 
                 <div class="q-pa-sm text-caption col">
-                    <q-btn 
-                    icon="play_arrow" 
+                    <q-btn  
                     flat
                     stretch
                     :size="size"  
-                    label="Formation Tops"
                     class="text-capitalize"
                     stack 
                     >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/well_13.jpg">
+                    </q-avatar></span>
+                    Formation Tops
                     </q-btn>
                 </div>
 

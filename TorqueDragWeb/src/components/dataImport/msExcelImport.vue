@@ -1,91 +1,104 @@
 <template>
-  <div class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
+  <div class="bg-primary">
+
+      <div 
+      v-if="showImportView"
+      class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
+          <div class="row">
+                  <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
+                      <div>{{ importDialogCaption }}</div>
+                      <q-space />
+                      <q-btn dense flat icon="close"
+                      @click="cancelCreation" />
+                  </q-bar>
+            </div>
+
+          <q-stepper
+            v-model="ImportDataStep"
+            vertical
+            color="accent"
+            animated
+            style="width: 500px;"
+            class="bg-primary"
+          >
+            <q-step
+              class="bg-primary"
+              :name="1"
+              title="Select MS Excel Worksheet"
+              :done="ImportDataStep > 1">
+              <div class="bg-primary">
+                  <readExcelSheets-app class="bg-primary">
+                  </readExcelSheets-app>
+              </div>
+
+              <q-stepper-navigation class="bg-primary">
+                <q-btn @click="moveForward(1)" color="primary" label="Next" />
+              </q-stepper-navigation>
+            </q-step>
+
+            <q-step
+              class="bg-primary"
+              :name="2"
+              title="Map Variables"
+              :done="ImportDataStep > 2"
+            >
+              <div class="bg-primary">
+                <mapExcelVariables-app v-if="isWellPath"></mapExcelVariables-app>
+                <mapHoleData-app v-if="isHole"></mapHoleData-app>
+                <mapTubingData-app v-if="isTubingString"></mapTubingData-app>
+                <mapFluidData-app v-if="isFluid"></mapFluidData-app>
+              </div>
+
+              <q-stepper-navigation class="bg-primary">
+                <q-btn @click="moveForward(2)" color="primary" label="Next" />
+                <q-btn flat @click="moveBackward(2)" color="accent" label="Back" class="q-ml-sm" />
+              </q-stepper-navigation>
+            </q-step>
+
+            <q-step
+            class="bg-primary"
+              :name="3"
+              title="Map Units"
+              :done="ImportDataStep > 3"
+            >
+              <div class="bg-primary">
+                <!-- <contactDataComponent></contactDataComponent> -->
+              </div>
+
+              <q-stepper-navigation class="bg-primary">
+                <q-btn @click="moveForward(3)" color="primary" label="Next" />
+                <q-btn flat @click="moveBackward(3)" color="accent" label="Back" class="q-ml-sm" />
+              </q-stepper-navigation>
+            </q-step>
+
+
+            <q-step
+              :name="4"
+              title="Preview Data"
+            >
+              <div class="bg-accent">
+                <previewDevSurvey-app v-if="isWellPath"></previewDevSurvey-app>
+                <previewHoleData-app v-if="isHole"></previewHoleData-app>
+                <previewTubingData-app v-if="isTubingString"></previewTubingData-app>
+                <previewFluidData-app v-if="isFluid"></previewFluidData-app>
+              </div>
+
+              <q-stepper-navigation class="bg-primary">
+                <q-btn color="primary" label="Finish" @click="finishAction"/>
+                <q-btn flat @click="moveBackward(4)" color="accent" label="Back" class="q-ml-sm" />
+              </q-stepper-navigation>
+            </q-step>
+          </q-stepper>
+        <!-- </q-scroll-area> -->
+      </div>
+
       <div class="row">
-              <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
-                  <div>{{ importDialogCaption }}</div>
-                  <q-space />
-                  <q-btn dense flat icon="close"
-                  @click="cancelCreation" />
-              </q-bar>
-        </div>
-
-      <q-stepper
-        v-model="ImportDataStep"
-        vertical
-        color="accent"
-        animated
-        style="width: 500px;"
-        class="bg-primary"
-      >
-        <q-step
-          class="bg-primary"
-          :name="1"
-          title="Select MS Excel Worksheet"
-          :done="ImportDataStep > 1">
-          <div class="bg-primary">
-              <readExcelSheets-app class="bg-primary">
-              </readExcelSheets-app>
+          <div class="col-12 q-pa-sm bg-primary">
+                <q-inner-loading :showing="showLoader">
+                  <q-spinner-gears size="100px" color="primary" />
+              </q-inner-loading>
           </div>
-
-          <q-stepper-navigation class="bg-primary">
-            <q-btn @click="moveForward(1)" color="primary" label="Next" />
-          </q-stepper-navigation>
-        </q-step>
-
-        <q-step
-          class="bg-primary"
-          :name="2"
-          title="Map Variables"
-          :done="ImportDataStep > 2"
-        >
-          <div class="bg-primary">
-            <mapExcelVariables-app v-if="isWellPath"></mapExcelVariables-app>
-            <mapHoleData-app v-if="isHole"></mapHoleData-app>
-            <mapTubingData-app v-if="isTubingString"></mapTubingData-app>
-            <mapFluidData-app v-if="isFluid"></mapFluidData-app>
-          </div>
-
-          <q-stepper-navigation class="bg-primary">
-            <q-btn @click="moveForward(2)" color="primary" label="Next" />
-            <q-btn flat @click="moveBackward(2)" color="accent" label="Back" class="q-ml-sm" />
-          </q-stepper-navigation>
-        </q-step>
-
-        <q-step
-        class="bg-primary"
-          :name="3"
-          title="Map Units"
-          :done="ImportDataStep > 3"
-        >
-          <div class="bg-primary">
-            <!-- <contactDataComponent></contactDataComponent> -->
-          </div>
-
-          <q-stepper-navigation class="bg-primary">
-            <q-btn @click="moveForward(3)" color="primary" label="Next" />
-            <q-btn flat @click="moveBackward(3)" color="accent" label="Back" class="q-ml-sm" />
-          </q-stepper-navigation>
-        </q-step>
-
-
-        <q-step
-          :name="4"
-          title="Preview Data"
-        >
-          <div class="bg-accent">
-            <previewDevSurvey-app v-if="isWellPath"></previewDevSurvey-app>
-            <previewHoleData-app v-if="isHole"></previewHoleData-app>
-            <previewTubingData-app v-if="isTubingString"></previewTubingData-app>
-            <previewFluidData-app v-if="isFluid"></previewFluidData-app>
-          </div>
-
-          <q-stepper-navigation class="bg-primary">
-            <q-btn color="primary" label="Finish" @click="finishAction"/>
-            <q-btn flat @click="moveBackward(4)" color="accent" label="Back" class="q-ml-sm" />
-          </q-stepper-navigation>
-        </q-step>
-      </q-stepper>
-    <!-- </q-scroll-area> -->
+      </div>
   </div>
 </template>
 
@@ -104,6 +117,12 @@ import previewFluidData from 'components/dataImport/fluidDataImport/previewFluid
 
 export default {
     computed: {
+      showLoader(){
+      return this.$store.getters['dataImportStore/showLoader'];
+      },
+      showImportView(){
+      return this.$store.getters['dataImportStore/showImportView'];
+      },
       importDialogCaption(){
         return this.$store.getters['dataImportStore/importDialogCaption'];
       },
@@ -153,6 +172,9 @@ export default {
     methods: {
         cancelCreation(){
           this.$store.commit('wellPathStore/SetisImportDialogVisible', false);
+          this.$store.commit('holeStore/SetisImportDialogVisible', false);
+          this.$store.commit('tubingStringStore/SetisImportDialogVisible', false);
+          this.$store.commit('fluidsStore/SetisImportDialogVisible', false);
         },
         moveForward (currentStep){
             var context =  this;
@@ -260,6 +282,12 @@ export default {
               context.isFluid = true;
               break;
           }
+
+  
+          this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: true,
+            showImportView: false
+          });
 
           switch(typeOfInput){
             case "Well Path":

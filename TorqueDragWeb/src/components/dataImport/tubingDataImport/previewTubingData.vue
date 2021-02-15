@@ -1,11 +1,15 @@
 <template>
-    <div class="q-pa-sm bg-accent">
+    <div class="q-pa-sm bg-primary text-accent">
         <div class="row">
             <div class="col-12">
                  <q-table  
-                    :data="previewTubingStringData" 
-                    :columns="columns" 
-                    row-key="name" 
+                    :data="previewTubingStringData"
+                    :columns="columns"
+                    row-key="name"
+                    dark
+                    color="amber"
+                    bordered
+                    :separator="separator"
                     style="width:100%;">
 
 
@@ -41,7 +45,7 @@ export default {
     },
     data() {
         return {
-
+            separator: 'cell',
             columns: [
                 { name: "typeOfSection", label: "Section Type", field: "", align: "left" },
                 { name: "length", label: "Length (ft)", field: "", align: "left" },

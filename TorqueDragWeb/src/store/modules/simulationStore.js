@@ -118,7 +118,12 @@ RunSimulation(context, payload)
 
         console.log("response: ", response)
 
-          context.commit('RunSimulation', response.data)              
+          context.commit('RunSimulation', response.data)  
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Torque and Drag simulation completed successfully",
+            visibility: true
+          }, {root:true});                
             resolve(response)
             
         })
@@ -126,6 +131,11 @@ RunSimulation(context, payload)
           console.log("RunSimulation error")
           context.state.visible = false;
           context.state.showSimulatedReturnData = true
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Torque and Drag simualtion failed",
+            visibility: true
+          }, {root:true});    
           reject(error)
         })
     })

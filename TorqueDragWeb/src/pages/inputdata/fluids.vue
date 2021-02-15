@@ -226,6 +226,10 @@ export default {
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+            this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: true,
+            showImportView: false
+          });
             this.$store.dispatch('fluidsStore/PostFluid', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,

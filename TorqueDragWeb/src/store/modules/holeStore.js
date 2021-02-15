@@ -102,12 +102,26 @@ const actions = {
        $http.post('HoleSections/PostHoleSections', payload, config)
         .then(response => {
             
-          context.commit('PostHoleSections', response.data)              
+          context.commit('PostHoleSections', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Hole sections parameters saved successfully",
+            visibility: true
+          }, {root:true});    
+
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostHoleSections error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

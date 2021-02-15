@@ -117,12 +117,25 @@ const actions = {
        $http.post('Fluids/PostFluid', payload, config)
         .then(response => {
             
-          context.commit('PostFluid', response.data)              
+          context.commit('PostFluid', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Fluid parameters saved successfully",
+            visibility: true
+          }, {root:true});             
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostFluid error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })
@@ -144,12 +157,25 @@ const actions = {
        $http.post('MudPVTs/PostMudPVTs', payload, config)
         .then(response => {
             
-          context.commit('PostMudPVTs', response.data)              
+          context.commit('PostMudPVTs', response.data)    
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Fluid PVT table saved successfully",
+            visibility: true
+          }, {root:true});             
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostMudPVTs error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

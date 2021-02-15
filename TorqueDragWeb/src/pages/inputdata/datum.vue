@@ -224,6 +224,10 @@ export default {
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var Conn = this.$store.getters['authStore/companyName'];
+       this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: true,
+            showImportView: false
+          });
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
               designId: selectedTorqueDragDesign.id,

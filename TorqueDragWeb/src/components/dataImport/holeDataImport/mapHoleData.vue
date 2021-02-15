@@ -1,12 +1,12 @@
 <template>
-    <div class="q-pa-sm bg-accent">
+    <div class="q-pa-sm bg-primary text-accent">
         <div class="row">   
             <div class="col-6 q-pa-sm">
                  Hole Variables
                 <br>
                 <hr/>
                 <br>
-                <q-list class="bg-accent text-primary"
+                <q-list class="bg-primary text-accent"
                     v-model="selectedHoleSectionVariable">
                     <q-item 
                     v-for="holeVariableInBuilt in holeVariablesInBuilt2" 
@@ -14,7 +14,7 @@
                     clickable v-ripple
                     @click="GetselectedHoleSectionVariable(holeVariableInBuilt)"
                     :active="holeVariableInBuilt.isSelected"
-                    active-class="text-orange-10 mnu_active">
+                    active-class="text-green-10 mnu_active">
 
                         <q-item-section>{{ holeVariableInBuilt.variableName }}</q-item-section>
                     </q-item>
@@ -26,7 +26,7 @@
                 <br>
                 <hr/>
                 <br>
-                <q-list class="bg-accent text-primary"
+                <q-list class="bg-primary text-accent"
                     v-model="selectedSheetHeader">
                     <q-item 
                     v-for="sheetHeader in sheetHeaders" 
@@ -34,7 +34,7 @@
                     clickable v-ripple
                     @click="GetselectedSheetHeader(sheetHeader)"
                     :active="sheetHeader.isSelected"
-                    active-class="text-orange-10 mnu_active">
+                    active-class="text-green-10 mnu_active">
 
                         <q-item-section>{{ sheetHeader.variableName }}</q-item-section>
                     </q-item>
@@ -58,11 +58,15 @@
            </div>
            <div class="col-12 q-pa-sm">
                <q-table  
-                :data="MappedVariables" 
-                :columns="columns" 
-                row-key="name" 
-                binary-state-sort
-                style="width:100%;">
+                 class="my-sticky-header-table"
+                    :data="MappedVariables"
+                    :columns="columns"
+                    row-key="name"
+                    dark
+                    color="amber"
+                    bordered
+                    :separator="separator"
+                    style="width:100%;">
 
 
                 <template v-slot:body="props">
@@ -100,6 +104,7 @@ export default {
     },
     data() {
         return {
+            separator: 'cell',
             SelecteddevSurveyVariable: '',
             selectedHoleSectionVariable: {},
             selectedSheetHeader: {},

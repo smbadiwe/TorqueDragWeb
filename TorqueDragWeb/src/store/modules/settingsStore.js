@@ -163,7 +163,12 @@ const actions = {
        $http.post('Commons/PostCommon', newPayload, config)
         .then(response => {
             
-          context.commit('PostCommon', response.data)              
+          context.commit('PostCommon', response.data)  
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Run parameters saved successfully",
+            visibility: true
+          }, {root:true});                
             resolve(response)
             
         })

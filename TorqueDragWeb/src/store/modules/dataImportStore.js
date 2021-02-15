@@ -307,10 +307,18 @@ const state = {
             variableName: 'Yield Point',
             isSelected: false
         }
-    ]
+    ],
+    showLoader: false,
+    showImportView: true
   }
 
   const getters = {
+    showImportView(state){
+        return state.showImportView;
+    },
+    showLoader(state){
+        return state.showLoader;
+    },
     importDialogCaption(state){
         return state.importDialogCaption;
     },
@@ -386,6 +394,10 @@ const state = {
 }
 
 const mutations = {
+    SetLoaderParameters(state, payload){
+        state.showLoader = payload.showLoader;
+        state.showImportView = payload.showImportView;
+    },
     SetimportDialogCaption(state, payload,){
         state.importDialogCaption = payload;
     },

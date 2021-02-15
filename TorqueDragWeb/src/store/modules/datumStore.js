@@ -73,12 +73,25 @@ const actions = {
        $http.post('Datums/PostDatum', payload, config)
         .then(response => {
             
-          context.commit('PostDatum', response.data)              
+          context.commit('PostDatum', response.data) 
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Datum saved successfully",
+            visibility: true
+          }, {root:true});            
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostDatum error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

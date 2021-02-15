@@ -124,12 +124,31 @@ const actions = {
        $http.post('DeviationSurveys/PostDeviationSurvey', payload, config)
         .then(response => {
             
-          context.commit('PostDeviationSurvey', response.data)              
+          context.commit('PostDeviationSurvey', response.data) 
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Deviation survey data saved successfully",
+            visibility: true
+          }, {root:true});    
+              
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostDeviationSurvey error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Deviation survey data failed to save. Please check your data",
+            visibility: true
+          }, {root:true});    
           reject(error)
         })
     })

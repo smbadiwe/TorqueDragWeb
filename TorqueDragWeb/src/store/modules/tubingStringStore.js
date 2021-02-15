@@ -52,12 +52,31 @@ const actions = {
        $http.post('Pipes/PostPipes', payload, config)
         .then(response => {
             
-          context.commit('PostPipes', response.data)              
+          context.commit('PostPipes', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Tubing strings saved successfully",
+            visibility: true
+          }, {root:true});    
+
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostPipes error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Tubing strings failed to save. Please check your data",
+            visibility: true
+          }, {root:true});    
           reject(error)
         })
     })
@@ -76,7 +95,8 @@ const actions = {
        $http.post('Pipes/PostPipe', payload, config)
         .then(response => {
             
-          context.commit('PostPipe', response.data)              
+          context.commit('PostPipe', response.data)  
+
             resolve(response)
             
         })

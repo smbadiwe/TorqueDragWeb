@@ -82,7 +82,8 @@ const actions = {
       }
     }
 
-  
+    console.log("payload.operation: ", payload.operation)
+    
     payload.operation.trippingInSpeed = parseFloat(payload.operation.trippingInSpeed);
     payload.operation.trippingInRPM = parseFloat(payload.operation.trippingInRPM);
     payload.operation.trippingOutSpeed = parseFloat(payload.operation.trippingOutSpeed);
@@ -99,18 +100,38 @@ const actions = {
     payload.operation.userId = payload.userId;
     payload.operation.designId = payload.designId;
 
+    
+
     return new Promise((resolve, reject) => {
   
       
        $http.post('Operations/PostOperation', payload, config)
         .then(response => {
             
-          context.commit('PostOperation', response.data)              
+          context.commit('PostOperation', response.data)    
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});  
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Operation parameters saved successfully",
+            visibility: true
+          }, {root:true});            
             resolve(response)
             
         })
         .catch(error => {
           console.log("PostOperation error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Operation parameters failed to save. Please check your data",
+            visibility: true
+          }, {root:true});    
           reject(error)
         })
     })
