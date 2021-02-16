@@ -1,5 +1,5 @@
 <template>
-    <div class="row bg-positive  text-accent" style="width: 800px;">
+    <div class="row bg-primary  text-accent" style="min-width: 700px;">
         <div class="col-4 q-pa-sm">   
             <q-list bordered>
                 <q-item 
@@ -31,6 +31,13 @@
             </q-list>
         </div>
 
+         <!-- <q-separator vertical dark /> -->
+
+        <div class="col-8 q-pa-sm bg-positive">
+            <recentProjects></recentProjects>
+        </div>
+
+
          <q-dialog v-model="isCreateWellDesign" class="bg-primary">
             <div class="q-pa-sm bg-primary">
                 <createWellDesign></createWellDesign>
@@ -43,17 +50,14 @@
             </div>
         </q-dialog>
 
-        <q-separator vertical dark />
-
-        <div class="col-8 q-pa-sm">
-
-        </div>
     </div>
 </template>
 
 <script>
 import createWellDesign from "components/createWellDesign.vue"
 import wellList from "pages/inputdata/wellList.vue"
+import recentProjects from "pages/menus/recentProjects.vue"
+
 export default {
     computed:{
          isCreateWellDesign(){
@@ -65,7 +69,8 @@ export default {
     },
     components:{
         createWellDesign,
-        wellList
+        wellList,
+        recentProjects
     },
     data () {
     return {

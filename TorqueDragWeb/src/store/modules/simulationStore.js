@@ -14,10 +14,84 @@ const state = {
     yMax: 1000.0,
     segmentPipeList: [],
     holeSegmentLabels: [],
-    tubingSegmentLabels: []
+    tubingSegmentLabels: [],
+    sensitivityColumns: [
+        { name: "sensitivity1", label: "Sensitivity 1", field: "", align: "left" }
+    ],
+    noOfSensitivities: 1,
+    sensitivity: {
+      name: "Sensitivity 1",
+      typesOfHole: [ 
+        {
+          hole: "Casing",
+          holeValues: [null, null, null, null, null]
+
+        },
+        {
+          hole: "Open Hole",
+          holeValues: [null, null, null, null, null]
+        }
+      ]
+    },
+    sensivities: [
+        {
+          name: "Sensitivity 1",
+          columns: [
+            { name: "casing", label: "Casing", field: "", align: "left" },
+            { name: "openHole", label: "Open Hole", field: "", align: "left" }
+          ],
+          typesOfHole: [ 
+            {
+              id: "Tripping in",
+              casing: null,
+              openHole: null
+            },
+            {
+              id: "Tripping out",
+              casing: null,
+              openHole: null
+            },
+            {
+              id: "Rotating on bottom",
+              casing: null,
+              openHole: null
+            },
+            {
+              id: "Slide drilling",
+              casing: null,
+              openHole: null
+            },
+            {
+              id: "Back reaming",
+              casing: null,
+              openHole: null
+            }
+          ]
+        }
+    ],
+    SensitivityDialog: false,
+    incremetVisibility: false
   }
 
   const getters = {
+    incremetVisibility(state){
+      return state.incremetVisibility;
+    },
+    SensitivityDialog(state){
+      return state.SensitivityDialog;
+    },
+    noOfSensitivities(state){
+      return state.noOfSensitivities;
+    },
+    sensitivityColumns(state){
+      return state.sensitivityColumns;
+    },
+    sensitivity(){
+      return state.sensitivity;
+    },
+    sensivities(){
+      return state.sensivities;
+    },
     tubingSegmentLabels(state){
       return state.tubingSegmentLabels;
     },
@@ -60,6 +134,25 @@ const state = {
 }
 
 const mutations = {
+    showSensitivityDialog(state, payload){
+      state.SensitivityDialog = payload;
+      state.incremetVisibility = payload;
+    },
+    addSensitivity(state) {
+
+        
+    if(state.noOfSensitivities  < 10){
+      state.noOfSensitivities++;
+    }
+        
+    },
+    removeSensitivity(state) {
+      if(state.noOfSensitivities > 1)
+      {
+        state.noOfSensitivities--;
+      }  
+
+    },
     RunSimulation(state, payload){
     console.log("PipeCalculatedVariables: ", payload)
     state.trippingInResults = payload.trippingInResults;

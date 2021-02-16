@@ -115,6 +115,11 @@ export default {
       var designMonth = d.getMonth() + 1;
       var designYear = d.getFullYear();
 
+      this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: true,
+            showImportView: false
+          });
+
       this.$store.dispatch('wellDesignStore/PostTorqueDragDesign', {
             torqueDragDesign: {
                 companyId: context.companyId,
@@ -132,6 +137,10 @@ export default {
             var context = this;
 
             console.log(context.selected);
+            this.$store.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: true,
+              showImportView: false
+            });
             if(_wellCaseId !== null){
               this.$store.dispatch('wellDesignStore/PostSelectedWellDesign', {
                 wellCaseId: _wellCaseId,

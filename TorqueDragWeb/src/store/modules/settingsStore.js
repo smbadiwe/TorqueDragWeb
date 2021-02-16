@@ -164,6 +164,10 @@ const actions = {
         .then(response => {
             
           context.commit('PostCommon', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Run parameters saved successfully",
@@ -173,6 +177,10 @@ const actions = {
             
         })
         .catch(error => {
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           console.log("PostCommon error")
           reject(error)
         })

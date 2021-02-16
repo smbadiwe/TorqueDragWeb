@@ -16,10 +16,14 @@ const state = {
     selected: null,
     isCreateWellDesign: false,
     isWellExplorer: false,
-    caption: "DP Well Engineering"
+    caption: "DP Well Engineering",
+    torqueDragMostRecentDesigns: []
   }
 
 const getters = {
+  torqueDragMostRecentDesigns(state){
+    return state.torqueDragMostRecentDesigns;
+  },
   caption(state){
     return state.caption;
   },
@@ -89,6 +93,7 @@ const mutations = {
   GetTorqueDragDesigns(state, payload){
       state.wellProjects = payload.companies;  
       state.torqueDragDesigns = payload.torqueDragDesigns;
+      state.torqueDragMostRecentDesigns = payload.torqueDragMostRecentDesigns;
       state.SelectedTorqueDragDesign = state.torqueDragDesigns[0];
   },
   GetSelectedTorqueDragDesign(state, payload){
@@ -191,6 +196,10 @@ const actions = {
           .then(response => {
               
             context.commit('PostTorqueDragDesign', response.data);
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});
             context.commit('authStore/setStatusMessageBarVisibility',  
             {
               actionMessage: response.data.info,
@@ -202,6 +211,10 @@ const actions = {
               
           })
           .catch(error => {
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});
             console.log("PostTorqueDragDesign error")
             reject(error)
           })
@@ -225,6 +238,10 @@ const actions = {
               
             context.commit('GetSelectedTorqueDragDesign', response.data);
             context.state.caption ="DP Well Engineering (" + response.data.designName + ")";
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});
             context.commit('authStore/setStatusMessageBarVisibility',  
             {
               actionMessage: response.data.designName + " selected",
@@ -236,6 +253,10 @@ const actions = {
               
           })
           .catch(error => {
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});
             console.log("PostTorqueDragDesign error")
             reject(error)
           })
@@ -295,7 +316,28 @@ const actions = {
             reject(error)
           })
       })
-    }
+    },
+    GetSelectedTorqueDragDesign(context, payload){
+      //console.log("GetselectedSheetHeader")
+      context.state.SelectedTorqueDragDesign = payload;
+        var i = 0;
+        var nCount = context.state.torqueDragMostRecentDesigns.length;
+        for(i = 0; i < nCount; i++){
+            if(context.state.torqueDragMostRecentDesigns[i].uniqueId == context.state.SelectedTorqueDragDesign.uniqueId){
+              context.state.torqueDragMostRecentDesigns[i].isSelected = true;
+            }else{
+              context.state.torqueDragMostRecentDesigns[i].isSelected = false;
+            }
+        }
+
+        context.commit('authStore/setStatusMessageBarVisibility',  
+            {
+              actionMessage: context.state.SelectedTorqueDragDesign.designName + " selected",
+              visibility: true
+            }, 
+            {root:true});
+        //console.log("state.selectedSheetHeader:", state.selectedSheetHeader);
+    },
 
 
 }

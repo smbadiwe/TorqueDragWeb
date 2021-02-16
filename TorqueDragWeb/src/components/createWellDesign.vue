@@ -59,12 +59,26 @@
                     </q-card>
             </div>
         </div>
+
+        <div class="row">
+          <div class="col-12 q-pa-sm bg-primary">
+                <q-inner-loading :showing="showLoader">
+                  <q-spinner-gears size="100px" color="primary" />
+              </q-inner-loading>
+          </div>
+      </div>
     </div>
 </template>
 
 <script>
 export default {
     computed: {
+        showLoader(){
+            return this.$store.getters['dataImportStore/showLoader'];
+        },
+        showView(){
+        return this.$store.getters['dataImportStore/showImportView'];
+        },
         companyName(){
             return this.$store.getters['authStore/companyName'];
         },
@@ -194,6 +208,12 @@ export default {
         var designDay = d.getDate();
         var designMonth = d.getMonth() + 1;
         var designYear = d.getFullYear();
+        var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+
+        this.$store.commit('dataImportStore/SetLoaderParameters', {
+                showLoader: true,
+                showImportView: false
+        });
 
         this.$store.dispatch('wellDesignStore/PostTorqueDragDesign', {
                 torqueDragDesign: {
@@ -208,7 +228,8 @@ export default {
                     wellboreName: context.wellboreName,
                     wellDesignName: context.wellDesignName,
                     siteName: context.siteName,
-                    externalcompanyName: context.externalcompanyName
+                    externalcompanyName: context.externalcompanyName,
+                    userId: IdentityModel.id
                 },
                 companyName: context.companyName
             });

@@ -1,48 +1,64 @@
 <template>
-  <div 
-   class="col-12 bg-primary">
-
+  <div>
     
-    <q-card class="my-card text-accent" style="height:50px;">
-      <q-card-section align="right">
-        <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
-          <!-- <q-icon name="close" /> -->
-      </q-card-section>
-    </q-card>
+    <div  
+    v-if="showView"
+    class="row">
+      <div 
+      class="col-12 bg-primary">
 
-    <q-scroll-area
-        :visible="visible"
-      style="height: 1000px; width: 100%;"
-    >
+        
+        <q-card class="my-card text-accent" style="height:50px;">
+          <q-card-section align="right">
+            <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
+              <!-- <q-icon name="close" /> -->
+          </q-card-section>
+        </q-card>
 
-        <div class="row"> 
- 
-          <!-- <svg  :style="'width: '+ winwidth + 'px;'" class="Path_67_ew" :viewBox="'0 0 ' + winwidth + ' 845'">
-            <linearGradient id="Path_67_ew" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
-                <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
-                <stop offset="0.6109" stop-color="#444" stop-opacity="1"></stop>
-                <stop offset="1" stop-color="#767676" stop-opacity="1"></stop>
-            </linearGradient>
-            <path id="Path_67_ew" :d="'M 0 0 L ' + winwidth + ' 0 L ' + winwidth + ' 845 L 0 845 L 0 0 Z'">
-            </path>
-        </svg> -->
+        <q-scroll-area
+            :visible="visible"
+          style="height: 1000px; width: 100%;"
+        >
+
+            <div class="row"> 
+    
+              <!-- <svg  :style="'width: '+ winwidth + 'px;'" class="Path_67_ew" :viewBox="'0 0 ' + winwidth + ' 845'">
+                <linearGradient id="Path_67_ew" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
+                    <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
+                    <stop offset="0.6109" stop-color="#444" stop-opacity="1"></stop>
+                    <stop offset="1" stop-color="#767676" stop-opacity="1"></stop>
+                </linearGradient>
+                <path id="Path_67_ew" :d="'M 0 0 L ' + winwidth + ' 0 L ' + winwidth + ' 845 L 0 845 L 0 0 Z'">
+                </path>
+            </svg> -->
 
 
-          <div id="Group_37_dw_datumview" class="col-10">
-            <inputdataright
-            v-bind:issettingsheader="issettingsheader"
-                v-bind:issensitivityheader="issensitivityheader"
-                v-bind:isschematicsheader="isschematicsheader"></inputdataright>
+              <div id="Group_37_dw_datumview" class="col-10">
+                <inputdataright
+                v-bind:issettingsheader="issettingsheader"
+                    v-bind:issensitivityheader="issensitivityheader"
+                    v-bind:isschematicsheader="isschematicsheader"></inputdataright>
+              </div>
+
+              <div class="col-2">
+                <buttonBarRight  v-on:updatepropRight="updatepropRight($event)"></buttonBarRight>
+              </div>
+            </div>
+
+        
+        
+        </q-scroll-area>
+      </div>
+    </div>
+
+    <div class="row">
+          <div class="col-12 q-pa-sm bg-primary">
+                <q-inner-loading :showing="showLoader">
+                  <q-spinner-gears size="100px" color="primary" />
+              </q-inner-loading>
           </div>
+      </div>
 
-          <div class="col-2">
-            <buttonBarRight  v-on:updatepropRight="updatepropRight($event)"></buttonBarRight>
-          </div>
-        </div>
-
-    
-    
-    </q-scroll-area>
   </div>
 </template>
 
@@ -60,6 +76,12 @@ import operations from 'pages/inputdata/operations.vue'
 
 export default {
 computed:{
+  showLoader(){
+      return this.$store.getters['dataImportStore/showLoader'];
+  },
+  showView(){
+  return this.$store.getters['dataImportStore/showImportView'];
+  },
   selectedInputTab() {
          return this.$store.getters['datumStore/selectedInputTab'];
     },
@@ -70,7 +92,7 @@ computed:{
             var wd = (this.$q.screen.width/ 12.0)* 3.0;
             console.log(wd);
             return wd;
-      }
+    }
 },
 props: {
   visibility: {

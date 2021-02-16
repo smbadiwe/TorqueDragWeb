@@ -40,66 +40,76 @@
       <div>
         <div class="row buttonTD1">
               <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="legend_toggle" 
+                <q-btn  
                     flat
                     :size="size" 
-                    label="Effective Tension"
                     class="text-capitalize"
                     stack 
                     @click="effectiveTensionPlots">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/chart_1.jpg">
+                    </q-avatar></span>
+                   Effective Tension
                 </q-btn>
               </div>
 
               <div class="q-pa-sm text-caption col">
                 <q-btn 
-                    icon="align_horizontal_center"
                     stretch 
                     flat
                     :size="size" 
-                    label="Normal Force"
                     class="text-capitalize"
                     stack
                     @click="normalForcePlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/chart_2.jpg">
+                    </q-avatar></span>
+                   Normal Force
                 </q-btn>    
               </div>
 
             <div class="q-pa-sm text-caption col">
                 <q-btn 
-                    icon="align_horizontal_left" 
                     stretch
                     flat
                     :size="size"   
-                    label="Hook Load"
                     class="text-capitalize"
                     stack 
                      @click="hookLoadPlots">
+                     <span><q-avatar square size="42px">
+                        <img src="~/assets/images/chart_3.jpg">
+                    </q-avatar></span>
+                   Hook Load
                 </q-btn>
             </div>
 
             <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="align_horizontal_right" 
+                <q-btn  
                     stretch
                     flat
                     :size="size" 
-                    label="Torque"
                     class="text-capitalize"
                     stack
                     @click="torquePlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/chart_4.jpg">
+                    </q-avatar></span>
+                   Torque
                 </q-btn>
                 </div>
 
             <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="align_vertical_bottom" 
+                <q-btn  
                     stretch
                     flat
                     :size="size" 
-                    label="Drag"
                     class="text-capitalize"
                     stack
                     @click="dragPlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/chart_5.jpg">
+                    </q-avatar></span>
+                   Drag
                 </q-btn>
             </div>
 
@@ -122,66 +132,76 @@
       <div>
         <div class="row buttonTD1">
               <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="table_chart" 
+                <q-btn  
                     flat
                     :size="size" 
-                    label="Tripping In"
                     class="text-capitalize"
                     stack 
                     @click="TrippingInDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/table_1.jpg">
+                    </q-avatar></span>
+                   Tripping In
                 </q-btn>
               </div>
 
               <div class="q-pa-sm text-caption col">
                 <q-btn 
-                    icon="table_rows"
                     stretch 
                     flat
                     :size="size" 
-                    label="Tripping Out"
                     class="text-capitalize"
                     stack 
                     @click="TrippingOutDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/table_2.jpg">
+                    </q-avatar></span>
+                   Tripping Out
                 </q-btn>    
               </div>
 
             <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="reorder" 
+                <q-btn  
                     stretch
                     flat
                     :size="size"   
-                    label="Rotating On Bottom"
                     class="text-capitalize"
                     stack 
                     @click="RotatingOnBottomDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/table_3.jpg">
+                    </q-avatar></span>
+                   Rotating On Bottom
                 </q-btn>
             </div>
 
             <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="view_list" 
+                <q-btn  
                     stretch
                     flat
                     :size="size"  
-                    label="Slide Drilling"
                     class="text-capitalize"
                     stack
                     @click="SlideDrillingDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/table_4.jpg">
+                    </q-avatar></span>
+                   Slide Drilling
                 </q-btn>
                 </div>
 
             <div class="q-pa-sm text-caption col">
-                <q-btn 
-                    icon="list_alt" 
+                <q-btn  
                     stretch
                     flat
                     :size="size" 
-                    label="Back reaming"
                     class="text-capitalize"
                     stack 
                     @click="BackReamingDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/table_5.jpg">
+                    </q-avatar></span>
+                   Back Reaming
                 </q-btn>
             </div>
 

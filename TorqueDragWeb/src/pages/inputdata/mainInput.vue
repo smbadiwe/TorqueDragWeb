@@ -1,43 +1,127 @@
 <template>
   <div>
-    <div 
-    v-if="showView"
-    class="row">
-    <div 
-    class="col-12 bg-primary">
+      <div 
+      v-if="showView"
+      class="row">
+      <div 
+      class="col-12 bg-primary">
 
-      
-      <q-card class="my-card text-white" style="height:50px;">
-        <q-card-section align="right">
-          <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
-            <!-- <q-icon name="close" /> -->
-        </q-card-section>
-      </q-card>
+        
+        <q-card class="my-card text-white" style="height:50px;">
+          <q-card-section align="right">
+            <div class="text-center text-subtitle1 q-pb-md">{{ tabCaption }}</div>
+              <!-- <q-icon name="close" /> -->
+          </q-card-section>
+        </q-card>
 
-      <q-scroll-area
-          :visible="visible"
-        style="height: 1000px; width: 100%;"
-      >
+        <q-scroll-area
+            :visible="visible"
+          style="height: 1000px; width: 100%;"
+        >
 
-          <div class="row"> 
+            <div class="row"> 
 
-            <div class="col-2">
-              <buttonBarLeft v-on:updateprop="updateprop($event)"></buttonBarLeft>
+              <div class="col-2">
+                <buttonBarLeft v-on:updateprop="updateprop($event)"></buttonBarLeft>
+              </div>
+
+              <div id="Group_37_dw_datumview" class="col-10">
+
+                <inputdataleft
+                    v-bind:isdatum="isdatum"
+                    v-bind:iswellpath="iswellpath"
+                    v-bind:ishole="ishole"
+                    v-bind:istubingstring="istubingstring"
+                    v-bind:isrig="isrig"
+                    v-bind:isfluids="isfluids"
+                    v-bind:issubsurface="issubsurface"
+                    v-bind:isoperations="isoperations"></inputdataleft>
+
+              <!--  <q-tab-panels
+                  v-model="tab"
+                  animated
+                  swipeable
+                  vertical
+                  transition-prev="jump-up"
+                  transition-next="jump-up"
+                  class="bg-primary mypanel"
+                >
+                  <q-tab-panel name="Datum">
+                    <div>
+                        <datumn-app></datumn-app>
+                    </div>
+                    
+                  </q-tab-panel>
+
+                  <q-tab-panel name="WellPath">
+                    <div>
+                      <wellPath-app></wellPath-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="Hole">
+                    <div>
+                      <hole-app></hole-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="String">
+                    <div>
+                      <tubingString-app></tubingString-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="Rig">
+                    <div>
+                      <rig-app></rig-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="Fluids">
+                    <div>
+                      <fluids-app></fluids-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="Subsurface">
+                    <div>
+                      <subsurface-app></subsurface-app>
+                    </div>
+                  </q-tab-panel>
+
+                  <q-tab-panel name="Operations">
+                    <div>
+                      <operations-app></operations-app>
+                    </div>
+                  </q-tab-panel>
+
+                </q-tab-panels> -->
+
+              </div>
             </div>
 
-            <div id="Group_37_dw_datumview" class="col-10">
+        <!-- <q-splitter
+          v-model="splitterModel"
+          >
 
-              <inputdataleft
-                  v-bind:isdatum="isdatum"
-                  v-bind:iswellpath="iswellpath"
-                  v-bind:ishole="ishole"
-                  v-bind:istubingstring="istubingstring"
-                  v-bind:isrig="isrig"
-                  v-bind:isfluids="isfluids"
-                  v-bind:issubsurface="issubsurface"
-                  v-bind:isoperations="isoperations"></inputdataleft>
+            <template v-slot:before>
+              <q-tabs
+            v-model="tab"
+                vertical
+              >
+                <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
+                <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
+                <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
+                <q-tab name="String" label="String" v-bind:style="qtabStyle" />
+                <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
+                <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
+                <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
+                <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
+              </q-tabs>
+            </template>
 
-            <!--  <q-tab-panels
+            <template v-slot:after>
+              <q-tab-panels
                 v-model="tab"
                 animated
                 swipeable
@@ -95,100 +179,16 @@
                   </div>
                 </q-tab-panel>
 
-              </q-tab-panels> -->
+              </q-tab-panels>
+            </template>
 
-            </div>
-          </div>
+        </q-splitter> -->
+        
+        </q-scroll-area>
+      </div>
+      </div>
 
-      <!-- <q-splitter
-        v-model="splitterModel"
-        >
-
-          <template v-slot:before>
-            <q-tabs
-          v-model="tab"
-              vertical
-            >
-              <q-tab name="Datum" label="Datum" v-bind:style="qtabStyle"/>
-              <q-tab name="WellPath" label="Well Path" v-bind:style="qtabStyle" />
-              <q-tab name="Hole" label="Hole" v-bind:style="qtabStyle" />
-              <q-tab name="String" label="String" v-bind:style="qtabStyle" />
-              <q-tab name="Rig" label="Rig" v-bind:style="qtabStyle" />
-              <q-tab name="Fluids" label="Fluids" v-bind:style="qtabStyle" />
-              <q-tab name="Subsurface" label="Subsurface" v-bind:style="qtabStyle" />
-              <q-tab name="Operations" label="Operations" v-bind:style="qtabStyle" />
-            </q-tabs>
-          </template>
-
-          <template v-slot:after>
-            <q-tab-panels
-              v-model="tab"
-              animated
-              swipeable
-              vertical
-              transition-prev="jump-up"
-              transition-next="jump-up"
-              class="bg-primary mypanel"
-            >
-              <q-tab-panel name="Datum">
-                <div>
-                    <datumn-app></datumn-app>
-                </div>
-                
-              </q-tab-panel>
-
-              <q-tab-panel name="WellPath">
-                <div>
-                  <wellPath-app></wellPath-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="Hole">
-                <div>
-                  <hole-app></hole-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="String">
-                <div>
-                  <tubingString-app></tubingString-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="Rig">
-                <div>
-                  <rig-app></rig-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="Fluids">
-                <div>
-                  <fluids-app></fluids-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="Subsurface">
-                <div>
-                  <subsurface-app></subsurface-app>
-                </div>
-              </q-tab-panel>
-
-              <q-tab-panel name="Operations">
-                <div>
-                  <operations-app></operations-app>
-                </div>
-              </q-tab-panel>
-
-            </q-tab-panels>
-          </template>
-
-      </q-splitter> -->
-      
-      </q-scroll-area>
-    </div>
-    </div>
-
-  <div class="row">
+      <div class="row">
           <div class="col-12 q-pa-sm bg-primary">
                 <q-inner-loading :showing="showLoader">
                   <q-spinner-gears size="100px" color="primary" />
