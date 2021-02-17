@@ -18,7 +18,7 @@ const state = {
     sensitivityColumns: [
         { name: "sensitivity1", label: "Sensitivity 1", field: "", align: "left" }
     ],
-    noOfSensitivities: 1,
+    noOfSensitivities: 2,
     sensitivity: {
       name: "Sensitivity 1",
       typesOfHole: [ 
@@ -70,10 +70,23 @@ const state = {
         }
     ],
     SensitivityDialog: false,
-    incremetVisibility: false
+    incremetVisibility: false,
+    isThreeVisible: false,
+    isFourVisible: false,
+    isFiveVisible: false,
+    sensitivityResultsDTO: {}
   }
 
   const getters = {
+    isFiveVisible(state){
+      return state.isFiveVisible;
+    },
+    isFourVisible(state){
+      return state.isFourVisible;
+    },
+    isThreeVisible(state){
+      return state.isThreeVisible;
+    },
     incremetVisibility(state){
       return state.incremetVisibility;
     },
@@ -141,17 +154,66 @@ const mutations = {
     addSensitivity(state) {
 
         
-    if(state.noOfSensitivities  < 10){
+    if(state.noOfSensitivities  < 5){
       state.noOfSensitivities++;
+
+      switch(state.noOfSensitivities){
+        case 2:
+          state.isThreeVisible = false;
+          state.isFourVisible = false;
+          state.isFiveVisible = false;
+          break;
+        case 3:
+          state.isThreeVisible = true;
+          state.isFourVisible = false;
+          state.isFiveVisible = false;
+          break;
+        case 4:
+          state.isThreeVisible = true;
+          state.isFourVisible = true;
+          state.isFiveVisible = false;
+          break;
+        case 5:
+          state.isThreeVisible = true;
+          state.isFourVisible = true;
+          state.isFiveVisible = true;
+          break
+      }
     }
         
     },
     removeSensitivity(state) {
-      if(state.noOfSensitivities > 1)
+      if(state.noOfSensitivities > 2)
       {
         state.noOfSensitivities--;
+        switch(state.noOfSensitivities){
+          case 2:
+            state.isThreeVisible = false;
+            state.isFourVisible = false;
+            state.isFiveVisible = false;
+            break;
+          case 3:
+            state.isThreeVisible = true;
+            state.isFourVisible = false;
+            state.isFiveVisible = false;
+            break;
+          case 4:
+            state.isThreeVisible = true;
+            state.isFourVisible = true;
+            state.isFiveVisible = false;
+            break;
+          case 5:
+            state.isThreeVisible = true;
+            state.isFourVisible = true;
+            state.isFiveVisible = true;
+            break
+        }
       }  
 
+    },
+    RunSensitivities(state, payload){
+      console.log("Sensitivities", payload);
+      state.sensitivityResultsDTO = payload;
     },
     RunSimulation(state, payload){
     console.log("PipeCalculatedVariables: ", payload)
@@ -189,7 +251,61 @@ const mutations = {
 }
 
 const actions = {
+  RunSensitivities(context, payload)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
 
+    context.state.visible = true;
+    context.state.showSimulatedReturnData = false
+    //this.$router.push('/simulationConsole');
+
+    console.log("response: ", payload)
+
+    return new Promise((resolve, reject) => {
+       $http.post('Commons/RunSensitivities',
+       {
+        userId: payload.userId,
+        designId: payload.designId,
+        companyName: payload.companyName,
+        noOfSensitivities: context.state.noOfSensitivities,
+        sensitivityParameters: payload.sensitivityParameters
+       }, config)
+        .then(response => {
+
+        console.log("response: ", response)
+
+          context.commit('RunSensitivities', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Run sensitivity completed successfully",
+            visibility: true
+          }, {root:true});                 
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("RunSimulation error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Run sensitivities failed. Please check your data",
+            visibility: true
+          }, {root:true});  
+          reject(error)
+        })
+    })
+  },
 RunSimulation(context, payload)
   {
     let config = {
