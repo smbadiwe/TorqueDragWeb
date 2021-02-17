@@ -29,135 +29,234 @@ export default {
 				y: [12, 9, 15, 12],
 				mode: 'lines+markers',
 				type: 'scatter'
-				},
-			trippingIn: {
+				}
+
+        }
+    },
+    methods:{
+		 createChart() {
+			var context = this;
+			var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
+			var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
+			var j = 0;
+			var length;
+			var M = 1000.0;
+			var i = 0;
+			var simulationResultsDTOsCount = simulationResultsDTOs.length;
+			var data  = [];
+			var helicalBuckling = {
 				x: [],
 				y: [],
 				line:{
-					shape: 'spline'
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Helical Buckling',
+			}
+
+			var sinusoidalBuckling = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Sinusoidal Buckling',
+			}
+
+			for(j = 0; j < simulationResultsDTOsCount; j++){
+
+				var simulationResultsDTO = simulationResultsDTOs[j];
+
+				var trippingInResults =  simulationResultsDTO.trippingInResults;
+				var trippingOutResults =  simulationResultsDTO.trippingOutResults;
+				var drillingResults =  simulationResultsDTO.drillingResults;
+				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
+				var backReamingResults =  simulationResultsDTO.backReamingResults;
+
+				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
+				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
+				var isRotatingOnBottomChecked =  simulationResultsDTO.isRotatingOnBottomChecked;
+				var isSlideDrillingChecked =  simulationResultsDTO.isSlideDrillingChecked;
+				var isBackReamingChecked =  simulationResultsDTO.isBackReamingChecked;
+
+				var trippingIn = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Tripping In',
-				},
-			trippingOut: {
+				} 
+			var trippingOut = {
 				x: [],
 				y: [],
 				line:{
-					shape: 'spline'
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Tripping Out',
-			},
-			rotatingOnBottom: {
+			}
+
+			var rotatingOnBottom = {
 				x: [],
 				y: [],
 				line:{
-					shape: 'spline'
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Rotating On Bottom',
-			},
-			slideDrilling: {
+			}
+
+			var slideDrilling = {
 				x: [],
 				y: [],
 				line:{
-					shape: 'spline'
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Slide Drilling',
-			},
-			backReaming: {
+			}
+
+			var backReaming = {
 				x: [],
 				y: [],
 				line:{
-					shape: 'spline'
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Back Reaming',
 			}
 
-        }
-    },
-    methods:{
-        createChart() {
-			var context = this;
+				length = trippingInResults.length;
+				
+				
+				for(i = 0; i < length; i++){
+					var md = trippingInResults[i].bottomMeasuredDepth;
 
-			var trippingInResults =  this.$store.getters['simulationStore/trippingInResults'];
-			var trippingOutResults =  this.$store.getters['simulationStore/trippingOutResults'];
-			var drillingResults =  this.$store.getters['simulationStore/drillingResults'];
-			var slideDrillingResults =  this.$store.getters['simulationStore/slideDrillingResults'];
-			var backReamingResults =  this.$store.getters['simulationStore/backReamingResults'];
+					trippingIn.x.push(trippingInResults[i].hookeLoadAtJoint/M);
+					trippingIn.y.push(md);
+				}
 
-			var length = trippingInResults.length;
-			context.trippingIn.x = [];
-			context.trippingIn.y = [];
-			context.trippingOut.x = [];
-			context.trippingOut.y = [];
-			context.rotatingOnBottom.x = [];
-			context.rotatingOnBottom.y = [];
-			context.slideDrilling.x = [];
-			context.slideDrilling.y = [];
-			context.backReaming.x = [];
-			context.backReaming.y = [];
+				console.log("tension: ", trippingIn.x);
+
+				trippingIn.line.color = 'rgb(243, 81, 45)';
+				trippingIn.name = 'Tripping In ' + (j+1).toString();
+				if(isTrippingInChecked == true){
+					//data = [...data, context.trippingIn]
+					data.push(trippingIn)
+				}
+				
+
+				length = trippingOutResults.length;
+				for(i = 0; i < length; i++){
+					var md = trippingOutResults[i].bottomMeasuredDepth;
+
+					trippingOut.x.push(trippingOutResults[i].hookeLoadAtJoint/M);
+					trippingOut.y.push(md);
+				}
+
+				trippingOut.line.color = 'rgb(132, 218, 23)'
+				trippingOut.name = 'Tripping Out ' + (j+1).toString();
+				if(isTrippingOutChecked == true){
+					//data = [...data, context.trippingOut]
+					data.push(trippingOut)
+				}
+
+				length = drillingResults.length;
+				for(i = 0; i < length; i++){
+					var md = drillingResults[i].bottomMeasuredDepth;
+
+					rotatingOnBottom.x.push(drillingResults[i].hookeLoadAtJoint/M);
+					rotatingOnBottom.y.push(md);
+				}
+
+				rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
+				rotatingOnBottom.name = 'Rotating On Bottom ' + (j+1).toString();
+				if(isRotatingOnBottomChecked == true){
+					//data = [...data, context.rotatingOnBottom]
+					data.push(rotatingOnBottom)
+				}
+
+				length = slideDrillingResults.length;
+				for(i = 0; i < length; i++){
+					var md = slideDrillingResults[i].bottomMeasuredDepth;
+
+					slideDrilling.x.push(slideDrillingResults[i].hookeLoadAtJoint/M);
+					slideDrilling.y.push(md);
+				}
+
+				slideDrilling.line.color = 'rgb(24, 61, 213)'
+				slideDrilling.name = 'Slide Drilling ' + (j+1).toString();
+				if(isSlideDrillingChecked == true){
+					//data = [...data, context.slideDrilling]
+					data.push(slideDrilling)
+				}
+
+				length = backReamingResults.length;
+				for(i = 0; i < length; i++){
+					var md = backReamingResults[i].bottomMeasuredDepth;
+
+					backReaming.x.push(backReamingResults[i].hookeLoadAtJoint/M);
+					backReaming.y.push(md);
+				}
+
+				backReaming.line.color = 'rgb(227, 67, 94)'
+				backReaming.name = 'Back Reaming ' + (j+1).toString();
+				if(isBackReamingChecked == true){
+					//data = [...data, context.backReaming]
+					data.push(backReaming)
+				}
+
+				length = trippingInResults.length;
+				for(i = 0; i < length; i++){
+					var md = trippingInResults[i].bottomMeasuredDepth;
+
+					helicalBuckling.x.push(trippingInResults[i].criticalHelicalBuckling/M);
+					helicalBuckling.y.push(md);
+
+					sinusoidalBuckling.x.push(trippingInResults[i].criticalSinusoidalBuckling/M);
+					sinusoidalBuckling.y.push(md);
+				}
+	
+			}
+
+			helicalBuckling.line.color = 'rgb(227, 67, 94)'
+			sinusoidalBuckling.line.color = 'rgb(29, 36, 198)'
+
+			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
+			data.push(helicalBuckling)
+			data.push(sinusoidalBuckling)
+			console.log("data: ", data);
 			
-			var M =1000.0;
-			var i = 0;
-			for(i = 0; i < length; i++){
-				var md = trippingInResults[i].bottomMeasuredDepth;
-
-				context.trippingIn.x.push(trippingInResults[i].hookeLoadAtJoint/M);
-				context.trippingIn.y.push(md);
-			}
-
-			console.log(context.trippingIn.x);
-
-			length = trippingOutResults.length;
-			for(i = 0; i < length; i++){
-				var md = trippingOutResults[i].bottomMeasuredDepth;
-
-				context.trippingOut.x.push(trippingOutResults[i].hookeLoadAtJoint/M);
-				context.trippingOut.y.push(md);
-			}
-
-			length = drillingResults.length;
-			for(i = 0; i < length; i++){
-				var md = drillingResults[i].bottomMeasuredDepth;
-
-				context.rotatingOnBottom.x.push(drillingResults[i].hookeLoadAtJoint/M);
-				context.rotatingOnBottom.y.push(md);
-			}
-
-			length = slideDrillingResults.length;
-			for(i = 0; i < length; i++){
-				var md = slideDrillingResults[i].bottomMeasuredDepth;
-
-				context.slideDrilling.x.push(slideDrillingResults[i].hookeLoadAtJoint/M);
-				context.slideDrilling.y.push(md);
-			}
-
-			length = backReamingResults.length;
-			for(i = 0; i < length; i++){
-				var md = backReamingResults[i].bottomMeasuredDepth;
-
-				context.backReaming.x.push(backReamingResults[i].hookeLoadAtJoint/M);
-				context.backReaming.y.push(md);
-			}
-
-			//console.log("x: ", context.trippingIn.x);
-			//console.log("y: ", context.trippingIn.y);
-			var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom, context.slideDrilling, context.backReaming]; //context.backReaming
 			var layout = { 
 				showlegend: true,
-				title: 'Hook Load Plot',
+				title: 'Hook Load',
 				height: 900,
 				xaxis: {
-					rangemode: 'tozero',
-					title: 'Hook Load (Klb)',
+					title: 'Hook Load (klb)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,
@@ -182,7 +281,6 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
-					rangemode: 'tozero',
 					autorange: "reversed",
 					title: 'Measured Depth (ft)',
 					titlefont: {
@@ -209,7 +307,8 @@ export default {
 					linewidth: 4
 				 	} 
 				};
-			Plotly.newPlot('myDiv', data, layout);
+			var config = {responsive: true}
+			Plotly.newPlot('myDiv', data, layout, config);
         }
     },
     mounted() {

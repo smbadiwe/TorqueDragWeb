@@ -6,4 +6,9 @@ var copy =  function copyObjdect(obj) {
     return cp;
 }
 
-export { copy  }
+var convertToNumber = function(obj){
+    var ans  = parseFloat(obj);
+    return ans
+}
+
+export { copy, convertToNumber  }

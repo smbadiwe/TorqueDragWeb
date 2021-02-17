@@ -29,176 +29,227 @@ export default {
 				y: [12, 9, 15, 12],
 				mode: 'lines+markers',
 				type: 'scatter'
-				},
-			trippingIn: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Tripping In',
-				},
-			trippingOut: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Tripping Out',
-			},
-			rotatingOnBottom: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Rotating On Bottom',
-			},
-			slideDrilling: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Slide Drilling',
-			},
-			backReaming: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Back Reaming',
-			},
-			helicalBuckling: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Helical Buckling',
-			},
-			sinusoidalBuckling: {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Sinusoidal Buckling',
-			}
+				}
 
         }
     },
     methods:{
         createChart() {
 			var context = this;
-
-			var trippingInResults =  this.$store.getters['simulationStore/trippingInResults'];
-			var trippingOutResults =  this.$store.getters['simulationStore/trippingOutResults'];
-			var drillingResults =  this.$store.getters['simulationStore/drillingResults'];
-			var slideDrillingResults =  this.$store.getters['simulationStore/slideDrillingResults'];
-			var backReamingResults =  this.$store.getters['simulationStore/backReamingResults'];
-
-			var length = trippingInResults.length;
-			context.trippingIn.x = [];
-			context.trippingIn.y = [];
-			context.trippingOut.x = [];
-			context.trippingOut.y = [];
-			context.rotatingOnBottom.x = [];
-			context.rotatingOnBottom.y = [];
-			context.slideDrilling.x = [];
-			context.slideDrilling.y = [];
-			context.backReaming.x = [];
-			context.backReaming.y = [];
-			context.helicalBuckling.x = [];
-			context.helicalBuckling.y = [];
-			context.sinusoidalBuckling.x = [];
-			context.sinusoidalBuckling.y = [];
-			
-			
-			var M =1000.0;
+			var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
+			var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
+			var j = 0;
+			var length;
+			var M = 1000.0;
 			var i = 0;
-			for(i = 0; i < length; i++){
-				var md = trippingInResults[i].bottomMeasuredDepth;
-
-				context.trippingIn.x.push(trippingInResults[i].tensionBottomOfPipe/M);
-				context.trippingIn.y.push(md);
+			var simulationResultsDTOsCount = simulationResultsDTOs.length;
+			var data  = [];
+			var helicalBuckling = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Helical Buckling',
 			}
 
-			length = trippingOutResults.length;
-			for(i = 0; i < length; i++){
-				var md = trippingOutResults[i].bottomMeasuredDepth;
-
-				context.trippingOut.x.push(trippingOutResults[i].tensionBottomOfPipe/M);
-				context.trippingOut.y.push(md);
+			var sinusoidalBuckling = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Sinusoidal Buckling',
 			}
 
-			length = drillingResults.length;
-			for(i = 0; i < length; i++){
-				var md = drillingResults[i].bottomMeasuredDepth;
+			for(j = 0; j < simulationResultsDTOsCount; j++){
 
-				context.rotatingOnBottom.x.push(drillingResults[i].tensionBottomOfPipe/M);
-				context.rotatingOnBottom.y.push(md);
+				var simulationResultsDTO = simulationResultsDTOs[j];
+
+				var trippingInResults =  simulationResultsDTO.trippingInResults;
+				var trippingOutResults =  simulationResultsDTO.trippingOutResults;
+				var drillingResults =  simulationResultsDTO.drillingResults;
+				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
+				var backReamingResults =  simulationResultsDTO.backReamingResults;
+
+				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
+				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
+				var isRotatingOnBottomChecked =  simulationResultsDTO.isRotatingOnBottomChecked;
+				var isSlideDrillingChecked =  simulationResultsDTO.isSlideDrillingChecked;
+				var isBackReamingChecked =  simulationResultsDTO.isBackReamingChecked;
+
+				var trippingIn = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Tripping In',
+				} 
+			var trippingOut = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Tripping Out',
 			}
 
-			length = slideDrillingResults.length;
-			for(i = 0; i < length; i++){
-				var md = slideDrillingResults[i].bottomMeasuredDepth;
-
-				context.slideDrilling.x.push(slideDrillingResults[i].tensionBottomOfPipe/M);
-				context.slideDrilling.y.push(md);
+			var rotatingOnBottom = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Rotating On Bottom',
 			}
 
-			length = backReamingResults.length;
-			for(i = 0; i < length; i++){
-				var md = backReamingResults[i].bottomMeasuredDepth;
-
-				context.backReaming.x.push(backReamingResults[i].tensionBottomOfPipe/M);
-				context.backReaming.y.push(md);
+			var slideDrilling = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Slide Drilling',
 			}
 
-			length = trippingInResults.length;
-			for(i = 0; i < length; i++){
-				var md = trippingInResults[i].bottomMeasuredDepth;
-
-				context.helicalBuckling.x.push(trippingInResults[i].criticalHelicalBuckling/M);
-				context.helicalBuckling.y.push(md);
-
-				context.sinusoidalBuckling.x.push(trippingInResults[i].criticalSinusoidalBuckling/M);
-				context.sinusoidalBuckling.y.push(md);
+			var backReaming = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Back Reaming',
 			}
-			/* console.log("trippingIn.x: ", context.trippingIn.x);
 
-			console.log("trippingOut.x: ", context.trippingOut.x);
+				length = trippingInResults.length;
+				
+				
+				for(i = 0; i < length; i++){
+					var md = trippingInResults[i].bottomMeasuredDepth;
 
-			console.log("rotatingOnBottom.x: ", context.rotatingOnBottom.x);
+					trippingIn.x.push(trippingInResults[i].tensionBottomOfPipe/M);
+					trippingIn.y.push(md);
+				}
 
-			console.log("trippingOut.x: ", context.slideDrilling.x);
+				console.log("tension: ", trippingIn.x);
 
-			console.log("trippingOut.x: ", context.backReaming.x); */
+				trippingIn.line.color = 'rgb(243, 81, 45)';
+				trippingIn.name = 'Tripping In ' + (j+1).toString();
+				if(isTrippingInChecked == true){
+					//data = [...data, context.trippingIn]
+					data.push(trippingIn)
+				}
+				
 
-			/* var data = [context.trippingIn, context.trippingOut,
-						context.rotatingOnBottom, context.slideDrilling,
-						context.backReaming, context.helicalBuckling,
-						 context.sinusoidalBuckling]; */
+				length = trippingOutResults.length;
+				for(i = 0; i < length; i++){
+					var md = trippingOutResults[i].bottomMeasuredDepth;
 
-						 var data = [context.trippingIn, context.trippingOut, context.rotatingOnBottom,
-									context.slideDrilling, context.backReaming, context.helicalBuckling,
-						 			context.sinusoidalBuckling];
+					trippingOut.x.push(trippingOutResults[i].tensionBottomOfPipe/M);
+					trippingOut.y.push(md);
+				}
+
+				trippingOut.line.color = 'rgb(132, 218, 23)'
+				trippingOut.name = 'Tripping Out ' + (j+1).toString();
+				if(isTrippingOutChecked == true){
+					//data = [...data, context.trippingOut]
+					data.push(trippingOut)
+				}
+
+				length = drillingResults.length;
+				for(i = 0; i < length; i++){
+					var md = drillingResults[i].bottomMeasuredDepth;
+
+					rotatingOnBottom.x.push(drillingResults[i].tensionBottomOfPipe/M);
+					rotatingOnBottom.y.push(md);
+				}
+
+				rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
+				rotatingOnBottom.name = 'Rotating On Bottom ' + (j+1).toString();
+				if(isRotatingOnBottomChecked == true){
+					//data = [...data, context.rotatingOnBottom]
+					data.push(rotatingOnBottom)
+				}
+
+				length = slideDrillingResults.length;
+				for(i = 0; i < length; i++){
+					var md = slideDrillingResults[i].bottomMeasuredDepth;
+
+					slideDrilling.x.push(slideDrillingResults[i].tensionBottomOfPipe/M);
+					slideDrilling.y.push(md);
+				}
+
+				slideDrilling.line.color = 'rgb(24, 61, 213)'
+				slideDrilling.name = 'Slide Drilling ' + (j+1).toString();
+				if(isSlideDrillingChecked == true){
+					//data = [...data, context.slideDrilling]
+					data.push(slideDrilling)
+				}
+
+				length = backReamingResults.length;
+				for(i = 0; i < length; i++){
+					var md = backReamingResults[i].bottomMeasuredDepth;
+
+					backReaming.x.push(backReamingResults[i].tensionBottomOfPipe/M);
+					backReaming.y.push(md);
+				}
+
+				backReaming.line.color = 'rgb(227, 67, 94)'
+				backReaming.name = 'Back Reaming ' + (j+1).toString();
+				if(isBackReamingChecked == true){
+					//data = [...data, context.backReaming]
+					data.push(backReaming)
+				}
+
+				length = trippingInResults.length;
+				for(i = 0; i < length; i++){
+					var md = trippingInResults[i].bottomMeasuredDepth;
+
+					helicalBuckling.x.push(-1 * trippingInResults[i].criticalHelicalBuckling/M);
+					helicalBuckling.y.push(md);
+
+					sinusoidalBuckling.x.push(-1 * trippingInResults[i].criticalSinusoidalBuckling/M);
+					sinusoidalBuckling.y.push(md);
+				}
+	
+			}
+
+			helicalBuckling.line.color = 'rgb(227, 67, 94)'
+			sinusoidalBuckling.line.color = 'rgb(29, 36, 198)'
+
+			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
+			data.push(helicalBuckling)
+			data.push(sinusoidalBuckling)
+			console.log("data: ", data);
 			
 			var layout = { 
 				showlegend: true,

@@ -17,7 +17,7 @@
                 </q-bar>
             </div>
 
-            <sensitivityDialog2></sensitivityDialog2>
+            <!-- <sensitivityDialog2></sensitivityDialog2> -->
           </div>
 
           <div class="col-2 bg-primary">

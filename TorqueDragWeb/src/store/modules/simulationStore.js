@@ -1,4 +1,5 @@
-import { $http } from 'boot/axios' 
+import { $http } from 'boot/axios'
+import { convertToNumber } from 'boot/utils'
 
 const state = {
   trippingInResults: [],
@@ -78,6 +79,9 @@ const state = {
   }
 
   const getters = {
+    sensitivityResultsDTO(state){
+      return state.sensitivityResultsDTO;
+    },
     isFiveVisible(state){
       return state.isFiveVisible;
     },
@@ -216,12 +220,8 @@ const mutations = {
       state.sensitivityResultsDTO = payload;
     },
     RunSimulation(state, payload){
-    console.log("PipeCalculatedVariables: ", payload)
-    state.trippingInResults = payload.trippingInResults;
-    state.trippingOutResults = payload.trippingOutResults;
-    state.drillingResults = payload.drillingResults;
-    state.slideDrillingResults = payload.slideDrillingResults;
-    state.backReamingResults = payload.backReamingResults;
+    console.log("Sensitivities", payload);
+    state.sensitivityResultsDTO = payload;
     state.visible = false;
     state.showSimulatedReturnData = true
 
@@ -258,12 +258,32 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
+    
 
-    context.state.visible = true;
-    context.state.showSimulatedReturnData = false
-    //this.$router.push('/simulationConsole');
+    console.log("payload: ", payload)
 
-    console.log("response: ", payload)
+    var i = 1, lent = 10;
+    for(i = 1; i <= lent; i++){
+      payload.sensitivityParameters["trippingIn_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["trippingIn_" + i.toString()]);
+
+      payload.sensitivityParameters["trippingOut_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["trippingOut_" + i.toString()]);
+
+      payload.sensitivityParameters["drilling_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["drilling_" + i.toString()]);
+
+      payload.sensitivityParameters["slideDrilling_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["slideDrilling_" + i.toString()]);
+
+      payload.sensitivityParameters["backReaming_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["backReaming_" + i.toString()]);
+
+      payload.sensitivityParameters["rotatingOffBottom_" + i.toString()] 
+      = convertToNumber(payload.sensitivityParameters["rotatingOffBottom_" + i.toString()]);
+    }
+
+    console.log("payload: ", payload)
 
     return new Promise((resolve, reject) => {
        $http.post('Commons/RunSensitivities',
@@ -287,7 +307,8 @@ const actions = {
           {
             actionMessage: "Run sensitivity completed successfully",
             visibility: true
-          }, {root:true});                 
+          }, {root:true});  
+          context.commit('showSensitivityDialog', false);               
             resolve(response)
             
         })
