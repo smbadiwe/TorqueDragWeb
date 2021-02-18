@@ -1,21 +1,92 @@
 <template>
     <div>
-       
-            <div class="row" id="holepage">
-                <div class="col-12 q-pa-sm"> 
-                    <q-btn 
-                        size="sm"
-                        label="Import from file">
-                    </q-btn>
-                </div>
+        <q-scroll-area
+            :visible="visible"
+        style="height: 700px;"
+        > 
+            <div class="row text-accent"
+                v-if="expanded">
+                <div class="col-12 q-pa-md">
+                        <q-expansion-item
+                            v-model="expanded"
+                            dense
+                            dense-toggle
+                            expand-separator
+                            label="Add Datum"
+                            clickable
+                            @click="ExpandExander2"
+                        >
+                            <!-- <q-card>
+                            <q-card-section> -->
+                                
+                                <div class="row">
 
-                <div class="col-12 q-pa-sm"> 
+                                    <div class="col-6 q-pt-sm">Name</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="typeOfHole" disabled></div>
+                                    <!-- <div class="col-2"></div> -->
+
+                                    <div class="col-6 q-pt-sm">Outer Diameter (in)</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="outerDiameter"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-6 q-pt-sm">Inner Diameter (in)</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="innerDiameter"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-6 q-pt-sm">weight (ppf)</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="weight"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-6 q-pt-sm">Top MD (ft)</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="top"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-6 q-pt-sm">Bottom MD (ft)</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="bottom"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-6 q-pt-sm">frictionFactor</div>
+                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="frictionFactor"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div style="height: 50px;"></div>
+
+                                    <div align="right">
+                                    <q-btn 
+                                        class="text-center"
+                                        size="sm"
+                                        label="Add"
+                                        @click="AddHoleRecord">
+                                    </q-btn>
+                                    </div>
+                        
+                                </div>
+                            <!-- </q-card-section> -->
+
+                            <!-- <q-card-actions align="right">
+                                <q-btn 
+                                    size="sm"
+                                    label="Add"
+                                    @click="PostDatum">
+                                </q-btn>
+                            </q-card-actions> -->
+
+                            <!-- </q-card> -->
+                        </q-expansion-item>
+        
+                    </div>
+            </div>
+        
+            <div class="row" id="holepage">
+
+                <!-- <div class="col-12 q-pa-sm"> 
                     <hr/>
-                </div>
+                </div> -->
 
                 <div class="col-4 q-pa-sm">
                     Riser 
                 </div>
+
                 <div class="col-4 q-pa-sm">
                     <q-btn  icon="add_box"
                         size="sm"
@@ -66,70 +137,24 @@
 
                 <div class="col-4 q-pa-sm"></div>
 
-                <div class="col-12 q-pa-sm"
-                v-if="expanded">
-
-                            <q-card class="bg-secondary">
-                                <q-card-section align="center">
-                                    <div class="text-center text-subtitle1 q-pb-md">{{ header }}</div>
-                                </q-card-section>
-
-                                <q-card-section>
-                                    
-                                    <div class="row">
-
-                                        <div class="col-3 q-pa-sm">Type of Hole</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="typeOfHole"></div>
-                                        <div class="col-3 q-pa-sm"></div>
-
-                                        <div class="col-3 q-pa-sm">Outer Diamter</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="outerDiameter"></div>
-                                        <div class="col-3 q-pa-sm">in</div>
-
-                                        <div class="col-3 q-pa-sm">Inner Diameter</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="innerDiameter"></div>
-                                        <div class="col-3 q-pa-sm">in</div>
-
-                                        <div class="col-3 q-pa-sm">Weigth of Pipe</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="weight"></div>
-                                        <div class="col-3 q-pa-sm">lb/ft</div>
-
-                                        <div class="col-3 q-pa-sm">Top of Section</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="top"></div>
-                                        <div class="col-3 q-pa-sm">ft</div>
-
-                                        <div class="col-3 q-pa-sm">Bottom of Section</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="bottom"></div>
-                                        <div class="col-3 q-pa-sm">ft</div>
-
-                                        <div class="col-3 q-pa-sm">Friction Factor</div>
-                                        <div class="col-6 q-pa-sm"><input v-model="frictionFactor"></div>
-                                        <div class="col-3 q-pa-sm">ft</div>
-
-                            
-                                    </div>
-                                </q-card-section>
-
-                                <q-card-actions align="right">
-                                    <q-btn 
-                                        size="sm"
-                                        label="Add"
-                                        class="bg-primary"
-                                        @click="PostHoleSection">
-                                    </q-btn>
-                                </q-card-actions>
-
-                                </q-card>
-
-                </div>
                 
                 <div class="col-12 q-pa-sm text-right"> 
-                                    <q-btn 
-                                        size="sm"
-                                        label="Import"
-                                        class="q-pa-sm"
-                                        @click="Import">
-                                    </q-btn>
+                    <q-btn 
+                        icon="import_contacts"
+                        size="sm"
+                        class="q-pa-none"
+                        @click="Import">
+                    </q-btn>
+
+                    <q-btn 
+                        class="q-pa-none"
+                        icon="save"
+                        size="sm"
+                        @click="SaveHoleSectionTable">
+                        <q-tooltip>
+                            Save HoleSection Table
+                        </q-tooltip>
+                    </q-btn>
 
                     <q-dialog v-model="isImportDialogVisible" class="bg-primary">
                         <div class="q-pa-sm bg-primary">
@@ -167,12 +192,14 @@
 
             </div>
         
+        </q-scroll-area>
 
     </div>
 </template>
 
 <script>
 import msExcelImport from 'components/dataImport/msExcelImport.vue';
+import { convertToNumber } from 'boot/utils.js'
 export default {
     computed:{
         holeSections() {
@@ -188,6 +215,7 @@ export default {
     data() {
         return {
             expanded: false,
+            expanded2: true,
             header: "",
             typeOfHole: "",
             outerDiameter: null,
@@ -219,41 +247,83 @@ export default {
         ShowHoleSection(selectedHeader){
             var context = this;
             if(selectedHeader == "New Open Hole"){
-                context.header = "New Open Hole"
+                context.typeOfHole = "Open Hole"
                 context.expanded = true;
+                context.expanded2 = false
             }
 
             if(selectedHeader == "New Riser"){
-                context.header = "New Riser"
+                context.typeOfHole = "Riser"
                 context.expanded = true;
+                context.expanded2 = false
             }
 
             if(selectedHeader == "New Casing"){
-                context.header = "New Casing"
+                context.typeOfHole = "Casing"
                 context.expanded = true;
+                context.expanded2 = false
             }
             
         },
-        PostHoleSection(){
-            var context =  this;
+        ExpandExander2(){
+            var context = this;
+            if(context.expanded == true){
+                context.expanded2 = false
+            }else{
+                context.expanded2 = true
+            }
+        },
+        AddHoleRecord(){
+            var context = this;
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+            
+            context.outerDiameter = convertToNumber(context.outerDiameter);
+            context.innerDiameter = convertToNumber(context.innerDiameter);
+                context.weight = convertToNumber(context.weight);
+                context.top = convertToNumber(context.top);
+                context.bottom = convertToNumber(context.bottom);
+                context.frictionFactor = convertToNumber(context.frictionFactor);
+   
+                this.$store.commit('holeStore/SaveHoleSectionTable', {
+                    typeOfHole: context.typeOfHole,
+                    outerDiameter: context.outerDiameter,
+                    innerDiameter: context.innerDiameter,
+                    weight: context.weight,
+                    topOfHole: context.top,
+                    bottomOfHole: context.bottom,
+                    frictionFactor: context.frictionFactor,
+                    designId: selectedTorqueDragDesign.id,
+                    userId: IdentityModel.id,
+                });
+            context.outerDiameter = ''
+            context.innerDiameter = ''
+                context.weight = ''
+                context.top = ''
+                context.bottom = ''
+                context.frictionFactor = ''
+
+            
+        },
+        SaveHoleSectionTable(){
+            var context = this;
+            var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-            /* this.$store.dispatch('holeStore/PostHoleSection', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id,
-                holeSection: {
-                typeOfHole: context.typeOfHole,
-                outerDiameter: parseFloat(context.outerDiameter),
-                innerDiameter: parseFloat(context.innerDiameter),
-                weight: parseFloat(context.weight),
-                topOfHole: parseFloat(context.top),
-                bottomOfHole: parseFloat(context.bottom),
-                frictionFactor:  parseFloat(context.frictionFactor),
-                designId: selectedTorqueDragDesign.id
-                }
-            }) */
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
 
-            context.expanded = false;
+            this.$store.commit('dataImportStore/SetLoaderParameters', {
+                showLoader: true,
+                showImportView: false
+            });
+
+            this.$store.dispatch('holeStore/PostHoleSections', {
+                    holeSections: context.holeSections,
+                    designId: selectedTorqueDragDesign.id,
+                    userId: IdentityModel.id,
+                    companyName: Conn,
+                    holeSection: {}
+                });
         }
     },
     created(){

@@ -2,9 +2,25 @@
     <div class="bg-accent">
         <div class="row">
             <div class="col-12">
-                 <q-card class="my-card bg-secondary text-white" style="height:50px;">
+                 <q-card class="my-card bg-secondary text-white" style="height:70px;">
                     <q-card-section align="right">
-                        <div class="text-center text-subtitle1 q-pb-md">Tripping In Report</div>
+                        <div class="row">
+                            <div class="col text-center text-subtitle1 q-pb-md">Tripping In</div>
+                            <q-btn-dropdown class="q-pa-sm" flat>
+                            <q-list class="bg-primary text-accent">
+                                <q-item 
+                                v-for="series in sensitivityIndices" :key="series"
+                                clickable v-close-popup @click="onItemClick(series)">
+                                <q-item-section>
+                                    <q-item-label>{{ series }}</q-item-label>
+                                </q-item-section>
+                                </q-item>
+
+                            </q-list>
+                        </q-btn-dropdown>
+                        </div>
+                        
+                        
                     </q-card-section>
                     </q-card>
             </div>
@@ -61,8 +77,11 @@
 <script>
 export default {
     computed:{
+        sensitivityIndices() {
+            return this.$store.getters['simulationStore/sensitivityIndices'];
+        },
         trippingInResults() {
-        return this.$store.getters['simulationStore/trippingInResults'];
+            return this.$store.getters['simulationStore/trippingInResults'];
         }
     },
     data () {
@@ -97,7 +116,21 @@ export default {
     }
   },
   methods: {
-
+      onItemClick(selectedItem){
+          var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
+          var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
+          var simulationResultsDTOsCount = simulationResultsDTOs.length;
+          var simulationResultsDTO = simulationResultsDTOs[selectedItem-1];
+           this.$store.commit('simulationStore/setTrippingInResults', simulationResultsDTO.trippingInResults);
+      }
+  },
+  created(){
+    var selectedItem = 0;
+    var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
+    var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
+    var simulationResultsDTOsCount = simulationResultsDTOs.length;
+    var simulationResultsDTO = simulationResultsDTOs[selectedItem];
+    this.$store.commit('simulationStore/setTrippingInResults', simulationResultsDTO.trippingInResults);
   }
 }
 </script>

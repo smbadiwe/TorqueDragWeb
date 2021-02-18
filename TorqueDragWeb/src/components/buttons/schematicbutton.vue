@@ -1,6 +1,7 @@
 <template>
-     <div id="Component_31__51" class="Component_31___51">
-            <svg class="Path_67_fd" viewBox="0 0 125 34">
+	<div class="row">
+     	<div class="col-12">
+            <svg class="Path_67_fd">
                 <linearGradient id="Path_67_fd" spreadMethod="pad" x1="0.488" x2="0.488" y1="0.5" y2="-0.441">
                     <stop offset="0" stop-color="#323232" stop-opacity="1"></stop>
                     <stop offset="0.6109" stop-color="#444" stop-opacity="1"></stop>
@@ -14,6 +15,7 @@
                 <span>Well Explorer</span>
             </div>
         </div>
+	</div>
 </template>
 
 <script>
@@ -47,21 +49,21 @@ export default {
 	shape-rendering: auto;
 }
 .Path_67_fd {
+	position: relative;
 	overflow: visible;
-	position: absolute;
 	width: 125px;
 	height: 34px;
 	transform: translate(0px, 0px) matrix(1,0,0,1,-45.5,45.5) rotate(-90deg);
 	transform-origin: center;
 	left: 0px;
-	top: 0px;
+	top: 115px;
 }
 #Schematic {
 	transform: translate(0px, 0px) matrix(1,0,0,1,-16,53) rotate(90deg);
 	transform-origin: center;
 	left: 0px;
-	top: 0px;
-	position: absolute;
+	top: 60px;
+	position: relative;
 	overflow: visible;
 	width: 67px;
 	white-space: nowrap;

@@ -5,9 +5,9 @@
             </rect>
         </svg>
 
-        <div id="Group_37_dw_schematic">
+        <!-- <div id="Group_37_dw_schematic">
             <wellList></wellList>
-        </div>
+        </div> -->
 
 
     </div>
@@ -25,7 +25,7 @@ export default {
 <style scoped>
  #Rectangle_79_du_schematic {
 	fill: rgba(20,20,20,1);
-	stroke: rgba(50,50,50,1);
+	stroke: rgba(116, 15, 15, 0.842); /* rgba(50,50,50,1); */
 	stroke-width: 1.5px;
 	stroke-linejoin: miter;
 	stroke-linecap: butt;
@@ -33,12 +33,14 @@ export default {
 	shape-rendering: auto;
 }
 .Rectangle_79_du_schematic {
-	position: absolute;
-	overflow: visible;
+	/* position: absolute;
+	overflow: visible; */
 	width: 293.333px;
 	height: 394px;
-	left: 1623px;
-	top: 178px;
+	/* left: 0px;
+	top: 0px; */
+/* 	left: 1623px;
+	top: 178px; */
 }
 
 
@@ -47,8 +49,8 @@ export default {
 	position: absolute;
 	width: 245px;
 	height: 394px;
-	left: 1623px;
-	top: 178px;
+	/* left: 1623px;
+	top: 178px; */
 	overflow: visible;
 }
 

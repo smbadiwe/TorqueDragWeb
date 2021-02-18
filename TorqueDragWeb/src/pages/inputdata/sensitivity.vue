@@ -1,6 +1,6 @@
 <template>
-    <div class="row bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
-        <div class="col-10">
+    <div class="row bg-secondary dialogBorder" style="max-height: 700px;">
+        <div class="col-12">
             <div class="row">
                 <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
                     <div>Friction Factors</div>
@@ -20,9 +20,7 @@
             <!-- <sensitivityDialog2></sensitivityDialog2> -->
           </div>
 
-          <div class="col-2 bg-primary">
-
-          </div>
+          
 
           <q-dialog v-model="SensitivityDialog" class="bg-primary">
             <div class="q-pa-sm bg-primary">
@@ -54,6 +52,10 @@ export default {
         showSensitivityDialog(){
             this.$store.commit('simulationStore/showSensitivityDialog', true);
         }
+    },
+    created(){
+        var tabCaption = "Sensitivity";
+      this.$store.commit('settingsStore/GetTabCaptionRight', tabCaption);
     }
     
 }

@@ -126,9 +126,6 @@ export default {
       importDialogCaption(){
         return this.$store.getters['dataImportStore/importDialogCaption'];
       },
-      previewSurveyData(){
-        return this.$store.getters['dataImportStore/previewSurveyData'];
-      },
       isImportDialogVisible(){
         return this.$store.getters['wellPathStore/isImportDialogVisible'];
       },
@@ -137,15 +134,6 @@ export default {
       },
       SelectedTorqueDragDesign(){
         return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-      },
-      previewHoleData(){
-          return this.$store.getters['dataImportStore/previewHoleData'];
-      },
-      previewTubingStringData(){
-          return this.$store.getters['dataImportStore/previewTubingStringData'];
-      },
-      previewMudPVTData(){
-        return this.$store.getters['dataImportStore/previewMudPVTData'];
       }
     },
     components: {
@@ -284,46 +272,7 @@ export default {
           }
 
   
-          this.$store.commit('dataImportStore/SetLoaderParameters', {
-            showLoader: true,
-            showImportView: false
-          });
 
-          switch(typeOfInput){
-            case "Well Path":
-              this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
-                deviationSurveys: context.previewSurveyData,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
-              });
-              break;
-            case "Hole":
-              this.$store.dispatch('holeStore/PostHoleSections', {
-                holeSections: context.previewHoleData,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn,
-                holeSection: {}
-              });
-              break;
-            case "Tubing String":
-              this.$store.dispatch('tubingStringStore/PostPipes', {
-                pipes: context.previewTubingStringData,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
-              });
-              break;
-            case "Fluid":
-              this.$store.dispatch('fluidsStore/PostMudPVTs', {
-                mudPVTs: context.previewMudPVTData,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
-              });
-              break;
-          }
           
         }
     },

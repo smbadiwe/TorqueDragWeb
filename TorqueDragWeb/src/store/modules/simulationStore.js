@@ -75,10 +75,14 @@ const state = {
     isThreeVisible: false,
     isFourVisible: false,
     isFiveVisible: false,
-    sensitivityResultsDTO: {}
+    sensitivityResultsDTO: {},
+    sensitivityIndices: [1]
   }
 
   const getters = {
+    sensitivityIndices(state){
+      return state.sensitivityIndices;
+    },
     sensitivityResultsDTO(state){
       return state.sensitivityResultsDTO;
     },
@@ -151,9 +155,36 @@ const state = {
 }
 
 const mutations = {
+  setTrippingInResults(state, payload){
+    state.trippingInResults = payload;
+    console.log("trippingInResults", state.trippingInResults )
+  },
+  setTrippingOutResults(state, payload){
+    state.trippingOutResults = payload;
+    console.log("trippingOutResults", state.trippingOutResults )
+  },
+  setDrillingResults(state, payload){
+    state.drillingResults = payload;
+    console.log("drillingResults", state.drillingResults )
+  },
+  setSlideDrillingResults(state, payload){
+    state.slideDrillingResults = payload;
+    console.log("slideDrillingResults", state.slideDrillingResults )
+  },
+  setBackReamingResults(state, payload){
+    state.backReamingResults = payload;
+    console.log("backReamingResults", state.backReamingResults )
+  },
     showSensitivityDialog(state, payload){
       state.SensitivityDialog = payload;
       state.incremetVisibility = payload;
+    },
+    initializeSensitivityIndices(state){
+      state.sensitivityIndices = [];
+      var i = 0;
+      for(i = 1; i <= state.noOfSensitivities; i++){
+        state.sensitivityIndices.push(i);
+      }
     },
     addSensitivity(state) {
 
@@ -183,6 +214,12 @@ const mutations = {
           state.isFiveVisible = true;
           break
       }
+
+      state.sensitivityIndices = [];
+      var i = 0;
+      for(i = 1; i <= state.noOfSensitivities; i++){
+        state.sensitivityIndices.push(i);
+      }
     }
         
     },
@@ -211,6 +248,11 @@ const mutations = {
             state.isFourVisible = true;
             state.isFiveVisible = true;
             break
+        }
+        state.sensitivityIndices = [];
+        var i = 0;
+        for(i = 1; i <= state.noOfSensitivities; i++){
+          state.sensitivityIndices.push(i);
         }
       }  
 

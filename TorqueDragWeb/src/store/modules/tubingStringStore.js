@@ -30,6 +30,10 @@ const mutations = {
   },
   SetisImportDialogVisible(state, payload){
     state.isImportDialogVisible = payload;
+  },
+  SaveTubingStringTable(state, payload){
+    state.pipes.push(payload);
+    console.log("pipes: ", state.pipes)
   }
 
 }

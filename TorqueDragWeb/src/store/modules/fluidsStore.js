@@ -47,6 +47,10 @@ const mutations = {
   },
   PostMudPVTs(state, payload){
     state.isImportDialogVisible = false;
+  },
+  SavePVTRecord(state, payload){
+    state.mudPVTs.push(payload);
+    console.log("mudPVTs: ", state.mudPVTs)
   }
 }
 

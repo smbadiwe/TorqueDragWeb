@@ -61,10 +61,14 @@ const state = {
         bucklingLimitFactor: 1.0
     },
     isFromDB: false,
-    tabCaption: 'Datum Details'
+    tabCaption: 'Datum Details',
+    tabCaptionRight: 'Well Explorer'
   }
 
   const getters = {
+    tabCaptionRight(state){
+      return state.tabCaptionRight;
+    },
     menuTabs(state){
       return state.menuTabs;
     },
@@ -101,6 +105,9 @@ const mutations = {
     },
     GetTabCaption(state, payload){
       state.tabCaption = payload;
+    },
+    GetTabCaptionRight(state, payload){
+      state.tabCaptionRight = payload;
     }
 
 }

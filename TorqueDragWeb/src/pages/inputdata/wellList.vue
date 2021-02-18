@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-secondary dialogBorder" style="width: 500px; max-height: 700px;">
+  <div class="bg-secondary dialogBorder" style="max-height: 700px;">
     
           <div class="row">
               <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
@@ -151,6 +151,8 @@ export default {
     }
   },
   created() {
+      var tabCaption = "Schematics";
+      this.$store.commit('settingsStore/GetTabCaptionRight', tabCaption);
       /* var context = this;
       var companyName = this.$store.getters['authStore/companyName'];
       var torqueDragDesigns = this.$store.getters['wellDesignStore/torqueDragDesigns'];

@@ -379,6 +379,9 @@ export default {
                 sensitivityParameters: context.sensitivityParameters
             });
         }
+    },
+    created(){
+        this.$store.commit('simulationStore/initializeSensitivityIndices');
     }
     
 }

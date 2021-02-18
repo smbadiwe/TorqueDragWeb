@@ -30,6 +30,10 @@ const mutations = {
   },
   GetHoleSections(state, payload){
     state.holeSections = payload;
+  },
+  SaveHoleSectionTable(state, payload){
+    state.holeSections.push(payload);
+    console.log("holeSections: ", state.holeSections)
   }
 
 }

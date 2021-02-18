@@ -33,14 +33,14 @@
             </svg> -->
 
 
-              <div id="Group_37_dw_datumview" class="col-10">
+              <div id="Group_37_dw_datumview" class="col">
                 <inputdataright
                 v-bind:issettingsheader="issettingsheader"
                     v-bind:issensitivityheader="issensitivityheader"
                     v-bind:isschematicsheader="isschematicsheader"></inputdataright>
               </div>
 
-              <div class="col-2">
+              <div style="width:34px;">
                 <buttonBarRight  v-on:updatepropRight="updatepropRight($event)"></buttonBarRight>
               </div>
             </div>
@@ -86,7 +86,7 @@ computed:{
          return this.$store.getters['datumStore/selectedInputTab'];
     },
     tabCaption() {
-         return this.$store.getters['settingsStore/tabCaption'];
+         return this.$store.getters['settingsStore/tabCaptionRight'];
     },
     winwidth() {
             var wd = (this.$q.screen.width/ 12.0)* 3.0;

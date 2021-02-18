@@ -94,6 +94,21 @@ const mutations = {
   },
   GetDeviationSurveys(state, payload){
     state.deviationSurveys = payload;
+  },
+  SaveSurveyTable(state, payload){
+    state.deviationSurveys.push(payload);
+    console.log("deviationSurveys: ", state.deviationSurveys)
+  },
+  updateSurveyTable(state, payload){
+    var i = 0;
+    var lent = state.deviationSurveys.length;
+    for(i = 0; i < lent; i++){
+      if(state.deviationSurveys[i].measuredDepth == payload.measuredDepth){
+          state.deviationSurveys[i] = payload.surveyRecord;
+          break;
+      }
+    }
+    console.log("deviationSurveys: ", state.deviationSurveys)
   }
 }
 
