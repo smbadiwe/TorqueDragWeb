@@ -1,119 +1,145 @@
 <template>
-    <div>
+    <div class="row">
+      <q-bar class="col-12 q-pa-none row bg-primary text-accent" >
+            
+          <q-icon name="laptop_chromebook"/>
+          
+            <q-tabs 
+            v-model="tab"
+            no-caps
+            mobile-arrows
+            outside-arrows
+            class="text-accent col-12"
+          >
 
-        <ul class="nav">
-            <li @click="showLogin">Login</li>
-            <li @click="showSignup">Sign up</li>
-            <li @click="showForgotPassword">Forgot password</li>
-            <li @click="showSubscribe">Subscribe</li>
-            <li @click="showContactUs">Contact us</li>
-            </ul>
-            <div class="wrapper">
-            <div class="rec-prism">
-                <div class="face face-top">
-                <div class="content">
-                    <h2>Subscribe</h2>
-                    <small>Enter your email so we can send you the latest updates!</small>
-                    <form onsubmit="event.preventDefault()">
-                    <div class="field-wrapper">
-                        <input type="text" name="email" placeholder="email">
-                        <label>e-mail</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="submit" @click="showThankYou">
-                    </div>
-                    </form>
-                </div>
-                </div>
-                <div class="face face-front">
-                <div class="content">
-                    <h2>Sign in</h2>
-                    <form onsubmit="event.preventDefault()">
-                    <div class="field-wrapper">
-                        <input type="text" name="username" placeholder="username" v-model="username">
-                        <label>username</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="password" name="password" placeholder="password" autocomplete="new-password"
-                        v-model="password">
-                        <label>password</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="submit" @click="login">
-                    </div>
-                    <span class="psw" @click="showForgotPassword">Forgot Password?   </span>
-                    <span class="signup" @click="showSignup">Not a user?  Sign up</span>
-                    </form>
-                </div>
-                </div>
-                <div class="face face-back">
-                <div class="content">
-                    <h2>Forgot your password?</h2>
-                    <small>Enter your email so we can send you a reset link for your password</small>
-                    <form onsubmit="event.preventDefault()">
-                    <div class="field-wrapper">
-                        <input type="text" name="email" placeholder="email">
-                        <label>e-mail</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="submit" @click="showThankYou">
-                    </div>
-                    </form>
-                </div>
-                </div>
-                <div class="face face-right">
-                <div class="content">
-                    <h2>Sign up</h2>
-                    <form onsubmit="event.preventDefault()">
-                    <div class="field-wrapper">
-                        <input type="text" name="email" placeholder="email">
-                        <label>e-mail</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="password" name="password" placeholder="password" autocomplete="new-password">
-                        <label>password</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="password" name="password2" placeholder="password" autocomplete="new-password">
-                        <label>re-enter password</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="submit" @click="showThankYou">
-                    </div>
-                    <span class="singin" @click="showLogin">Already a user?  Sign in</span>
-                    </form>
-                </div>
-                </div>
-                <div class="face face-left">
-                <div class="content">
-                    <h2>Contact us</h2>
-                    <form onsubmit="event.preventDefault()">
-                    <div class="field-wrapper">
-                        <input type="text" name="name" placeholder="name">
-                        <label>Name</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="text" name="email" placeholder="email">
-                        <label>e-mail</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <textarea placeholder="your message"></textarea>
-                        <label>your message</label>
-                    </div>
-                    <div class="field-wrapper">
-                        <input type="submit" @click="showThankYou">
-                    </div>
-                    </form>
-                </div>
-                </div>
-                <div class="face face-bottom">
-                <div class="content">
-                    <div class="thank-you-msg">
-                    Thank you!
-                    </div>
-                </div>
-                </div>
-            </div>
+            <q-tab name="login" label="Login"
+             @click="showLogin"/>
+            <q-tab name="showSignup" label="Sign Up" 
+            @click="showSignup"/>
+            <q-tab name="forgotPassword" label="Forgot password"
+            @click="showForgotPassword" />
+             <q-tab name="subscribe" label="Subscribe" 
+             @click="showSubscribe"/>
+            <q-tab name="contactUs" label="Contact us" />
+            <q-tab name="wellcontrol" label="Well Control"
+            @click="showContactUs" />
+          </q-tabs>
+          
+    </q-bar>
+
+            <!-- <ul class="nav">
+              <li @click="showLogin">Login</li>
+              <li @click="showSignup">Sign up</li>
+              <li @click="showForgotPassword">Forgot password</li>
+              <li @click="showSubscribe">Subscribe</li>
+              <li @click="showContactUs">Contact us</li>
+            </ul> -->
+            <div class="wrapper col-12">
+              <div class="rec-prism">
+                  <div class="face face-top row">
+                  <div class="content col-12">
+                      <h2>Subscribe</h2>
+                      <small>Enter your email so we can send you the latest updates!</small>
+                      <form onsubmit="event.preventDefault()">
+                      <div class="field-wrapper">
+                          <input type="text" name="email" placeholder="email">
+                          <label>e-mail</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="submit" @click="showThankYou">
+                      </div>
+                      </form>
+                  </div>
+                  </div>
+                  <div class="face face-front">
+                  <div class="content">
+                      <h2>Sign in</h2>
+                      <form onsubmit="event.preventDefault()">
+                      <div class="field-wrapper">
+                          <input type="text" name="username" placeholder="username" v-model="username">
+                          <label>username</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="password" name="password" placeholder="password" autocomplete="new-password"
+                          v-model="password">
+                          <label>password</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="submit" @click="login">
+                      </div>
+                      <span class="psw" @click="showForgotPassword">Forgot Password?   </span>
+                      <span class="signup" @click="showSignup">Not a user?  Sign up</span>
+                      </form>
+                  </div>
+                  </div>
+                  <div class="face face-back">
+                  <div class="content">
+                      <h2>Forgot your password?</h2>
+                      <small>Enter your email so we can send you a reset link for your password</small>
+                      <form onsubmit="event.preventDefault()">
+                      <div class="field-wrapper">
+                          <input type="text" name="email" placeholder="email">
+                          <label>e-mail</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="submit" @click="showThankYou">
+                      </div>
+                      </form>
+                  </div>
+                  </div>
+                  <div class="face face-right">
+                  <div class="content">
+                      <h2>Sign up</h2>
+                      <form onsubmit="event.preventDefault()">
+                      <div class="field-wrapper">
+                          <input type="text" name="email" placeholder="email">
+                          <label>e-mail</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="password" name="password" placeholder="password" autocomplete="new-password">
+                          <label>password</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="password" name="password2" placeholder="password" autocomplete="new-password">
+                          <label>re-enter password</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="submit" @click="showThankYou">
+                      </div>
+                      <span class="singin" @click="showLogin">Already a user?  Sign in</span>
+                      </form>
+                  </div>
+                  </div>
+                  <div class="face face-left">
+                  <div class="content">
+                      <h2>Contact us</h2>
+                      <form onsubmit="event.preventDefault()">
+                      <div class="field-wrapper">
+                          <input type="text" name="name" placeholder="name">
+                          <label>Name</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="text" name="email" placeholder="email">
+                          <label>e-mail</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <textarea placeholder="your message"></textarea>
+                          <label>your message</label>
+                      </div>
+                      <div class="field-wrapper">
+                          <input type="submit" @click="showThankYou">
+                      </div>
+                      </form>
+                  </div>
+                  </div>
+                  <div class="face face-bottom">
+                  <div class="content">
+                      <div class="thank-you-msg">
+                      Thank you!
+                      </div>
+                  </div>
+                  </div>
+              </div>
             </div>
 
     </div>
@@ -138,7 +164,8 @@ export default {
     return {
         username: "",
         password: "",
-        prism: {}
+        prism: {},
+        tab: 'login'
       
      }
     },
