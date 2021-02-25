@@ -1,9 +1,19 @@
 <template>
     <div  id="mydiv" ref="mydiv">
-        <!-- id="mydiv" ref="mydiv" 
-        <canvas id="c"></canvas> -->
+        <div class="row">
+            <q-bar class="col-12 q-pa-sm row bg-secondary" >
+                <q-space />
+                <q-checkbox left-label v-model="isByMD" label="Plot by MD" 
+                @input="onCheckBoxChecked($event)" />
+            </q-bar>
+        </div>
 
-        <canvas id="mycanvas" ref="mycanvas" class="bg-accent"></canvas>
+        <div class="row">
+            <div class="col-12">
+                <canvas id="mycanvas" ref="mycanvas" class="bg-accent"></canvas>
+            </div>
+        </div>
+        
     </div>
 </template>
 
@@ -24,7 +34,8 @@ export default {
             pipeSectionColors: ['#D3D3D3', '#D3D3D3', 'gray', 'red', 'black',
                                 'gold', 'blue'],
             schematicHeight: 1000,
-            schematicWidth: 1000               
+            schematicWidth: 1000,
+            isByMD: false               
                                             
         }
     },
@@ -88,6 +99,16 @@ export default {
 
             renderer.render(scene, camera);
 
+        },
+        onCheckBoxChecked(evt){
+            var context =  this;
+        
+            if(evt == true){
+                context.drawWellSchematicMDNotToScale();
+            }else{
+                context.drawWellSchematicTVDNotToScale();
+
+            }
         },
         render(){
 
@@ -342,7 +363,7 @@ export default {
 
                 if(isMeasuedDepth == true){
                    pt.x = context.interpolation(deviationSurveys, pt.y, 'verticalSection');
-                   console.log('vertical section: ', pt.x);
+                   //console.log('vertical section: ', pt.x);
                 }
 
                 points.push(pt);
@@ -459,6 +480,14 @@ export default {
                     isBottomCoverNegative, isTopCoverPositive, isTopCoverNegative,
                     showLabel, description, depthDescription)
         {
+            /* console.log("pt1.x: ", pt1.x)
+            console.log("pt1.y: ", pt1.y)
+            console.log("pt2.x: ", pt2.x)
+            console.log("pt2.y: ", pt2.y)
+            console.log("pt3.x: ", pt3.x)
+            console.log("pt3.y: ", pt3.y)
+            console.log("pt4.x: ", pt4.x)
+            console.log("pt4.y: ", pt4.y) */
 
             ctx.beginPath();
             ctx.moveTo(pt1.x, pt1.y);
@@ -1450,15 +1479,29 @@ export default {
             var originY = 20;
             var canvas = document.getElementById("mycanvas");
             var ctx = canvas.getContext("2d");
-            canvas.width = screen.width;// context.screenWidth;
+            canvas.width = 800;// screen.width;// context.screenWidth;
+            context.schematicWidth = canvas.width - 100;
+            var holeSections = this.$store.getters['holeStore/holeSections'];
+            var pipes = this.$store.getters['tubingStringStore/pipes'];
+            var deviationSurveys = this.$store.getters['wellPathStore/deviationSurveys'];
+
+            var lengthOfdeviationSurveys = deviationSurveys.length;
+            var mDmin = deviationSurveys[0].measuredDepth;
+            var mDmax = deviationSurveys[lengthOfdeviationSurveys-1].measuredDepth;
+            var displacementMin = deviationSurveys[0].verticalSection;
+            var displacementMax = deviationSurveys[lengthOfdeviationSurveys-1].verticalSection;
+            var canvasMD = context.schematicWidth * mDmax / displacementMax;
+            context.schematicHeight = canvasMD;
             canvas.height = context.schematicHeight + 50;
-            context.schematicWidth = screen.width - 100;
-            var offsetX = (canvas.width/2.0) - 100.0;
+
+
+            var offsetX = 50;
             ctx.translate(originX,originY); 
             ctx.lineWidth = 2;
             ctx.lineCap = "round";
             ctx.lineJoin = "round";
             var fillStyle = 'lightblue';
+
             
 
             var formationOriginX = 0;
@@ -1471,15 +1514,7 @@ export default {
             fillStyle = ' #a26c37'
             context.drawFormation(ctx, formationOriginX, formationOriginY, formationWidth, formationHeight, fillStyle);
 
-            var holeSections = this.$store.getters['holeStore/holeSections'];
-            var pipes = this.$store.getters['tubingStringStore/pipes'];
-            var deviationSurveys = this.$store.getters['wellPathStore/deviationSurveys'];
-
-            var lengthOfdeviationSurveys = deviationSurveys.length;
-            var mDmin = deviationSurveys[0].measuredDepth;
-            var mDmax = deviationSurveys[lengthOfdeviationSurveys-1].measuredDepth;
-            var displacementMin = deviationSurveys[0].verticalSection;
-            var displacementMax = deviationSurveys[lengthOfdeviationSurveys-1].verticalSection;
+            
 
             //canvas.height
             var i = 0, j = 0;
@@ -1490,47 +1525,67 @@ export default {
             var mDBottom_c = 0;
             var topDisplacement_c = 0;
             var bottomDisplacement_c = 0;
+            var mdTop = 0;
+            var mdBottom = 0;
+            var topDisplacement = 0;
+            var bottomDisplacement  = 0;
 
             for(i = 0; i < lengthOfholeSections; i++){
-                var mdTop = holeSections[i].topOfHole;
-                var mdBottom = holeSections[i].bottomOfHole;
-                var topDisplacement = holeSections[i].topDisplacement;
-                var bottomDisplacement = holeSections[i].bottomDisplacement;
+                mdTop = holeSections[i].topOfHole;
+                mdBottom = holeSections[i].bottomOfHole;
+                topDisplacement = context.interpolation(deviationSurveys, holeSections[i].topOfHole, 'verticalSection');
+                bottomDisplacement = context.interpolation(deviationSurveys, holeSections[i].bottomOfHole, 'verticalSection'); 
               
                 mDTop_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdTop);
                 mDBottom_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdBottom);
-                topDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, mDmax, topDisplacement);
-                bottomDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, bottomDisplacement_c);
+                topDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, topDisplacement);
+                bottomDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, bottomDisplacement);
 
                 var holePoints = context.createRoughLine(mdTop, mdBottom, 0, true, deviationSurveys);
                 var leftPoints = [];
                 var rightPoints = [];
+                 var leftPointsCasing = [];
+                var rightPointsCasing = [];
                 var holePointsCount = holePoints.length;
                 for(j = 0; j < holePointsCount; j++){
                     
 
                     var mD_h = context.interpolate(0, context.schematicHeight, mDmin, mDmax, holePoints[j].y);
-                    var horizontaDisplacement_h = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, holePoints[j].y);
+                    var horizontaDisplacement_h = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, holePoints[j].x);
                     //console.log("tvd_h: ", tvd_h);
                     
 
                     var pointLeft =  {
-                            x: originX + offsetX - 5,
+                            x: originX + offsetX + horizontaDisplacement_h - 5,
                             y: mD_h
                         }
                     pointLeft.x = pointLeft.x  - Math.floor(Math.random() * 10);
                     leftPoints.push(pointLeft);
 
                      var pointRight =  {
-                            x:  originX + offsetX + 55,
+                            x:  originX + offsetX + horizontaDisplacement_h + 55,
                             y: mD_h
                         }
 
                     pointRight.x = pointRight.x  + Math.floor(Math.random() * 10);
                     rightPoints.push(pointRight);
+
+
+                    
+                    var pointLeftCasing =  {
+                            x: originX + offsetX + horizontaDisplacement_h,
+                            y: mD_h
+                        }
+                    leftPointsCasing.push(pointLeftCasing);
+
+                     var pointRightCasing =  {
+                            x:  originX + offsetX + horizontaDisplacement_h + 50,
+                            y: mD_h
+                        }
+                    rightPointsCasing.push(pointRightCasing);
                 }
 
-                var pipe = {
+                /* var pipe = {
                     points: {
                         pt1: {
                             x: originX + offsetX + topDisplacement_c,
@@ -1549,59 +1604,89 @@ export default {
                             y: mDBottom_c
                         }
                     }
-
-                }
+                } */
 
                 var holeSection = {
                     leftPoints,
                     rightPoints
                 }
 
-                casing.push(pipe);
+                var casingSection = {
+                    leftPointsCasing,
+                    rightPointsCasing
+                }
+                casing.push(casingSection);
                 hole.push(holeSection);
 
             }
 
             var lengthOfPipes = pipes.length;
             var drillPipes = [];
-            var pipeLength = context.schematicHeight / lengthOfPipes;
+            var pipeLength = pipes[lengthOfPipes-1].measuredDepth / lengthOfPipes;
             mDTop_c = 0;
             mDBottom_c = 0;
+            mdTop = 0;
+            mdBottom = 0;
+            console.log("context.schematicWidth: ", context.schematicWidth)
+            console.log("displacementMin: ", displacementMin)
+            console.log("displacementMax: ", displacementMax)
             for(i = 0; i < lengthOfPipes; i++){
-                tvdBottom_c = tvdTop_c + pipeLength
+                
+
+                mdBottom = mdTop + pipeLength
+                topDisplacement = context.interpolation(deviationSurveys, mdTop, 'verticalSection');
+                bottomDisplacement = context.interpolation(deviationSurveys, mdBottom, 'verticalSection'); 
+
+                console.log("mdTop: ", mdTop)
+                console.log("mdBottom: ", mdBottom)
+
+                mDTop_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdTop);
+                mDBottom_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdBottom);
+                topDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, topDisplacement);
+                bottomDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, bottomDisplacement);
+
+                
                 var x1  = 0;
                 var x2 = 0;
+                var x3 = 0;
+                var x4 = 0;
                 'Pup Joint', 'Tubing'
                 if(pipes[i].typeOfSection == 'Pup Joint' ||
                     pipes[i].typeOfSection == 'Tubing'){
-                        x1 = originX + offsetX + 15;
-                        x2 = originX + offsetX + 35
+                        x1 = originX + offsetX + topDisplacement_c + 15;
+                        x2 = originX + offsetX + topDisplacement_c + 35;
+                        x3 = originX + offsetX + bottomDisplacement_c + 35
+                        x4 = originX + offsetX + bottomDisplacement_c + 15
                 }else{
-                    x1 = originX + offsetX + 10;
-                    x2 =  originX + offsetX + 40;
+                    x1 = originX + offsetX + topDisplacement_c + 10;
+                    x2 = originX + offsetX + topDisplacement_c + 40;
+                    x3 =  originX + offsetX + bottomDisplacement_c + 40;
+                    x4 =  originX + offsetX + bottomDisplacement_c + 10;
                 }
+
+
                 var pipe = {
                     typeOfSection: pipes[i].typeOfSection,
-                    showLabel:  true,
+                    showLabel:  false,
                     description: '',
                     depthDescription: '',
                     fillStyle: '',
                     points: {
                         pt1: {
                             x: x1,
-                            y: tvdTop_c
+                            y: mDTop_c
                         },
                         pt2: {
                             x: x2,
-                            y: tvdTop_c
+                            y: mDTop_c
                         },
                         pt3: {
-                            x: x2,
-                            y: tvdBottom_c
+                            x: x3,
+                            y: mDBottom_c
                         },
                         pt4: {
-                            x: x1,
-                            y: tvdBottom_c
+                            x: x4,
+                            y: mDBottom_c
                         }
                     }
 
@@ -1619,7 +1704,7 @@ export default {
 
                 drillPipes.push(pipe);
 
-                tvdTop_c = tvdBottom_c;
+                mdTop = mdBottom;
 
             }
 
@@ -1629,7 +1714,8 @@ export default {
             for(i = 0; i < lengthOfCasing; i++){
                 
                 context.drawOpenHole(ctx, hole[i].leftPoints, hole[i].rightPoints, 'gray')
-                if(i == 0){
+                context.drawOpenHole(ctx, casing[i].leftPointsCasing, casing[i].rightPointsCasing, '#b2beb5')
+                /* if(i == 0){
                     context.drawCasing(ctx,
                     casing[i].points.pt1, casing[i].points.pt2, casing[i].points.pt3, casing[i].points.pt4, fillStyle, false, false,
                     true, true);
@@ -1641,14 +1727,14 @@ export default {
                     context.drawCasing(ctx,
                     casing[i].points.pt1, casing[i].points.pt2, casing[i].points.pt3, casing[i].points.pt4, fillStyle, true, true,
                     true, true);
-                }
+                } */
             
             }
 
              // Draw Drill Pipes
             fillStyle = '#D3D3D3';
             var pipesCount = drillPipes.length;
-            /* for(i = 0; i < pipesCount; i++){
+            for(i = 0; i < pipesCount; i++){
                 if(i == 0){
                     context.drawPipe(ctx,
                     drillPipes[i].points.pt1, drillPipes[i].points.pt2,
@@ -1667,7 +1753,7 @@ export default {
                 }
 
 
-            } */
+            }
 
 
 
