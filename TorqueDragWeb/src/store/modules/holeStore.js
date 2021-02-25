@@ -41,6 +41,10 @@ const mutations = {
 const actions = {
   GetHoleSections(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
     state.holeSections = [];
     let config = {
       headers: {
@@ -56,12 +60,20 @@ const actions = {
        $http.get('HoleSections/GetHoleSections/' + ids, config)
         .then(response => {
             
-          context.commit('GetHoleSections', response.data)              
+          context.commit('GetHoleSections', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});            
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetHoleSections error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

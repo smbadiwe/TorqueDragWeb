@@ -98,6 +98,11 @@ const actions = {
   },
   GetDatums(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -112,12 +117,20 @@ const actions = {
        $http.get('Datums/GetDatums/' + ids, config)
         .then(response => {
             
-          context.commit('GetDatums', response.data)              
+          context.commit('GetDatums', response.data)
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});              
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetTorqueDragDesigns error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

@@ -233,7 +233,7 @@ export default {
   created(){
       var tabCaption = "Settings";
       this.$store.commit('settingsStore/GetTabCaptionRight', tabCaption);
-       var Conn = this.$store.getters['authStore/companyName'];
+      /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       console.log('userId', IdentityModel.id);
@@ -242,7 +242,7 @@ export default {
           designId: selectedTorqueDragDesign.id,
           userId: IdentityModel.id
       }
-      this.$store.dispatch('settingsStore/GetCommon', payload);
+      this.$store.dispatch('settingsStore/GetCommon', payload); */
       
   }
 }

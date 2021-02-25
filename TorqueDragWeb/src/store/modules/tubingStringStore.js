@@ -112,6 +112,10 @@ const actions = {
   },
   GetPipes(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -128,12 +132,20 @@ const actions = {
        $http.get('Pipes/GetPipes/' + ids, config)
         .then(response => {
             
-          context.commit('GetPipes', response.data)              
+          context.commit('GetPipes', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});            
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetPipes error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

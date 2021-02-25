@@ -170,6 +170,10 @@ const actions = {
   },
   GetDeviationSurveys(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -189,12 +193,20 @@ const actions = {
           //devCalcParams.calculateDevParams(response.data)
           //console.log("DevCalcParams.DevParams: ", devCalcParams.deviationSurveys)
             
-          context.commit('GetDeviationSurveys', response.data)              
+          context.commit('GetDeviationSurveys', response.data)   
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});           
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetDeviationSurveys error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

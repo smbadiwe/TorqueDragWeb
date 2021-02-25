@@ -319,7 +319,7 @@ const actions = {
     },
     GetSelectedTorqueDragDesign(context, payload){
       //console.log("GetselectedSheetHeader")
-      context.state.SelectedTorqueDragDesign = payload;
+      context.state.SelectedTorqueDragDesign = payload.SelectedTorqueDragDesign;
         var i = 0;
         var nCount = context.state.torqueDragMostRecentDesigns.length;
         for(i = 0; i < nCount; i++){
@@ -329,6 +329,20 @@ const actions = {
               context.state.torqueDragMostRecentDesigns[i].isSelected = false;
             }
         }
+
+        var payload2 = {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId
+      }
+        context.dispatch('datumStore/GetDatums', payload2, {root:true});
+        context.dispatch('fluidsStore/GetFluid', payload2, {root:true});
+        context.dispatch('holeStore/GetHoleSections', payload2, {root:true});
+        context.dispatch('operationsStore/GetOperation', payload2, {root:true});
+        context.dispatch('settingsStore/GetCommon', payload2, {root:true});
+        context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
+        context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
+
 
         context.commit('authStore/setStatusMessageBarVisibility',  
             {

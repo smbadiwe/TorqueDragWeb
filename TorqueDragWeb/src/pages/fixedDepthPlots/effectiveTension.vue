@@ -234,17 +234,17 @@ export default {
 				for(i = 0; i < length; i++){
 					var md = trippingInResults[i].bottomMeasuredDepth;
 
-					helicalBuckling.x.push(-1 * trippingInResults[i].criticalHelicalBuckling/M);
+					helicalBuckling.x.push(1 * trippingInResults[i].criticalHelicalBuckling/M);
 					helicalBuckling.y.push(md);
 
-					sinusoidalBuckling.x.push(-1 * trippingInResults[i].criticalSinusoidalBuckling/M);
+					sinusoidalBuckling.x.push(1 * trippingInResults[i].criticalSinusoidalBuckling/M);
 					sinusoidalBuckling.y.push(md);
 				}
 	
 			}
 
-			helicalBuckling.line.color = 'rgb(227, 67, 94)'
-			sinusoidalBuckling.line.color = 'rgb(29, 36, 198)'
+			helicalBuckling.line.color = 'orange'
+			sinusoidalBuckling.line.color = 'yellow'
 
 			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
 			data.push(helicalBuckling)

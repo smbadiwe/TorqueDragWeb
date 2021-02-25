@@ -243,8 +243,8 @@ export default {
 	
 			}
 
-			helicalBuckling.line.color = 'rgb(227, 67, 94)'
-			sinusoidalBuckling.line.color = 'rgb(29, 36, 198)'
+			helicalBuckling.line.color = 'orange'
+			sinusoidalBuckling.line.color = 'yellow'
 
 			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
 			data.push(helicalBuckling)

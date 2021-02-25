@@ -198,7 +198,7 @@
                     :size="size"  
                     class="text-capitalize"
                     stack 
-                    >
+                    @click="formationTopsPlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/well_13.jpg">
                     </q-avatar></span>
@@ -274,6 +274,12 @@ export default {
                 route: "azimuth"
             });
         },
+         formationTopsPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Formation Tops",
+                route: "formationTops"
+            });
+        },
         DrawSchematic(){
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
@@ -282,6 +288,13 @@ export default {
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Deviated Schematic",
                 route: "schematic"
+            });
+
+            //schematic schematicView
+
+             this.$store.commit('dataImportStore/SetLoaderParameters', {
+                showLoader: true,
+                showImportView: false
             });
 
             this.$store.dispatch('simulationStore/DrawSchematic', {

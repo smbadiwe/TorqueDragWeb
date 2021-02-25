@@ -57,6 +57,11 @@ const mutations = {
 const actions = {
   GetFluid(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -72,18 +77,31 @@ const actions = {
         .then(response => {
             
           context.commit('GetFluid', response.data);
-          context.dispatch('GetMudPVTs', payload);              
+          context.dispatch('GetMudPVTs', payload); 
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});             
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetFluid error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })
   },
   GetMudPVTs(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -97,12 +115,20 @@ const actions = {
        $http.get('MudPVTs/GetMudPVTs/' + ids, config)
         .then(response => {
             
-          context.commit('GetMudPVTs', response.data);              
+          context.commit('GetMudPVTs', response.data);   
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});           
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetMudPVTs error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

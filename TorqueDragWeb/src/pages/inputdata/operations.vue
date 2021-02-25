@@ -146,7 +146,7 @@
 
                                                                 <div class="col-3 q-pa-sm">Torque at bit</div>
                                                                 <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBit"></div>
-                                                                <div class="col-3 q-pa-sm">ft-klbf</div>
+                                                                <div class="col-3 q-pa-sm">ft-lbf</div>
                                                         </div>
                                                 </q-expansion-item>
                                             </div>
@@ -292,7 +292,7 @@ export default {
         }
     },
     created(){
-     var Conn = this.$store.getters['authStore/companyName'];
+     /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel']
        var keys = Object.keys(selectedTorqueDragDesign);
@@ -302,11 +302,11 @@ export default {
         companyName: Conn,
         designId: selectedTorqueDragDesign.id,
         userId: IdentityModel.id
-        }
-        this.$store.dispatch('operationsStore/GetOperation', payload);
+        } */
+        //this.$store.dispatch('operationsStore/GetOperation', payload);
         var tabCaption = "Operational Parameters";
         this.$store.commit('settingsStore/GetTabCaption', tabCaption);
-      }
+      //}
 
 
 

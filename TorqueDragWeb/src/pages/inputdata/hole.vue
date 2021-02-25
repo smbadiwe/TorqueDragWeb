@@ -327,7 +327,7 @@ export default {
         }
     },
     created(){
-      var Conn = this.$store.getters['authStore/companyName'];
+      /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel']
       var payload = {
@@ -336,8 +336,8 @@ export default {
           userId: IdentityModel.id,
           holeSections: []
       }
-      console.log(payload)
-      this.$store.dispatch('holeStore/GetHoleSections', payload)
+      console.log(payload) */
+      //this.$store.dispatch('holeStore/GetHoleSections', payload)
       var tabCaption = "Hole Section Editor";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   }

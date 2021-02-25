@@ -115,6 +115,10 @@ const mutations = {
 const actions = {
   GetCommon(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -127,11 +131,19 @@ const actions = {
        $http.get('Commons/GetCommon/'+ ids, config)
         .then(response => {
             
-          context.commit('GetCommon', response.data)              
+          context.commit('GetCommon', response.data)      
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});        
             resolve(response)
             
         })
         .catch(error => {
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           console.log("GetCommon error")
           reject(error)
         })

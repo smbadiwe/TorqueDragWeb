@@ -1,7 +1,7 @@
 <template>
     <div class="col-12 bg-warning">
         <settingsview v-if="issettingsheader"></settingsview>
-        <schematicsview v-if="isschematicsheader"></schematicsview>
+        <!-- <schematicsview v-if="isschematicsheader"></schematicsview> -->
         <sensitivityview v-if="issensitivityheader"></sensitivityview>
     </div>
 </template>

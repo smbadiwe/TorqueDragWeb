@@ -50,6 +50,10 @@ const mutations = {
 const actions = {
   GetOperation(context, payload)
   {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -64,12 +68,20 @@ const actions = {
        $http.get('Operations/GetOperation/' + ids, config)
         .then(response => {
             
-          context.commit('GetOperation', response.data)              
+          context.commit('GetOperation', response.data)   
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});           
             resolve(response)
             
         })
         .catch(error => {
           console.log("GetOperation error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
           reject(error)
         })
     })

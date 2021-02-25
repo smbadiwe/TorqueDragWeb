@@ -33,6 +33,7 @@ import verticalSection from 'pages/dataVisualization/OutputPlots/verticalSection
 import planView from 'pages/dataVisualization/OutputPlots/planView.vue'
 import inclination from 'pages/dataVisualization/OutputPlots/inclination.vue'
 import azimuth from 'pages/dataVisualization/OutputPlots/azimuth2.vue'
+import formationTops from 'pages/dataVisualization/formationTops.vue'
 
 const routes = [
   {
@@ -186,6 +187,10 @@ const routes = [
       {
         path: '/chartAreaTorqueDrag',
         component: chartAreaTorqueDrag
+      },
+      {
+        path: '/formationTops',
+        component: formationTops
       }
     ]
   },

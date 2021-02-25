@@ -373,7 +373,7 @@ export default {
         }
   },
   created(){
-      var Conn = this.$store.getters['authStore/companyName'];
+      /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var payload = {
@@ -381,16 +381,9 @@ export default {
           designId: selectedTorqueDragDesign.id,
           userId: IdentityModel.id
       }
-      this.$store.dispatch('fluidsStore/GetFluid', payload);
+      this.$store.dispatch('fluidsStore/GetFluid', payload); */
       var tabCaption = "Fluids Editor";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
-  /*     mudName: context.mudName,
-                    description: context.description,
-                    mudBaseType: context.mudBaseType,
-                    baseFluid: context.baseFluid,
-                    rheologyModel: context.rheologyModel,
-                    rheologyModelType: context.rheologyModelType,
-                    designId: selectedTorqueDragDesign.designId */
   }
 }
 </script>

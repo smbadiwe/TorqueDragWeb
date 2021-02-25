@@ -391,6 +391,10 @@ RunSimulation(context, payload)
         console.log("response: ", response)
 
           context.commit('RunSimulation', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Torque and Drag simulation completed successfully",
@@ -401,8 +405,10 @@ RunSimulation(context, payload)
         })
         .catch(error => {
           console.log("RunSimulation error")
-          context.state.visible = false;
-          context.state.showSimulatedReturnData = true
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Torque and Drag simualtion failed",
@@ -419,8 +425,6 @@ DrawSchematic(context, payload)
         tenantcode: payload.companyName,
       }
     }
-    context.state.visible = true;
-    context.state.showSimulatedReturnData = false
     
     //console.log("response: ", payload)
     //this.$router.push('/schematic');
@@ -431,14 +435,20 @@ DrawSchematic(context, payload)
 
         //console.log("response: ", response)
 
-          context.commit('DrawSchematic', response.data)              
+          context.commit('DrawSchematic', response.data)
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});               
             resolve(response)
             
         })
         .catch(error => {
           console.log("DrawSchematic error")
-          context.state.visible = false;
-          context.state.showSimulatedReturnData = true
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
           reject(error)
         })
     })

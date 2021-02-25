@@ -23,6 +23,7 @@
     "path-to-regexp": "^6.2.0",
     "plotly.js-dist": "^1.57.1",
     "quasar": "^1.0.0",
+    "three": "^0.125.2",
     "vc-ribbon": "^2.0.4",
     "xlsx": "^0.16.8"
   },

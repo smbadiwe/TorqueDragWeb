@@ -368,7 +368,7 @@ export default {
         }
   },
   created(){
-      var Conn = this.$store.getters['authStore/companyName'];
+      /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel']
       var payload = {
@@ -378,7 +378,7 @@ export default {
           pipes: []
       }
       console.log(payload)
-      this.$store.dispatch('tubingStringStore/GetPipes', payload);
+      this.$store.dispatch('tubingStringStore/GetPipes', payload); */
       var tabCaption = "String Editor";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
   }

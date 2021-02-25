@@ -249,7 +249,7 @@ export default {
       
   },
   created() {
-      var Conn = this.$store.getters['authStore/companyName'];
+      /* var Conn = this.$store.getters['authStore/companyName'];
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel'];
       var payload = {
@@ -257,7 +257,7 @@ export default {
           designId: selectedTorqueDragDesign.id,
           userId: IdentityModel.id
       }
-      this.$store.dispatch('datumStore/GetDatums', payload)
+      this.$store.dispatch('datumStore/GetDatums', payload) */
       var tabCaption = "Datum Details";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
    }

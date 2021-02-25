@@ -1,6 +1,20 @@
 <template>
-  <div id="myDiv" class="bg-accent" >
-  </div>
+    <div class="bg-accent" style="height: 1100px;">
+      <div 
+      v-if="showView"
+      class="row">
+          <div id="myDiv" class="col-12 bg-accent" >
+          </div>
+      </div>
+
+       <div class="row">
+          <div class="col-12 q-pa-sm bg-primary">
+                <q-inner-loading :showing="showLoader">
+                  <q-spinner-gears size="100px" color="primary" />
+              </q-inner-loading>
+          </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -8,11 +22,11 @@ import Plotly from 'plotly.js-dist'
 
 export default {
     computed:{
-        visible(){
-            return this.$store.getters['simulationStore/visible'];
+        showLoader(){
+            return this.$store.getters['dataImportStore/showLoader'];
         },
-        showSimulatedReturnData(){
-            return this.$store.getters['simulationStore/showSimulatedReturnData'];
+        showView(){
+            return this.$store.getters['dataImportStore/showImportView'];
         },
         holeSegmentLast(){
             return this.$store.getters['simulationStore/holeSegmentLast'];
@@ -20,27 +34,6 @@ export default {
     },
     data(){
         return {
-			trace1: {
-				x: [1, 2, 3, 4],
-				y: [10, 15, 13, 17],
-				mode: 'markers',
-				type: 'scatter'
-				},
-			trace2: {
-				x: [2, 3, 4, 5],
-				y: [16, 5, 11, 9],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter'
-				},
-			trace3: {
-				x: [1, 2, 3, 4],
-				y: [12, 9, 15, 12],
-				mode: 'lines+markers',
-				type: 'scatter'
-				},
 			holeSegmentLeft: {
 				x: [],
 				y: [],
@@ -86,8 +79,8 @@ export default {
                     range: [3500, 0],
                     showgrid: false
                 },
-                width: 500,
-                height: 500,
+                width: 800,
+                height: 800,
                 shapes: []
                 };
             var context = this;
@@ -95,8 +88,8 @@ export default {
             var data2 = [];
             var data = [];
             var schematicDTO =  this.$store.getters['simulationStore/schematicDTO'];
-            layout.xaxis.range[1] = schematicDTO.xMax;
-            layout.yaxis.range[0] = schematicDTO.yMax;
+            layout.xaxis.range[1] = schematicDTO.xMax + 100;
+            layout.yaxis.range[0] = schematicDTO.yMax + 100;
             console.log("schematicDTO.xMax; ", schematicDTO.xMax)
              console.log("schematicDTO.yMax; ", schematicDTO.yMax)
 			var nholeSegments = schematicDTO.holeSegments.length;
@@ -106,46 +99,35 @@ export default {
             var xoffSet = 50.0;
             var i = 0;
             var j = 0;
-           /*  for(j = 0; j < nholeSegments; j++){
-                var holeSections = schematicDTO.holeSegments[j].holeSections;
-                var nholeSegment = holeSections.length;
-                var left = context.holeSegmentLeft;
-                var right = context.holeSegmentRight;
-                left.x = [];
-                left.y = [];
-                right.x = [];
-                right.y = [];
-                for(i = 0; i < nholeSegment; i++){
-                    left.x.push(xoffSet + holeSections[i].topDisplacement * metersToFeet)
-                    left.y.push(holeSections[i].topOfHole * metersToFeet)
 
-                    left.x.push(xoffSet + holeSections[i].bottomDisplacement * metersToFeet)
-                    left.y.push(holeSections[i].bottomOfHole * metersToFeet)
-
-                     right.x.push(xoffSet + holeSections[i].topDisplacement * metersToFeet
-                    + holeSections[i].outerDiameter * inchesToFeet * scaleDiamter)
-                    right.y.push(holeSections[i].topOfHole * metersToFeet)
-
-                    right.x.push(xoffSet + holeSections[i].bottomDisplacement * metersToFeet
-                    + holeSections[i].outerDiameter * inchesToFeet * scaleDiamter)
-                    right.y.push(holeSections[i].bottomOfHole * metersToFeet)
-                }
-
-                data.push(context.copy(left));
-                data.push(context.copy(right))
+            var formation = {
+                    type: 'path',
+                    path: 'M 0,20',
+                    fillcolor: '#a26c37',
+                    line: {
+                        color: '#a26c37'
+                    }
             }
- */
+
+            formation.path= formation.path + ' L0,' + (schematicDTO.yMax + 100).toString() 
+                                    + ' L' + (schematicDTO.xMax + 100).toString() + ',' + (schematicDTO.yMax + 100).toString() 
+                                    + ' L' + (schematicDTO.xMax + 100).toString() + ',20 Z'; //'L2,8 L2,9 L3,10, L4,10 L5,9 L5,8 L4,7 Z'
+            layout.shapes.push(context.copy(formation));
+          
              for(j = 0; j < nholeSegments; j++){
                 var holeSegment = schematicDTO.holeSegments[j];
                 var left = {
                     type: 'path',
-                    path: holeSegment.d1,
+                    path: holeSegment.dh1,
+                    fillcolor: '9896A5',
                     line: {
-                        color: 'black'
+                        color: '9896A5'
                     }
                 }
 
-                 var right = {
+
+
+                /*  var right = {
                     type: 'path',
                     path: holeSegment.d2,
                     line: {
@@ -159,10 +141,42 @@ export default {
                     line: {
                         color: 'black'
                     }
-                }
+                } */
 
                 layout.shapes.push(context.copy(left));
-                layout.shapes.push(context.copy(right));
+                //layout.shapes.push(context.copy(right));
+                //layout.shapes.push(context.copy(centerLine))
+            }
+
+             for(j = 0; j < nholeSegments; j++){
+                var holeSegment = schematicDTO.holeSegments[j];
+                var left = {
+                    type: 'path',
+                    path: holeSegment.dc,
+                    fillcolor: '#b2beb5',
+                    line: {
+                        color: '#b2beb5'
+                    }
+                }
+
+                /*  var right = {
+                    type: 'path',
+                    path: holeSegment.d2,
+                    line: {
+                        color: 'black'
+                    }
+                }
+
+                var centerLine = {
+                    type: 'path',
+                    path: holeSegment.centerLine,
+                    line: {
+                        color: 'black'
+                    }
+                } */
+
+                layout.shapes.push(context.copy(left));
+                //layout.shapes.push(context.copy(right));
                 //layout.shapes.push(context.copy(centerLine))
             }
 
@@ -173,75 +187,15 @@ export default {
                  var pipe = {
                     type: 'path',
                     path: pipeSegment.d,
-                    fillcolor: 'brown',
+                    fillcolor: '#D3D3D3',
                     line: {
-                        color: 'black'
+                        color: '#D3D3D3'
                     }
                 }
                 layout.shapes.push(context.copy(pipe));
             }
+
             console.log("layout.shapes: ", layout.shapes)
-            
-			/* var layout = { 
-				showlegend: true,
-				title: 'Well Schematic',
-				xaxis: {
-                    rangemode: 'tozero',
-					title: 'Horizontal Displacement (ft)',
-					titlefont: {
-					family: 'Arial, sans-serif',
-					size: 14,
-					color: 'black'
-					},
-					showticklabels: true,
-					tickangle: 'auto',
-					tickfont: {
-					family: 'Old Standard TT, serif',
-					size: 14,
-					color: 'black'
-					},
-					showgrid: true,
-					zeroline: true,
-					showline: true,
-					mirror: 'ticks',
-					gridcolor: '#bdbdbd',
-					gridwidth: 2,
-					zerolinecolor: '#969696',
-					zerolinewidth: 4,
-					linecolor: '#636363',
-                    linewidth: 4,
-                    range: [0, 5000]
-				},
-				yaxis: {
-                    rangemode: 'nonnegative',
-					autorange: "reversed",
-					title: 'Measured Depth (ft)',
-					titlefont: {
-					family: 'Arial, sans-serif',
-					size: 14,
-					color: 'black'
-					},
-					showticklabels: true,
-					tickangle: 45,
-					tickfont: {
-						family: 'Old Standard TT, serif',
-						size: 14,
-						color: 'black'
-						},
-					showgrid: true,
-					zeroline: true,
-					showline: true,
-					mirror: 'ticks',
-					gridcolor: '#bdbdbd',
-					gridwidth: 2,
-					zerolinecolor: '#969696',
-					zerolinewidth: 4,
-					linecolor: '#636363',
-					linewidth: 4
-				 	} 
-				};
-            
-             */
             
             
             Plotly.newPlot('myDiv', data, layout);
