@@ -15,7 +15,7 @@
                 </path>
             </svg>
             <div id="Schematics">
-                <span>Schematics</span>
+                <span>Property Grid</span>
             </div>
         </div>
     </div> 

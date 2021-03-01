@@ -281,7 +281,7 @@ export default {
       updateIsImportDialogVisible(){
           var context =  this;
           this.$store.commit('dataImportStore/SetTypeOfInput', "Tubing String");
-          this.$store.commit('wellPathStore/SetisImportDialogVisible', true);
+          this.$store.commit('tubingStringStore/SetisImportDialogVisible', true);
           this.$store.commit('dataImportStore/SetimportDialogCaption', "Import Tubing String");
       },
       ExpandExander(){

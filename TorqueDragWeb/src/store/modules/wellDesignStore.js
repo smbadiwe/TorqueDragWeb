@@ -196,6 +196,10 @@ const actions = {
           .then(response => {
               
             context.commit('PostTorqueDragDesign', response.data);
+            context.dispatch('GetTorqueDragDesigns',  {
+              companyName: payload.companyName,
+              id: payload.torqueDragDesign.userId
+            })
             context.commit('dataImportStore/SetLoaderParameters', {
               showLoader: false,
               showImportView: true
@@ -228,6 +232,16 @@ const actions = {
         }
       }
 
+      var i = 0;
+      var count = context.state.torqueDragDesigns.length;
+            for(i = 0; i < count; i++){
+                if(payload.wellCaseId == context.state.torqueDragDesigns[i].wellCaseId)
+                {
+                  context.state.SelectedTorqueDragDesign =  context.state.torqueDragDesigns[i];
+                  break;
+                }
+            }
+
       return new Promise((resolve, reject) => {
         console.log(payload)
          $http.post('TorqueDragDesigns/PostSelectedWellDesign', {
@@ -237,6 +251,18 @@ const actions = {
           .then(response => {
               
             context.commit('GetSelectedTorqueDragDesign', response.data);
+            var payload2 = {
+              companyName: payload.companyName,
+              designId: context.state.SelectedTorqueDragDesign.id,
+              userId: context.state.SelectedTorqueDragDesign.userId
+          }
+            context.dispatch('datumStore/GetDatums', payload2, {root:true});
+            context.dispatch('fluidsStore/GetFluid', payload2, {root:true});
+            context.dispatch('holeStore/GetHoleSections', payload2, {root:true});
+            context.dispatch('operationsStore/GetOperation', payload2, {root:true});
+            context.dispatch('settingsStore/GetCommon', payload2, {root:true});
+            context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
+            context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
             context.state.caption ="DP Well Engineering (" + response.data.designName + ")";
             context.commit('dataImportStore/SetLoaderParameters', {
               showLoader: false,
@@ -266,14 +292,14 @@ const actions = {
     {
       let config = {
         headers: {
-          tenantcode: payload.identity.companyName,
+          tenantcode: payload.companyName,
         }
       }
 
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload);
-         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.identity.id, config)
+         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.id, config)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)

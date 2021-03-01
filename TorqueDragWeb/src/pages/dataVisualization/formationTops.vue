@@ -2,9 +2,18 @@
     <div  id="mydiv" ref="mydiv">
         <div class="row">
             <q-bar class="col-12 q-pa-sm row bg-secondary" >
-                <q-space />
                 <q-checkbox left-label v-model="isByMD" label="Plot by MD" 
                 @input="onCheckBoxChecked($event)" />
+                <q-space />
+                 <q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    icon="refresh"
+                    aria-label="Menu"
+                    @click="reFreshPlot"
+                    />
             </q-bar>
         </div>
 
@@ -23,6 +32,17 @@ import * as THREE from 'three';
 const scene = new THREE.Scene();
 
 export default {
+    computed:{
+        formationProperties(){
+            return this.$store.getters['propertyGridStore/formationProperties'];
+        },
+        openHoleProperties(){
+            return this.$store.getters['propertyGridStore/openHoleProperties'];
+        },
+        bucklingProperties(){
+            return this.$store.getters['propertyGridStore/bucklingProperties'];
+        }
+    },
     data(){
         return {
             screenHeight: 800,
@@ -30,12 +50,13 @@ export default {
             cube: null,
             renderer: null,
             pipeSectionTypes: ['Pup Joint', 'Tubing', 
-            'Flow Coupling', 'SSSV', 'Seal Assembly', 'Mandrel', 'Packer'],
+            'Flow Coupling', 'SSSV', 'Seal Assembly', 'Mandrel', 'Packer', 'Drill Pipe'],
             pipeSectionColors: ['#D3D3D3', '#D3D3D3', 'gray', 'red', 'black',
-                                'gold', 'blue'],
+                                'gold', 'blue', '#D3D3D3'],
             schematicHeight: 1000,
             schematicWidth: 1000,
-            isByMD: false               
+            isByMD: false,
+            operationResults: []              
                                             
         }
     },
@@ -102,8 +123,17 @@ export default {
         },
         onCheckBoxChecked(evt){
             var context =  this;
-        
+            context.isByMD = evt;
             if(evt == true){
+                context.drawWellSchematicMDNotToScale();
+            }else{
+                context.drawWellSchematicTVDNotToScale();
+
+            }
+        },
+        reFreshPlot(){
+            var context =  this;
+            if(context.isByMD == true){
                 context.drawWellSchematicMDNotToScale();
             }else{
                 context.drawWellSchematicTVDNotToScale();
@@ -478,28 +508,54 @@ export default {
         },
         drawPipe(ctx, pt1, pt2, pt3, pt4, fillStyle, isBottomCoverPositive,
                     isBottomCoverNegative, isTopCoverPositive, isTopCoverNegative,
-                    showLabel, description, depthDescription)
+                    showLabel, description, depthDescription, isSinusoidalBuckling,
+                    isHelicalBuckling, isXAxisPositive)
         {
-            /* console.log("pt1.x: ", pt1.x)
-            console.log("pt1.y: ", pt1.y)
-            console.log("pt2.x: ", pt2.x)
-            console.log("pt2.y: ", pt2.y)
-            console.log("pt3.x: ", pt3.x)
-            console.log("pt3.y: ", pt3.y)
-            console.log("pt4.x: ", pt4.x)
-            console.log("pt4.y: ", pt4.y) */
 
-            ctx.beginPath();
-            ctx.moveTo(pt1.x, pt1.y);
-            ctx.lineTo(pt2.x, pt2.y);
-            ctx.lineTo(pt3.x, pt3.y);
-            ctx.lineTo(pt4.x, pt4.y);
-            ctx.lineTo(pt1.x, pt1.y);
-            ctx.closePath();
-            //ctx.strokeStyle = "transparent";
-            ctx.fillStyle = fillStyle;
-            ctx.fill();
-            ctx.stroke();
+
+            
+            if(isSinusoidalBuckling == false && isHelicalBuckling == false){
+                ctx.beginPath();
+                ctx.moveTo(pt1.x, pt1.y);
+                ctx.lineTo(pt2.x, pt2.y);
+                ctx.lineTo(pt3.x, pt3.y);
+                ctx.lineTo(pt4.x, pt4.y);
+                ctx.lineTo(pt1.x, pt1.y);
+                ctx.closePath();
+                ctx.fillStyle = fillStyle;/*  */
+                ctx.fill();
+                ctx.stroke();
+            }else{
+                var dx = 10;
+                ctx.beginPath();
+                ctx.moveTo(pt1.x, pt1.y);
+                
+                if(isXAxisPositive == true){
+                    ctx.lineTo(pt2.x, pt2.y);
+                    ctx.bezierCurveTo(pt2.x + dx, pt2.y, pt2.x + dx, pt3.y , pt3.x, pt3.y);
+                    ctx.lineTo(pt4.x, pt4.y);
+                    ctx.bezierCurveTo(pt4.x + dx, pt4.y, pt4.x + dx, pt1.y , pt1.x, pt1.y);
+                    ctx.closePath();
+                }else{
+                    ctx.bezierCurveTo(pt1.x - dx, pt1.y, pt1.x - dx, pt4.y , pt4.x, pt4.y);
+                    ctx.lineTo(pt3.x, pt3.y);
+                    ctx.bezierCurveTo(pt3.x - dx, pt3.y, pt3.x - dx, pt2.y , pt2.x, pt2.y);
+                    ctx.moveTo(pt1.x, pt1.y);
+                    ctx.closePath();
+                }
+                
+                if(isHelicalBuckling == true){
+                    ctx.fillStyle = 'orange';
+                }
+
+                if(isSinusoidalBuckling == true){
+                    ctx.fillStyle = 'yellow';
+                }
+                
+                ctx.fill();
+                ctx.stroke();
+            }
+            
             
             var dy = 5;
 
@@ -519,6 +575,9 @@ export default {
                 ctx.fillStyle = 'black';
                 ctx.textAlign = "right";
                 ctx.fillText(depthDescription, pt4.x - 50, pt4.y);
+
+                //console.log("description",  description)
+                //console.log("depthDescription",  depthDescription)
                  
                 ctx.stroke();
             }
@@ -559,6 +618,153 @@ export default {
                 ctx.fill();
                 ctx.stroke();
             }
+            
+        },
+        drawPipeMD(ctx, leftPoints, rightPoints, fillStyle, isBottomCoverPositive,
+                    isBottomCoverNegative, isTopCoverPositive, isTopCoverNegative,
+                    showLabel, description, depthDescription, isSinusoidalBuckling,
+                    isHelicalBuckling)
+        {
+
+
+            
+            if(isSinusoidalBuckling == false && isHelicalBuckling == false){
+                /* ctx.beginPath();
+                ctx.moveTo(pt1.x, pt1.y);
+                ctx.lineTo(pt2.x, pt2.y);
+                ctx.lineTo(pt3.x, pt3.y);
+                ctx.lineTo(pt4.x, pt4.y);
+                ctx.lineTo(pt1.x, pt1.y);
+                ctx.closePath();
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+                ctx.stroke(); */
+
+                var i = 0;
+                var nPoints = leftPoints.length;
+                ctx.beginPath();
+                ctx.moveTo(leftPoints[0].x, leftPoints[0].y);
+                for(i = 1; i < nPoints; i++){
+                    ctx.lineTo(leftPoints[i].x, leftPoints[i].y);
+                }
+                
+                ctx.lineTo(rightPoints[nPoints-1].x, rightPoints[nPoints-1].y);
+
+                for(i = nPoints-2; i >= 0; i--){
+                    ctx.lineTo(rightPoints[i].x, rightPoints[i].y);
+                }
+
+                ctx.closePath();
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+                ctx.stroke();
+            }else{
+                var i = 0;
+                var nPoints = leftPoints.length;
+                var dx = 10;
+                ctx.beginPath();
+                ctx.moveTo(leftPoints[0].x, leftPoints[0].y);
+                for(i = 1; i < nPoints; i++){
+                    ctx.bezierCurveTo(leftPoints[i-1].x - dx, leftPoints[i-1].y,
+                     leftPoints[i].x - dx, leftPoints[i].y ,
+                      leftPoints[i].x, leftPoints[i].y);
+                }
+
+                ctx.lineTo(rightPoints[nPoints-1].x, rightPoints[nPoints-1].y);
+                for(i = nPoints-2; i >= 0; i--){
+                     ctx.bezierCurveTo(rightPoints[i+1].x - dx, rightPoints[i+1].y,
+                      rightPoints[i].x - dx, rightPoints[i].y , 
+                      rightPoints[i].x, rightPoints[i].y);
+                }
+
+                ctx.lineTo(leftPoints[0].x, leftPoints[0].y);
+                ctx.closePath();
+                
+               /*  if(isXAxisPositive == true){
+                    ctx.lineTo(pt2.x, pt2.y);
+                    ctx.bezierCurveTo(pt2.x + dx, pt2.y, pt2.x + dx, pt3.y , pt3.x, pt3.y);
+                    ctx.lineTo(pt4.x, pt4.y);
+                    ctx.bezierCurveTo(pt4.x + dx, pt4.y, pt4.x + dx, pt1.y , pt1.x, pt1.y);
+                    ctx.closePath();
+                }else{
+                    ctx.bezierCurveTo(pt1.x - dx, pt1.y, pt1.x - dx, pt4.y , pt4.x, pt4.y);
+                    ctx.lineTo(pt3.x, pt3.y);
+                    ctx.bezierCurveTo(pt3.x - dx, pt3.y, pt3.x - dx, pt2.y , pt2.x, pt2.y);
+                    ctx.moveTo(pt1.x, pt1.y);
+                    ctx.closePath();
+                } */
+                
+                if(isHelicalBuckling == true){
+                    ctx.fillStyle = 'orange';
+                }
+
+                if(isSinusoidalBuckling == true){
+                    ctx.fillStyle = 'yellow';
+                }
+                
+                ctx.fill();
+                ctx.stroke();
+            }
+            
+            
+            var dy = 5;
+
+            if(showLabel == true){
+                /* ctx.beginPath();
+                ctx.moveTo(pt3.x, pt3.y);
+                ctx.lineTo(pt3.x + 50, pt3.y);
+
+                ctx.font = '12px Arial';
+                ctx.fillStyle = 'black';
+                ctx.textAlign = "left";
+                ctx.fillText(description, pt3.x + 50, pt3.y);
+                
+                
+                ctx.lineTo(pt4.x - 50, pt4.y);
+                ctx.font = '12px Arial';
+                ctx.fillStyle = 'black';
+                ctx.textAlign = "right";
+                ctx.fillText(depthDescription, pt4.x - 50, pt4.y);
+                 
+                ctx.stroke(); */
+            }
+            
+           /*  if(isTopCoverNegative  == true){
+                ctx.beginPath();
+                ctx.moveTo(pt1.x, pt1.y);
+                ctx.bezierCurveTo(pt1.x, pt1.y - dy, pt2.x, pt1.y - dy, pt2.x, pt2.y);
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+                ctx.stroke();
+            } */
+
+            /* if(isTopCoverPositive == true){
+                ctx.beginPath();
+                ctx.moveTo(pt2.x, pt2.y);
+                ctx.bezierCurveTo(pt2.x, pt2.y + dy, pt1.x, pt1.y + dy, pt1.x, pt1.y);
+                ctx.fillStyle = 'black';
+                ctx.fill();
+                ctx.stroke();
+            } */
+            
+
+         /*    if(isBottomCoverNegative == true){
+                ctx.beginPath();
+                ctx.moveTo(pt4.x, pt4.y);
+                ctx.bezierCurveTo(pt4.x, pt4.y - dy, pt3.x, pt4.y - dy, pt3.x, pt3.y);
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+                ctx.stroke();
+            } */
+
+            /* if(isBottomCoverPositive == true){
+                ctx.beginPath();
+                ctx.moveTo(pt3.x, pt3.y);
+                ctx.bezierCurveTo(pt3.x, pt3.y + dy, pt4.x, pt4.y + dy, pt4.x, pt4.y);
+                ctx.fillStyle = 'black';
+                ctx.fill();
+                ctx.stroke();
+            } */
             
         },
         interpolate(x1, x2, y1, y2, y){
@@ -1258,13 +1464,15 @@ export default {
             
 
             var formationOriginX = 0;
-            var formationOriginY = 0;
+            var formationOriginY = context.formationProperties.yOffSet;
             var formationWidth = canvas.width;
             var formationHeight = canvas.height - formationOriginY;
 
+            console.log("context.openHoleProperties.holeAnnulus: ", context.openHoleProperties.holeAnnulus)
+
 
             //Draw Formation
-            fillStyle = ' #a26c37'
+            fillStyle = context.formationProperties.colorFormation;// '#a26c37'
             context.drawFormation(ctx, formationOriginX, formationOriginY, formationWidth, formationHeight, fillStyle);
 
             var holeSections = this.$store.getters['holeStore/holeSections'];
@@ -1307,10 +1515,10 @@ export default {
                     
 
                     var pointLeft =  {
-                            x: originX + offsetX - 5,
+                            x: originX + offsetX -5,
                             y: tvd_h
                         }
-                    pointLeft.x = pointLeft.x  - Math.floor(Math.random() * 10);
+                    pointLeft.x = pointLeft.x  - Math.floor(Math.random() * context.openHoleProperties.holeAnnulus);
                     leftPoints.push(pointLeft);
 
                      var pointRight =  {
@@ -1318,7 +1526,7 @@ export default {
                             y: tvd_h
                         }
 
-                    pointRight.x = pointRight.x  + Math.floor(Math.random() * 10);
+                    pointRight.x = pointRight.x  + Math.floor(Math.random() * context.openHoleProperties.holeAnnulus);
                     rightPoints.push(pointRight);
                 }
                 
@@ -1359,18 +1567,21 @@ export default {
 
             var lengthOfPipes = pipes.length;
             var drillPipes = [];
-            var pipeLength = context.schematicHeight / lengthOfPipes;
+            var pipeLength = context.schematicHeight;
+            var pipeSegmentedLengths = context.getPipeSegmentedLengths(pipeLength, 50);
+            //console.log("pipeSegmentedLengths", pipeSegmentedLengths)
+
             tvdTop_c = 0;
             tvdBottom_c = 0;
             for(i = 0; i < lengthOfPipes; i++){
+                var _isBuckling = context.getBucklingStatus(pipes[i].measuredDepth, pipes[i].measuredDepth - pipes[i].length);
                 //var tvdTop = context.interpolation(deviationSurveys, pipes[i].measuredDepth - pipes[i].length, 'trueVerticalDepth');
                 //var tvdBottom = context.interpolation(deviationSurveys, pipes[i].measuredDepth, 'trueVerticalDepth');
-                tvdBottom_c = tvdTop_c + pipeLength
+                tvdBottom_c = tvdTop_c + pipeSegmentedLengths[i];//pipeLength
                 //console.log("tvdTop_c: ", tvdTop_c);
                 //console.log("tvdBottom_c: ", tvdBottom_c);
                 var x1  = 0;
                 var x2 = 0;
-                'Pup Joint', 'Tubing'
                 if(pipes[i].typeOfSection == 'Pup Joint' ||
                     pipes[i].typeOfSection == 'Tubing'){
                         x1 = originX + offsetX + 15;
@@ -1385,6 +1596,8 @@ export default {
                     description: '',
                     depthDescription: '',
                     fillStyle: '',
+                    isSinusoidalBuckling: _isBuckling.isSinusoidalBuckling,
+                    isHelicalBuckling: _isBuckling.isHelicalBuckling,
                     points: {
                         pt1: {
                             x: x1,
@@ -1415,6 +1628,7 @@ export default {
                 pipe.depthDescription = pipes[i].measuredDepth.toFixed(2) + ' ft'
                 pipe.fillStyle = context.getDrillPipeFillStyle(pipe.typeOfSection);
 
+                
 
                 drillPipes.push(pipe);
 
@@ -1427,7 +1641,7 @@ export default {
             fillStyle = '#b2beb5';
             for(i = 0; i < lengthOfCasing; i++){
                 
-                context.drawOpenHole(ctx, hole[i].leftPoints, hole[i].rightPoints, 'gray')
+                context.drawOpenHole(ctx, hole[i].leftPoints, hole[i].rightPoints, context.openHoleProperties.colorOpenHoleAnnulus)
                 if(i == 0){
                     context.drawCasing(ctx,
                     casing[i].points.pt1, casing[i].points.pt2, casing[i].points.pt3, casing[i].points.pt4, fillStyle, false, false,
@@ -1447,28 +1661,37 @@ export default {
              // Draw Drill Pipes
             fillStyle = '#D3D3D3';
             var pipesCount = drillPipes.length;
+            var isXAxisPositive = true;
             for(i = 0; i < pipesCount; i++){
+                
                 if(i == 0){
                     context.drawPipe(ctx,
                     drillPipes[i].points.pt1, drillPipes[i].points.pt2,
                      drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling, isXAxisPositive);
                 }else if (i == pipesCount-1){
                     context.drawPipe(ctx,
                     drillPipes[i].points.pt1, drillPipes[i].points.pt2,
                      drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling, isXAxisPositive);
                 }else{
                     context.drawPipe(ctx,
                     drillPipes[i].points.pt1, drillPipes[i].points.pt2,
                      drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling, isXAxisPositive);
+                }
+
+                if(isXAxisPositive == true){
+                    isXAxisPositive =  false;
+                }else{
+                    isXAxisPositive = true;
                 }
 
 
             }
-
-
 
 
         },
@@ -1479,8 +1702,8 @@ export default {
             var originY = 20;
             var canvas = document.getElementById("mycanvas");
             var ctx = canvas.getContext("2d");
-            canvas.width = 800;// screen.width;// context.screenWidth;
-            context.schematicWidth = canvas.width - 100;
+            canvas.width = 900;// screen.width;// context.screenWidth;
+            context.schematicWidth = canvas.width - 200;
             var holeSections = this.$store.getters['holeStore/holeSections'];
             var pipes = this.$store.getters['tubingStringStore/pipes'];
             var deviationSurveys = this.$store.getters['wellPathStore/deviationSurveys'];
@@ -1511,7 +1734,7 @@ export default {
 
 
             //Draw Formation
-            fillStyle = ' #a26c37'
+            fillStyle = context.formationProperties.colorFormation;// '#a26c37'
             context.drawFormation(ctx, formationOriginX, formationOriginY, formationWidth, formationHeight, fillStyle);
 
             
@@ -1556,10 +1779,10 @@ export default {
                     
 
                     var pointLeft =  {
-                            x: originX + offsetX + horizontaDisplacement_h - 5,
+                            x: originX + offsetX + horizontaDisplacement_h -5,
                             y: mD_h
                         }
-                    pointLeft.x = pointLeft.x  - Math.floor(Math.random() * 10);
+                    pointLeft.x = pointLeft.x  - Math.floor(Math.random() * context.openHoleProperties.holeAnnulus);
                     leftPoints.push(pointLeft);
 
                      var pointRight =  {
@@ -1567,7 +1790,7 @@ export default {
                             y: mD_h
                         }
 
-                    pointRight.x = pointRight.x  + Math.floor(Math.random() * 10);
+                    pointRight.x = pointRight.x  + Math.floor(Math.random() * context.openHoleProperties.holeAnnulus);
                     rightPoints.push(pointRight);
 
 
@@ -1622,46 +1845,65 @@ export default {
 
             var lengthOfPipes = pipes.length;
             var drillPipes = [];
-            var pipeLength = pipes[lengthOfPipes-1].measuredDepth / lengthOfPipes;
+            var pipeLength = pipes[lengthOfPipes-1].measuredDepth;
+            var pipeSegmentedLengths = context.getPipeSegmentedLengths(pipeLength, 200);
+        
             mDTop_c = 0;
             mDBottom_c = 0;
             mdTop = 0;
             mdBottom = 0;
-            console.log("context.schematicWidth: ", context.schematicWidth)
-            console.log("displacementMin: ", displacementMin)
-            console.log("displacementMax: ", displacementMax)
+            //console.log("context.schematicWidth: ", context.schematicWidth)
+            //console.log("displacementMin: ", displacementMin)
+            //console.log("displacementMax: ", displacementMax)
             for(i = 0; i < lengthOfPipes; i++){
                 
+                var _isBuckling = context.getBucklingStatus(pipes[i].measuredDepth, pipes[i].measuredDepth - pipes[i].length);
+                mdBottom = mdTop + pipeSegmentedLengths[i];//pipeLength
+                //topDisplacement = context.interpolation(deviationSurveys, mdTop, 'verticalSection');
+                //bottomDisplacement = context.interpolation(deviationSurveys, mdBottom, 'verticalSection'); 
+               
+                //console.log("mdTop: ", mdTop)
+                //console.log("mdBottom: ", mdBottom)
 
-                mdBottom = mdTop + pipeLength
-                topDisplacement = context.interpolation(deviationSurveys, mdTop, 'verticalSection');
-                bottomDisplacement = context.interpolation(deviationSurveys, mdBottom, 'verticalSection'); 
-
-                console.log("mdTop: ", mdTop)
-                console.log("mdBottom: ", mdBottom)
-
-                mDTop_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdTop);
+                /* mDTop_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdTop);
                 mDBottom_c = context.interpolate(0, context.schematicHeight, mDmin, mDmax, mdBottom);
                 topDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, topDisplacement);
-                bottomDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, bottomDisplacement);
+                bottomDisplacement_c = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, bottomDisplacement); */
 
-                
-                var x1  = 0;
-                var x2 = 0;
-                var x3 = 0;
-                var x4 = 0;
-                'Pup Joint', 'Tubing'
-                if(pipes[i].typeOfSection == 'Pup Joint' ||
-                    pipes[i].typeOfSection == 'Tubing'){
-                        x1 = originX + offsetX + topDisplacement_c + 15;
-                        x2 = originX + offsetX + topDisplacement_c + 35;
-                        x3 = originX + offsetX + bottomDisplacement_c + 35
-                        x4 = originX + offsetX + bottomDisplacement_c + 15
-                }else{
-                    x1 = originX + offsetX + topDisplacement_c + 10;
-                    x2 = originX + offsetX + topDisplacement_c + 40;
-                    x3 =  originX + offsetX + bottomDisplacement_c + 40;
-                    x4 =  originX + offsetX + bottomDisplacement_c + 10;
+                var holePoints = context.createRoughLine(mdTop, mdBottom, 0, true, deviationSurveys);
+                //console.log("holePoints", holePoints)
+                var leftPoints = [];
+                var rightPoints = [];
+
+                var holePointsCount = holePoints.length;
+                for(j = 0; j < holePointsCount; j++){
+                    var mD_h = context.interpolate(0, context.schematicHeight, mDmin, mDmax, holePoints[j].y);
+                    var horizontaDisplacement_h = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, holePoints[j].x);
+
+                    var pointLeft =  {
+                                x: 0,
+                                y: mD_h
+                    }
+
+                    var pointRight =  {
+                                x:  0,
+                                y: mD_h
+                            }
+
+                    if(pipes[i].typeOfSection == 'Pup Joint' ||
+                        pipes[i].typeOfSection == 'Tubing'){
+                            pointLeft.x = originX + offsetX + horizontaDisplacement_h + 15;
+                            pointRight.x = originX + offsetX + horizontaDisplacement_h + 35;
+                    }else{
+
+                        pointLeft.x = originX + offsetX + horizontaDisplacement_h + 10;
+                        pointRight.x = originX + offsetX + horizontaDisplacement_h + 40;
+                    }
+                        
+
+                    leftPoints.push(pointLeft);
+                    rightPoints.push(pointRight);
+
                 }
 
 
@@ -1671,26 +1913,13 @@ export default {
                     description: '',
                     depthDescription: '',
                     fillStyle: '',
-                    points: {
-                        pt1: {
-                            x: x1,
-                            y: mDTop_c
-                        },
-                        pt2: {
-                            x: x2,
-                            y: mDTop_c
-                        },
-                        pt3: {
-                            x: x3,
-                            y: mDBottom_c
-                        },
-                        pt4: {
-                            x: x4,
-                            y: mDBottom_c
-                        }
-                    }
+                    isSinusoidalBuckling: _isBuckling.isSinusoidalBuckling,
+                    isHelicalBuckling: _isBuckling.isHelicalBuckling,
+                    leftPoints,
+                    rightPoints
 
                 }
+
                 if(pipes[i].weight == null){
                     pipe.description =  pipes[i].typeOfSection + ', ' +  pipes[i].outerDiameter.toFixed(2) + ' in';
                 }else{
@@ -1713,7 +1942,7 @@ export default {
             fillStyle = '#b2beb5';
             for(i = 0; i < lengthOfCasing; i++){
                 
-                context.drawOpenHole(ctx, hole[i].leftPoints, hole[i].rightPoints, 'gray')
+                context.drawOpenHole(ctx, hole[i].leftPoints, hole[i].rightPoints, context.openHoleProperties.colorOpenHoleAnnulus)
                 context.drawOpenHole(ctx, casing[i].leftPointsCasing, casing[i].rightPointsCasing, '#b2beb5')
                 /* if(i == 0){
                     context.drawCasing(ctx,
@@ -1734,22 +1963,27 @@ export default {
              // Draw Drill Pipes
             fillStyle = '#D3D3D3';
             var pipesCount = drillPipes.length;
+            var isXAxisPositive = true;
             for(i = 0; i < pipesCount; i++){
+
                 if(i == 0){
-                    context.drawPipe(ctx,
-                    drillPipes[i].points.pt1, drillPipes[i].points.pt2,
-                     drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    context.drawPipeMD(ctx,
+                    drillPipes[i].leftPoints, drillPipes[i].rightPoints,
+                    drillPipes[i].fillStyle, true, true,
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling);
                 }else if (i == pipesCount-1){
-                    context.drawPipe(ctx,
-                    drillPipes[i].points.pt1, drillPipes[i].points.pt2,
-                     drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    context.drawPipeMD(ctx,
+                    drillPipes[i].leftPoints, drillPipes[i].rightPoints,
+                    drillPipes[i].fillStyle, true, true,
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling);
                 }else{
-                    context.drawPipe(ctx,
-                    drillPipes[i].points.pt1, drillPipes[i].points.pt2,
-                     drillPipes[i].points.pt3, drillPipes[i].points.pt4, drillPipes[i].fillStyle, true, true,
-                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription);
+                    context.drawPipeMD(ctx,
+                    drillPipes[i].leftPoints, drillPipes[i].rightPoints,
+                    drillPipes[i].fillStyle, true, true,
+                    true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
+                    drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling);
                 }
 
 
@@ -1758,11 +1992,125 @@ export default {
 
 
 
+        },
+        getOperationResults(){
+            var context = this;
+
+
+            switch(context.bucklingProperties.selectedOperation) {
+                case "No Operation":
+                    context.operationResults = [];
+                    break;
+
+                case "Tripping In":
+                    context.operationResults = this.$store.getters['simulationStore/trippingInResults'];
+                    break;
+
+                case "Tripping Out":
+                    context.operationResults = this.$store.getters['simulationStore/trippingOutResults'];
+                    break;
+                
+                case "Rotating On Bottom":
+                    context.operationResults = this.$store.getters['simulationStore/drillingResults'];
+                    break;
+
+                case "Slide Drilling":
+                    context.operationResults = this.$store.getters['simulationStore/slideDrillingResults'];
+                    break;
+                
+                case "Back reaming":
+                    context.operationResults = this.$store.getters['simulationStore/backReamingResults'];
+                    break;
+            }
+
+            console.log("operationResults: ", context.operationResults)
+        },
+        getBucklingStatus(mDBottom, mDTop){
+            //console.log("mDBottom: ", mDBottom)
+            // console.log("mDTop: ", mDTop)
+            var context =  this;
+            context.getOperationResults();
+            var i = 0;
+            var isHelicalBuckling = false;
+            var isSinusoidalBuckling = false;
+            if(context.operationResults == null){
+                return { isSinusoidalBuckling, isHelicalBuckling };
+            }
+            var length = context.operationResults.length;
+            //console.log("length: ", length)
+            for(i = 0; i < length; i++){
+                //console.log("context.operationResults[i].topMeasuredDepth: ", context.operationResults[i].topMeasuredDepth)
+                //console.log("context.operationResults[i].bottomMeasuredDepth: ", context.operationResults[i].bottomMeasuredDepth)
+               var midDepth =(context.operationResults[i].topMeasuredDepth + 
+               context.operationResults[i].bottomMeasuredDepth)/2.0;
+               if(midDepth >= mDTop && midDepth <= mDBottom){
+                   console.log("seen")
+                    if(context.operationResults[i].isSinusoidalBuckling == true ||
+                    context.operationResults[i].isHelicalBuckling == true){
+                         isSinusoidalBuckling = context.operationResults[i].isSinusoidalBuckling;
+                        isHelicalBuckling = context.operationResults[i].isHelicalBuckling;
+                        console.log("isSinusoidalBuckling: ", isSinusoidalBuckling, "isHelicalBuckling: ", isHelicalBuckling,
+                        "bottomMeasuredDepth: ", context.operationResults[i].bottomMeasuredDepth)
+                         break;
+                    }
+                }
+            }
+
+            return { isSinusoidalBuckling, isHelicalBuckling }
+        },
+        getPipeSegmentedLengths(measuredDepth, dPLengthOthers){
+            var pipes = this.$store.getters['tubingStringStore/pipes'];
+            var sumLength = 0;
+            var i = 0, lent = pipes.length;
+            var pipeLength = measuredDepth
+            var nPipes = 0;
+            var pipeSegmentedLengths = [];
+             for(i = 0; i < lent; i++){
+                 pipeSegmentedLengths.push(0);
+                 if(pipes[i].typeOfSection == 'Tubing' ||
+                    pipes[i].typeOfSection == 'Drill Pipe'
+                    || pipes[i].typeOfSection == 'Pup Joint'){
+                        nPipes++;
+                 }
+             }
+             //console.log('nPipes', nPipes)
+            for(i = 0; i < lent; i++){
+                if(pipes[i].typeOfSection != 'Tubing' &&
+                pipes[i].typeOfSection != 'Drill Pipe'
+                && pipes[i].typeOfSection != 'Pup Joint'){
+                  pipeSegmentedLengths[i] = dPLengthOthers;
+                  sumLength = sumLength + dPLengthOthers;  
+                }
+            }
+
+            //console.log('sumLength', sumLength)
+
+            var dLength = (pipeLength - sumLength) / nPipes;
+            //console.log('pLent', pipeLength - sumLength)
+            //console.log('dLength', dLength)
+            for(i = 0; i < lent; i++){
+                if(pipes[i].typeOfSection == 'Tubing' ||
+                pipes[i].typeOfSection == 'Drill Pipe'
+                || pipes[i].typeOfSection == 'Pup Joint'){
+                  pipeSegmentedLengths[i] = dLength;  
+                }
+            }
+
+        //console.log("pipeSegmentedLengths", pipeSegmentedLengths)
+            return pipeSegmentedLengths;
         }
     },
     mounted(){
         var context =  this;
         context.drawWellSchematicTVDNotToScale();
+        var PropertyLists1 = [{id:1, name:"Formation"}, {id:2, name:"Well Schematic"},
+                            {id:3, name:"Pipes"}, {id:4, name:"Casing"}, {id:5, name:"Open Hole"},
+                            {id:6, name:"Buckling"}, {id:7, name:"Legend"}]
+        console.log("PropertyLists1: ", PropertyLists1);
+        this.$store.commit('propertyGridStore/setPropertyLists1', PropertyLists1);
+
+        
+        //this.$store.commit('propertyGridStore/setPropertyLists2', name);
     },
     created(){
         

@@ -26,7 +26,7 @@ export default {
             activeViews: {
                 issettingsheader:true,
                 issensitivityheader: false,
-                isschematicsheader: false,
+                ispropertyMainheader: false,
             }
         }
     },
@@ -35,14 +35,14 @@ export default {
             var context =  this;
             context.activeViews.issettingsheader = true,
             context.activeViews.issensitivityheader =  false;
-            context.activeViews.isschematicsheader = false;
+            context.activeViews.ispropertyMainheader = false;
             this.$emit('updatepropRight', context.activeViews);
         },
         showsensitivity(){
             var context =  this;
             context.activeViews.issettingsheader = false,
             context.activeViews.issensitivityheader =  true;
-            context.activeViews.isschematicsheader = false;
+            context.activeViews.ispropertyMainheader = false;
             this.$emit('updatepropRight', context.activeViews);
         },
         showschematics(){
@@ -50,7 +50,7 @@ export default {
             var context =  this;
             context.activeViews.issettingsheader = false,
             context.activeViews.issensitivityheader =  false;
-            context.activeViews.isschematicsheader = true;
+            context.activeViews.ispropertyMainheader = true;
             //console.log("showschematics buttonBarRight")
             this.$emit('updatepropRight', context.activeViews);
         }

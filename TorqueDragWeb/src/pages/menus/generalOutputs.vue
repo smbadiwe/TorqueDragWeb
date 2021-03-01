@@ -274,14 +274,20 @@ export default {
                 route: "azimuth"
             });
         },
-         formationTopsPlot(){
-            this.$store.commit('authStore/AddOutputTab', {
-                name: "Formation Tops",
-                route: "formationTops"
-            });
+        formationTopsPlot(){
+           
         },
         DrawSchematic(){
-            var context =  this;
+
+             this.$store.commit('authStore/AddOutputTab', {
+                name: "Schematic",
+                route: "formationTops"
+            });
+
+            var currentRoute = this.$route.path;
+            this.$store.commit('propertyGridStore/setCurrentRoutePropertyGrid', currentRoute);
+            
+            /* var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
@@ -290,7 +296,6 @@ export default {
                 route: "schematic"
             });
 
-            //schematic schematicView
 
              this.$store.commit('dataImportStore/SetLoaderParameters', {
                 showLoader: true,
@@ -306,7 +311,7 @@ export default {
                 yCanvasOffset: 20,
                 userId: IdentityModel.id
             });
-
+ */
             
 
 

@@ -1,5 +1,25 @@
 <template>
-  <div id="myDiv" class="bg-accent" >
+  <div>
+	   <div class="row">
+            <q-bar class="col-12 q-pa-sm row bg-secondary" >
+                 <q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    icon="refresh"
+                    aria-label="Menu"
+                    @click="reFreshPlot"
+                    />
+					<q-space />
+            </q-bar>
+        </div>
+
+		<div class="row">
+			<div id="myDiv" class="col-12 bg-accent">
+
+			</div>
+		</div>
   </div>
 </template>
 
@@ -34,7 +54,7 @@ export default {
         }
     },
     methods:{
-		 createChart() {
+		createChart() {
 			var context = this;
 			var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
 			var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
@@ -91,7 +111,6 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
     				width: 3
 				},
 				mode: 'lines',
@@ -103,7 +122,6 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
     				width: 3
 				},
 				mode: 'lines',
@@ -116,7 +134,6 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
     				width: 3
 				},
 				mode: 'lines',
@@ -129,7 +146,6 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
     				width: 3
 				},
 				mode: 'lines',
@@ -142,7 +158,6 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
     				width: 3
 				},
 				mode: 'lines',
@@ -162,7 +177,7 @@ export default {
 
 				console.log("tension: ", trippingIn.x);
 
-				trippingIn.line.color = 'rgb(243, 81, 45)';
+				//trippingIn.line.color = 'rgb(243, 81, 45)';
 				trippingIn.name = 'Tripping In ' + (j+1).toString();
 				if(isTrippingInChecked == true){
 					//data = [...data, context.trippingIn]
@@ -178,7 +193,7 @@ export default {
 					trippingOut.y.push(md);
 				}
 
-				trippingOut.line.color = 'rgb(132, 218, 23)'
+				//trippingOut.line.color = 'rgb(132, 218, 23)'
 				trippingOut.name = 'Tripping Out ' + (j+1).toString();
 				if(isTrippingOutChecked == true){
 					//data = [...data, context.trippingOut]
@@ -193,7 +208,7 @@ export default {
 					rotatingOnBottom.y.push(md);
 				}
 
-				rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
+				//rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
 				rotatingOnBottom.name = 'Rotating On Bottom ' + (j+1).toString();
 				if(isRotatingOnBottomChecked == true){
 					//data = [...data, context.rotatingOnBottom]
@@ -208,7 +223,7 @@ export default {
 					slideDrilling.y.push(md);
 				}
 
-				slideDrilling.line.color = 'rgb(24, 61, 213)'
+				//slideDrilling.line.color = 'rgb(24, 61, 213)'
 				slideDrilling.name = 'Slide Drilling ' + (j+1).toString();
 				if(isSlideDrillingChecked == true){
 					//data = [...data, context.slideDrilling]
@@ -223,23 +238,71 @@ export default {
 					backReaming.y.push(md);
 				}
 
-				backReaming.line.color = 'rgb(227, 67, 94)'
+				//backReaming.line.color = 'rgb(227, 67, 94)'
 				backReaming.name = 'Back Reaming ' + (j+1).toString();
 				if(isBackReamingChecked == true){
 					//data = [...data, context.backReaming]
 					data.push(backReaming)
 				}
 
-				length = trippingInResults.length;
-				for(i = 0; i < length; i++){
-					var md = trippingInResults[i].bottomMeasuredDepth;
+				var trippingInResultsLength = trippingInResults.length;
+				var trippingOutResultsLength = trippingOutResults.length;
+				var drillingResultsLength = drillingResults.length;
+				var slideDrillingResultsLength = slideDrillingResults.length;
+				var backReamingResultsLength = backReamingResults.length;
+				if(trippingInResultsLength > 0){
 
-					helicalBuckling.x.push(trippingInResults[i].criticalHelicalBuckling/M);
-					helicalBuckling.y.push(md);
+					for(i = 0; i < trippingInResultsLength; i++){
+						var md = trippingInResults[i].bottomMeasuredDepth;
 
-					sinusoidalBuckling.x.push(trippingInResults[i].criticalSinusoidalBuckling/M);
-					sinusoidalBuckling.y.push(md);
+						helicalBuckling.x.push(1 * trippingInResults[i].criticalHelicalBuckling/M);
+						helicalBuckling.y.push(md);
+
+						sinusoidalBuckling.x.push(1 * trippingInResults[i].criticalSinusoidalBuckling/M);
+						sinusoidalBuckling.y.push(md);
+					}
+				}else if(trippingOutResultsLength > 0){
+					for(i = 0; i < trippingOutResultsLength; i++){
+						var md = trippingOutResults[i].bottomMeasuredDepth;
+
+						helicalBuckling.x.push(1 * trippingOutResults[i].criticalHelicalBuckling/M);
+						helicalBuckling.y.push(md);
+
+						sinusoidalBuckling.x.push(1 * trippingOutResults[i].criticalSinusoidalBuckling/M);
+						sinusoidalBuckling.y.push(md);
+					}
+				}else if (drillingResultsLength > 0){
+					for(i = 0; i < drillingResultsLength; i++){
+						var md = drillingResults[i].bottomMeasuredDepth;
+
+						helicalBuckling.x.push(1 * drillingResults[i].criticalHelicalBuckling/M);
+						helicalBuckling.y.push(md);
+
+						sinusoidalBuckling.x.push(1 * drillingResults[i].criticalSinusoidalBuckling/M);
+						sinusoidalBuckling.y.push(md);
+					}
+				}else if(slideDrillingResultsLength > 0){
+					for(i = 0; i < slideDrillingResultsLength; i++){
+						var md = slideDrillingResults[i].bottomMeasuredDepth;
+
+						helicalBuckling.x.push(1 * slideDrillingResults[i].criticalHelicalBuckling/M);
+						helicalBuckling.y.push(md);
+
+						sinusoidalBuckling.x.push(1 * slideDrillingResults[i].criticalSinusoidalBuckling/M);
+						sinusoidalBuckling.y.push(md);
+					}
+				}else if(backReamingResultsLength > 0){
+					for(i = 0; i < backReamingResultsLength; i++){
+						var md = backReamingResults[i].bottomMeasuredDepth;
+
+						helicalBuckling.x.push(1 * backReamingResults[i].criticalHelicalBuckling/M);
+						helicalBuckling.y.push(md);
+
+						sinusoidalBuckling.x.push(1 * backReamingResults[i].criticalSinusoidalBuckling/M);
+						sinusoidalBuckling.y.push(md);
+					}
 				}
+	
 	
 			}
 
@@ -309,7 +372,11 @@ export default {
 				};
 			var config = {responsive: true}
 			Plotly.newPlot('myDiv', data, layout, config);
-        }
+		},
+		reFreshPlot(){
+			var context = this;
+			context.createChart();
+		}
     },
     mounted() {
         var context = this;

@@ -37,7 +37,7 @@
                 <inputdataright
                 v-bind:issettingsheader="issettingsheader"
                     v-bind:issensitivityheader="issensitivityheader"
-                    v-bind:isschematicsheader="isschematicsheader"></inputdataright>
+                    v-bind:ispropertyMainheader="ispropertyMainheader"></inputdataright>
               </div>
 
               <div style="width:34px;">
@@ -116,7 +116,7 @@ props: {
     return {
         issettingsheader:false,
         issensitivityheader: false,
-        isschematicsheader: true,
+        ispropertyMainheader: true,
         dense: false,
         // visibility:true,
         tab: 'Datum',
@@ -134,8 +134,8 @@ props: {
       var context =  this;
         context.issettingsheader = ev.issettingsheader;
         context.issensitivityheader = ev.issensitivityheader;
-        context.isschematicsheader = ev.isschematicsheader;
-         console.log("showschematics buttonBarRight")
+        context.ispropertyMainheader = ev.ispropertyMainheader;
+         //console.log("showschematics buttonBarRight")
         console.log("ev: ", ev);
     }
   },

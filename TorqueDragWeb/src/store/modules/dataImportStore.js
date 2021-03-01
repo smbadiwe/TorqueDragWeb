@@ -833,7 +833,7 @@ const mutations = {
         }
     },
     GetDevSurveyPreview(state, payload){
-        var MD = 0;
+        var md = 0;
         var inc = 0;
         var azi = 0;
         var tvd = 0;
@@ -845,50 +845,66 @@ const mutations = {
         var i = 0;
         var j = 0;
         var jCount = state.MappedVariables.length;
+        //console.log("MappedVariables.length: ", jCount)
+        //if(state.devSurveyVariablesInBuilt2.length <= 0){
 
-        if(state.devSurveyVariablesInBuilt2.length <= 0){
                 state.previewSurveyData = [];     
                 var nCount = state.selectedSheetData.length;
+                //console.log("selectedSheetData.length: ", nCount)
                 for(i = 1; i < nCount; i++){
                     var obj = state.selectedSheetData[i];
-                    MD = 0;
+                    md = 0;
                     inc = 0;
                     azi = 0;
                     for(j = 0; j < jCount; j++){
+                            try {
                                 switch(state.MappedVariables[j].DevSurveyVariable){
                                     case "Measured Depth":
-                                        MD = obj[state.MappedVariables[j].SheetHeaderName];
+                                        md = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("md: ", md)
                                         break;
                                     case "Inclination":
                                         inc = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("inc: ", inc)
                                         break;
                                     case "Azimuth":
                                         azi = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("azi: ", azi)
                                         break;
                                     case "True Vertical Depth":
                                         tvd = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("tvd: ", tvd)
                                         break;
                                     case "North/South":
                                         ns = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("ns: ", ns)
                                         break;
                                     case "East/West":
                                         ew = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("ew: ", ew)
                                         break;
                                     case "Vertical Section":
                                         vsection = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("vsection: ", vsection)
                                         break;
                                     case "Dogleg Severity":
                                         dleg = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("Dogleg Severity: ", dleg)
                                         break;
                                     case "Tol":
                                         toll = obj[state.MappedVariables[j].SheetHeaderName];
+                                        //console.log("Tol: ", toll)
                                     break;
                                             
                                 }
+                            }
+                            catch(err){
+                                console.log("error: ", err)
+                            }
                     }
 
                     state.previewSurveyData.push({
-                        measuredDepth: MD,
+                        measuredDepth: md,
                         inclination: inc,
                         azimuth: azi,
                         designId: payload.designId,
@@ -904,7 +920,7 @@ const mutations = {
 
                 }
 
-        }
+        //}
     },
     GetHoleSectionPreview(state, payload){
         var typeOfHole = "";
@@ -918,7 +934,7 @@ const mutations = {
         var j = 0;
         var jCount = state.MappedVariables.length;
 
-        if(state.holeVariablesInBuilt2.length <= 0){
+        //if(state.holeVariablesInBuilt2.length <= 0){
                 state.previewHoleData = [];     
                 var nCount = state.selectedSheetData.length;
                 for(i = 1; i < nCount; i++){
@@ -971,7 +987,7 @@ const mutations = {
 
                 }
 
-        }
+        //}
     },
     GetTubingStringPreview(state, payload){
         var typeOfSection = "";
@@ -990,7 +1006,7 @@ const mutations = {
         var j = 0;
         var jCount = state.MappedVariables.length;
 
-        if(state.TubingStringVariablesInBuilt2.length <= 0){
+        //if(state.TubingStringVariablesInBuilt2.length <= 0){
                 state.previewTubingStringData = [];     
                 var nCount = state.selectedSheetData.length;
                 for(i = 1; i < nCount; i++){
@@ -1068,7 +1084,7 @@ const mutations = {
 
                 }
 
-        }
+        //}
     },
     GetFluidPreview(state, payload){
         var temperature = 0;
@@ -1081,7 +1097,7 @@ const mutations = {
         var j = 0;
         var jCount = state.MappedVariables.length;
 
-        if(state.FluidVariablesInBuilt2.length <= 0){
+        //if(state.FluidVariablesInBuilt2.length <= 0){
                 state.previewMudPVTData = [];     
                 var nCount = state.selectedSheetData.length;
                 for(i = 1; i < nCount; i++){
@@ -1128,7 +1144,7 @@ const mutations = {
 
                 }
 
-        }
+        //}
     },
     SetTypeOfInput(state, payload){
         state.typeOfInput = payload;

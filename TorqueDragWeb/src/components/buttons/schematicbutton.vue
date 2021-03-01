@@ -12,7 +12,7 @@
             </svg>
             <div id="Schematic"
 			@click="showschematics">
-                <span>Well Explorer</span>
+                <span>Property Grid</span>
             </div>
         </div>
 	</div>

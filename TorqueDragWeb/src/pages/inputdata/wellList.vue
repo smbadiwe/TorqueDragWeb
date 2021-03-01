@@ -142,12 +142,15 @@ export default {
               showImportView: false
             });
             if(_wellCaseId !== null){
+
+
               this.$store.dispatch('wellDesignStore/PostSelectedWellDesign', {
                 wellCaseId: _wellCaseId,
                 companyName: context.companyName
               })
             }
-            return;
+            this.$store.commit('wellDesignStore/SetIsWellExplorer', false);
+            
     }
   },
   created() {

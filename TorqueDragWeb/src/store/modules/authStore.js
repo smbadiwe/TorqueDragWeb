@@ -219,7 +219,10 @@ const actions = {
               actionMessage: response.data.info,
               visibility: true
             });
-            context.dispatch('wellDesignStore/GetTorqueDragDesigns',  response.data, {root:true})             
+            context.dispatch('wellDesignStore/GetTorqueDragDesigns',  {
+              companyName: response.data.identity.companyName,
+              id: response.data.identity.id
+            }, {root:true})             
               resolve(response)
               
           })

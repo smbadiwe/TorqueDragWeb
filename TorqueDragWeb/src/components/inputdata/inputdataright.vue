@@ -1,20 +1,20 @@
 <template>
     <div class="col-12 bg-warning">
         <settingsview v-if="issettingsheader"></settingsview>
-        <!-- <schematicsview v-if="isschematicsheader"></schematicsview> -->
+        <propertyMain v-if="ispropertyMainheader"></propertyMain>
         <sensitivityview v-if="issensitivityheader"></sensitivityview>
     </div>
 </template>
 
 <script>
 import settingsview from 'pages/inputdata/analysisSettings.vue'
-import schematicsview from 'pages/inputdata/wellList.vue';
+import propertyMain from 'components/properties/propertyMain.vue';
 import sensitivityview from 'pages/inputdata/sensitivity.vue';
 
 export default {
     components:{
         settingsview,
-        schematicsview,
+        propertyMain,
         sensitivityview
     },
     props:{
@@ -26,7 +26,7 @@ export default {
             type: Boolean,
             default:false,
         },
-        isschematicsheader:{
+        ispropertyMainheader:{
             type: Boolean,
             default:false
         }

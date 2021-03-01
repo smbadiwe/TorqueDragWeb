@@ -64,11 +64,16 @@ export default {
         RemoveOutputTab(selectedTab){
             console.log(selectedTab)
             this.$store.commit('authStore/RemoveOutputTab', selectedTab);
+             var currentRoute = this.$route.path;
+            this.$store.commit('propertyGridStore/setCurrentRoutePropertyGrid', currentRoute);
         },
         ShowActivePage(selectedTab){
             var route = '/' + selectedTab.route;
             this.$router.push(route);
-            console.log("route :", route )
+            var currentRoute = this.$route.path;
+            //console.log('currentRoute: ', this.$route)
+            this.$store.commit('propertyGridStore/setCurrentRoutePropertyGrid', currentRoute);
+            //console.log("route :", route )
         }
     },
     created(){

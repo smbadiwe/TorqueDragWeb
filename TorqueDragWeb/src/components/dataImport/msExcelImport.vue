@@ -134,6 +134,18 @@ export default {
       },
       SelectedTorqueDragDesign(){
         return this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
+      },
+      previewSurveyData(){
+        return this.$store.getters['dataImportStore/previewSurveyData'];
+      },
+      previewHoleData(){
+        return this.$store.getters['dataImportStore/previewHoleData'];
+      },
+      previewTubingStringData(){
+        return this.$store.getters['dataImportStore/previewTubingStringData'];
+      },
+      previewMudPVTData(){
+        return this.$store.getters['dataImportStore/previewMudPVTData'];
       }
     },
     components: {
@@ -201,6 +213,7 @@ export default {
               var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
               switch(typeOfInput){
                 case "Well Path":
+                  //console.log("Well Path")
                   this.$store.commit('dataImportStore/GetDevSurveyPreview', {
                     designId: context.SelectedTorqueDragDesign.id,
                     userId: IdentityModel.id
@@ -250,24 +263,32 @@ export default {
               context.isHole = false;
               context.isTubingString = false;
               context.isFluid = false;
+              this.$store.commit('wellPathStore/GetDeviationSurveys', context.previewSurveyData);
+              this.$store.commit('wellPathStore/SetisImportDialogVisible', false);
               break;
             case "Hole":
               context.isWellPath = false;
               context.isHole = true;
               context.isTubingString = false;
               context.isFluid = false;
+              this.$store.commit('holeStore/GetHoleSections', context.previewHoleData);
+              this.$store.commit('holeStore/SetisImportDialogVisible', false);
               break;
             case "Tubing String":
               context.isWellPath = false;
               context.isHole = false;
               context.isTubingString =  true;
               context.isFluid = false;
+              this.$store.commit('tubingStringStore/GetPipes', context.previewTubingStringData);
+              this.$store.commit('tubingStringStore/SetisImportDialogVisible', false);
               break;
             case "Fluid":
               context.isWellPath = false;
               context.isHole = false;
               context.isTubingString =  false;
               context.isFluid = true;
+              this.$store.commit('fluidsStore/GetMudPVTs', context.previewMudPVTData);
+              this.$store.commit('fluidsStore/SetisImportDialogVisible', false);
               break;
           }
 

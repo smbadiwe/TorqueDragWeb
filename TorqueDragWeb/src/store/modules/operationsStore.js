@@ -27,12 +27,16 @@ const state = {
         torqueAtBitDrillingOperation: 0,
         torqueAtBitBackReaming: 0,
         overpullBackReaming: 0
-    }
+    },
+    operationNames: ["No Operation", "Tripping In", "Tripping Out", "Rotating On Bottom", "Slide Drilling", "Back reaming"]
   }
 
   const getters = {
     operation(state){
         return state.operation;
+    },
+    operationNames(state){
+      return state.operationNames;
     }
 }
 
