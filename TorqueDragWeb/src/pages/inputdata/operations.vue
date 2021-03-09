@@ -185,13 +185,13 @@
 
                                         <div class="row">
                                             <div class="col-12 q-pa-sm text-left">
-                                                <input type="checkbox" id="checkbox">
+                                                <input type="checkbox" id="checkbox" v-model="operation.isRotatingOffBottomChecked">
                                                 <label for="checkbox"> Rotating Off Bottom </label>
                                                 <br>
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
+                                           <!--  <div class="col-12">
                                                 <q-expansion-item
                                                     v-model="expandedRotatingOffBottom"
                                                     dense
@@ -205,11 +205,11 @@
                                                                 <div class="col-3 q-pa-sm">kip</div>
 
                                                                 <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
+                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBitBackReaming"></div>
                                                                 <div class="col-3 q-pa-sm">ft-lbf</div>
                                                         </div>
                                                 </q-expansion-item>
-                                            </div>
+                                            </div> -->
 
                                         </div>
 

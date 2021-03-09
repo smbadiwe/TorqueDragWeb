@@ -38,7 +38,8 @@
              @click="ShowFileRibbon('General Outputs')"/>
             <q-tab name="torquedrag" label="Torque & Drag" 
             @click="ShowFileRibbon('Torque & Drag')"/>
-            <q-tab name="hydraulics" label="Hydraulics" />
+            <q-tab name="hydraulics" label="Hydraulics"
+             @click="ShowFileRibbon('Hydraulics')" />
              <q-tab name="swabsurge" label="Swab & Surge" />
             <q-tab name="centralization" label="Centralization" />
             <q-tab name="wellcontrol" label="Well Control" />
@@ -103,6 +104,10 @@
           class="col-12">
             <torqueDragRibbon-app></torqueDragRibbon-app>
       </div>
+      <div v-if="isHydraulics"
+          class="col-12">
+        <hydraulicsRibbon></hydraulicsRibbon>
+      </div>
     </div>
 
     <div class="row"
@@ -147,7 +152,7 @@
 
       <q-page-container class="bg-primary">
 
-    <div class="row">
+    <div class="row bg-primary" style="height:100vh;">
       <div class="col-12"> 
          <dockView></dockView>
         <!-- <div class="row">
@@ -212,6 +217,7 @@
  import fileRibbon from 'pages/menus/fileRibbon.vue'
 import homeRibbon from 'pages/menus/homeRibbon.vue';
 import generalOutputs from 'pages/menus/generalOutputs.vue';
+import hydraulicsRibbon from 'pages/menus/hydraulicsRibbon.vue';
 import mainInput from 'pages/inputdata/mainInput.vue';
 import mainInputRight from 'pages/inputdata/mainInputRight.vue';
 import testRibbon from 'pages/menus/testRibbon.vue';
@@ -262,7 +268,8 @@ export default {
       testRibbon,
       mainInputRight,
       dockView,
-      leftSideMenu
+      leftSideMenu,
+      hydraulicsRibbon
       },
   data () {
     return {
@@ -293,6 +300,7 @@ export default {
       isRibbonActiveHome: false,
       isRibbonGeneralOutputs: true,
       isTorqueDrag: false,
+      isHydraulics: false,
       isDataVisualization: false,
       inputsRibbonBgColor: '#191919',
       inputsRibbonTextColor: '#ffffff',
@@ -350,24 +358,12 @@ export default {
           var menuTabsCount = context.menuTabs.length;
 
         switch(selectedRibbonName){
-          /* case "Inputs":
-            if(context.isInput == true){
-                  context.isInput = false;
-            }else{
-                  context.isInput = true;
-            }
-            break; */
 
           case "Home":
             context.isRibbonGeneralOutputs = false;
             context.isTorqueDrag=false;
-            if(context.isRibbonActiveHome == true ){
-              context.isRibbonActiveHome = false;
-
-            }else{
-              context.isRibbonActiveHome = true;
-                  
-            }
+            context.isHydraulics = false;
+            context.isRibbonActiveHome = true;
 
             context.homeRibbonBgColor = context.accentColor;
             context.homeRibbonTextColor = context.primaryColor;
@@ -376,14 +372,10 @@ export default {
             break;
 
           case "General Outputs":
+            context.isRibbonGeneralOutputs = true;
+            context.isTorqueDrag=false;
+            context.isHydraulics = false;
             context.isRibbonActiveHome = false;
-            context.isTorqueDrag = false;
-            if(context.isRibbonGeneralOutputs == true ){
-              context.isRibbonGeneralOutputs = false;
-
-            }else{
-              context.isRibbonGeneralOutputs = true;
-            }
 
             context.homeRibbonBgColor = context.secondaryColor;
             context.homeRibbonTextColor = context.inActiveTextcolor;
@@ -393,14 +385,19 @@ export default {
             break;
 
           case "Torque & Drag":
-            context.isRibbonActiveHome = false;
             context.isRibbonGeneralOutputs = false;
-            if(context.isTorqueDrag == true ){
-              context.isTorqueDrag = false;
+            context.isTorqueDrag=true;
+            context.isHydraulics = false;
+            context.isRibbonActiveHome = false;
 
-            }else{
-              context.isTorqueDrag = true;
-            }
+            break;
+
+          case "Hydraulics":
+            context.isRibbonGeneralOutputs = false;
+            context.isTorqueDrag=false;
+            context.isHydraulics = true;
+            context.isRibbonActiveHome = false;
+
             break;
 
         }

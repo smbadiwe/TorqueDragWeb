@@ -1,9 +1,9 @@
 <template>
     <div> 
-        <q-scroll-area
+       <!--  <q-scroll-area
             :visible="visible"
         style="height: 700px;"
-        > 
+        >  -->
             <div class="row text-accent"
             v-if="expanded">
             <div class="col-12 q-pa-md">
@@ -103,7 +103,7 @@
                     <hr/>
             </div>
 
-                <div class="row" style="height:40px"></div>
+                <div class="row" style="height:20px"></div>
 
                 <div class="col-12 q-pa-sm text-right"> 
                     <q-btn 
@@ -183,7 +183,7 @@
                 </div>
 
             </div>
-        </q-scroll-area>
+        <!-- </q-scroll-area> -->
     </div>
 </template>
 
@@ -381,7 +381,7 @@ export default {
 
 <style scoped>
 .my-sticky-header-table{
-  height: 400px;
+  height: 350px;
 }
 
 .q-table__top,

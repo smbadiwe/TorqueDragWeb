@@ -7,6 +7,8 @@ const state = {
   drillingResults: [],
   slideDrillingResults: [],
   backReamingResults: [],
+  rotatingOffBottomResults: [],
+  hydraulicsResults: [],
     visible: false,
     showSimulatedReturnData: true,
     schematicDTO: {},
@@ -76,10 +78,17 @@ const state = {
     isFourVisible: false,
     isFiveVisible: false,
     sensitivityResultsDTO: {},
+    hydraulicSensitivityDTO: {},
     sensitivityIndices: [1]
   }
 
   const getters = {
+    hydraulicSensitivityDTO(state){
+      return state.hydraulicSensitivityDTO;
+    },
+    hydraulicsResults(state){
+      return state.hydraulicsResults;
+    },
     sensitivityIndices(state){
       return state.sensitivityIndices;
     },
@@ -137,6 +146,9 @@ const state = {
     drillingResults(state){
       return state.drillingResults;
     },
+    rotatingOffBottomResults(state){
+      return state.rotatingOffBottomResults;
+    },
     slideDrillingResults(state){
       return state.slideDrillingResults;
     },
@@ -155,6 +167,14 @@ const state = {
 }
 
 const mutations = {
+  setHydraulicsResults(state, payload){
+    state.hydraulicsResults = payload;
+    //console.log("rotatingOffBottomResults", state.rotatingOffBottomResults )
+  },
+  setRotatingOffBottomResults(state, payload){
+    state.rotatingOffBottomResults = payload;
+    console.log("rotatingOffBottomResults", state.rotatingOffBottomResults )
+  },
   setTrippingInResults(state, payload){
     state.trippingInResults = payload;
     console.log("trippingInResults", state.trippingInResults )
@@ -267,6 +287,12 @@ const mutations = {
     state.visible = false;
     state.showSimulatedReturnData = true
 
+  },
+  RunHydraulics(state, payload){
+    //console.log("hyraulics sensitivities", payload);
+    state.hydraulicSensitivityDTO = payload;
+    state.visible = false;
+    state.showSimulatedReturnData = true
   },
   DrawSchematic(state, payload){
     console.log("schematicDTO: ", payload)
@@ -412,6 +438,51 @@ RunSimulation(context, payload)
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Torque and Drag simualtion failed",
+            visibility: true
+          }, {root:true});    
+          reject(error)
+        })
+    })
+  },
+  RunHydraulics(context, payload)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
+    console.log("response: ", payload)
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
+    return new Promise((resolve, reject) => {
+       $http.get('Commons/RunHydraulics/' + ids, config)
+        .then(response => {
+
+        console.log("response: ", response)
+
+          context.commit('RunHydraulics', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Hyraulics simulation completed successfully",
+            visibility: true
+          }, {root:true});                
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("RunHydraulics error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Hydraulics simualtion failed",
             visibility: true
           }, {root:true});    
           reject(error)

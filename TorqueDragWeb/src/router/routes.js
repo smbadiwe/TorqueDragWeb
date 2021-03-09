@@ -13,8 +13,10 @@ import commonPage from 'pages/simulation/commonPage.vue'
 import trippingInResults from 'pages/simulation/trippingInResults.vue'
 import trippingOutResults from 'pages/simulation/trippingOutResults.vue'
 import rotatingOnBottomResults from 'pages/simulation/rotatingOnBottomResults.vue'
+import rotatingOffBottom from 'pages/simulation/rotatingOffBottom.vue'
 import slideDrillingResults from 'pages/simulation/slideDrillingResults.vue'
 import backReamingResults from 'pages/simulation/backReamingResults.vue'
+import hyraulicsReport from  'pages/simulation/hydraulics/hyraulicsReport.vue'
 import schematic from 'pages/wellSchematics/schematic.vue'
 import effectiveTension from 'pages/fixedDepthPlots/effectiveTension.vue'
 import normalForce from 'pages/fixedDepthPlots/normalForce.vue'
@@ -148,6 +150,10 @@ const routes = [
         path: '/rotatingOnBottomResults', 
         component: rotatingOnBottomResults
       },
+      {
+        path: '/rotatingOffBottom',
+        component: rotatingOffBottom
+      },
       { 
         path: '/slideDrillingResults', 
         component: slideDrillingResults
@@ -191,6 +197,10 @@ const routes = [
       {
         path: '/formationTops',
         component: formationTops
+      },
+      {
+        path: '/hyraulicsReport',
+        component: hyraulicsReport
       }
     ]
   },

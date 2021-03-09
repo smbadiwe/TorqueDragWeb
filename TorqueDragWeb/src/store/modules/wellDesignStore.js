@@ -196,6 +196,7 @@ const actions = {
           .then(response => {
               
             context.commit('PostTorqueDragDesign', response.data);
+            context.state.caption = "DP Well Engineering" +  " (" + state.SelectedTorqueDragDesign.designName + ")";
             context.dispatch('GetTorqueDragDesigns',  {
               companyName: payload.companyName,
               id: payload.torqueDragDesign.userId
@@ -220,6 +221,7 @@ const actions = {
               showImportView: true
             }, {root:true});
             console.log("PostTorqueDragDesign error")
+            context.state.caption = "DP Well Engineering" +  " (" + state.SelectedTorqueDragDesign.designName + ")";
             reject(error)
           })
       })
@@ -355,6 +357,8 @@ const actions = {
               context.state.torqueDragMostRecentDesigns[i].isSelected = false;
             }
         }
+
+        context.state.caption ="DP Well Engineering (" +  context.state.SelectedTorqueDragDesign.designName + ")";
 
         var payload2 = {
           companyName: payload.companyName,

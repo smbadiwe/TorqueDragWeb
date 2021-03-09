@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-primary">
       <div 
       v-if="showView"
       class="row">
@@ -14,16 +14,20 @@
           </q-card-section>
         </q-card>
 
-        <q-scroll-area
+        <!-- <q-scroll-area
             :visible="visible"
-          style="height: 1000px; width: 100%;"
-        >
+          style="height: 80hv; width: 100%;"
+        > -->
 
-            <div class="row"> 
+            <div class="row bg-primary"> 
 
               <div class="col-2">
                 <buttonBarLeft v-on:updateprop="updateprop($event)"></buttonBarLeft>
               </div>
+
+              <!-- <div class="col-2">
+                <buttonBarLeft2 v-on:updateprop="updateprop($event)"></buttonBarLeft2>
+              </div> -->
 
               <div id="Group_37_dw_datumview" class="col-10">
 
@@ -184,7 +188,7 @@
 
         </q-splitter> -->
         
-        </q-scroll-area>
+        <!-- </q-scroll-area> -->
       </div>
       </div>
 
@@ -201,6 +205,7 @@
 <script>
 import inputdataleft from 'components/inputdata/inputdataleft.vue';
 import buttonBarLeft from 'components/buttons/buttonBarLeft.vue';
+import buttonBarLeft2 from 'components/buttons/buttonBarLeft2.vue';
 /* import wellPath from 'pages/inputdata/wellPath.vue'
 import hole from 'pages/inputdata/hole.vue'
 import tubingString from 'pages/inputdata/tubingString.vue'
@@ -246,7 +251,8 @@ props: {
      'subsurface-app': subsurface,
      'operations-app': operations, */
      buttonBarLeft,
-     inputdataleft
+     inputdataleft,
+     buttonBarLeft2
   },
   data () {
     return {

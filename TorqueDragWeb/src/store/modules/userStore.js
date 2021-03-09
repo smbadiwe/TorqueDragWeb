@@ -60,6 +60,7 @@ const actions = {
           .then(response => {
               
             context.commit('createIdentity', response.data) 
+            payload.user.password =  response.data.password;
             context.dispatch('createUser',  payload)                   
               resolve(response)
               

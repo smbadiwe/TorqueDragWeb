@@ -144,6 +144,11 @@ export default {
                     context.isOperation = true;
                     var operationResults = this.$store.getters['simulationStore/backReamingResults'];
                     break;
+
+                 case "Rotating Off Bottom":
+                    context.isOperation = true;
+                    var operationResults = this.$store.getters['simulationStore/rotatingOffBottomResults'];
+                    break;
             }
 
             var context =  this;
@@ -194,6 +199,13 @@ export default {
                     context.isOperation = true;
                     this.$store.commit('simulationStore/setBackReamingResults', simulationResultsDTO.backReamingResults);
                     break;
+
+                 case "Rotating Off Bottom":
+                    context.isOperation = true;
+                    this.$store.commit('simulationStore/setRotatingOffBottomResults', simulationResultsDTO.rotatingOffBottomResults);
+                    break;
+
+                    
             }
 
          var context =  this;

@@ -83,7 +83,9 @@
                                     <div class="col-9 q-pa-sm">
                                         <select style="width:100%;"
                                         class="text-center bg-positive text-accent"
-                                        name="NameOfDatum"
+                                        v-on:change="onItemSelectionChanged($event)"
+                                        name="sectionType"
+                                        v-model="typeOfSection"
                                         id="" >
                                             <option>
                                                 Pup Joint
@@ -257,7 +259,7 @@ export default {
         expanded2: true,
         expanded: false,
         visible: true,
-        typeOfSection: "",
+        typeOfSection: "Tubing",
         length: null,
         measuredDepth: null,
         size: null,
@@ -273,6 +275,12 @@ export default {
         }
   },
   methods: {
+      onItemSelectionChanged(e){
+          var context = this;
+            var name = e.target.options[e.target.options.selectedIndex].text;
+            context.typeOfSection = name;
+            console.log("context.typeOfSection", context.typeOfSection)
+      },
       Import(){
             this.$store.commit('dataImportStore/SetTypeOfInput', "Tubing String");
             this.$store.commit('tubingStringStore/SetisImportDialogVisible', true);

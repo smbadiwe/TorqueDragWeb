@@ -47,9 +47,9 @@
                     stack 
                     @click="effectiveTensionPlots">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/chart_1.jpg">
+                        <img src="~/assets/images/hydraulics_1.jpg">
                     </q-avatar></span>
-                   Effective Tension
+                   Min Flow Rate vs Depth
                 </q-btn>
               </div>
 
@@ -62,9 +62,9 @@
                     stack
                     @click="normalForcePlots" >
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/chart_2.jpg">
+                        <img src="~/assets/images/hydraulics_2.jpg">
                     </q-avatar></span>
-                   Normal Force
+                   Min Flow Rate vs DOP
                 </q-btn>    
               </div>
 
@@ -77,9 +77,9 @@
                     stack 
                      @click="hookLoadPlots">
                      <span><q-avatar square size="42px">
-                        <img src="~/assets/images/chart_3.jpg">
+                       <img src="~/assets/images/hydraulics_3.jpg">
                     </q-avatar></span>
-                   Hook Load
+                   Cuttings Vol vs Depth
                 </q-btn>
             </div>
 
@@ -92,26 +92,11 @@
                     stack
                     @click="torquePlots" >
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/chart_4.jpg">
+                        <img src="~/assets/images/hydraulics_4.jpg">
                     </q-avatar></span>
-                   Torque
+                   Cuttings Bed Hgt. vs Depth
                 </q-btn>
                 </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack
-                    @click="dragPlots" >
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/chart_5.jpg">
-                    </q-avatar></span>
-                   Drag
-                </q-btn>
-            </div>
 
             
         </div>
@@ -121,7 +106,7 @@
         
         <div class="row buttonTD3">
             <div class="col-12 q-pa-sm text-center">
-                Plots
+                Hole Cleaning Plots
             </div>
         </div>
       </div>
@@ -139,9 +124,9 @@
                     stack 
                     @click="TrippingInDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_1.jpg">
+                        <img src="~/assets/images/hydraulics_5.jpg">
                     </q-avatar></span>
-                   Tripping In
+                   Pressure Loss vs Pump Rate
                 </q-btn>
               </div>
 
@@ -154,9 +139,9 @@
                     stack 
                     @click="TrippingOutDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_2.jpg">
+                        <img src="~/assets/images/hydraulics_6.jpg">
                     </q-avatar></span>
-                   Tripping Out
+                   Circulating Pressure vs Depth
                 </q-btn>    
               </div>
 
@@ -169,9 +154,9 @@
                     stack 
                     @click="RotatingOnBottomDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_3.jpg">
+                        <img src="~/assets/images/hydraulics_7.jpg">
                     </q-avatar></span>
-                   Rotating On Bottom
+                   ECD vs Depth
                 </q-btn>
             </div>
 
@@ -184,9 +169,9 @@
                     stack
                     @click="SlideDrillingDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_4.jpg">
+                        <img src="~/assets/images/hydraulics_8.jpg">
                     </q-avatar></span>
-                   Slide Drilling
+                   Critical Pump Rate vs Depth
                 </q-btn>
                 </div>
 
@@ -199,9 +184,9 @@
                     stack 
                     @click="BackReamingDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_5.jpg">
+                        <img src="~/assets/images/hydraulics_9.jpg">
                     </q-avatar></span>
-                   Back Reaming
+                   Annular Velocity vs Depth
                 </q-btn>
             </div>
 
@@ -214,12 +199,56 @@
                     stack 
                     @click="rotatingOffBottomDetails">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/table_1.jpg">
+                        <img src="~/assets/images/hydraulics_10.jpg">
                     </q-avatar></span>
-                   Rotating Off Bottom
+                   Pressure to Break Gel
                 </q-btn>
             </div>
 
+            <div class="q-pa-sm text-caption col">
+                <q-btn  
+                    stretch
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack 
+                    @click="rotatingOffBottomDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_11.jpg">
+                    </q-avatar></span>
+                   Flow Regime
+                </q-btn>
+            </div>
+
+            <div class="q-pa-sm text-caption col">
+                <q-btn  
+                    stretch
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack 
+                    @click="rotatingOffBottomDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_12.jpg">
+                    </q-avatar></span>
+                   Component Pressure Losses
+                </q-btn>
+            </div>
+
+            <div class="q-pa-sm text-caption col">
+                <q-btn  
+                    stretch
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack 
+                    @click="rotatingOffBottomDetails">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_13.jpg">
+                    </q-avatar></span>
+                   Component Power Losses
+                </q-btn>
+            </div>
             
         </div>
         
@@ -228,7 +257,7 @@
         
         <div class="row buttonTD3">
             <div class="col-12 q-pa-sm text-center">
-                Report
+                
             </div>
         </div>
       </div>
@@ -257,7 +286,7 @@ export default {
         }
     },
     methods: {
-        RunSimulation(){
+        RunHydraulics(){
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Simulation Log",
                 route: 'simulationConsole'
@@ -271,7 +300,7 @@ export default {
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
-            this.$store.dispatch('simulationStore/RunSimulation', {
+            this.$store.dispatch('simulationStore/RunHydraulics', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 userId: IdentityModel.id
@@ -346,6 +375,13 @@ export default {
                 name: "Back Reaming Report",
                 route: 'backReamingResults'
             });
+        },
+        HyraulicReport(){
+            this.$store.commit('authStore/AddOutputTab',  {
+                name: "Hydraulics Report",
+                route: 'hyraulicsReport'
+            });
+            
         }
     }
 }

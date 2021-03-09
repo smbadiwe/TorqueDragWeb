@@ -1702,7 +1702,7 @@ export default {
             var originY = 20;
             var canvas = document.getElementById("mycanvas");
             var ctx = canvas.getContext("2d");
-            canvas.width = 900;// screen.width;// context.screenWidth;
+            canvas.width =screen.width;// 900;// screen.width;// context.screenWidth;
             context.schematicWidth = canvas.width - 200;
             var holeSections = this.$store.getters['holeStore/holeSections'];
             var pipes = this.$store.getters['tubingStringStore/pipes'];
@@ -1711,9 +1711,11 @@ export default {
             var lengthOfdeviationSurveys = deviationSurveys.length;
             var mDmin = deviationSurveys[0].measuredDepth;
             var mDmax = deviationSurveys[lengthOfdeviationSurveys-1].measuredDepth;
+            var tDmax = deviationSurveys[lengthOfdeviationSurveys-1].trueVerticalDepth;
             var displacementMin = deviationSurveys[0].verticalSection;
             var displacementMax = deviationSurveys[lengthOfdeviationSurveys-1].verticalSection;
             var canvasMD = context.schematicWidth * mDmax / displacementMax;
+            var canvasTVD = context.schematicWidth * tDmax / displacementMax;
             context.schematicHeight = canvasMD;
             canvas.height = context.schematicHeight + 50;
 
@@ -2020,6 +2022,9 @@ export default {
                 
                 case "Back reaming":
                     context.operationResults = this.$store.getters['simulationStore/backReamingResults'];
+                    break;
+                case "Rotating Off Bottom":
+                    context.operationResults = this.$store.getters['simulationStore/rotatingOffBottomResults'];
                     break;
             }
 

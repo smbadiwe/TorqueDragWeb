@@ -99,12 +99,14 @@ export default {
 				var drillingResults =  simulationResultsDTO.drillingResults;
 				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
 				var backReamingResults =  simulationResultsDTO.backReamingResults;
+				var rotatingOffBottomResults = simulationResultsDTO.backReamingResults;
 
 				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
 				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
 				var isRotatingOnBottomChecked =  simulationResultsDTO.isRotatingOnBottomChecked;
 				var isSlideDrillingChecked =  simulationResultsDTO.isSlideDrillingChecked;
 				var isBackReamingChecked =  simulationResultsDTO.isBackReamingChecked;
+				var isRotatingOffBottomChecked =  simulationResultsDTO.isRotatingOffBottomChecked;
 
 				var trippingIn = {
 				x: [],
@@ -165,6 +167,18 @@ export default {
 				name: 'Back Reaming',
 			}
 
+			var rotatingOffBottom = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Rotating Off Bottom',
+			}
+
 				length = trippingInResults.length;
 				
 				
@@ -175,7 +189,7 @@ export default {
 					trippingIn.y.push(md);
 				}
 
-				console.log("tension: ", trippingIn.x);
+				
 
 				//trippingIn.line.color = 'rgb(243, 81, 45)';
 				trippingIn.name = 'Tripping In ' + (j+1).toString();
@@ -193,6 +207,8 @@ export default {
 					trippingOut.y.push(md);
 				}
 
+				//console.log("hook load: ", trippingOut.y);
+				//console.log("hook load: ", trippingOut.x);
 				//trippingOut.line.color = 'rgb(132, 218, 23)'
 				trippingOut.name = 'Tripping Out ' + (j+1).toString();
 				if(isTrippingOutChecked == true){
@@ -213,6 +229,21 @@ export default {
 				if(isRotatingOnBottomChecked == true){
 					//data = [...data, context.rotatingOnBottom]
 					data.push(rotatingOnBottom)
+				}
+
+				length = rotatingOffBottomResults.length;
+				for(i = 0; i < length; i++){
+					var md = rotatingOffBottomResults[i].bottomMeasuredDepth;
+
+					rotatingOffBottom.x.push(rotatingOffBottomResults[i].hookeLoadAtJoint/M);
+					rotatingOffBottom.y.push(md);
+				}
+
+				//rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
+				rotatingOffBottom.name = 'Rotating Off Bottom ' + (j+1).toString();
+				if(isRotatingOffBottomChecked == true){
+					//data = [...data, context.rotatingOnBottom]
+					data.push(rotatingOffBottom)
 				}
 
 				length = slideDrillingResults.length;
@@ -312,7 +343,7 @@ export default {
 			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
 			data.push(helicalBuckling)
 			data.push(sinusoidalBuckling)
-			console.log("data: ", data);
+			//console.log("data: ", data);
 			
 			var layout = { 
 				showlegend: true,

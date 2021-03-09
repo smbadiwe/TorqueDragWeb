@@ -5,7 +5,7 @@
                  <q-card class="my-card bg-secondary text-white" style="height:70px;">
                     <q-card-section align="right">
                         <div class="row">
-                            <div class="col text-center text-subtitle1 q-pb-md">Back Reaming</div>
+                            <div class="col text-center text-subtitle1 q-pb-md">Rotating Off Bottom</div>
                             <q-btn-dropdown class="q-pa-sm" flat>
                             <q-list class="bg-primary text-accent">
                                 <q-item 
@@ -29,7 +29,7 @@
             <div class="col-12 q-pa-sm">
                 <q-table
                     class="my-sticky-header-table"
-                    :data="backReamingResults"
+                    :data="rotatingOffBottomResults"
                     :columns="columns"
                     row-key="name"
                     dark
@@ -75,8 +75,8 @@
 <script>
 export default {
     computed:{
-        backReamingResults() {
-        return this.$store.getters['simulationStore/backReamingResults'];
+        rotatingOffBottomResults() {
+        return this.$store.getters['simulationStore/rotatingOffBottomResults'];
         },
         sensitivityIndices() {
             return this.$store.getters['simulationStore/sensitivityIndices'];
@@ -118,7 +118,7 @@ export default {
           var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
           var simulationResultsDTOsCount = simulationResultsDTOs.length;
           var simulationResultsDTO = simulationResultsDTOs[selectedItem-1];
-           this.$store.commit('simulationStore/setBackReamingResults', simulationResultsDTO.backReamingResults);
+           this.$store.commit('simulationStore/setRotatingOffBottomResults', simulationResultsDTO.rotatingOffBottomResults);
       }
   },
   created(){
@@ -127,7 +127,7 @@ export default {
     var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
     var simulationResultsDTOsCount = simulationResultsDTOs.length;
     var simulationResultsDTO = simulationResultsDTOs[selectedItem];
-    this.$store.commit('simulationStore/setBackReamingResults', simulationResultsDTO.backReamingResults);
+    this.$store.commit('simulationStore/setRotatingOffBottomResults', simulationResultsDTO.rotatingOffBottomResults);
   }
 }
 </script>

@@ -15,10 +15,10 @@
           </q-card-section>
         </q-card>
 
-        <q-scroll-area
+        <!-- <q-scroll-area
             :visible="visible"
           style="height: 1000px; width: 100%;"
-        >
+        > -->
 
             <div class="row"> 
     
@@ -47,7 +47,8 @@
 
         
         
-        </q-scroll-area>
+        <!-- </q-scroll-area> -->
+        
       </div>
     </div>
 
