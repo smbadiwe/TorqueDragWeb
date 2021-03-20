@@ -1,230 +1,290 @@
 <template>
     <div id="tubingstringpage">
 
-            <div class="row text-accent"
-                    v-if="expanded">
-                    <div class="col-12 q-pa-md">
-                            <q-expansion-item
-                                v-model="expanded"
-                                dense
-                                dense-toggle
-                                expand-separator
-                                label="Add Datum"
-                                clickable
-                                @click="ExpandExander2"
-                            >
-                            <div class="row">
-                            <div class="col-3 q-pa-sm">
-                                Type: 
-                            </div>
-                            <div class="col-9 q-pa-sm">
-                                <select style="width:100%;"
-                                class="text-center bg-positive text-accent"
-                                name="NameOfDatum"
-                                id="" >
-                                    <option>
-                                        Hydraulic
-                                    </option>
-                                </select>
-                            </div>
+            <div class="row">
+                 <div class="col-12 q-pa-sm text-right"> 
+                            <q-btn 
+                                icon="import_contacts"
+                                size="sm"
+                                class="q-pa-sm"
+                                @click="Import">
+                                <q-tooltip>
+                                    Import Strings Table
+                                </q-tooltip>
+                            </q-btn>
 
-                            <div class="col-4 q-pt-sm">Description</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="itemDescription"></div>
+                            <q-btn 
+                                class="q-pa-none"
+                                icon="add_box"
+                                size="sm"
+                                @click="ExpandExander">
+                                <q-tooltip>
+                                    Add String Record
+                                </q-tooltip>
+                            </q-btn>
 
-                            </div>
-                            <q-expansion-item
-                                v-model="expandGeneral"
-                                dense
-                                dense-toggle
-                                expand-separator
-                                label="General"
-                                clickable
-                            >
-                                    
-                                <div class="row dialogBorder">
+                            <q-btn 
+                                class="q-pa-none"
+                                icon="save"
+                                size="sm"
+                                @click="SaveTubingStringTable">
+                                <q-tooltip>
+                                    Save String Table
+                                </q-tooltip>
+                            </q-btn>
 
-                                    <div class="col-4 q-pt-sm">Length (ft)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="length"></div>
-                                    <!-- <div class="col-2"></div> -->
-
-                                    <div class="col-4 q-pt-sm">MD (ft)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="measuredDepth"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">Size (in)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="size"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">OD (in)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="outerDiameter"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">ID (in)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="innerDiameter"></div>
-                        
-                                </div>
-
-                            </q-expansion-item>
-
-                            <q-expansion-item
-                                v-model="expandedMechanical"
-                                dense
-                                dense-toggle
-                                expand-separator
-                                label="Mechanical"
-                                clickable
-                            >
-
-                                <div class="row dialogBorder">
-
-                                    <div class="col-3 q-pa-sm">
-                                        Section Type: 
-                                    </div>
-                                    <div class="col-9 q-pa-sm">
-                                        <select style="width:100%;"
-                                        class="text-center bg-positive text-accent"
-                                        v-on:change="onItemSelectionChanged($event)"
-                                        name="sectionType"
-                                        v-model="typeOfSection"
-                                        id="" >
-                                            <option>
-                                                Pup Joint
-                                            </option>
-                                            <option>
-                                                Tubing
-                                            </option>
-                                            <option>
-                                                Flow Coupling
-                                            </option>
-                                            <option>
-                                                SSSV
-                                            </option>
-                                            <option>
-                                                Seal Assembly
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-4 q-pt-sm">Weight (ppf)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="weight"></div>
-                                    <!-- <div class="col-2"></div> -->
-
-                                    <div class="col-4 q-pt-sm">Grade</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="grade"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">Minimum yield Strength (psi)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="minimumYieldStrength"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">Youngs Modulus (psi)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="youngsModulus"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">MakeUp Torque (kip)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="makeUpTorque"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                                    <div class="col-4 q-pt-sm">OverPull Margin (kip)</div>
-                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="overPullMargin"></div>
-                                    <!-- <div class="col-4"></div> -->
-
-                        
-                                </div>
-
-                            </q-expansion-item>
-                                
-                            <div class="col-12 q-pa-sm text-right"> 
-                                <q-btn 
-                                    size="sm"
-                                    label="Add"
-                                    class="q-pa-none"
-                                    @click="AddTubingStringRecord">
-                                </q-btn>
-                            </div>
-                            </q-expansion-item>
-            
+                    <q-dialog v-model="isImportDialogVisible" class="bg-primary">
+                        <div class="q-pa-sm bg-primary">
+                            <msExcelImport-app></msExcelImport-app>
                         </div>
+                    </q-dialog>
                 </div>
- 
-
-                <!-- <div class="row q-pa-sm">
-                    <div class="col-3">String name:</div>
-                    <div class="col-3">Assembly</div>
-                </div> -->
-
-                <!-- <div class="row q-pa-sm">
-                    <div class="col-3">String depth:</div>
-                    <div class="col-3">14,814.00 ft</div>
-                </div> -->
-
-                <div class="row q-pa-sm">
-                
-
-                    <div class="col-12 q-pa-sm text-right"> 
-                                <q-btn 
-                                    icon="import_contacts"
-                                    size="sm"
-                                    class="q-pa-sm"
-                                    @click="Import">
-                                    <q-tooltip>
-                                        Import Strings Table
-                                    </q-tooltip>
-                                </q-btn>
-
-                                <q-btn 
-                                    class="q-pa-none"
-                                    icon="add_box"
-                                    size="sm"
-                                    @click="ExpandExander">
-                                    <q-tooltip>
-                                        Add String Record
-                                    </q-tooltip>
-                                </q-btn>
-
-                                <q-btn 
-                                    class="q-pa-none"
-                                    icon="save"
-                                    size="sm"
-                                    @click="SaveTubingStringTable">
-                                    <q-tooltip>
-                                        Save String Table
-                                    </q-tooltip>
-                                </q-btn>
-
-                        <q-dialog v-model="isImportDialogVisible" class="bg-primary">
-                            <div class="q-pa-sm bg-primary">
-                                <msExcelImport-app></msExcelImport-app>
-                            </div>
-                        </q-dialog>
-                    </div>
-
-                    <div class="col-12 q-pa-sm"> 
-                    <q-table
-                    class="my-sticky-header-table"
-                        :data="pipes"
-                        :columns="columns"
-                        row-key="name"
-                        dark
-                        color="amber"
-                        bordered
-                        :separator="separator">
-
-
-                    <template v-slot:body="props">
-                        <q-tr
-                        :props="props">
-                            <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
-                            <q-td key="length" :props="props">{{ props.row.length }}</q-td>
-                            <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
-                            <q-td key="outerDiameter" :props="props">{{ props.row.outerDiameter }}</q-td>
-                            <q-td key="innerDiameter" :props="props">{{ props.row.innerDiameter }}</q-td>
-                        </q-tr>
-                        </template>
-                    </q-table>
-                    </div>
-        
             </div>
+
+            <div class="row">
+            <div class="col-12">
+                <q-tabs 
+                    v-model="tab"
+                    dense
+                    class="bg-secondary text-accent"
+                    active-color="primary"
+                    indicator-color="accent"
+                    align="justify"
+                    narrow-indicator
+                >
+
+                <q-tab
+                v-for="outputTab in outputTabs" :key="outputTab.name"
+                :name="outputTab.name"
+                :label="outputTab.name">
+                </q-tab>
+            </q-tabs>
+            <q-separator />
+            <q-tab-panels v-model="tab" animated>
+                <q-tab-panel name="general"
+                class="bg-primary">
+                    <div>
+                            <div class="row text-accent"
+                                    v-if="expanded">
+                                    <div class="col-12 q-pa-md">
+                                            <q-expansion-item
+                                                v-model="expanded"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                                label="Add Datum"
+                                                clickable
+                                                @click="ExpandExander2"
+                                            >
+                                            <div class="row">
+                                            <div class="col-3 q-pa-sm">
+                                                Type: 
+                                            </div>
+                                            <div class="col-9 q-pa-sm">
+                                                <select style="width:100%;"
+                                                class="text-center bg-positive text-accent"
+                                                name="NameOfDatum"
+                                                id="" >
+                                                    <option>
+                                                        Hydraulic
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-4 q-pt-sm">Description</div>
+                                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="itemDescription"></div>
+
+                                            </div>
+                                            <q-expansion-item
+                                                v-model="expandGeneral"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                                label="General"
+                                                clickable
+                                            >
+                                                    
+                                                <div class="row dialogBorder">
+
+                                                    <div class="col-4 q-pt-sm">Length (ft)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="length"></div>
+                                                    <!-- <div class="col-2"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">MD (ft)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="measuredDepth"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">Size (in)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="size"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">OD (in)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="outerDiameter"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">ID (in)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="innerDiameter"></div>
+                                        
+                                                </div>
+
+                                            </q-expansion-item>
+
+                                            <q-expansion-item
+                                                v-model="expandedMechanical"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                                label="Mechanical"
+                                                clickable
+                                            >
+
+                                                <div class="row dialogBorder">
+
+                                                    <div class="col-3 q-pa-sm">
+                                                        Section Type: 
+                                                    </div>
+                                                    <div class="col-9 q-pa-sm">
+                                                        <select style="width:100%;"
+                                                        class="text-center bg-positive text-accent"
+                                                        v-on:change="onItemSelectionChanged($event)"
+                                                        name="sectionType"
+                                                        v-model="typeOfSection"
+                                                        id="" >
+                                                            <option>
+                                                                Pup Joint
+                                                            </option>
+                                                            <option>
+                                                                Tubing
+                                                            </option>
+                                                            <option>
+                                                                Flow Coupling
+                                                            </option>
+                                                            <option>
+                                                                SSSV
+                                                            </option>
+                                                            <option>
+                                                                Seal Assembly
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-4 q-pt-sm">Weight (ppf)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="weight"></div>
+                                                    <!-- <div class="col-2"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">Grade</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="grade"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">Minimum yield Strength (psi)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="minimumYieldStrength"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">Youngs Modulus (psi)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="youngsModulus"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">MakeUp Torque (kip)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="makeUpTorque"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">OverPull Margin (kip)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="overPullMargin"></div>
+                                                    <!-- <div class="col-4"></div> -->
+
+                                        
+                                                </div>
+
+                                            </q-expansion-item>
+                                                
+                                            <div class="col-12 q-pa-sm text-right"> 
+                                                <q-btn 
+                                                    size="sm"
+                                                    label="Add"
+                                                    class="q-pa-none"
+                                                    @click="AddTubingStringRecord">
+                                                </q-btn>
+                                            </div>
+                                            </q-expansion-item>
+                            
+                                        </div>
+                            </div>
+                
+                            <div class="row q-pa-sm">
+                                
+
+                                    <div class="col-12 q-pa-sm text-right">        
+
+                                        <q-dialog v-model="isImportDialogVisible" class="bg-primary">
+                                            <div class="q-pa-sm bg-primary">
+                                                <msExcelImport-app></msExcelImport-app>
+                                            </div>
+                                        </q-dialog>
+                                    </div>
+
+                                    <div class="col-12 q-pa-sm"> 
+                                    <q-table
+                                    class="my-sticky-header-table"
+                                        :data="pipes"
+                                        :columns="columns"
+                                        row-key="name"
+                                        dark
+                                        color="amber"
+                                        bordered
+                                        :separator="separator">
+
+
+                                    <template v-slot:body="props">
+                                        <q-tr
+                                        :props="props">
+                                            <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
+                                            <q-td key="length" :props="props">{{ props.row.length }}</q-td>
+                                            <q-td key="measuredDepth" :props="props">{{ props.row.measuredDepth }}</q-td>
+                                            <q-td key="outerDiameter" :props="props">{{ props.row.outerDiameter }}</q-td>
+                                            <q-td key="innerDiameter" :props="props">{{ props.row.innerDiameter }}</q-td>
+                                        </q-tr>
+                                        </template>
+                                    </q-table>
+                                    </div>
+                        
+                            </div>
+                    </div>
+                </q-tab-panel>
+
+                <q-tab-panel name="optional"
+                 class="bg-primary">
+                    <div>
+                            <q-expansion-item class="col-12 q-pa-sm"
+                                                v-model="expandBitParams"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                                label="Drill Bit Parameters"
+                                                clickable
+                                            >
+                                                    
+                                                <div class="row dialogBorder">
+
+                                                    <div class="col-4 q-pt-sm">Bit Size (in)</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.bitSize"></div>
+                                                    <!-- <div class="col-2"></div> -->
+
+                                                    <div class="col-4 q-pt-sm">Number of Nozzles</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.numberOfBitNozzles"></div>
+                                                    
+                                                    <div class="col-4 q-pt-sm">Discharge Coefficient</div>
+                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.dischargeCoefficient"></div>
+
+                                                </div>
+
+                                            </q-expansion-item>
+                    </div>
+                </q-tab-panel>
+            </q-tab-panels>
+        </div>
+    </div>
+
+           
 
     </div>
 </template>
@@ -237,6 +297,9 @@ export default {
         pipes() {
         return this.$store.getters['tubingStringStore/pipes'];
         },
+        drillBit() {
+        return this.$store.getters['tubingStringStore/drillBit'];
+        },
         isImportDialogVisible() {
         return this.$store.getters['tubingStringStore/isImportDialogVisible'];
         }
@@ -246,6 +309,18 @@ export default {
     },
     data () {
         return {
+        expandBitParams: true,
+        tab: 'general',
+        outputTabs: [
+            {
+                name: 'general',
+                isActive: true,
+            },
+            {
+                name: 'optional',
+                isActive: false,
+            }
+        ],
         separator: 'cell',
         columns: [
             { name: "typeOfSection", label: "Section Type", field: "", align: "left" },
@@ -271,10 +346,26 @@ export default {
         itemDescription: "",
         makeUpTorque: null,
         overPullMargin: null,
-        youngsModulus: null
+        youngsModulus: null,
+        isGeneral: true,
+        isOptional: false
         }
   },
   methods: {
+      ShowActivePage(selectedTab){
+            var context =  this;
+            context.isGeneral = false;
+            context.isOptional = false;
+            switch(selectedTab){
+                case "General":
+                    context.isGeneral = true;
+                    break;
+                case "Optional":
+                    context.isOptional = true;
+                    break;
+
+            }
+        },
       onItemSelectionChanged(e){
           var context = this;
             var name = e.target.options[e.target.options.selectedIndex].text;
@@ -373,6 +464,13 @@ export default {
                 companyName: Conn
               });
 
+              this.$store.dispatch('tubingStringStore/PostDrillBit', {
+                drillBit: context.drillBit,
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
+                companyName: Conn
+              });
+
         }
   },
   created(){
@@ -415,6 +513,22 @@ export default {
 
 .dialogBorder {
   border: 2px solid rgba(112,112,112,1);
+}
+
+.taboutput {
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: lighter;
+	font-size: 18px;
+	color: rgba(214,214,214,1);
+    background-color: rgba(45,66,123,1);
+}
+
+.vl {
+  border-left: 2px solid rgba(255,255,255, 1);
+  height: 50px;
 }
 
 </style>

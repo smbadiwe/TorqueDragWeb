@@ -78,13 +78,13 @@
                         <div class="row">
                             <div class="col-3 q-pa-sm">Name:</div>
                             <div class="col-3"></div>
-                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="mudName"></div>
+                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.mudName"></div>
                         </div>
 
                         <div class="row">
                             <div class="col-3 q-pa-sm">Description:</div>
                             <div class="col-3"></div>
-                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="description"></div>
+                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.description"></div>
                         </div>
 
                         <div class="row">
@@ -98,7 +98,7 @@
                                 Mud base type: 
                             </div>
                             <div class="col-6 q-pa-sm">
-                            <select v-model="mudBaseType"
+                            <select v-model="fluid.mudBaseType"
                             class="text-center bg-positive text-accent"
                             style="width:100%;">
                                     <option>Brine</option>
@@ -112,7 +112,7 @@
                                 Base Fluid: 
                             </div>
                             <div class="col-6 q-pa-sm">
-                            <select v-model="baseFluid" 
+                            <select v-model="fluid.baseFluid" 
                             class="text-center bg-positive text-accent"
                             style="width:100%;">
                                     <option>Brine</option>
@@ -135,16 +135,17 @@
                                 Rheology model: 
                             </div>
                             <div class="col-6 q-pa-sm">
-                            <select v-model="rheologyModel" 
+                            <select v-model="fluid.rheologyModel" 
                             class="text-center bg-positive text-accent"
                             style="width:100%;">
+                                    <option>Newtonian</option>
                                     <option>Bingham Plastic</option>
                                     <option>Power law</option>
                                     <option>Herschel Bulkley</option>
                             </select>
                             </div>
 
-                            <div class="col-6 q-pa-sm">
+                            <!-- <div class="col-6 q-pa-sm">
                                 <label>
                                     <input type="radio" value="Rheology" v-model="rheologyModelType" />
                                     Rheology
@@ -156,7 +157,37 @@
                                     <input type="radio" value="Fann" v-model="rheologyModelType" />
                                     Fann
                                 </label>
-                            </div>
+                            </div> -->
+
+                            <q-expansion-item class="col-12 q-pa-sm"
+                                v-model="expandFannParams"
+                                dense
+                                dense-toggle
+                                expand-separator
+                                label="Fann Parameters"
+                                clickable
+                            >
+                                    
+                                <div class="row dialogBorder">
+
+                                    <div class="col-4 q-pt-sm">Base Dial Reading</div>
+                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.baseFannDialReading"></div>
+                                    <!-- <div class="col-2"></div> -->
+
+                                    <div class="col-4 q-pt-sm">Base Speed (RPM)</div>
+                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.baseFannRPM"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-4 q-pt-sm">Dial Reading</div>
+                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.fannDialReading"></div>
+                                    <!-- <div class="col-4"></div> -->
+
+                                    <div class="col-4 q-pt-sm">Speed (RPM)</div>
+                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.fannRPM"></div>
+                                    <!-- <div class="col-4"></div> -->
+                                </div>
+
+                            </q-expansion-item>
 
 
                             <div class="col-12 q-pa-sm text-right"> 
@@ -252,13 +283,17 @@ export default {
         },
         isImportDialogVisible() {
         return this.$store.getters['fluidsStore/isImportDialogVisible'];
-        }
+        },
+        fluid() {
+        return this.$store.getters['fluidsStore/fluid'];
+        } 
     },
     components: {
         'msExcelImport-app': msExcelImport
     },
     data () {
     return {
+        expandFannParams: true,
         expanded: false,
         expanded2: true,
       visible: true,
@@ -273,18 +308,22 @@ export default {
             { name: "yieldPoint", label: "Yield Point (lbf/100ft2)", field: "", align: "left" },
             { name: "reference", label: "Reference", field: "", align: "left" }
         ],
-        mudName: "",
-        description: "",
-        mudBaseType: "",
-        baseFluid: "",
-        rheologyModel: "",
-        rheologyModelType: "Rheology",
         temperature: null,
         pressure: null,
         density: null,
         plasticViscoity: null,
         yieldPoint: null,
         reference: ''
+/*         mudName: "",
+        description: "",
+        mudBaseType: "",
+        baseFluid: "",
+        rheologyModel: "",
+        rheologyModelType: "Rheology",
+        baseFannDialReading: null,
+        baseFannRPM: null,
+        fannDialReading: null,
+        fannRPM: null */
     }
   },
   methods: {
@@ -352,16 +391,8 @@ export default {
             this.$store.dispatch('fluidsStore/PostFluid', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                fluid: {
-                    mudName: context.mudName,
-                    description: context.description,
-                    mudBaseType: context.mudBaseType,
-                    baseFluid: context.baseFluid,
-                    rheologyModel: context.rheologyModel,
-                    rheologyModelType: context.rheologyModelType,
-                    designId: selectedTorqueDragDesign.id,
-                    userId: IdentityModel.id
-                }
+                userId: IdentityModel.id,
+                fluid: context.fluid
             })
 
             this.$store.dispatch('fluidsStore/PostMudPVTs', {
@@ -409,4 +440,5 @@ export default {
 .dialogBorder {
   border: 2px solid rgba(112,112,112,1);
 }
+
 </style>

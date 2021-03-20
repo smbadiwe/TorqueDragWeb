@@ -3,10 +3,14 @@ import { $http } from 'boot/axios'
 const state = {
     pipes:[],
     isImportDialogVisible: false,
-    pipe: {}
+    pipe: {},
+    drillBit: {}
   }
 
   const getters = {
+    drillBit(state){
+      return state.drillBit;
+    },
     pipes(state){
       return state.pipes;
     },
@@ -27,6 +31,9 @@ const mutations = {
   },
   GetPipes(state, payload){
     state.pipes = payload;
+  },
+  GetDrillBit(state, payload){
+    state.drillBit = payload;
   },
   SetisImportDialogVisible(state, payload){
     state.isImportDialogVisible = payload;
@@ -79,6 +86,58 @@ const actions = {
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Tubing strings failed to save. Please check your data",
+            visibility: true
+          }, {root:true});    
+          reject(error)
+        })
+    })
+  },
+  PostDrillBit(context, payload)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
+    state.drillBit = [];
+    state.drillBit = payload.drillBit;
+
+    payload.drillBit.bitSize = parseFloat(payload.drillBit.bitSize);
+    payload.drillBit.numberOfBitNozzles = parseFloat(payload.drillBit.numberOfBitNozzles);
+    payload.drillBit.dischargeCoefficient = parseFloat(payload.drillBit.dischargeCoefficient);
+    payload.drillBit.designId = payload.designId;
+    payload.drillBit.userId = payload.userId;
+
+    return new Promise((resolve, reject) => {
+  
+
+       $http.post('DrillBits/PostDrillBit', payload, config)
+        .then(response => {
+            
+          context.commit('PostDrillBit', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Drill bit saved successfully",
+            visibility: true
+          }, {root:true});    
+
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("PostDrillBit error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Drill bit failed to save. Please check your data",
             visibility: true
           }, {root:true});    
           reject(error)
@@ -142,6 +201,46 @@ const actions = {
         })
         .catch(error => {
           console.log("GetPipes error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});
+          reject(error)
+        })
+    })
+  },
+  GetDrillBit(context, payload)
+  {
+    context.commit('dataImportStore/SetLoaderParameters', {
+      showLoader: true,
+      showImportView: false
+    }, {root:true});
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
+    state.drillBit = {};
+
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
+    return new Promise((resolve, reject) => {
+  
+
+       $http.get('DrillBits/GetDrillBit/' + ids, config)
+        .then(response => {
+            
+          context.commit('GetDrillBit', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true});            
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("GetDrillBit error")
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
             showImportView: true

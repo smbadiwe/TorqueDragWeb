@@ -2,7 +2,7 @@
   <div>
     <q-toolbar class=" bg-info text-accent q-my-md">
 
-       <div>
+      <!--  <div>
             <div class="row buttonTD1">
                   <div class="q-pa-sm text-caption">
                     <q-btn 
@@ -23,19 +23,13 @@
           </div>
 
             <div class="row buttonTD3">
-                <!-- <q-card 
-                    class="col-12 bg-secondary text-accent">
-                        <q-card-section align="center">
-                            <div class="text-center text-subtitle1 q-pa-sm">Simulation</div>
-                        </q-card-section>
-                </q-card> -->
                 <div class="col-12 q-pa-sm text-center">
                     Simulation
                 </div>
             </div>
        </div>
 
-      <q-separator dark vertical />
+      <q-separator dark vertical /> -->
 
       <div>
         <div class="row buttonTD1">

@@ -265,6 +265,7 @@ const actions = {
             context.dispatch('settingsStore/GetCommon', payload2, {root:true});
             context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
             context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
+            context.dispatch('tubingStringStore/GetDrillBit', payload2, {root:true});
             context.state.caption ="DP Well Engineering (" + response.data.designName + ")";
             context.commit('dataImportStore/SetLoaderParameters', {
               showLoader: false,
@@ -372,6 +373,7 @@ const actions = {
         context.dispatch('settingsStore/GetCommon', payload2, {root:true});
         context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
         context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
+        context.dispatch('tubingStringStore/GetDrillBit', payload2, {root:true});
 
 
         context.commit('authStore/setStatusMessageBarVisibility',  

@@ -46,7 +46,7 @@ const mutations = {
     state.operation = payload;
   },
   GetOperation(state, payload){
-    console.log(payload)
+    //console.log(payload)
     state.operation = payload;
   }
 

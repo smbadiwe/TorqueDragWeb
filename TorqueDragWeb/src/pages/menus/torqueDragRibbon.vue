@@ -2,40 +2,6 @@
   <div>
     <q-toolbar class=" bg-info text-accent q-my-md">
 
-       <div>
-            <div class="row buttonTD1">
-                  <div class="q-pa-sm text-caption">
-                    <q-btn 
-                    icon="play_arrow" 
-                    flat
-                    stretch
-                    :size="size" 
-                    label="Run"
-                    class="text-capitalize"
-                    stack 
-                    @click="RunSimulation"
-                    >
-                </q-btn>
-                </div>
-            </div>
-
-          <div class="row buttonTD2">
-          </div>
-
-            <div class="row buttonTD3">
-                <!-- <q-card 
-                    class="col-12 bg-secondary text-accent">
-                        <q-card-section align="center">
-                            <div class="text-center text-subtitle1 q-pa-sm">Simulation</div>
-                        </q-card-section>
-                </q-card> -->
-                <div class="col-12 q-pa-sm text-center">
-                    Simulation
-                </div>
-            </div>
-       </div>
-
-      <q-separator dark vertical />
 
       <div>
         <div class="row buttonTD1">
@@ -257,27 +223,6 @@ export default {
         }
     },
     methods: {
-        RunSimulation(){
-            this.$store.commit('authStore/AddOutputTab', {
-                name: "Simulation Log",
-                route: 'simulationConsole'
-            });
-            this.$store.commit('dataImportStore/SetLoaderParameters', {
-            showLoader: true,
-            showImportView: false
-          });
-
-            var context =  this;
-            var Conn = this.$store.getters['authStore/companyName'];
-            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
-            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
-            this.$store.dispatch('simulationStore/RunSimulation', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id
-            });
-
-        },
         effectiveTensionPlots(){
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Effective Tension",

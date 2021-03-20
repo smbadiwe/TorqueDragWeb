@@ -9,6 +9,7 @@ const state = {
   backReamingResults: [],
   rotatingOffBottomResults: [],
   hydraulicsResults: [],
+  surgeSwabResults: [],
     visible: false,
     showSimulatedReturnData: true,
     schematicDTO: {},
@@ -79,10 +80,17 @@ const state = {
     isFiveVisible: false,
     sensitivityResultsDTO: {},
     hydraulicSensitivityDTO: {},
+    surgeSwabSensitivityDTO: {},
     sensitivityIndices: [1]
   }
 
   const getters = {
+    surgeSwabResults(state){
+      return state.surgeSwabResults;
+    },
+    surgeSwabSensitivityDTO(state){
+      return state.surgeSwabSensitivityDTO;
+    },
     hydraulicSensitivityDTO(state){
       return state.hydraulicSensitivityDTO;
     },
@@ -294,6 +302,12 @@ const mutations = {
     state.visible = false;
     state.showSimulatedReturnData = true
   },
+  RunSurgeSwab(statet, payload)
+  {
+    state.surgeSwabSensitivityDTO = payload;
+    state.visible = false;
+    state.showSimulatedReturnData = true
+  },
   DrawSchematic(state, payload){
     console.log("schematicDTO: ", payload)
     state.schematicDTO = payload;
@@ -483,6 +497,51 @@ RunSimulation(context, payload)
           context.commit('authStore/setStatusMessageBarVisibility',  
           {
             actionMessage: "Hydraulics simualtion failed",
+            visibility: true
+          }, {root:true});    
+          reject(error)
+        })
+    })
+  },
+  RunSurgeSwab(context, payload)
+  {
+    let config = {
+      headers: {
+        tenantcode: payload.companyName,
+      }
+    }
+
+    console.log("response: ", payload)
+    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
+    return new Promise((resolve, reject) => {
+       $http.get('Commons/RunSurgeSwab/' + ids, config)
+        .then(response => {
+
+        console.log("response: ", response)
+
+          context.commit('RunSurgeSwab', response.data)  
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Surge and swab simulation completed successfully",
+            visibility: true
+          }, {root:true});                
+            resolve(response)
+            
+        })
+        .catch(error => {
+          console.log("RunHydraulics error")
+          context.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }, {root:true}); 
+          context.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Surge and swab simualtion failed",
             visibility: true
           }, {root:true});    
           reject(error)

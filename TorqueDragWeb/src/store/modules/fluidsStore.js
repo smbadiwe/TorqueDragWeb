@@ -8,7 +8,11 @@ const state = {
         mudBaseType: "",
         baseFluid: "",
         rheologyModel: "",
-        rheologyModelType: ""
+        rheologyModelType: "",
+        baseFannDialReading: "",
+        baseFannRPM: "",
+        fannDialReading: "",
+        fannRPM: ""
     },
     isImportDialogVisible: false,
   }
@@ -27,14 +31,18 @@ const state = {
 
 const mutations = {
   GetFluid(state, payload){
-    state.fluid = payload;
-    state.rheologyOne = "";
-    state.rheologyTwo =  "";
-    if(state.fluid.rheologyModelType == "Rheology"){
-      state.rheologyOne = state.fluid.rheologyModelType;
-    }else{
-      state.rheologyTwo = state.fluid.rheologyModelType;
+    var keys = Object.keys(payload)
+    if(keys.length > 0){
+      state.fluid = payload;
+      state.rheologyOne = "";
+      state.rheologyTwo =  "";
+      if(state.fluid.rheologyModelType == "Rheology"){
+        state.rheologyOne = state.fluid.rheologyModelType;
+      }else{
+        state.rheologyTwo = state.fluid.rheologyModelType;
+      }
     }
+    
   },
   GetMudPVTs(state, payload){
     state.mudPVTs =  payload;
@@ -140,6 +148,13 @@ const actions = {
         tenantcode: payload.companyName,
       }
     }
+
+    payload.fluid.baseFannDialReading = parseFloat(payload.fluid.baseFannDialReading);
+    payload.fluid.baseFannRPM = parseFloat(payload.fluid.baseFannRPM);
+    payload.fluid.fannDialReading = parseFloat(payload.fluid.fannDialReading);
+    payload.fluid.fannRPM = parseFloat(payload.fluid.fannRPM);
+    payload.fluid.userId = payload.userId;
+    payload.fluid.designId = payload.designId;
 
     return new Promise((resolve, reject) => {
   
