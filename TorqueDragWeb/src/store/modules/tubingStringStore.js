@@ -4,7 +4,11 @@ const state = {
     pipes:[],
     isImportDialogVisible: false,
     pipe: {},
-    drillBit: {}
+    drillBit: {
+      bitSize: 0,
+      numberOfBitNozzles: 0,
+      dischargeCoefficient: 0
+    }
   }
 
   const getters = {
@@ -33,7 +37,12 @@ const mutations = {
     state.pipes = payload;
   },
   GetDrillBit(state, payload){
-    state.drillBit = payload;
+    var keys = Object.keys(payload);
+    console.log(keys);
+    if(keys.length > 0){
+      state.drillBit = payload;
+    }
+    
   },
   SetisImportDialogVisible(state, payload){
     state.isImportDialogVisible = payload;
@@ -51,7 +60,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     state.pipes = [];
@@ -97,7 +107,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     state.drillBit = [];
@@ -150,7 +161,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
     return new Promise((resolve, reject) => {
   
@@ -178,9 +190,9 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
-
     state.pipes = [];
 
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
@@ -218,7 +230,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     state.drillBit = {};

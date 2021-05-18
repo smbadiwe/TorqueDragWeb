@@ -187,7 +187,8 @@ const actions = {
       let config = {
         headers: {
           tenantcode: payload.companyName,
-        }
+        },
+        useCredentails: true
       }
 
       return new Promise((resolve, reject) => {
@@ -231,7 +232,8 @@ const actions = {
       let config = {
         headers: {
           tenantcode: payload.companyName,
-        }
+        },
+        useCredentails: true
       }
 
       var i = 0;
@@ -266,6 +268,7 @@ const actions = {
             context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
             context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
             context.dispatch('tubingStringStore/GetDrillBit', payload2, {root:true});
+            context.dispatch('rigStore/GetRig', payload2, {root:true});
             context.state.caption ="DP Well Engineering (" + response.data.designName + ")";
             context.commit('dataImportStore/SetLoaderParameters', {
               showLoader: false,
@@ -296,7 +299,8 @@ const actions = {
       let config = {
         headers: {
           tenantcode: payload.companyName,
-        }
+        },
+        useCredentails: true
       }
 
       return new Promise((resolve, reject) => {
@@ -320,7 +324,8 @@ const actions = {
       let config = {
         headers: {
           tenantcode: payload.companyName,
-        }
+        },
+        useCredentails: true
       }
 
       return new Promise((resolve, reject) => {
@@ -374,6 +379,7 @@ const actions = {
         context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
         context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
         context.dispatch('tubingStringStore/GetDrillBit', payload2, {root:true});
+        context.dispatch('rigStore/GetRig', payload2, {root:true});
 
 
         context.commit('authStore/setStatusMessageBarVisibility',  

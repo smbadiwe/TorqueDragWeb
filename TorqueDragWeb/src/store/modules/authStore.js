@@ -205,12 +205,16 @@ const mutations = {
 const actions = {
     Login(context, payload)
     {
+
+      let config = {
+        useCredentails: false
+      }
       context.state.visible = true
       context.state.showSimulatedReturnData = false
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Authentications/Login', payload)
+         $http.post('Authentications/Login', payload, config)
           .then(response => {
               
             context.commit('Login', response.data) 
@@ -227,19 +231,23 @@ const actions = {
               
           })
           .catch(error => {
-            console.log("login error")
+            console.log(error.message)
             state.visible = false
             state.showSimulatedReturnData = true
-            alert("UserName or Password does not exist");
+            alert(error.message);
             reject(error)
           })
       })
     },
     Logout(context)
     {
+      let config = {
+        useCredentails: false
+      }
+
       return new Promise((resolve, reject) => {
         console.log("seen")
-         $http.post('Authentications/Logout', context.state.IdentityModel)
+         $http.post('Authentications/Logout', context.state.IdentityModel, config)
           .then(response => {
               
             context.commit('Logout', response.data)              

@@ -30,10 +30,13 @@ const mutations = {
 const actions = {
     createCompany(context, payload)
     {
+      let config = {
+        useCredentails: false
+      }
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Companies/PostCompany', payload)
+         $http.post('Companies/PostCompany', payload, config)
           .then(response => {
               
             context.commit('createCompany', response.data)              
@@ -48,10 +51,13 @@ const actions = {
     },
     GetCompanies(context)
     {
+      let config = {
+        useCredentails: false
+      }
 
       return new Promise((resolve, reject) => {
      
-         $http.get('Companies/GetCompanies')
+         $http.get('Companies/GetCompanies', config)
           .then(response => {
               
             context.commit('GetCompanies', response.data)              

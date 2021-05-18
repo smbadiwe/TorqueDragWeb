@@ -62,7 +62,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
@@ -96,7 +97,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     console.log("payload.operation: ", payload.operation)

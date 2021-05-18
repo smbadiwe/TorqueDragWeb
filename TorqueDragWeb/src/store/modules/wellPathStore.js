@@ -118,7 +118,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     state.deviationSurveys = [];
@@ -177,7 +178,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
     
     state.deviationSurveys = [];
@@ -216,7 +218,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
     
     context.state.deviationSurveys = [];

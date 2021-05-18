@@ -33,7 +33,8 @@ const actions = {
       let config = {
         headers: {
           tenantcode: payload.companyName,
-        }
+        },
+        useCredentails: true
       }
 
       return new Promise((resolve, reject) => {
@@ -53,10 +54,13 @@ const actions = {
     },
     createIdentity(context, payload)
     {
+      let config = {
+        useCredentails: true
+      }
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Identities/PostIdentity', payload)
+         $http.post('Identities/PostIdentity', payload, config)
           .then(response => {
               
             context.commit('createIdentity', response.data) 

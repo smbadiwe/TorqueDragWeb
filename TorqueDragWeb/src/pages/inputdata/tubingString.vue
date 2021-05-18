@@ -272,7 +272,7 @@
                                                     <div class="col-4 q-pt-sm">Number of Nozzles</div>
                                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.numberOfBitNozzles"></div>
                                                     
-                                                    <div class="col-4 q-pt-sm">Discharge Coefficient</div>
+                                                    <div class="col-4 q-pt-sm">Discharge Coefficient (fraction)</div>
                                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.dischargeCoefficient"></div>
 
                                                 </div>

@@ -81,7 +81,8 @@ const state = {
     sensitivityResultsDTO: {},
     hydraulicSensitivityDTO: {},
     surgeSwabSensitivityDTO: {},
-    sensitivityIndices: [1]
+    sensitivityIndices: [1],
+    rigDTO: {}
   }
 
   const getters = {
@@ -171,10 +172,16 @@ const state = {
     },
     holeSegmentLast(state){
       return state.holeSegmentLast;
+    },
+    rigDTO(state){
+      return state.rigDTO;
     }
 }
 
 const mutations = {
+  setSurgeSwabResults(state, payload){
+    state.surgeSwabResults = payload;
+  },
   setHydraulicsResults(state, payload){
     state.hydraulicsResults = payload;
     //console.log("rotatingOffBottomResults", state.rotatingOffBottomResults )
@@ -297,12 +304,15 @@ const mutations = {
 
   },
   RunHydraulics(state, payload){
-    //console.log("hyraulics sensitivities", payload);
-    state.hydraulicSensitivityDTO = payload;
+    //console.log("sensitivityResultsDTO", payload);
+    state.hydraulicSensitivityDTO = payload.simulationResultsDTOs;
+    state.rigDTO = payload.rigDTO;
+    console.log("simulationResultsDTOs", state.hydraulicSensitivityDTO);
+    console.log("rigDTO", state.rigDTO);
     state.visible = false;
     state.showSimulatedReturnData = true
   },
-  RunSurgeSwab(statet, payload)
+  RunSurgeSwab(state, payload)
   {
     state.surgeSwabSensitivityDTO = payload;
     state.visible = false;
@@ -338,7 +348,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
     
 
@@ -414,9 +425,9 @@ RunSimulation(context, payload)
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      //useCredentails: true
     }
-
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
     //this.$router.push('/simulationConsole');
@@ -444,7 +455,8 @@ RunSimulation(context, payload)
             
         })
         .catch(error => {
-          console.log("RunSimulation error")
+          //console.log("RunSimulation error")
+          console.error(error.response.data);
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
             showImportView: true
@@ -463,7 +475,8 @@ RunSimulation(context, payload)
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     console.log("response: ", payload)
@@ -473,7 +486,7 @@ RunSimulation(context, payload)
        $http.get('Commons/RunHydraulics/' + ids, config)
         .then(response => {
 
-        console.log("response: ", response)
+        //console.log("data: ", response.data)
 
           context.commit('RunHydraulics', response.data)  
           context.commit('dataImportStore/SetLoaderParameters', {
@@ -508,9 +521,9 @@ RunSimulation(context, payload)
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
-
     console.log("response: ", payload)
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
@@ -550,11 +563,12 @@ RunSimulation(context, payload)
   },
 DrawSchematic(context, payload)
 {
-    let config = {
-      headers: {
-        tenantcode: payload.companyName,
-      }
-    }
+  let config = {
+    headers: {
+      tenantcode: payload.companyName,
+    },
+    useCredentails: true
+  }
     
     //console.log("response: ", payload)
     //this.$router.push('/schematic');
@@ -585,6 +599,10 @@ DrawSchematic(context, payload)
   },
 DrawPipeBuckledSections(context, payload)
 {
+
+  let config = {
+    useCredentails: true
+  }
   
     context.state.visible = true;
     context.state.showSimulatedReturnData = false
@@ -593,7 +611,7 @@ DrawPipeBuckledSections(context, payload)
     //this.$router.push('/schematic');
     
     return new Promise((resolve, reject) => {
-      $http.post('Commons/DrawPipeBuckledSections', payload)
+      $http.post('Commons/DrawPipeBuckledSections', payload, config)
         .then(response => {
 
         //console.log("response: ", response)
@@ -615,7 +633,8 @@ DrawPipeBuckledSections(context, payload)
     let config = {
       headers: {
         tenantcode: payload2.companyName,
-      }
+      },
+      useCredentails: true
     }
       context.state.visible = true;
       context.state.showSimulatedReturnData = false
@@ -646,7 +665,8 @@ DrawPipeBuckledSections(context, payload)
     let config = {
       headers: {
         tenantcode: payload2.companyName,
-      }
+      },
+      useCredentails: true
     }
       context.state.visible = true;
       context.state.showSimulatedReturnData = false

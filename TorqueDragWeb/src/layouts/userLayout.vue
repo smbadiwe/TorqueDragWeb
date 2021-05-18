@@ -40,7 +40,8 @@
             @click="ShowFileRibbon('Torque & Drag')"/>
             <q-tab name="hydraulics" label="Hydraulics"
              @click="ShowFileRibbon('Hydraulics')" />
-             <q-tab name="swabsurge" label="Swab & Surge" />
+             <q-tab name="swabsurge" label="Swab & Surge"
+             @click="ShowFileRibbon('Surge & Swab')" />
             <q-tab name="centralization" label="Centralization" />
             <q-tab name="wellcontrol" label="Well Control" />
             <q-tab name="cementing" label="Cementing" />
@@ -107,6 +108,10 @@
       <div v-if="isHydraulics"
           class="col-12">
         <hydraulicsRibbon></hydraulicsRibbon>
+      </div>
+      <div  v-if="isSurgeSwab"
+          class="col-12">
+        <surgeSwabRibbon></surgeSwabRibbon>
       </div>
     </div>
 
@@ -222,6 +227,7 @@ import mainInput from 'pages/inputdata/mainInput.vue';
 import mainInputRight from 'pages/inputdata/mainInputRight.vue';
 import testRibbon from 'pages/menus/testRibbon.vue';
 import torqueDragRibbon from 'pages/menus/torqueDragRibbon.vue';
+import surgeSwabRibbon from 'pages/menus/surgeSwabRibbon.vue';
 import wellList from 'pages/inputdata/wellList.vue';
 import analysisSettings from 'pages/inputdata/analysisSettings.vue';
 import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
@@ -269,7 +275,8 @@ export default {
       mainInputRight,
       dockView,
       leftSideMenu,
-      hydraulicsRibbon
+      hydraulicsRibbon,
+      surgeSwabRibbon
       },
   data () {
     return {
@@ -301,6 +308,7 @@ export default {
       isRibbonGeneralOutputs: true,
       isTorqueDrag: false,
       isHydraulics: false,
+      isSurgeSwab: false,
       isDataVisualization: false,
       inputsRibbonBgColor: '#191919',
       inputsRibbonTextColor: '#ffffff',
@@ -357,12 +365,15 @@ export default {
           var i = 0;
           var menuTabsCount = context.menuTabs.length;
 
+          context.isRibbonGeneralOutputs = false;
+            context.isTorqueDrag=false;
+            context.isHydraulics = false;
+            context.isRibbonActiveHome = false;
+            context.isSurgeSwab = false;
+
         switch(selectedRibbonName){
 
           case "Home":
-            context.isRibbonGeneralOutputs = false;
-            context.isTorqueDrag=false;
-            context.isHydraulics = false;
             context.isRibbonActiveHome = true;
 
             context.homeRibbonBgColor = context.accentColor;
@@ -373,9 +384,6 @@ export default {
 
           case "General Outputs":
             context.isRibbonGeneralOutputs = true;
-            context.isTorqueDrag=false;
-            context.isHydraulics = false;
-            context.isRibbonActiveHome = false;
 
             context.homeRibbonBgColor = context.secondaryColor;
             context.homeRibbonTextColor = context.inActiveTextcolor;
@@ -385,19 +393,15 @@ export default {
             break;
 
           case "Torque & Drag":
-            context.isRibbonGeneralOutputs = false;
             context.isTorqueDrag=true;
-            context.isHydraulics = false;
-            context.isRibbonActiveHome = false;
-
             break;
 
           case "Hydraulics":
-            context.isRibbonGeneralOutputs = false;
-            context.isTorqueDrag=false;
             context.isHydraulics = true;
-            context.isRibbonActiveHome = false;
+            break;
 
+          case "Surge & Swab":
+            context.isSurgeSwab = true;
             break;
 
         }

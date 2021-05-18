@@ -39,11 +39,131 @@
                     :size="size" 
                     class="text-capitalize"
                     stack 
-                    @click="effectiveTensionPlots">
+                    @click="eCDvsDepthPlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_1.jpg">
                     </q-avatar></span>
-                   Min Flow Rate vs Depth
+                   ECD vs Run Depth
+                </q-btn>
+              </div>
+
+              <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="circulatingPressurePlot" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   Circulating Pressure vs Run Depth
+                </q-btn>    
+              </div>
+            
+        </div>
+        
+        <div class="row buttonTD2">
+        </div>
+        
+        <div class="row buttonTD3">
+            <div class="col-12 q-pa-sm text-center">
+                Roadmap Plots
+            </div>
+        </div>
+      </div>
+
+      <q-separator dark vertical />
+
+      <div>
+        <div class="row buttonTD1">
+              <div class="q-pa-sm text-caption col">
+                <q-btn  
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack 
+                    @click="bitPowerOverAreaPlots">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_1.jpg">
+                    </q-avatar></span>
+                   Bit Power/Area
+                </q-btn>
+              </div>
+
+              <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="bitImactForcePlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   Bit Impact Force
+                </q-btn>    
+              </div>
+
+              <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="pressurLossPlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   Bit Pressure Loss
+                </q-btn>    
+              </div>
+
+              <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="bitNozzleVelocityPlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   Bit Nozzle Velocity
+                </q-btn>    
+              </div>
+            
+        </div>
+        
+        <div class="row buttonTD2">
+        </div>
+        
+        <div class="row buttonTD3">
+            <div class="col-12 q-pa-sm text-center">
+                Bit Optimization Plots
+            </div>
+        </div>
+      </div>
+
+      <q-separator dark vertical />
+
+       <div>
+        <div class="row buttonTD1">
+              <div class="q-pa-sm text-caption col">
+                <q-btn  
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack 
+                    @click="eCDvsTripTimeOpenEndedPlot">
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_1.jpg">
+                    </q-avatar></span>
+                   ECD vs Trip Time Open Ended
                 </q-btn>
               </div>
 
@@ -58,40 +178,54 @@
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_2.jpg">
                     </q-avatar></span>
-                   Min Flow Rate vs DOP
+                   ECD vs Trip Time Closed Ended
                 </q-btn>    
               </div>
 
-            <div class="q-pa-sm text-caption col">
+              <div class="q-pa-sm text-caption col">
                 <q-btn 
-                    stretch
-                    flat
-                    :size="size"   
-                    class="text-capitalize"
-                    stack 
-                     @click="hookLoadPlots">
-                     <span><q-avatar square size="42px">
-                       <img src="~/assets/images/hydraulics_3.jpg">
-                    </q-avatar></span>
-                   Cuttings Vol vs Depth
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
+                    stretch 
                     flat
                     :size="size" 
                     class="text-capitalize"
                     stack
-                    @click="torquePlots" >
+                    @click="eCDvsDepthOpenEndedPlot" >
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_4.jpg">
+                        <img src="~/assets/images/hydraulics_2.jpg">
                     </q-avatar></span>
-                   Cuttings Bed Hgt. vs Depth
-                </q-btn>
-                </div>
+                   ECD vs Run Depth Open Ended
+                </q-btn>    
+              </div>
 
+              <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="normalForcePlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   ECD vs Run Depth Closed Ended
+                </q-btn>    
+              </div>
+
+               <div class="q-pa-sm text-caption col">
+                <q-btn 
+                    stretch 
+                    flat
+                    :size="size" 
+                    class="text-capitalize"
+                    stack
+                    @click="normalForcePlots" >
+                    <span><q-avatar square size="42px">
+                        <img src="~/assets/images/hydraulics_2.jpg">
+                    </q-avatar></span>
+                   Swab Surge Trip Schedule
+                </q-btn>    
+              </div>
             
         </div>
         
@@ -100,15 +234,14 @@
         
         <div class="row buttonTD3">
             <div class="col-12 q-pa-sm text-center">
-                Hole Cleaning Plots
+                Bit Optimization Plots
             </div>
         </div>
       </div>
 
       <q-separator dark vertical />
 
-      
-      <div>
+       <div>
         <div class="row buttonTD1">
               <div class="q-pa-sm text-caption col">
                 <q-btn  
@@ -116,11 +249,11 @@
                     :size="size" 
                     class="text-capitalize"
                     stack 
-                    @click="TrippingInDetails">
+                    @click="effectiveTensionPlots">
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_5.jpg">
+                        <img src="~/assets/images/hydraulics_1.jpg">
                     </q-avatar></span>
-                   Pressure Loss vs Pump Rate
+                   Hydraulics Summary
                 </q-btn>
               </div>
 
@@ -130,119 +263,14 @@
                     flat
                     :size="size" 
                     class="text-capitalize"
-                    stack 
-                    @click="TrippingOutDetails">
+                    stack
+                    @click="normalForcePlots" >
                     <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_6.jpg">
+                        <img src="~/assets/images/hydraulics_2.jpg">
                     </q-avatar></span>
-                   Circulating Pressure vs Depth
+                   Temperature Profile
                 </q-btn>    
               </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size"   
-                    class="text-capitalize"
-                    stack 
-                    @click="RotatingOnBottomDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_7.jpg">
-                    </q-avatar></span>
-                   ECD vs Depth
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size"  
-                    class="text-capitalize"
-                    stack
-                    @click="SlideDrillingDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_8.jpg">
-                    </q-avatar></span>
-                   Critical Pump Rate vs Depth
-                </q-btn>
-                </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack 
-                    @click="BackReamingDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_9.jpg">
-                    </q-avatar></span>
-                   Annular Velocity vs Depth
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack 
-                    @click="rotatingOffBottomDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_10.jpg">
-                    </q-avatar></span>
-                   Pressure to Break Gel
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack 
-                    @click="rotatingOffBottomDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_11.jpg">
-                    </q-avatar></span>
-                   Flow Regime
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack 
-                    @click="rotatingOffBottomDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_12.jpg">
-                    </q-avatar></span>
-                   Component Pressure Losses
-                </q-btn>
-            </div>
-
-            <div class="q-pa-sm text-caption col">
-                <q-btn  
-                    stretch
-                    flat
-                    :size="size" 
-                    class="text-capitalize"
-                    stack 
-                    @click="rotatingOffBottomDetails">
-                    <span><q-avatar square size="42px">
-                        <img src="~/assets/images/hydraulics_13.jpg">
-                    </q-avatar></span>
-                   Component Power Losses
-                </q-btn>
-            </div>
             
         </div>
         
@@ -251,12 +279,11 @@
         
         <div class="row buttonTD3">
             <div class="col-12 q-pa-sm text-center">
-                
+             
             </div>
         </div>
       </div>
-      
-      
+     
     </q-toolbar>
   </div>
 </template>
@@ -300,6 +327,54 @@ export default {
                 userId: IdentityModel.id
             });
 
+        },
+        bitPowerOverAreaPlots(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Bit Power",
+                route: 'bitPowerOverArea'
+            });
+        },
+        bitImactForcePlots(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Bit Impat Force",
+                route: 'bitImpactForce'
+            });
+        },
+        pressurLossPlots(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Pressure Loss",
+                route: 'pressureLoss'
+            });
+        },
+        circulatingPressurePlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Circulating Pressure",
+                route: 'circulatingPressure'
+            });
+        },
+        eCDvsDepthPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "ECD",
+                route: 'eCDvsDepth'
+            });
+        },
+        eCDvsTripTimeOpenEndedPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "ECD vs Trip Time Open Ended",
+                route: 'eCDvsTripTimeOpen'
+            });
+        },
+        eCDvsDepthOpenEndedPlot(){
+             this.$store.commit('authStore/AddOutputTab', {
+                name: "ECD vs Depth Open Ended",
+                route: 'eCDvsDepthOpen'
+            });
+        },
+        bitNozzleVelocityPlots(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "Bit Nozzle Velocity",
+                route: 'bitNozzleVelocity'
+            });
         },
         effectiveTensionPlots(){
             this.$store.commit('authStore/AddOutputTab', {

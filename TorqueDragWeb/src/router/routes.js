@@ -17,8 +17,17 @@ import rotatingOffBottom from 'pages/simulation/rotatingOffBottom.vue'
 import slideDrillingResults from 'pages/simulation/slideDrillingResults.vue'
 import backReamingResults from 'pages/simulation/backReamingResults.vue'
 import hyraulicsReport from  'pages/simulation/hydraulics/hyraulicsReport.vue'
+import surgeSwabReport from 'pages/simulation/surgeSwab/surgeSwabReport.vue'
 import schematic from 'pages/wellSchematics/schematic.vue'
 import effectiveTension from 'pages/fixedDepthPlots/effectiveTension.vue'
+import bitPowerOverArea from 'pages/fixedDepthPlots/bitPowerOverArea.vue'
+import bitImpactForce from 'pages/fixedDepthPlots/bitImpactForce.vue'
+import pressureLoss from 'pages/fixedDepthPlots/pressureLoss.vue'
+import bitNozzleVelocity from 'pages/fixedDepthPlots/bitNozzleVelocity.vue'
+import circulatingPressure from 'pages/fixedDepthPlots/circulatingPressure.vue'
+import eCDvsDepth from 'pages/fixedDepthPlots/eCDvsDepth.vue'
+import eCDvsTripTimeOpen from 'pages/fixedDepthPlots/eCDvsTripTimeOpen.vue'
+import eCDvsDepthOpen from 'pages/fixedDepthPlots/eCDvsDepthOpen.vue'
 import normalForce from 'pages/fixedDepthPlots/normalForce.vue'
 import hookLoad from 'pages/fixedDepthPlots/hookLoad.vue'
 import torque from 'pages/fixedDepthPlots/torque.vue'
@@ -163,6 +172,10 @@ const routes = [
         component: backReamingResults
       },
       {
+        path: '/surgeSwabReport',
+        component: surgeSwabReport
+      },
+      {
         path: '/schematic',
         component: schematic
       },
@@ -170,9 +183,41 @@ const routes = [
         path: '/effectiveTension', 
         component: effectiveTension
       },
+      {
+        path: '/bitPowerOverArea',
+        component: bitPowerOverArea
+      },
+      {
+        path: '/bitImpactForce',
+        component: bitImpactForce
+      },
+      {
+        path: '/bitNozzleVelocity',
+        component: bitNozzleVelocity
+      },
+      {
+        path: '/circulatingPressure',
+        component: circulatingPressure
+      },
+      {
+        path: '/eCDvsDepth',
+        component: eCDvsDepth
+      },
+      {
+        path: '/eCDvsTripTimeOpen',
+        component: eCDvsTripTimeOpen
+      },
+      {
+        path: '/eCDvsDepthOpen',
+        component: eCDvsDepthOpen
+      },
       { 
         path: '/normalForce', 
         component: normalForce
+      },
+      {
+        path: '/pressureLoss',
+        component: pressureLoss
       },
       { 
         path: '/hookLoad', 

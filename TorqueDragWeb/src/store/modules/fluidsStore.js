@@ -73,7 +73,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
@@ -113,7 +114,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
@@ -146,7 +148,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     payload.fluid.baseFannDialReading = parseFloat(payload.fluid.baseFannDialReading);
@@ -190,7 +193,8 @@ const actions = {
     let config = {
       headers: {
         tenantcode: payload.companyName,
-      }
+      },
+      useCredentails: true
     }
 
     state.mudPVTs = [];
