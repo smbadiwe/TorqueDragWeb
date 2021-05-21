@@ -56,15 +56,16 @@ export default {
     methods:{
         createChart() {
 			var context = this;
-            var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
-            console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
+            var rigDTO = this.$store.getters['simulationStore/rigDTOSurgeSwab'];
+            var surgeSwabSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+            console.log("surgeSwabSensitivityDTO", surgeSwabSensitivityDTO)
+            console.log("rigDTO", rigDTO)
 			var j = 0;
 			var M = 1000.0;
 			var i = 0;
-			var simulationResultsDTOsCount = hydraulicSensitivityDTO.length;
+			var simulationResultsDTOsCount = surgeSwabSensitivityDTO.length;
 			var data  = [];
-			var string = {
+			var systemPressureLoss = {
 				x: [],
 				y: [],
 				line:{
@@ -74,10 +75,10 @@ export default {
 				},
 				mode: 'lines',
 				type: 'scatter',
-				name: 'String',
+				name: 'System Pressure Loss',
             }
             
-            var annulus = {
+            var stringPressureLoss = {
 				x: [],
 				y: [],
 				line:{
@@ -87,10 +88,10 @@ export default {
 				},
 				mode: 'lines',
 				type: 'scatter',
-				name: 'Annulus',
+				name: 'String Pressure Loss',
 			}
 
-            var bit = {
+            var annulusPressureLoss = {
 				x: [],
 				y: [],
 				line:{
@@ -100,40 +101,78 @@ export default {
 				},
 				mode: 'lines',
 				type: 'scatter',
-				name: 'Bit',
+				name: 'Annulus Pressure Loss',
+            }
+            
+            var bitPressureLoss = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Bit Pressure Loss',
+            }
+            
+            var maximumPumpPressure = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Maximum Pump Pressure',
 			}
+
+
 
 			
             //console.log("simulationResultsDTOsCount", simulationResultsDTOsCount)
-            j = simulationResultsDTOsCount - 1;
-			//for(j = 0; j < simulationResultsDTOsCount; j++){
+          
+			for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
+				var surgeSwabResults =  surgeSwabSensitivityDTO[j].surgeSwabResults;
 				
-                var hydraulicsResultsLength = hydraulicsResults.length;
+                var surgeSwabResultsLength = surgeSwabResults.length;
 
-                for(i = 0; i < hydraulicsResultsLength; i++){
+               // for(i = 0; i < surgeSwabResultsLength; i++){
+                   i = 0;
+                    systemPressureLoss.x.push(rigDTO.pumpFlowRate[j]);
+                    systemPressureLoss.y.push(surgeSwabResults[i].systemPressureLoss);
 
-                    string.x.push(hydraulicsResults[i].totalPipePressureLoss);
-                    string.y.push(hydraulicsResults[i].bottomMeasuredDepth);
+                    stringPressureLoss.x.push(rigDTO.pumpFlowRate[j]);
+                    stringPressureLoss.y.push(surgeSwabResults[i].totalPipePressureLoss);
 
-                    annulus.x.push(hydraulicsResults[i].totalAnnulusPressureLoss);
-                    annulus.y.push(hydraulicsResults[i].bottomMeasuredDepth);
+                    annulusPressureLoss.x.push(rigDTO.pumpFlowRate[j]);
+                    annulusPressureLoss.y.push(surgeSwabResults[i].totalAnnulusPressureLoss);
 
-                    bit.x.push(hydraulicsResults[i].bitPressureLoss);
-                    bit.y.push(hydraulicsResults[i].bottomMeasuredDepth);
-                }
+                    bitPressureLoss.x.push(rigDTO.pumpFlowRate[j]);
+                    bitPressureLoss.y.push(surgeSwabResults[i].bitPressureLoss);
+
+                    maximumPumpPressure.x.push(rigDTO.pumpFlowRate[j]);
+                    maximumPumpPressure.y.push(surgeSwabResults[i].maximumPumpPressure);
+                //}
 	
-			//}
+			}
 
-            string.line.color = 'blue'
-            annulus.line.color = 'black'
-            bit.line.color = 'pink'
+            systemPressureLoss.line.color = 'blue'
+            stringPressureLoss.line.color = 'black'
+            annulusPressureLoss.line.color = 'green'
+            bitPressureLoss.line.color = 'purple'
+            maximumPumpPressure.line.color = 'pink'
 
-            data.push(string)
-            data.push(annulus)
-            data.push(bit)
+            data.push(systemPressureLoss)
+            data.push(stringPressureLoss)
+            data.push(annulusPressureLoss)
+            data.push(bitPressureLoss)
+            data.push(maximumPumpPressure)
 			console.log("data: ", data);
 			
 			var layout = { 
@@ -141,7 +180,7 @@ export default {
 				title: '',
 				height: 900,
 				xaxis: {
-					title: 'Circulating Pressure (psi)',
+					title: 'Pump Rate (gpm)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,
@@ -166,8 +205,7 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
-                    autorange: "reversed",
-					title: 'Distance Along String (ft)',
+					title: 'Pressure Loss (psi)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,

@@ -1,6 +1,6 @@
 <template>
-    <div  id="mydiv" ref="mydiv">
-        <div class="row">
+    <div class="bg-primary text-accent"  id="mydiv" ref="mydiv">
+        <div class="bg-primary text-accent row">
             <q-bar class="col-12 q-pa-sm row bg-secondary" >
                 <q-checkbox left-label v-model="isByMD" label="Plot by MD" 
                 @input="onCheckBoxChecked($event)" />
@@ -17,7 +17,7 @@
             </q-bar>
         </div>
 
-        <div class="row">
+        <div class="bg-primary text-accent row">
             <div class="col-12">
                 <canvas id="mycanvas" ref="mycanvas" class="bg-accent"></canvas>
             </div>

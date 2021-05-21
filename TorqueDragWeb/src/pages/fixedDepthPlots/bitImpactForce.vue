@@ -57,7 +57,7 @@ export default {
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
+            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
             console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
@@ -82,7 +82,7 @@ export default {
 			for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].hydraulicsResults;
+				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
 				
 
                 bitImpactForce.x.push(rigDTO.pumpFlowRate[j]);

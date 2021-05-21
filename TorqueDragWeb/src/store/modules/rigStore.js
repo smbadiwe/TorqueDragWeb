@@ -169,7 +169,9 @@ const actions = {
         console.log("context.state.rig:", context.state.rig);
         $http.post('Commons/calculateFlowExponent', newPayload, config)
           .then(response => {
-            context.state.rig.flowExponent = response.data.flowExponent;  
+            console.log("response.data: ", response.data);
+            context.state.rig.flowExponent = response.data.flowExponent; 
+            console.log("flowExponent: ", context.state.rig.flowExponent); 
             context.commit('dataImportStore/SetLoaderParameters', {
               showLoader: false,
               showImportView: true

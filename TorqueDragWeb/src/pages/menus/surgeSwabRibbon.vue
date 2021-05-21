@@ -10,7 +10,7 @@
                     flat
                     stretch
                     :size="size" 
-                    label="Report"
+                    label="Surge & Swab Report"
                     class="text-capitalize"
                     stack 
                     @click="showSurgeSwabReport"
@@ -24,7 +24,7 @@
 
             <div class="row buttonTD3">
                 <div class="col-12 q-pa-sm text-center">
-                    Report
+                    
                 </div>
             </div>
        </div>
@@ -111,7 +111,8 @@
                     flat
                     :size="size" 
                     class="text-capitalize"
-                    stack >
+                    stack
+                    @click="pressureLossSurgeSwabPlot" >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_5.jpg">
                     </q-avatar></span>
@@ -125,7 +126,8 @@
                     flat
                     :size="size" 
                     class="text-capitalize"
-                    stack >
+                    stack
+                    @click="circulatingPressureSurgeSwabPlot" >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_6.jpg">
                     </q-avatar></span>
@@ -139,7 +141,8 @@
                     flat
                     :size="size"   
                     class="text-capitalize"
-                    stack >
+                    stack 
+                    @click="eCDvsDepthSurgeSwabPlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_7.jpg">
                     </q-avatar></span>
@@ -153,7 +156,8 @@
                     flat
                     :size="size"  
                     class="text-capitalize"
-                    stack>
+                    stack
+                    @click="criticalPumpRatePlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_8.jpg">
                     </q-avatar></span>
@@ -167,7 +171,8 @@
                     flat
                     :size="size" 
                     class="text-capitalize"
-                    stack >
+                    stack 
+                    @click="annularVelocityvsDepthPlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_9.jpg">
                     </q-avatar></span>
@@ -195,7 +200,8 @@
                     flat
                     :size="size" 
                     class="text-capitalize"
-                    stack >
+                    stack
+                    @click="annularFlowRegimePlot" >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_11.jpg">
                     </q-avatar></span>
@@ -294,6 +300,42 @@ export default {
                 route: 'surgeSwabReport'
             });
 
+        },
+        annularVelocityvsDepthPlot(){
+             this.$store.commit('authStore/AddOutputTab', {
+                name: "Annular Velocity vs Depth",
+                route: 'annularVelocityvsDepth'
+            });
+        },
+        criticalPumpRatePlot(){
+             this.$store.commit('authStore/AddOutputTab', {
+                name: "Critical PumpRate vs Depth",
+                route: 'criticalPumpRate'
+            });
+        },
+        circulatingPressureSurgeSwabPlot(){
+           this.$store.commit('authStore/AddOutputTab', {
+                name: "Circulating Pressure SurgeSwab",
+                route: 'circulatingPressureSurgeSwab'
+            }); 
+        },
+        eCDvsDepthSurgeSwabPlot(){
+            this.$store.commit('authStore/AddOutputTab', {
+                name: "ECD vs Depth SurgeSwab",
+                route: 'eCDvsDepthSurgeSwab'
+            }); 
+        },
+        pressureLossSurgeSwabPlot(){
+          this.$store.commit('authStore/AddOutputTab', {
+                name: "Pressure Loss SurgeSwab",
+                route: 'pressureLossSurgeSwab'
+            });  
+        },
+        annularFlowRegimePlot(){
+             this.$store.commit('authStore/AddOutputTab', {
+                name: "Annular Flow Regime",
+                route: 'annularFlowRegime'
+            });  
         }
     }
 }

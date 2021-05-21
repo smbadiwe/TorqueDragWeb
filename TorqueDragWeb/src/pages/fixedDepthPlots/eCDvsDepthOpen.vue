@@ -57,7 +57,7 @@ export default {
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
+            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
             console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
@@ -122,9 +122,11 @@ export default {
 			//for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].hydraulicsResults;
+				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
 				
-                var hydraulicsResultsLength = hydraulicsResults.length;
+				var hydraulicsResultsLength = hydraulicsResults.length;
+
+				
 
                 for(i = 0; i < hydraulicsResultsLength; i++){
 
@@ -141,7 +143,18 @@ export default {
                     ecDSurgeAnnulusOpenEnded.y.push(hydraulicsResults[i].bottomMeasuredDepth);
 
                 }
-	
+
+				ecDSwabPipeOpenEnded.x.push(rigDTO.mudDensity);
+				ecDSwabPipeOpenEnded.y.push(0);
+
+				ecDSwabAnnulusOpenEnded.x.push(rigDTO.mudDensity);
+				ecDSwabAnnulusOpenEnded.y.push(0);
+
+				ecDSurgePipeOpenEnded.x.push(rigDTO.mudDensity);
+				ecDSurgePipeOpenEnded.y.push(0);
+
+				ecDSurgeAnnulusOpenEnded.x.push(rigDTO.mudDensity);
+				ecDSurgeAnnulusOpenEnded.y.push(0);
 			//}
 
             ecDSwabPipeOpenEnded.line.color = 'blue'

@@ -82,10 +82,14 @@ const state = {
     hydraulicSensitivityDTO: {},
     surgeSwabSensitivityDTO: {},
     sensitivityIndices: [1],
-    rigDTO: {}
+    rigDTO: {},
+    rigDTOSurgeSwab: {}
   }
 
   const getters = {
+    rigDTOSurgeSwab(state){
+      return state.rigDTOSurgeSwab
+    },
     surgeSwabResults(state){
       return state.surgeSwabResults;
     },
@@ -307,14 +311,15 @@ const mutations = {
     //console.log("sensitivityResultsDTO", payload);
     state.hydraulicSensitivityDTO = payload.simulationResultsDTOs;
     state.rigDTO = payload.rigDTO;
-    console.log("simulationResultsDTOs", state.hydraulicSensitivityDTO);
-    console.log("rigDTO", state.rigDTO);
+    //console.log("simulationResultsDTOs", state.hydraulicSensitivityDTO);
+    //console.log("rigDTO", state.rigDTO);
     state.visible = false;
     state.showSimulatedReturnData = true
   },
   RunSurgeSwab(state, payload)
   {
-    state.surgeSwabSensitivityDTO = payload;
+    state.surgeSwabSensitivityDTO = payload.simulationResultsDTOs;
+    state.rigDTOSurgeSwab = payload.rigDTO;
     state.visible = false;
     state.showSimulatedReturnData = true
   },
@@ -524,14 +529,14 @@ RunSimulation(context, payload)
       },
       useCredentails: true
     }
-    console.log("response: ", payload)
+    //console.log("response: ", payload)
     var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
        $http.get('Commons/RunSurgeSwab/' + ids, config)
         .then(response => {
 
-        console.log("response: ", response)
+        console.log("response.data: ", response.data)
 
           context.commit('RunSurgeSwab', response.data)  
           context.commit('dataImportStore/SetLoaderParameters', {
@@ -547,7 +552,7 @@ RunSimulation(context, payload)
             
         })
         .catch(error => {
-          console.log("RunHydraulics error")
+          console.log("RunSurgeSwab error")
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
             showImportView: true

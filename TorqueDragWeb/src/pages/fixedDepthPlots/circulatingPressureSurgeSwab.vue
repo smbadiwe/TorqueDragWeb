@@ -57,14 +57,14 @@ export default {
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
-            console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
+            var surgeSwabSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+           // console.log("surgeSwabSensitivityDTO", surgeSwabSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
 			var i = 0;
-			var simulationResultsDTOsCount = hydraulicSensitivityDTO.length;
+			var simulationResultsDTOsCount = surgeSwabSensitivityDTO.length;
 			var data  = [];
-			var bitNozzleVelocity = {
+			var string = {
 				x: [],
 				y: [],
 				line:{
@@ -74,27 +74,66 @@ export default {
 				},
 				mode: 'lines',
 				type: 'scatter',
-				name: 'Bit Npzzle Velocity',
+				name: 'String',
+            }
+            
+            var annulus = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Annulus',
+			}
+
+            var bit = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+				name: 'Bit',
 			}
 
 			
             //console.log("simulationResultsDTOsCount", simulationResultsDTOsCount)
-			for(j = 0; j < simulationResultsDTOsCount; j++){
+            j = simulationResultsDTOsCount - 1;
+			//for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
+				var surgeSwabResults =  surgeSwabSensitivityDTO[j].surgeSwabResults;
 				
+                var surgeSwabResultsLength = surgeSwabResults.length;
 
-                bitNozzleVelocity.x.push(rigDTO.pumpFlowRate[j]);
-                bitNozzleVelocity.y.push(hydraulicsResults[0].nozzleVelocity);
-				
-				
+                for(i = 0; i < surgeSwabResultsLength; i++){
+
+                    string.x.push(surgeSwabResults[i].totalPipePressureLoss);
+                    string.y.push(surgeSwabResults[i].bottomMeasuredDepth);
+
+                    annulus.x.push(surgeSwabResults[i].totalAnnulusPressureLoss);
+                    annulus.y.push(surgeSwabResults[i].bottomMeasuredDepth);
+
+                    bit.x.push(surgeSwabResults[i].bitPressureLoss);
+                    bit.y.push(surgeSwabResults[i].bottomMeasuredDepth);
+                }
 	
-			}
+			//}
 
-			bitNozzleVelocity.line.color = 'blue'
+            string.line.color = 'blue'
+            annulus.line.color = 'black'
+            bit.line.color = 'pink'
 
-			data.push(bitNozzleVelocity)
+            data.push(string)
+            data.push(annulus)
+            data.push(bit)
 			console.log("data: ", data);
 			
 			var layout = { 
@@ -102,7 +141,7 @@ export default {
 				title: '',
 				height: 900,
 				xaxis: {
-					title: 'Pump Rate (gpm)',
+					title: 'Circulating Pressure (psi)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,
@@ -127,7 +166,8 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
-					title: 'Bit Nozzle Velocity (ft/s)',
+                    autorange: "reversed",
+					title: 'Distance Along String (ft)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,

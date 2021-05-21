@@ -1,32 +1,22 @@
 <template>
-    <div class="bg-accent">
+    <div class="bg-primary text-accent">
         <div class="row">
-            <div class="col-12">
-                 <q-card class="my-card bg-secondary text-white" style="height:70px;">
-                    <q-card-section align="right">
-                        <div class="row">
-                            <q-checkbox left-label v-model="isSummary" label="Summary" 
-                            @input="onCheckBoxChecked($event)" />
-                            <q-space />
-                            <div class="col text-center text-subtitle1 q-pb-md">Surge and Swab</div>
-                            <q-btn-dropdown class="q-pa-sm" flat>
-                            <q-list class="bg-primary text-accent">
-                                <q-item 
-                                v-for="series in sensitivityIndices" :key="series"
-                                clickable v-close-popup @click="onItemClick(series)">
-                                <q-item-section>
-                                    <q-item-label>{{ series }}</q-item-label>
-                                </q-item-section>
-                                </q-item>
-
-                            </q-list>
-                        </q-btn-dropdown>
-                        </div>
-                        
-                        
-                    </q-card-section>
-                    </q-card>
+            <div class="col-3 q-pa-sm">
+              Select Operational Pump Rate (gpm): 
             </div>
+            <div class="col-3 q-pa-sm">
+                <select style="width:100%;"
+                class="text-center bg-positive text-accent"
+                name="NameOfPumpRate" 
+                id="" 
+                v-on:change="onPumpRateSelectionChanged($event)">
+                    <option
+                    v-for="pumpFlow in rigDTO.pumpFlowRate" :key="pumpFlow">
+                    {{ pumpFlow }}
+                    </option>
+                </select>
+          </div>
+          <div class="col-6 q-pa-sm"></div>
         </div>
 
         <div class="row">
@@ -144,11 +134,11 @@
 <script>
 export default {
     computed:{
-        sensitivityIndices() {
-            return this.$store.getters['simulationStore/sensitivityIndices'];
+         surgeSwabSensitivityDTO(){
+            return this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
         },
-        surgeSwabResults() {
-            return this.$store.getters['simulationStore/surgeSwabResults'];
+        rigDTO(){
+            return this.$store.getters['simulationStore/rigDTOSurgeSwab'];
         }
     },
     data () {
@@ -191,7 +181,8 @@ export default {
             { name: "annulusPressureLoss", label: "Annulus Pressure Loss (psi)", field: "", align: "left" },
             { name: "totalPipePressureLoss", label: "Total PipePressure Loss (psi)", field: "", align: "left" },
             { name: "totalAnnulusPressureLoss", label: "Total AnnulusPressure Loss (psi)", field: "", align: "left" }
-        ]
+        ],
+        surgeSwabResults: []
     }
   },
   methods: {
@@ -201,15 +192,25 @@ export default {
             if(evt == true){
 
             }
+      },
+      onPumpRateSelectionChanged(e){
+        var context = this;
+        var id = e.target.value;
+        var name = e.target.options[e.target.options.selectedIndex].text;
+        console.log('id ', id );
+        console.log('name ',name );
+        var i = e.target.options.selectedIndex;
+        console.log('selectedIndex ', i);
+        context.surgeSwabResults = context.surgeSwabSensitivityDTO[i].surgeSwabResults;
+
       }
   },
   created(){
-    var selectedItem = 0;
-    var surgeSwabSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
-    var simulationResultsDTOs = surgeSwabSensitivityDTO.simulationResultsDTOs;
-    var simulationResultsDTOsCount = simulationResultsDTOs.length;
-    var simulationResultsDTO = simulationResultsDTOs[selectedItem];
-    this.$store.commit('simulationStore/setSurgeSwabResults', simulationResultsDTO.surgeSwabResults);
+    var context = this;
+   var length = context.surgeSwabSensitivityDTO.length;
+   if(length > 0){
+       context.surgeSwabResults = context.surgeSwabSensitivityDTO[0].surgeSwabResults;
+   }
   }
 }
 </script>

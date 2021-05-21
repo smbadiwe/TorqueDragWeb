@@ -295,11 +295,11 @@ export default {
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             
-           /*  this.$store.dispatch('simulationStore/RunSimulation', {
+            this.$store.dispatch('simulationStore/RunSimulation', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 userId: IdentityModel.id
-            }); */
+            });
 
             this.$store.dispatch('simulationStore/RunHydraulics', {
                 companyName: Conn,
@@ -307,11 +307,11 @@ export default {
                 userId: IdentityModel.id
             });
 
-            /* this.$store.dispatch('simulationStore/RunSurgeSwab', {
+            this.$store.dispatch('simulationStore/RunSurgeSwab', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
                 userId: IdentityModel.id
-            }); */
+            });
 
         },
         doglegSeverityPlot(){

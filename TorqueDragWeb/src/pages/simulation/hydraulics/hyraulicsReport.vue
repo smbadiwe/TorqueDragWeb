@@ -1,28 +1,22 @@
 <template>
-    <div class="bg-accent">
+    <div class="bg-primary text-accent">
         <div class="row">
-            <div class="col-12">
-                 <q-card class="my-card bg-secondary text-white" style="height:70px;">
-                    <q-card-section align="right">
-                        <div class="row">
-                            <div class="col text-center text-subtitle1 q-pb-md">Hydraulics</div>
-                            <q-btn-dropdown class="q-pa-sm" flat>
-                            <q-list class="bg-primary text-accent">
-                                <q-item 
-                                v-for="series in sensitivityIndices" :key="series"
-                                clickable v-close-popup @click="onItemClick(series)">
-                                <q-item-section>
-                                    <q-item-label>{{ series }}</q-item-label>
-                                </q-item-section>
-                                </q-item>
-
-                            </q-list>
-                        </q-btn-dropdown>
-                        </div>
-                        
-                    </q-card-section>
-                    </q-card>
+            <div class="col-3 q-pa-sm">
+              Select Operational Pump Rate (gpm): 
             </div>
+            <div class="col-3 q-pa-sm">
+                <select style="width:100%;"
+                class="text-center bg-positive text-accent"
+                name="NameOfPumpRate" 
+                id="" 
+                v-on:change="onPumpRateSelectionChanged($event)">
+                    <option
+                    v-for="pumpFlow in rigDTO.pumpFlowRate" :key="pumpFlow">
+                    {{ pumpFlow }}
+                    </option>
+                </select>
+          </div>
+          <div class="col-6 q-pa-sm"></div>
         </div>
 
         <div class="row">
@@ -43,6 +37,8 @@
                         :props="props">
                             <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
                             <q-td key="length" :props="props">{{ props.row.length }}</q-td>
+                            <q-td key="pipeFlowRegime" :props="props">{{ props.row.pipeFlowRegime }}</q-td>
+                            <q-td key="annularFlowRegime" :props="props">{{ props.row.annularFlowRegime }}</q-td>
                             <q-td key="pipeInnerArea" :props="props">{{ props.row.pipeInnerArea }}</q-td>
                             <q-td key="pipeOuterArea" :props="props">{{ props.row.pipeOuterArea }}</q-td>
                             <q-td key="absoluteRoughness" :props="props">{{ props.row.absoluteRoughness }}</q-td>
@@ -76,12 +72,12 @@
 <script>
 export default {
     computed:{
-        hydraulicsResults() {
-        return this.$store.getters['simulationStore/hydraulicsResults'];
+        hydraulicSensitivityDTO(){
+            return this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
         },
-        sensitivityIndices() {
-            return this.$store.getters['simulationStore/sensitivityIndices'];
-        },
+        rigDTO(){
+            return this.$store.getters['simulationStore/rigDTOSurgeSwab'];
+        }
     },
     data () {
         return {
@@ -89,6 +85,8 @@ export default {
         columns: [
             { name: "typeOfSection", label: "Type Of Section", field: "", align: "left" },
             { name: "length", label: "length (m)", field: "", align: "left" },
+            { name: "pipeFlowRegime", label: "Pipe Flow Regime", field: "", align: "left" },
+            { name: "annularFlowRegime", label: "Annular Flow Regime", field: "", align: "left" },
             { name: "pipeInnerArea", label: "Inner Area (sqin)", field: "", align: "left" },
             { name: "pipeOuterArea", label: "Outer Area (sqin)", field: "", align: "left" },
             { name: "absoluteRoughness", label: "Absolute Roughness (ft)", field: "", align: "left" },
@@ -109,25 +107,30 @@ export default {
             { name: "yeildPoint", label: "Yeild Point. (Ib/ft2)", field: "", align: "left" },
             { name: "effectiveFluidViscosity", label: "Effective Fluid Viscosity (cp)", field: "", align: "left" },
             { name: "yeildStress", label: "Yeild Stress (psi)", field: "", align: "left" }
-        ]
+        ],
+        hydraulicsResults: []
     }
   },
    methods: {
-      onItemClick(selectedItem){
-          var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
-          var simulationResultsDTOs = hydraulicSensitivityDTO.simulationResultsDTOs;
-          var simulationResultsDTOsCount = simulationResultsDTOs.length;
-          var simulationResultsDTO = simulationResultsDTOs[selectedItem-1];
-           this.$store.commit('simulationStore/setHydraulicsResults', simulationResultsDTO.hydraulicsResults);
+      onPumpRateSelectionChanged(e){
+        var context = this;
+        var id = e.target.value;
+        var name = e.target.options[e.target.options.selectedIndex].text;
+        console.log('id ', id );
+        console.log('name ',name );
+        var i = e.target.options.selectedIndex;
+        console.log('selectedIndex ', i);
+        context.hydraulicsResults = context.hydraulicSensitivityDTO[i].surgeSwabResults;
+
       }
   },
   created(){
-    var selectedItem = 0;
-    var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
-    var simulationResultsDTOs = hydraulicSensitivityDTO.simulationResultsDTOs;
-    var simulationResultsDTOsCount = simulationResultsDTOs.length;
-    var simulationResultsDTO = simulationResultsDTOs[selectedItem];
-    this.$store.commit('simulationStore/setHydraulicsResults', simulationResultsDTO.hydraulicsResults);
+   var context = this;
+   var length = context.hydraulicSensitivityDTO.length;
+   if(length > 0){
+       context.hydraulicsResults = context.hydraulicSensitivityDTO[0].surgeSwabResults;
+   }
+    
   }
 }
 </script>

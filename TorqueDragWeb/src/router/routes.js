@@ -28,6 +28,13 @@ import circulatingPressure from 'pages/fixedDepthPlots/circulatingPressure.vue'
 import eCDvsDepth from 'pages/fixedDepthPlots/eCDvsDepth.vue'
 import eCDvsTripTimeOpen from 'pages/fixedDepthPlots/eCDvsTripTimeOpen.vue'
 import eCDvsDepthOpen from 'pages/fixedDepthPlots/eCDvsDepthOpen.vue'
+import annularVelocityvsDepth from 'pages/fixedDepthPlots/annularVelocityvsDepth.vue'
+import criticalPumpRate from 'pages/fixedDepthPlots/criticalPumpRate.vue'
+import circulatingPressureSurgeSwab from 'pages/fixedDepthPlots/circulatingPressureSurgeSwab.vue'
+import eCDvsDepthSurgeSwab from 'pages/fixedDepthPlots/eCDvsDepthSurgeSwab.vue'
+import pressureLossSurgeSwab from 'pages/fixedDepthPlots/pressureLossSurgeSwab.vue'
+import annularFlowRegime from 'pages/fixedDepthPlots/annularFlowRegime.vue'
+import hydraulicsSummary from 'pages/simulation/hydraulics/hydraulicsSummary.vue'
 import normalForce from 'pages/fixedDepthPlots/normalForce.vue'
 import hookLoad from 'pages/fixedDepthPlots/hookLoad.vue'
 import torque from 'pages/fixedDepthPlots/torque.vue'
@@ -210,6 +217,34 @@ const routes = [
       {
         path: '/eCDvsDepthOpen',
         component: eCDvsDepthOpen
+      },
+      {
+        path: '/annularVelocityvsDepth',
+        component: annularVelocityvsDepth
+      },
+      {
+        path: '/criticalPumpRate',
+        component: criticalPumpRate
+      },
+      {
+        path: '/circulatingPressureSurgeSwab',
+        component: circulatingPressureSurgeSwab
+      },
+      {
+        path: '/eCDvsDepthSurgeSwab',
+        component: eCDvsDepthSurgeSwab
+      },
+      {
+        path: '/pressureLossSurgeSwab',
+        component: pressureLossSurgeSwab
+      },
+      {
+        path: '/annularFlowRegime',
+        component: annularFlowRegime
+      },
+      {
+        path: '/hydraulicsSummary',
+        component: hydraulicsSummary
       },
       { 
         path: '/normalForce', 

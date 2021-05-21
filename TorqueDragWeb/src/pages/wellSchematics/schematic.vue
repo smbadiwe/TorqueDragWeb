@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-accent" style="height: 1100px;">
+    <div class="bg-primary text-accent" style="height: 1100px;">
         <div 
         v-if="showView"
         class="row">

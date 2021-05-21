@@ -56,53 +56,55 @@ export default {
     methods:{
         createChart() {
 			var context = this;
-            var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
-            console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
+            var rigDTO = this.$store.getters['simulationStore/rigDTOSurgeSwab'];
+            var surgeSwabSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+            console.log("surgeSwabSensitivityDTO", surgeSwabSensitivityDTO)
+            console.log("rigDTO", rigDTO)
 			var j = 0;
-			var M = 1000.0;
+			var M = 60.0;
 			var i = 0;
-			var simulationResultsDTOsCount = hydraulicSensitivityDTO.length;
+			var simulationResultsDTOsCount = surgeSwabSensitivityDTO.length;
 			var data  = [];
-			var bitNozzleVelocity = {
-				x: [],
-				y: [],
-				line:{
-					shape: 'spline',
-					color: 'rgb(55, 128, 191)',
-    				width: 3
-				},
-				mode: 'lines',
-				type: 'scatter',
-				name: 'Bit Npzzle Velocity',
-			}
-
-			
+	
             //console.log("simulationResultsDTOsCount", simulationResultsDTOsCount)
 			for(j = 0; j < simulationResultsDTOsCount; j++){
 
+                var annularVelocity = {
+                    x: [],
+                    y: [],
+                    line:{
+                        shape: 'spline',
+                        width: 3
+                    },
+                    mode: 'lines',
+                    type: 'scatter',
+                    name: 'Pump Rate: ' + rigDTO.pumpFlowRate[j] + " (gpm)",
+                }
+            
+                var surgeSwabResults =  surgeSwabSensitivityDTO[j].surgeSwabResults;
+                var surgeSwabResultsLength = surgeSwabResults.length;
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
-				
+                for(i = 0; i < surgeSwabResultsLength; i++){
 
-                bitNozzleVelocity.x.push(rigDTO.pumpFlowRate[j]);
-                bitNozzleVelocity.y.push(hydraulicsResults[0].nozzleVelocity);
-				
-				
+                    annularVelocity.x.push(surgeSwabResults[i].annulusFluidVelocity * M);
+                    annularVelocity.y.push(surgeSwabResults[i].bottomMeasuredDepth);
+
+                }
+
+
+                data.push(annularVelocity);
 	
 			}
 
-			bitNozzleVelocity.line.color = 'blue'
-
-			data.push(bitNozzleVelocity)
-			console.log("data: ", data);
+		
+			//console.log("data: ", data);
 			
 			var layout = { 
 				showlegend: true,
 				title: '',
 				height: 900,
 				xaxis: {
-					title: 'Pump Rate (gpm)',
+					title: 'Annular Velocity (ft/m)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,
@@ -127,7 +129,8 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
-					title: 'Bit Nozzle Velocity (ft/s)',
+                    autorange: "reversed",
+					title: 'Distance Along String (ft)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,

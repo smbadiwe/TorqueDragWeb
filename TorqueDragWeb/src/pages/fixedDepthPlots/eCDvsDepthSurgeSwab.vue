@@ -57,14 +57,14 @@ export default {
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
-            console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
+            var surgeSwabSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+            console.log("surgeSwabSensitivityDTO", surgeSwabSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
 			var i = 0;
-			var simulationResultsDTOsCount = hydraulicSensitivityDTO.length;
+			var simulationResultsDTOsCount = surgeSwabSensitivityDTO.length;
 			var data  = [];
-			var bitNozzleVelocity = {
+			var annulus = {
 				x: [],
 				y: [],
 				line:{
@@ -74,27 +74,38 @@ export default {
 				},
 				mode: 'lines',
 				type: 'scatter',
-				name: 'Bit Npzzle Velocity',
-			}
+				name: 'Annulus',
+            }
+            
 
 			
             //console.log("simulationResultsDTOsCount", simulationResultsDTOsCount)
-			for(j = 0; j < simulationResultsDTOsCount; j++){
+            j = simulationResultsDTOsCount - 1;
+			//for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
+				var surgeSwabResults =  surgeSwabSensitivityDTO[j].surgeSwabResults;
+				
+				var surgeSwabResultsLength = surgeSwabResults.length;
+				
 				
 
-                bitNozzleVelocity.x.push(rigDTO.pumpFlowRate[j]);
-                bitNozzleVelocity.y.push(hydraulicsResults[0].nozzleVelocity);
+                for(i = 0; i < surgeSwabResultsLength; i++){
+
+                    annulus.x.push(surgeSwabResults[i].equivalentCirculatingDensity);
+                    annulus.y.push(surgeSwabResults[i].bottomMeasuredDepth);
+
+				}
 				
-				
+				annulus.x.push(rigDTO.mudDensity);
+                annulus.y.push(0);
 	
-			}
+			//}
 
-			bitNozzleVelocity.line.color = 'blue'
+            annulus.line.color = 'blue'
 
-			data.push(bitNozzleVelocity)
+            data.push(annulus)
+
 			console.log("data: ", data);
 			
 			var layout = { 
@@ -102,7 +113,7 @@ export default {
 				title: '',
 				height: 900,
 				xaxis: {
-					title: 'Pump Rate (gpm)',
+					title: 'ECD (ppg)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,
@@ -127,7 +138,8 @@ export default {
 					linewidth: 4
 				},
 				yaxis: { 
-					title: 'Bit Nozzle Velocity (ft/s)',
+                    autorange: "reversed",
+					title: 'Distance Along String (ft)',
 					titlefont: {
 					family: 'Arial, sans-serif',
 					size: 14,

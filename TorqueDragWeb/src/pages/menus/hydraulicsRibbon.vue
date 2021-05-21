@@ -249,7 +249,7 @@
                     :size="size" 
                     class="text-capitalize"
                     stack 
-                    @click="effectiveTensionPlots">
+                    @click="hydraulicsSummaryReport">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_1.jpg">
                     </q-avatar></span>
@@ -264,11 +264,11 @@
                     :size="size" 
                     class="text-capitalize"
                     stack
-                    @click="normalForcePlots" >
+                    @click="HyraulicReport" >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/hydraulics_2.jpg">
                     </q-avatar></span>
-                   Temperature Profile
+                   Hydraulics Report
                 </q-btn>    
               </div>
             
@@ -449,8 +449,13 @@ export default {
             this.$store.commit('authStore/AddOutputTab',  {
                 name: "Hydraulics Report",
                 route: 'hyraulicsReport'
-            });
-            
+            });   
+        },
+        hydraulicsSummaryReport(){
+             this.$store.commit('authStore/AddOutputTab',  {
+                name: "Hydraulics Summary",
+                route: 'hydraulicsSummary'
+            });  
         }
     }
 }
