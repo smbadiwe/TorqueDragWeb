@@ -1,6 +1,7 @@
 import { $http } from 'boot/axios' 
 
 const state = {
+  isSetting: false,
     menuTabs:[
         {
           id:1,
@@ -66,6 +67,9 @@ const state = {
   }
 
   const getters = {
+    isSetting(state){
+      return state.isSetting
+    },
     tabCaptionRight(state){
       return state.tabCaptionRight;
     },
@@ -84,6 +88,9 @@ const state = {
 }
 
 const mutations = {
+  setIsSetting(state, payload){
+    state.isSetting = payload;
+  },
     updatemenuTabs(state, payload){
         var i = payload.id;
         state.menuTabs[i].isRibbonActive = payload.isRibbonActive;
@@ -161,7 +168,7 @@ const actions = {
 
     return new Promise((resolve, reject) => {
   
-      var newPayload = {
+    /*   var newPayload = {
         companyName: payload.companyName,
         designId: payload.designId,
         common: {
@@ -179,9 +186,9 @@ const actions = {
                     userId: payload.userId
                 }
 
-    }
+    } */
       console.log("context.state.common:", context.state.common)
-       $http.post('Commons/PostCommon', newPayload, config)
+       $http.post('Commons/PostCommon', payload, config)
         .then(response => {
             
           context.commit('PostCommon', response.data)  

@@ -6,75 +6,66 @@
         > 
             <div class="row text-accent"
                 v-if="expanded">
-                <div class="col-12 q-pa-md">
-                        <q-expansion-item
-                            v-model="expanded"
-                            dense
-                            dense-toggle
-                            expand-separator
-                            label="Add Datum"
-                            clickable
-                            @click="ExpandExander2"
-                        >
-                            <!-- <q-card>
-                            <q-card-section> -->
-                                
-                                <div class="row">
+                <div class="col-12">
 
-                                    <div class="col-6 q-pt-sm">Name</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="typeOfHole" disabled></div>
-                                    <!-- <div class="col-2"></div> -->
+                    <textbox variableName="Name" :col1="col1" :col2="col2"
+                    v-bind:variable="typeOfHole"
+                    unit="" :hasUnit="false" disabled></textbox>
 
-                                    <div class="col-6 q-pt-sm">Outer Diameter (in)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="outerDiameter"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Outer Diameter" :col1="col1" :col2="col2"
+                    v-bind:variable="outerDiameter"
+                    unit="in" :hasUnit="true"
+                    :toolTipDescription="holeSectionDescriptions.outerDiameter"></textbox>
 
-                                    <div class="col-6 q-pt-sm">Inner Diameter (in)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="innerDiameter"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Inner Diameter" :col1="col1" :col2="col2"
+                    v-bind:variable="innerDiameter"
+                    unit="in" :hasUnit="true"
+                    :toolTipDescription="holeSectionDescriptions.innerDiameter"></textbox>
 
-                                    <div class="col-6 q-pt-sm">weight (ppf)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="weight"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Weight" :col1="col1" :col2="col2"
+                    v-bind:variable="weight"
+                    unit="lbf" :hasUnit="true"
+                    :toolTipDescription="holeSectionDescriptions.weight"></textbox>
 
-                                    <div class="col-6 q-pt-sm">Top MD (ft)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="top"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Top MD" :col1="col1" :col2="col2"
+                    v-bind:variable="top"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="holeSectionDescriptions.top"></textbox>
 
-                                    <div class="col-6 q-pt-sm">Bottom MD (ft)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="bottom"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Bottom MD" :col1="col1" :col2="col2"
+                    v-bind:variable="bottom"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="holeSectionDescriptions.bottom"></textbox>
 
-                                    <div class="col-6 q-pt-sm">frictionFactor</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="frictionFactor"></div>
-                                    <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Friction Factor" :col1="col1" :col2="col2"
+                    v-bind:variable="frictionFactor"
+                    unit="" :hasUnit="false"
+                    :toolTipDescription="holeSectionDescriptions.frictionFactor"></textbox>
 
-                                    <div style="height: 50px;"></div>
-
-                                    <div align="right">
-                                    <q-btn 
-                                        class="text-center"
-                                        size="sm"
-                                        label="Add"
-                                        @click="AddHoleRecord">
-                                    </q-btn>
-                                    </div>
-                        
-                                </div>
-                            <!-- </q-card-section> -->
-
-                            <!-- <q-card-actions align="right">
-                                <q-btn 
-                                    size="sm"
-                                    label="Add"
-                                    @click="PostDatum">
-                                </q-btn>
-                            </q-card-actions> -->
-
-                            <!-- </q-card> -->
-                        </q-expansion-item>
-        
+                    <div class="row">
+                      <div class="col-12" style="height:10px;"></div>
                     </div>
+
+                    <div class="row">
+                      
+                        <q-btn 
+                        class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Cancel"
+                          @click="cancelDatum">
+                      </q-btn>
+                      <q-space/>
+                      <q-btn 
+                      class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Add"
+                          @click="AddHoleRecord">
+                      </q-btn>
+                    </div>
+  
+              </div>
             </div>
         
             <div class="row" id="holepage">
@@ -199,6 +190,7 @@
 
 <script>
 import msExcelImport from 'components/dataImport/msExcelImport.vue';
+import textbox from "components/controls/textbox.vue"
 import { convertToNumber } from 'boot/utils.js'
 export default {
     computed:{
@@ -207,13 +199,19 @@ export default {
         },
         isImportDialogVisible() {
         return this.$store.getters['holeStore/isImportDialogVisible'];
+        },
+        holeSectionDescriptions(){
+            return this.$store.getters['holeStore/holeSectionDescriptions'];
         }
     },
     components: {
-        'msExcelImport-app': msExcelImport
+        'msExcelImport-app': msExcelImport,
+        textbox
     },
     data() {
         return {
+            col1: "4",
+            col2: "8",
             expanded: false,
             expanded2: true,
             header: "",
@@ -324,6 +322,11 @@ export default {
                     companyName: Conn,
                     holeSection: {}
                 });
+        },
+        cancelDatum(){
+            var context =  this;
+            context.expanded = false;
+            context.expanded2 = true
         }
     },
     created(){

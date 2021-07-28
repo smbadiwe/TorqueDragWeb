@@ -3,7 +3,10 @@
         <div class="col-12">
             <div class="row">
                 <q-bar class="col-12 q-pa-sm row bg-secondary text-accent" >
-                    <div>Friction Factors</div>
+                    <div class="q-pa-sm text-left">
+                        <input type="checkbox" id="checkbox" v-model="isTDSensitivity">
+                        <label for="checkbox"> Use Sensyivity Friction Factors </label>
+                    </div>
                     <q-space />
                     <q-btn  
                         icon="add_box"
@@ -38,6 +41,9 @@ export default {
     computed:{
         SensitivityDialog(){
             return this.$store.getters['simulationStore/SensitivityDialog'];
+        },
+        isTDSensitivity(){
+            return this.$store.getters['simulationStore/isTDSensitivity'];
         }
     },
     components:{

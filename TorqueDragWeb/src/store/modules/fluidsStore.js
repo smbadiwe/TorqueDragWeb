@@ -9,15 +9,36 @@ const state = {
         baseFluid: "",
         rheologyModel: "",
         rheologyModelType: "",
-        baseFannDialReading: "",
-        baseFannRPM: "",
-        fannDialReading: "",
-        fannRPM: ""
+        baseFannDialReading: "70",
+        baseFannRPM: "300",
+        fannDialReading: "130",
+        fannRPM: "60"
     },
+    fluidDescription: {
+      mudName: "Please Enter Mud Name",
+      description: "Please Enter Description",
+      mudBaseType: "Please Enter Mud Base Type",
+      baseFluid: "Please Enter Base Fluid",
+      rheologyModel: "Please Enter Rheology Model",
+      rheologyModelType: "Please Enter Rheology Model Type",
+      baseFannDialReading: "Please Enter Base Fann Dial Reading",
+      baseFannRPM: "Please Enter Base Fann RPM",
+      fannDialReading: "Please Enter Fann Reading",
+      fannRPM: "Please Enter Fann RPM",
+      yieldPoint: "Please Enter Yield Point",
+      reference: "Please Enter Reference",
+      plasticViscoity: "Please Enter Plastic Viscoity",
+      density: "Please Enter Density",
+      pressure: "Please Enter Pressure",
+      temperature: "Please Enter Temperature"
+  },
     isImportDialogVisible: false,
   }
 
   const getters = {
+    fluidDescription(state){
+      return state.fluidDescription;
+    },
     mudPVTs(state){
       return state.mudPVTs;
     },

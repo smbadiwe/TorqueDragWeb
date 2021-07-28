@@ -10,11 +10,29 @@
           flat
           dense
           round
+          icon="settings"
+          aria-label="Settings"
+          @click="setIsSetting"
+        />
+        <q-btn
+          flat
+          dense
+          round
           icon="menu"
           aria-label="Menu"
           @click="UpdateLeftDrawerOpen"
         />
-          <q-icon name="laptop_chromebook"/>
+        <q-btn 
+            flat
+          dense
+          round
+          icon="save"
+          @click="SaveProject">
+          <q-tooltip>
+              Save Project
+          </q-tooltip>
+        </q-btn>
+
           
 
             <!-- shadow-2 -->
@@ -127,6 +145,12 @@
       </q-bar>
     </div>
 
+       <q-dialog v-model="isSetting" class="bg-primary">
+          <div class="q-pa-sm bg-primary">
+              <settings></settings>
+          </div>
+      </q-dialog>
+
     </q-header>
 
     <q-drawer
@@ -234,11 +258,15 @@ import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
 import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
 import dockView from 'pages/inputdata/dockView.vue';
 import leftSideMenu from 'pages/menus/leftSideMenu.vue';
+import settings from 'pages/menus/settings.vue'
 
 
 export default {
   name: 'userLayout',
   computed: {
+    isSetting(){
+       return this.$store.getters['settingsStore/isSetting'];
+    },
     caption(){
           return this.$store.getters['wellDesignStore/caption'];
     },
@@ -253,13 +281,37 @@ export default {
     },
     statusBar(){
       return this.$store.getters['authStore/statusBar'];
-    }
-   /*  leftDrawerOpen(){
-          return this.$store.getters['authStore/leftDrawerOpen'];
     },
-    right(){
-          return this.$store.getters['authStore/right'];
-    } */
+    rig(){
+            return this.$store.getters['rigStore/rig'];
+        },
+        drillBit(){
+            return this.$store.getters['tubingStringStore/drillBit'];
+        },
+        datum(){
+            return this.$store.getters['datumStore/datum'];
+        },
+        deviationSurveys(){
+            return this.$store.getters['wellPathStore/deviationSurveys'];
+        },
+        fluid(){
+            return this.$store.getters['fluidsStore/fluid'];
+        },
+        mudPVTs(){
+            return this.$store.getters['fluidsStore/mudPVTs'];
+        },
+        holeSections(){
+            return this.$store.getters['holeStore/holeSections'];
+        },
+        operation(){
+            return this.$store.getters['operationsStore/operation'];
+        },
+        pipes(){
+            return this.$store.getters['tubingStringStore/pipes'];
+        },
+        common(){
+            return this.$store.getters['settingsStore/common'];
+        }
   },
   components: { 
       'fileRibbon-app': fileRibbon,
@@ -276,7 +328,8 @@ export default {
       dockView,
       leftSideMenu,
       hydraulicsRibbon,
-      surgeSwabRibbon
+      surgeSwabRibbon,
+      settings
       },
   data () {
     return {
@@ -321,6 +374,9 @@ export default {
     }
   },
   methods:{
+      setIsSetting(){
+         this.$store.commit('settingsStore/setIsSetting', true);
+      },
       closeStatusMessageBar(){
         this.$store.commit('authStore/setStatusMessageBarVisibility', {
             actionMessage: "",
@@ -467,6 +523,126 @@ export default {
         context.isSchematic = false;
         context.isWellList = fafalselse;
       }
+    },
+    toNumber(value){
+        var ans = 0;
+        //console.log("value: ", value)
+        ans = parseFloat(value);
+        if(Number.isNaN(ans) === true){
+            //console.log("ans: ", ans)
+            ans = 0;
+        }
+
+        return ans;
+    },
+    RigFormatting(){
+        var context  =  this;
+        var rig = context.rig;
+        //console.log("rig: ", rig)
+        rig.highPumpPressure = context.toNumber(rig.highPumpPressure);
+        rig.lowPumpPressure = context.toNumber(rig.lowPumpPressure);
+        rig.flowRateHighPumpPressure = context.toNumber(rig.flowRateHighPumpPressure);
+        rig.flowRateLowPumpPressure = context.toNumber(rig.flowRateLowPumpPressure);
+        rig.flowExponent = context.toNumber(rig.flowExponent);
+        rig.pumpEfficiency = context.toNumber(rig.pumpEfficiency);
+        rig.maxAllowableSurfacePressure = context.toNumber(rig.maxAllowableSurfacePressure);
+        rig.maxHorsePower = context.toNumber(rig.maxHorsePower);
+        rig.minimumFlowRate = context.toNumber(rig.minimumFlowRate);
+        rig.surfaceSystemConstant = context.toNumber(rig.surfaceSystemConstant);
+        return rig;
+    },
+    DrillBitFormatting(){
+        var context  =  this;
+        var drillBit = context.drillBit;
+        drillBit.bitSize = context.toNumber(drillBit.bitSize);
+        drillBit.numberOfBitNozzles = context.toNumber(drillBit.numberOfBitNozzles);
+        drillBit.dischargeCoefficient = context.toNumber(drillBit.dischargeCoefficient);
+
+        return drillBit;
+    },
+    DatumFormatting(){
+        var context  =  this;
+        var datum = context.datum;
+        datum.datumElevation = context.toNumber(datum.datumElevation);
+        datum.groundElevation = context.toNumber(datum.groundElevation);
+        datum.airGap = context.toNumber(datum.airGap);
+        datum.wellHeadElevation = context.toNumber(datum.wellHeadElevation);
+
+        //console.log("datum: ", datum)
+        return datum;
+    },
+    FluidFormatting(){
+        var context  =  this;
+        var fluid = context.fluid;
+        fluid.baseFannDialReading = context.toNumber(fluid.baseFannDialReading);
+        fluid.baseFannRPM = context.toNumber(fluid.baseFannRPM);
+        fluid.fannDialReading = context.toNumber(fluid.fannDialReading);
+        fluid.fannRPM = context.toNumber(fluid.fannRPM);
+
+        return fluid;
+    },
+    OperationFormatting(){
+        var context  =  this;
+        var operation = context.operation;
+        operation.trippingInSpeed = context.toNumber(operation.trippingInSpeed);
+        operation.trippingInRPM = context.toNumber(operation.trippingInRPM);
+        operation.trippingOutSpeed = context.toNumber(operation.trippingOutSpeed);
+        operation.trippingOutRPM = context.toNumber(operation.trippingOutRPM);
+        operation.weightOnBit = context.toNumber(operation.weightOnBit);
+        operation.torqueAtBit = context.toNumber(operation.torqueAtBit);
+        operation.weightOnBitIDHM = context.toNumber(operation.weightOnBitIDHM);
+        operation.hookLoadIDHM = context.toNumber(operation.hookLoadIDHM);
+        operation.tripSpeedBackReam = context.toNumber(operation.tripSpeedBackReam)
+        operation.tripRPMBackReam = context.toNumber(operation.tripRPMBackReam)
+        operation.torqueAtBitDrillingOperation = context.toNumber(operation.torqueAtBitDrillingOperation)
+        operation.torqueAtBitBackReaming = context.toNumber(operation.torqueAtBitBackReaming)
+        operation.overpullBackReaming = context.toNumber(operation.overpullBackReaming)
+
+        return operation;
+    },
+    SettingFormatting(){
+        var context  =  this;
+        var common = context.common;
+        common.startMeasuredDepth = context.toNumber(common.startMeasuredDepth);
+        common.endMeasuredDepth = context.toNumber(common.endMeasuredDepth);
+        common.stepSize = context.toNumber(common.stepSize);
+        common.seaWaterDensity = context.toNumber(common.seaWaterDensity);
+        common.courseLength = context.toNumber(common.courseLength);
+        common.youngsModulus = context.toNumber(common.youngsModulus);
+        common.blockWeight =  context.toNumber(common.blockWeight);
+        common.percentOfYield = context.toNumber(common.percentOfYield);
+        common.bucklingLimitFactor = context.toNumber(common.bucklingLimitFactor);
+
+        return common;
+    },
+    SaveProject(){
+      var context =  this;
+      var Conn = this.$store.getters['authStore/companyName'];
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+      
+      var allInputsDTO = {
+          rig: context.RigFormatting(),
+          drillBit: context.DrillBitFormatting(),
+          datum: context.DatumFormatting(),
+          deviationSurveys: context.deviationSurveys,
+          fluid: context.FluidFormatting(),
+          mudPVTs: context.mudPVTs,
+          holeSections: context.holeSections,
+          operation: context.OperationFormatting(),
+          pipes: context.pipes,
+          common: context.SettingFormatting()
+      }
+
+      console.log("allInputsDTO: ", allInputsDTO)
+
+      this.$store.dispatch('wellDesignStore/PostAllData', {
+                companyName: Conn,
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
+                allInputsDTO
+            });
+
     }
   },
   mounted() {
@@ -478,6 +654,9 @@ export default {
 </script>
 
 <style scoped>
+body{
+  background:black;
+}
 #Rectangle_2 {
 	fill: rgba(50,50,50,1); 
 }

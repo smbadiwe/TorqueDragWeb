@@ -5,7 +5,7 @@
         class="row">
             <div class="col-12"> 
 
-                <div class="row">
+                <!-- <div class="row">
                     <q-bar class="col-12 q-pa-sm row bg-secondary" >
                         <q-btn dense flat round icon="content_copy" label="Copy"
                         />
@@ -41,21 +41,11 @@
                             </q-list>
                             </q-btn-dropdown>
                     </q-bar>
-                </div>
+                </div> -->
                 
-                <div class="row q-pa-md bg-accent">
+                <!-- <div class="row q-pa-md bg-accent">
                     <div class="col-4 bg-accent">
-                        <!-- Select Operation:
-                        <br>
-                        <select
-                            name="NameOfOperation"
-                            id="" 
-                            v-on:change="onItemSelectionChanged($event)">
-                            <option
-                                v-for="operation in operations" :key="operation">
-                                {{ operation }}
-                            </option>
-                        </select> -->
+
                     </div>
                     <div class="col-4 bg-accent">
                         
@@ -64,7 +54,6 @@
                     <div class="col-4 q-pa-sm bg-primary text-left">
                         <div class="row">
                             <div class="col-12">
-                                <!--  -->
                                 <q-card class="my-card bg-primary text-white">
                                     <q-card-section align="center">
                                         <div class="text-center text-subtitle1 q-pa-sm">Buckling Legend</div>
@@ -101,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div  
                 v-if="isOperation"
@@ -178,46 +167,16 @@
                         </rect>
 
                             <path 
-                            v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id1"
-                            :d="holeSegment.dh1" :stroke="holeSegment.stroke"
-                            :stroke-width="holeSegment.strokeWidth" fill="9896A5" />
+                            v-for="pipe in schematicDTO.pipes" :key="pipe.id"
+                            :d="pipe.path" :stroke="pipe.stroke"
+                            :stroke-width="pipe.strokeWidth" :fill="pipe.fill" />
 
-                        <!-- <path 
-                            v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id2"
-                            :d="holeSegment.dh2" :stroke="holeSegment.stroke"
-                            :stroke-width="holeSegment.strokeWidth" fill="none" /> -->
-
-                            <path 
-                            v-for="holeSegment in schematicDTO.holeSegments" :key="holeSegment.id3"
-                            :d="holeSegment.dc" :stroke="holeSegment.stroke"
-                            :stroke-width="holeSegment.strokeWidth" fill="#b2beb5"  />
-                            
-                            <path 
-                            v-for="pipeSegment in schematicDTO.pipeSegments" :key="pipeSegment.id"
-                            :d="pipeSegment.d" :stroke="pipeSegment.stroke"
-                            :stroke-width="pipeSegment.strokeWidth" fill="#D3D3D3" />
-
-                            <path 
-                            v-for="holeSegmentLabel in holeSegmentLabels" :key="holeSegmentLabel.id"
-                            :d="holeSegmentLabel.line" :stroke="holeSegmentLabel.stroke"
-                            :stroke-width="holeSegmentLabel.strokeWidth" :fill="holeSegmentLabel.fill" />
-
-                            <text 
+                            <!-- <text 
                             v-for="holeSegmentLabel in holeSegmentLabels" :key="holeSegmentLabel.id2"
                             :x="holeSegmentLabel.textX" 
                             :y="holeSegmentLabel.textY" :fill="holeSegmentLabel.fill">
                             {{ holeSegmentLabel.text }}
-                            </text>
-
-                            <path 
-                            v-for="tubingSegmentLabel in tubingSegmentLabels" :key="tubingSegmentLabel.id"
-                            :d="tubingSegmentLabel.line" :stroke="tubingSegmentLabel.stroke"
-                            :stroke-width="tubingSegmentLabel.strokeWidth" :fill="tubingSegmentLabel.fill" />
-
-                            <text 
-                            v-for="tubingSegmentLabel in tubingSegmentLabels" :key="tubingSegmentLabel.id2"
-                            :x="tubingSegmentLabel.textX" 
-                            :y="tubingSegmentLabel.textY" :fill="tubingSegmentLabel.fill">{{ tubingSegmentLabel.text }}</text>
+                            </text> -->
                             
                     </svg>
                 </div>
@@ -240,6 +199,7 @@
 
 <script>
 import html2canvas from 'html2canvas';
+import { dataFormattingMethods } from 'boot/fornatInputData.js'
 export default {
     computed:{
         sensitivityIndices() {
@@ -280,6 +240,36 @@ export default {
                 tubingSegmentLabelList = [];
             }
             return tubingSegmentLabelList;
+        },
+        rig(){
+            return this.$store.getters['rigStore/rig'];
+        },
+        drillBit(){
+            return this.$store.getters['tubingStringStore/drillBit'];
+        },
+        datum(){
+            return this.$store.getters['datumStore/datum'];
+        },
+        deviationSurveys(){
+            return this.$store.getters['wellPathStore/deviationSurveys'];
+        },
+        fluid(){
+            return this.$store.getters['fluidsStore/fluid'];
+        },
+        mudPVTs(){
+            return this.$store.getters['fluidsStore/mudPVTs'];
+        },
+        holeSections(){
+            return this.$store.getters['holeStore/holeSections'];
+        },
+        operation(){
+            return this.$store.getters['operationsStore/operation'];
+        },
+        pipes(){
+            return this.$store.getters['tubingStringStore/pipes'];
+        },
+        common(){
+            return this.$store.getters['settingsStore/common'];
         }
     },
     data(){
@@ -294,6 +284,49 @@ export default {
         }
     },
     methods: {
+        drawSchematics(){
+            this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: true,
+            showImportView: false
+          });
+
+            var context =  this;
+            this.$store.commit('simulationStore/setIsRunning', false);
+            var Conn = this.$store.getters['authStore/companyName'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+            
+            var allInputsDTO = {
+                rig: dataFormattingMethods.RigFormatting(context.rig),
+                drillBit: dataFormattingMethods.DrillBitFormatting(context.drillBit),
+                datum: dataFormattingMethods.DatumFormatting(context.datum),
+                deviationSurveys: context.deviationSurveys,
+                fluid: dataFormattingMethods.FluidFormatting(context.fluid),
+                mudPVTs: context.mudPVTs,
+                holeSections: context.holeSections,
+                operation: dataFormattingMethods.OperationFormatting(context.operation),
+                pipes: context.pipes,
+                common: dataFormattingMethods.SettingFormatting(context.common),
+                pipeSize: 100,
+                holeSize: 100,
+                minXValue: 50,
+                maxXValue: 800,
+                minYValue: 10,
+                maxYValue: 600,
+                terminalMD: 11249.400390625
+            }
+
+            //console.log("allInputsDTO: ", allInputsDTO)
+
+            this.$store.dispatch('simulationStore/DrawSchematic', {
+                companyName: Conn,
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
+                allInputsDTO
+            });
+
+            
+        },
         copySchematic(evt){
             //console.log(this.$refs.svgObject);
             /* html2canvas(document.querySelector("#myDiv")).then(canvas => {
@@ -470,6 +503,10 @@ export default {
                     break;
             }
       }
+    },
+    created(){
+        var context = this;
+        context.drawSchematics();
     }
 }
 </script>

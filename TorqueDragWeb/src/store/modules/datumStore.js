@@ -1,15 +1,32 @@
 import { $http } from 'boot/axios' 
 
 const state = {
-    datum:{},
+    datum:{
+      datumName: "",
+      datumElevation: "",
+      groundElevation: "",
+      wellHeadElevation: "",
+      airGap: ""
+    },
     selectedInputTab: 'Datum',
     isInput: false,
     datums: [],
     datumNames: [],
-    selectedDatum: {}
+    selectedDatum: {},
+    datumDescriptions: {
+      datumName: "Please Enter Datum Name",
+      datumElevation: "Please Enter Datum Elevation",
+      groundElevation: "Please Enter Ground Elevation",
+      wellHeadElevation: "Please Enter WellHead Elevation",
+      airGap: "Please Enter Air Gap"
+    }
+
   }
 
   const getters = {
+    datumDescriptions(state){
+      return state.datumDescriptions;
+    },
     datum(state){
       return state.datum;
     },
@@ -38,6 +55,8 @@ const mutations = {
     var nCount = state.datums.length;
     if(nCount > 0)
     state.selectedDatum = state.datums[0];
+    state.datum = state.datums[0];
+    console.log("state.datum: ", state.datum)
     for(i = 0; i < nCount; i++){
       state.datumNames.push(state.datums[i].datumName);
     }

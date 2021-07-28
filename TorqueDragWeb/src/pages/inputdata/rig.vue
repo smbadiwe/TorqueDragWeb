@@ -1,6 +1,6 @@
 <template>
     <div id="rigpage">
-        <div class="row q-pa-sm">
+        <!-- <div class="row q-pa-sm">
             <div class="col-12">
             Mechanical Limits
             <br>
@@ -15,7 +15,7 @@
             <div class="col-3  q-pt-sm">50,000 ft-lbf</div>
             <div class="col-4"></div>
     
-        </div>
+        </div> -->
 
         <div class="row q-pa-sm">
             <div class="col-12">
@@ -24,78 +24,123 @@
             <hr/>
             </div>
 
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="row">
                     <div class="col-5">Rated working pressure</div>
                     <div class="col-4"></div>
                     <div class="col-3">5,000 psi</div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="col-12">
-                <div class="row">
-                    <q-expansion-item
-                        v-model="expandTwoSetsOfFieldData"
+            <q-expansion-item class="col-12"
+            v-model="expandTwoSetsOfFieldData"
                         dense
                         dense-toggle
                         expand-separator
                         label="Two Sets of Field Data"
-                        clickable
-                    >
-                            
-                        <div class="row dialogBorder">
-                            <div class="col-4 q-pt-sm">Surface System Constant</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.surfaceSystemConstant"></div>
-                            <div class="col-4 q-pt-sm">Minimum Pump Flow Rate (gpm)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.minimumFlowRate"></div>
-                            <div class="col-4 q-pt-sm">Maximum Horse Power (hp)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.maxHorsePower"></div>
+                        clickable>
 
-                            <div class="col-4 q-pt-sm">Maximum Surface Pressure (psi)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.maxAllowableSurfacePressure"></div>
+                <textbox variableName="Surface System Constant" :col1="col1" :col2="col2"
+                v-bind:variable="rig.surfaceSystemConstant"
+                unit="" :hasUnit="false"
+                :toolTipDescription="rigDescriptions.surfaceSystemConstant"></textbox>
 
-                            <div class="col-4 q-pt-sm">High Pump Pressure (psi)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.highPumpPressure"></div>
-                            <!-- <div class="col-2"></div> -->
+                <textbox variableName="Minimum Pump Flow Rate" :col1="col1" :col2="col2"
+                v-bind:variable="rig.minimumFlowRate"
+                unit="gpm" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.minimumFlowRate"></textbox>
 
-                            <div class="col-4 q-pt-sm">Flow Rate High Pump Pressure (gpm)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.flowRateHighPumpPressure"></div>
-                            <!-- <div class="col-4"></div> -->
+                <textbox variableName="Maximum Horse Power" :col1="col1" :col2="col2"
+                v-bind:variable="rig.maxHorsePower"
+                unit="hp" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.maxHorsePower"></textbox>
 
-                            <div class="col-4 q-pt-sm">Low Pump Pressure (psi)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.lowPumpPressure"></div>
-                            <!-- <div class="col-4"></div> -->
+                <textbox variableName="Maximum Surface Pressure" :col1="col1" :col2="col2"
+                v-bind:variable="rig.maxAllowableSurfacePressure"
+                unit="psi" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.maxAllowableSurfacePressure"></textbox>
 
-                            <div class="col-4 q-pt-sm">Flow Rate Low Pump Pressure (gpm)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.flowRateLowPumpPressure"></div>
+                <textbox variableName="High Pump Pressure" :col1="col1" :col2="col2"
+                v-bind:variable="rig.highPumpPressure"
+                unit="psi" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.highPumpPressure"></textbox>
 
-                            <div class="col-4 q-pt-sm">Pump Efficiency (fraction)</div>
-                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="rig.pumpEfficiency"></div>
+                <textbox variableName="Flow Rate High Pump Pressure" :col1="col1" :col2="col2"
+                v-bind:variable="rig.flowRateHighPumpPressure"
+                unit="gpm" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.flowRateHighPumpPressure"></textbox>
 
-                            <div class="col-4 q-pt-sm"> 
+                <textbox variableName="Low Pump Pressure" :col1="col1" :col2="col2"
+                v-bind:variable="rig.lowPumpPressure"
+                unit="psi" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.lowPumpPressure"></textbox>
+
+                <textbox variableName="Flow Rate Low Pump Pressure" :col1="col1" :col2="col2"
+                v-bind:variable="rig.flowRateLowPumpPressure"
+                unit="gpm" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.flowRateLowPumpPressure"></textbox>
+
+                <textbox variableName="Pump Efficiency" :col1="col1" :col2="col2"
+                v-bind:variable="rig.pumpEfficiency"
+                unit="fraction" :hasUnit="true"
+                :toolTipDescription="rigDescriptions.pumpEfficiency"></textbox>
+
+                <div class="row">
+                    <q-expansion-item class="col-12"
+                    v-model="expandBitLossesParams"
+                    dense
+                    dense-toggle
+                    expand-separator
+                    label="Bit Pressure Loss"
+                    clickable>
+
+                    <textbox variableName="Bit Nozzle Area" :col1="col1" :col2="col2"
+                    v-bind:variable="bitLosses.nozzleArea"
+                    unit="ft2" :hasUnit="true" disabled></textbox>
+
+                    <textbox variableName="Low Pressure Loss" :col1="col1" :col2="col2"
+                    v-bind:variable="bitLosses.lowPressureDropThroughBit"
+                    unit="psi" :hasUnit="true" disabled></textbox>
+
+                    <textbox variableName="High Pressure Loss" :col1="col1" :col2="col2"
+                    v-bind:variable="bitLosses.highPressureDropThroughBit"
+                    unit="psi" :hasUnit="true" disabled></textbox>
+
+                    <div class="row">
+                        <div class="col-4 q-pa-sm">
+                                <q-btn 
+                                size="sm"
+                                label="Calculate Bit Pressure Losses"
+                                @click="calculatePressureLosses">
+                                </q-btn>
+                            </div>
+                            <div class="col-4 q-pa-sm"></div>
+                            <div class="col-4 q-pa-sm"
+                            v-if="isBitPressureLossesCorrect">
                                 <q-btn 
                                 size="sm"
                                 label="Calculatee the flow exponent (M) =>"
                                 @click="calculateFlowExponent">
                                 </q-btn>
                             </div>
-                            <div class="col-8 q-pa-sm">{{ rig.flowExponent}}</div>
-
-                            <div class="col-10 q-pt-sm"> 
-                            </div>
-                            <div class="col-2 q-pa-sm">
-                                <q-btn 
-                                size="sm"
-                                label="Save"
-                                @click="SaveRigData">
-                                </q-btn>
-                            </div>
-                
-                        </div>
-
+                        <div class="col-12 q-pa-sm">{{ flowExponentMessage }}</div>
+                    </div>
                     </q-expansion-item>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="col-10 q-pt-sm"> 
+                    </div>
+                    <div class="col-2 q-pa-sm">
+                        <q-btn 
+                        size="sm"
+                        label="Save"
+                        @click="SaveRigData">
+                        </q-btn>
+                    </div>
+                </div>
+
+            </q-expansion-item>
 
             <div class="col-12">
                 <div class="row">
@@ -127,14 +172,33 @@
 </template>
 
 <script>
+import textbox from "components/controls/textbox.vue"
 export default {
     computed:{
         rig() {
         return this.$store.getters['rigStore/rig'];
+        },
+        bitLosses(){
+            return this.$store.getters['rigStore/bitLosses'];
+        },
+        isBitPressureLossesCorrect(){
+            return this.$store.getters['rigStore/isBitPressureLossesCorrect'];
+        },
+        flowExponentMessage(){
+            return this.$store.getters['rigStore/flowExponentMessage'];
+        },
+        rigDescriptions(){
+            return this.$store.getters['rigStore/rigDescriptions'];
         }
+    },
+    components:{
+        textbox
     },
     data() {
         return {
+            col1: "4",
+            col2: "8",
+            expandBitLossesParams: true,
             isBlockRating: true,
             isTorqueRating: true,
             visible: TextTrackCue,
@@ -149,6 +213,18 @@ export default {
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             
             this.$store.dispatch('rigStore/calculateFlowExponent', {
+                companyName: companyName,
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id
+            });
+        },
+        calculatePressureLosses(){
+            var context =  this;
+            var companyName = this.$store.getters['authStore/companyName'];
+            var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+            var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+            
+            this.$store.dispatch('rigStore/calculatePressureLosses', {
                 companyName: companyName,
                 designId: selectedTorqueDragDesign.id,
                 userId: IdentityModel.id

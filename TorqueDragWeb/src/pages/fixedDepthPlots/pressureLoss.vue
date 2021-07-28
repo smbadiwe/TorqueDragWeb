@@ -12,52 +12,61 @@
                     @click="reFreshPlot"
                     />
 					<q-space />
+					<q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    :icon="dynamicIcon"
+                    aria-label="Menu"
+                    @click="toggleTable"
+                    />
             </q-bar>
         </div>
 
 		<div class="row">
-			<div id="myDiv" class="col-12 bg-accent">
+			<div v-if="isTable">
+				<chartToTable></chartToTable>
+			</div>
+			<div 
+			v-else
+			id="myDiv" class="col-12 bg-accent">
 
 			</div>
 		</div>
   </div>
 </template>
 
+
 <script>
 import Plotly from 'plotly.js-dist'
-
+import chartToTable from "pages/fixedDepthPlots/chartToTable.vue"
 export default {
+	components:{
+		chartToTable
+	},
     data(){
         return {
-			trace1: {
-				x: [1, 2, 3, 4],
-				y: [10, 15, 13, 17],
-				mode: 'markers',
-				type: 'scatter'
-				},
-			trace2: {
-				x: [2, 3, 4, 5],
-				y: [16, 5, 11, 9],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter'
-				},
-			trace3: {
-				x: [1, 2, 3, 4],
-				y: [12, 9, 15, 12],
-				mode: 'lines+markers',
-				type: 'scatter'
-				}
+			isTable: false,
+			dynamicIcon: "table_chart"
 
         }
     },
     methods:{
+		toggleTable(){
+			var context = this;
+			if(context.isTable == true){
+				context.isTable = false;
+				context.dynamicIcon = "table_chart";
+			}else{
+				context.isTable = true
+				context.dynamicIcon = "auto_graph";
+			}
+		},
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
             console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
@@ -75,6 +84,7 @@ export default {
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Bit Pressure Loss',
+				actualName: 'bitPressureLoss'
             }
             
             var parasiticPressureLoss = {
@@ -88,6 +98,7 @@ export default {
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Parasitic Pressure Loss',
+				actualName: 'parasiticPressureLoss'
 			}
 
 			
@@ -95,7 +106,7 @@ export default {
 			for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
+				var hydraulicsResults =  hydraulicSensitivityDTO[j].hydraulicsResults;
 				
 
                 bitPressureLoss.x.push(rigDTO.pumpFlowRate[j]);
@@ -114,6 +125,27 @@ export default {
             data.push(bitPressureLoss)
             data.push(parasiticPressureLoss)
 			console.log("data: ", data);
+
+			var tableData = {
+				data,
+				xAxisData: {
+					actualName:"pumpRate",
+					name: "Pump Rate",
+					unit: "gpm"
+				},
+				yAxisData: {
+					unit: "psi"
+				},
+				excelFileName: "pressureLoss.csv",
+				tableTitle: "Pressure Loss",
+				isReversed: false
+			}
+
+			this.$store.commit('simulationStore/setCustomColumns', tableData);
+			this.$store.commit('simulationStore/setCustomTable', tableData);
+			this.$store.commit('simulationStore/setExcelFileName', tableData);
+			this.$store.commit('simulationStore/setTableTitle', tableData);
+
 			
 			var layout = { 
 				showlegend: true,
@@ -175,6 +207,7 @@ export default {
 		},
 		reFreshPlot(){
 			var context = this;
+			context.isTable = false;
 			context.createChart();
 		}
     },

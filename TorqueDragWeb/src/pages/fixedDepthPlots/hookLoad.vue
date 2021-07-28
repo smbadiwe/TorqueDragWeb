@@ -12,11 +12,25 @@
                     @click="reFreshPlot"
                     />
 					<q-space />
+					<q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    :icon="dynamicIcon"
+                    aria-label="Menu"
+                    @click="toggleTable"
+                    />
             </q-bar>
         </div>
 
 		<div class="row">
-			<div id="myDiv" class="col-12 bg-accent">
+			<div v-if="isTable">
+				<chartToTable></chartToTable>
+			</div>
+			<div 
+			v-else
+			id="myDiv" class="col-12 bg-accent">
 
 			</div>
 		</div>
@@ -25,35 +39,38 @@
 
 <script>
 import Plotly from 'plotly.js-dist'
+import chartToTable from "pages/fixedDepthPlots/chartToTable.vue"
+
 
 export default {
+    components:{
+		chartToTable
+	},
     data(){
         return {
-			trace1: {
-				x: [1, 2, 3, 4],
-				y: [10, 15, 13, 17],
-				mode: 'markers',
-				type: 'scatter'
-				},
-			trace2: {
-				x: [2, 3, 4, 5],
-				y: [16, 5, 11, 9],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter'
-				},
-			trace3: {
-				x: [1, 2, 3, 4],
-				y: [12, 9, 15, 12],
-				mode: 'lines+markers',
-				type: 'scatter'
-				}
+			isTable: false,
+			dynamicIcon: "table_chart"
 
         }
     },
     methods:{
+		toggleTable(){
+			var context = this;
+			
+			if(context.isTable == true){
+				context.isTable = false;
+				context.dynamicIcon = "table_chart";
+				console.log("dynamicIcon: ", context.dynamicIcon)
+				//context.reFreshPlot();
+			}else{
+				context.isTable = true
+				context.dynamicIcon = "table_chart";
+				console.log("dynamicIcon: ", context.dynamicIcon)
+				//context.reFreshPlot();
+				
+
+			}
+		},
 		createChart() {
 			var context = this;
 			var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
@@ -75,6 +92,7 @@ export default {
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Helical Buckling',
+				actualName: 'helicalBuckling'
 			}
 
 			var sinusoidalBuckling = {
@@ -88,6 +106,7 @@ export default {
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Sinusoidal Buckling',
+				actualName: 'sinusoidalBuckling'
 			}
 
 			for(j = 0; j < simulationResultsDTOsCount; j++){
@@ -99,7 +118,7 @@ export default {
 				var drillingResults =  simulationResultsDTO.drillingResults;
 				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
 				var backReamingResults =  simulationResultsDTO.backReamingResults;
-				var rotatingOffBottomResults = simulationResultsDTO.backReamingResults;
+				var rotatingOffBottomResults = simulationResultsDTO.rotatingOffBottomResults;
 
 				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
 				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
@@ -113,8 +132,10 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-    				width: 3
+					width: 3,
+					color: 'green' //#37f250;
 				},
+				fillcolor: '#37f250',
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Tripping In',
@@ -179,8 +200,10 @@ export default {
 				name: 'Rotating Off Bottom',
 			}
 
+			if(j == 0)trippingIn.fill = 'none'
+				else trippingIn.fill = 'tonexty'
+
 				length = trippingInResults.length;
-				
 				
 				for(i = 0; i < length; i++){
 					var md = trippingInResults[i].bottomMeasuredDepth;
@@ -193,6 +216,7 @@ export default {
 
 				//trippingIn.line.color = 'rgb(243, 81, 45)';
 				trippingIn.name = 'Tripping In ' + (j+1).toString();
+				trippingIn.actualName =  'trippingIn' + (j+1).toString();
 				if(isTrippingInChecked == true){
 					//data = [...data, context.trippingIn]
 					data.push(trippingIn)
@@ -211,6 +235,7 @@ export default {
 				//console.log("hook load: ", trippingOut.x);
 				//trippingOut.line.color = 'rgb(132, 218, 23)'
 				trippingOut.name = 'Tripping Out ' + (j+1).toString();
+				trippingOut.actualName =  'trippingOut' + (j+1).toString();
 				if(isTrippingOutChecked == true){
 					//data = [...data, context.trippingOut]
 					data.push(trippingOut)
@@ -226,6 +251,7 @@ export default {
 
 				//rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
 				rotatingOnBottom.name = 'Rotating On Bottom ' + (j+1).toString();
+				rotatingOnBottom.actualName =  'rotatingOnBottom' + (j+1).toString();
 				if(isRotatingOnBottomChecked == true){
 					//data = [...data, context.rotatingOnBottom]
 					data.push(rotatingOnBottom)
@@ -241,6 +267,7 @@ export default {
 
 				//rotatingOnBottom.line.color = 'rgb(40, 204, 164)'
 				rotatingOffBottom.name = 'Rotating Off Bottom ' + (j+1).toString();
+				rotatingOffBottom.actualName =  'rotatingOffBottom' + (j+1).toString();
 				if(isRotatingOffBottomChecked == true){
 					//data = [...data, context.rotatingOnBottom]
 					data.push(rotatingOffBottom)
@@ -256,6 +283,7 @@ export default {
 
 				//slideDrilling.line.color = 'rgb(24, 61, 213)'
 				slideDrilling.name = 'Slide Drilling ' + (j+1).toString();
+				slideDrilling.actualName =  'slideDrilling' + (j+1).toString();
 				if(isSlideDrillingChecked == true){
 					//data = [...data, context.slideDrilling]
 					data.push(slideDrilling)
@@ -271,66 +299,82 @@ export default {
 
 				//backReaming.line.color = 'rgb(227, 67, 94)'
 				backReaming.name = 'Back Reaming ' + (j+1).toString();
+				backReaming.actualName =  'backResming' + (j+1).toString();
 				if(isBackReamingChecked == true){
 					//data = [...data, context.backReaming]
 					data.push(backReaming)
 				}
 
+				
 				var trippingInResultsLength = trippingInResults.length;
 				var trippingOutResultsLength = trippingOutResults.length;
 				var drillingResultsLength = drillingResults.length;
 				var slideDrillingResultsLength = slideDrillingResults.length;
 				var backReamingResultsLength = backReamingResults.length;
-				if(trippingInResultsLength > 0){
+				var rotatingOffBottomResultsLength = rotatingOffBottomResults.length;
+				if(j == 0){
 
-					for(i = 0; i < trippingInResultsLength; i++){
-						var md = trippingInResults[i].bottomMeasuredDepth;
+					if(trippingInResultsLength > 0){
 
-						helicalBuckling.x.push(1 * trippingInResults[i].criticalHelicalBuckling/M);
-						helicalBuckling.y.push(md);
+						for(i = 0; i < trippingInResultsLength; i++){
+							var md = trippingInResults[i].bottomMeasuredDepth;
 
-						sinusoidalBuckling.x.push(1 * trippingInResults[i].criticalSinusoidalBuckling/M);
-						sinusoidalBuckling.y.push(md);
-					}
-				}else if(trippingOutResultsLength > 0){
-					for(i = 0; i < trippingOutResultsLength; i++){
-						var md = trippingOutResults[i].bottomMeasuredDepth;
+							helicalBuckling.x.push(1 * trippingInResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
 
-						helicalBuckling.x.push(1 * trippingOutResults[i].criticalHelicalBuckling/M);
-						helicalBuckling.y.push(md);
+							sinusoidalBuckling.x.push(1 * trippingInResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
+					}else if(trippingOutResultsLength > 0){
+						for(i = 0; i < trippingOutResultsLength; i++){
+							var md = trippingOutResults[i].bottomMeasuredDepth;
 
-						sinusoidalBuckling.x.push(1 * trippingOutResults[i].criticalSinusoidalBuckling/M);
-						sinusoidalBuckling.y.push(md);
-					}
-				}else if (drillingResultsLength > 0){
-					for(i = 0; i < drillingResultsLength; i++){
-						var md = drillingResults[i].bottomMeasuredDepth;
+							helicalBuckling.x.push(1 * trippingOutResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
 
-						helicalBuckling.x.push(1 * drillingResults[i].criticalHelicalBuckling/M);
-						helicalBuckling.y.push(md);
+							sinusoidalBuckling.x.push(1 * trippingOutResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
+					}else if (drillingResultsLength > 0){
+						for(i = 0; i < drillingResultsLength; i++){
+							var md = drillingResults[i].bottomMeasuredDepth;
 
-						sinusoidalBuckling.x.push(1 * drillingResults[i].criticalSinusoidalBuckling/M);
-						sinusoidalBuckling.y.push(md);
-					}
-				}else if(slideDrillingResultsLength > 0){
-					for(i = 0; i < slideDrillingResultsLength; i++){
-						var md = slideDrillingResults[i].bottomMeasuredDepth;
+							helicalBuckling.x.push(1 * drillingResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
 
-						helicalBuckling.x.push(1 * slideDrillingResults[i].criticalHelicalBuckling/M);
-						helicalBuckling.y.push(md);
+							sinusoidalBuckling.x.push(1 * drillingResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
+					}else if(slideDrillingResultsLength > 0){
+						for(i = 0; i < slideDrillingResultsLength; i++){
+							var md = slideDrillingResults[i].bottomMeasuredDepth;
 
-						sinusoidalBuckling.x.push(1 * slideDrillingResults[i].criticalSinusoidalBuckling/M);
-						sinusoidalBuckling.y.push(md);
-					}
-				}else if(backReamingResultsLength > 0){
-					for(i = 0; i < backReamingResultsLength; i++){
-						var md = backReamingResults[i].bottomMeasuredDepth;
+							helicalBuckling.x.push(1 * slideDrillingResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
 
-						helicalBuckling.x.push(1 * backReamingResults[i].criticalHelicalBuckling/M);
-						helicalBuckling.y.push(md);
+							sinusoidalBuckling.x.push(1 * slideDrillingResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
+					}else if(backReamingResultsLength > 0){
+						for(i = 0; i < backReamingResultsLength; i++){
+							var md = backReamingResults[i].bottomMeasuredDepth;
 
-						sinusoidalBuckling.x.push(1 * backReamingResults[i].criticalSinusoidalBuckling/M);
-						sinusoidalBuckling.y.push(md);
+							helicalBuckling.x.push(1 * backReamingResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
+
+							sinusoidalBuckling.x.push(1 * backReamingResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
+					}else if(rotatingOffBottomResultsLength > 0){
+						for(i = 0; i < rotatingOffBottomResultsLength; i++){
+							var md = rotatingOffBottomResults[i].bottomMeasuredDepth;
+
+							helicalBuckling.x.push(1 * rotatingOffBottomResults[i].criticalHelicalBuckling/M);
+							helicalBuckling.y.push(md);
+
+							sinusoidalBuckling.x.push(1 * rotatingOffBottomResults[i].criticalSinusoidalBuckling/M);
+							sinusoidalBuckling.y.push(md);
+						}
 					}
 				}
 	
@@ -343,7 +387,26 @@ export default {
 			//data = [...data, context.helicalBuckling, context.sinusoidalBuckling];
 			data.push(helicalBuckling)
 			data.push(sinusoidalBuckling)
-			//console.log("data: ", data);
+			console.log("data: ", data);
+			var tableData = {
+				data,
+				xAxisData: {
+					actualName:"measuredDepth",
+					name: "Measured Depth",
+					unit: "ft"
+				},
+				yAxisData: {
+					unit: "klb"
+				},
+				excelFileName: "Hook Load.csv",
+				tableTitle: "Hook Load",
+				isReversed: true
+			}
+
+			this.$store.commit('simulationStore/setCustomColumns', tableData);
+			this.$store.commit('simulationStore/setCustomTable', tableData);
+			this.$store.commit('simulationStore/setExcelFileName', tableData);
+			this.$store.commit('simulationStore/setTableTitle', tableData);
 			
 			var layout = { 
 				showlegend: true,
@@ -406,6 +469,7 @@ export default {
 		},
 		reFreshPlot(){
 			var context = this;
+			context.isTable = false;
 			context.createChart();
 		}
     },

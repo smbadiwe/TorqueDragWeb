@@ -60,10 +60,24 @@ const state = {
     },
     seriesCollection: [],
     selectedVariable: "Measured Depth",
-    seriesStore: []
+    seriesStore: [],
+    deviationSurveyDescriptions: {
+      measuredDepth: "Please Enter Measured Depth",
+      trueVerticalDepth: "Please Enter True Vertical Depth",
+      inclination: "Please Enter Inclination",
+      azimuth: "Please Enter Azimuth",
+      northSouth: "Please Enter North/South",
+      eastWest: "Please Enter East/West",
+      verticalSection: "Please Enter Vertical Section",
+      doglegSeverity: "Please Enter Dogleg Severity"
+    }
+
   }
 
   const getters = {
+    deviationSurveyDescriptions(state){
+      return state.deviationSurveyDescriptions;
+    },
     deviationSurveys(state){
       return state.deviationSurveys;
     },
@@ -97,7 +111,7 @@ const mutations = {
   },
   SaveSurveyTable(state, payload){
     state.deviationSurveys.push(payload);
-    console.log("deviationSurveys: ", state.deviationSurveys)
+    //console.log("deviationSurveys: ", state.deviationSurveys)
   },
   updateSurveyTable(state, payload){
     var i = 0;
@@ -108,7 +122,7 @@ const mutations = {
           break;
       }
     }
-    console.log("deviationSurveys: ", state.deviationSurveys)
+    //console.log("deviationSurveys: ", state.deviationSurveys)
   }
 }
 
@@ -191,7 +205,7 @@ const actions = {
        $http.get('DeviationSurveys/GetDeviationSurveys/' + ids, config)
         .then(response => {
 
-          console.log("response.data:", response.data)
+          //console.log("response.data:", response.data)
           //devCalcParams.calculateDevParams(response.data)
           //console.log("DevCalcParams.DevParams: ", devCalcParams.deviationSurveys)
             
@@ -235,7 +249,7 @@ const actions = {
 
           
           context.state.deviationSurveys = response.data;
-          console.log("deviationSurveys:", response.data);
+          //console.log("deviationSurveys:", response.data);
             
           var j = 0, i = 0;
 

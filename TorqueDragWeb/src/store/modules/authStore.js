@@ -27,13 +27,13 @@ const state =  {
     },
     dockViewWidth: screen.width,
     outputTabs: [
-      {
+      /* {
         name: 'General',
         isActive: false,
         route: 'commonPage'
-      }
+      } */
     ],
-    outputTabNames: ['General']
+    outputTabNames: [] //'General'
 
 }
 
@@ -144,6 +144,10 @@ const mutations = {
           var route = '/' + state.outputTabs[len-1].route;
           this.$router.push(route);
         }
+        if(len <= 0){
+          var route = '/commonPage';
+          this.$router.push(route);
+        }
       }
       console.log(state.outputTabs);
       
@@ -203,6 +207,72 @@ const mutations = {
 }
 
 const actions = {
+    Login2(context, payload)
+    {
+
+      let config = {
+        headers: {
+          Cookie: "cookie1=value; cookie2=value; cookie3=value;"
+      },
+        useCredentails: true,
+        maxRedirects: 0,
+        validateStatus: function (status) {
+          return status >= 200 && status < 303; // Reject only if the status code is greater than 302
+          },
+      }
+
+      return new Promise((resolve, reject) => {
+         $http.post('auth/signin', {
+          email: "gideon@syncware.io",
+          password: "gideon"
+          }, config)
+          .then(response => {
+            console.log(response.headers["set-cookie"]);
+            console.log("response :", response)
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log(error.message)
+            reject(error)
+          })
+      })
+    },
+    getCurrentUser(context){
+      return new Promise((resolve, reject) => {
+          $http.get('auth/currentUser')
+          .then(response => {
+  
+          console.log("response: ", response)      
+              resolve(response)
+              
+          })
+          .catch(error => {
+          console.error(error.response.data);
+          reject(error)
+          })
+      })
+  },
+    Logout(context)
+    {
+      let config = {
+        useCredentails: false
+      }
+
+      return new Promise((resolve, reject) => {
+        console.log("seen")
+         $http.post('Authentications/Logout', context.state.IdentityModel, config)
+          .then(response => {
+              
+            context.commit('Logout', response.data)              
+              resolve(response)
+              
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
     Login(context, payload)
     {
 
@@ -239,26 +309,6 @@ const actions = {
           })
       })
     },
-    Logout(context)
-    {
-      let config = {
-        useCredentails: false
-      }
-
-      return new Promise((resolve, reject) => {
-        console.log("seen")
-         $http.post('Authentications/Logout', context.state.IdentityModel, config)
-          .then(response => {
-              
-            context.commit('Logout', response.data)              
-              resolve(response)
-              
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
-    }
 }
 
 export default {

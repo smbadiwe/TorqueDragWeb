@@ -1,84 +1,86 @@
 <template>
     <div> 
-       <!--  <q-scroll-area
-            :visible="visible"
-        style="height: 700px;"
-        >  -->
+
             <div class="row text-accent"
             v-if="expanded">
-            <div class="col-12 q-pa-md">
-                    <q-expansion-item
+                    <!-- <q-expansion-item
+                    class="col-12 q-pa-md"
                         v-model="expanded"
                         dense
                         dense-toggle
                         expand-separator
-                        label="Add Datum"
+                        label="Add Well Path"
                         clickable
                         @click="ExpandExander2"
-                    >
-                        <!-- <q-card>
-                        <q-card-section> -->
+                    > -->
+                      <div class="col-12 q-pa-md">  
                             
-                            <div class="row">
+                     <textbox variableName="Measured Depth" :col1="col1" :col2="col2"
+                    v-bind:variable="measuredDepth"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.measuredDepth"></textbox>
 
-                                <div class="col-6 q-pt-sm">Measured Depth (ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="measuredDepth"></div>
-                                <!-- <div class="col-2"></div> -->
+                    <textbox variableName="True Vertical Depth" :col1="col1" :col2="col2"
+                    v-bind:variable="trueVerticalDepth"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.trueVerticalDepth"></textbox>
 
-                                <div class="col-6 q-pt-sm">True Vertical Depth (ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="trueVerticalDepth"></div>
-                                <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Inclination" :col1="col1" :col2="col2"
+                    v-bind:variable="inclination"
+                    unit="deg" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.inclination"></textbox>
 
-                                <div class="col-6 q-pt-sm">Inclination (deg)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="inclination"></div>
-                                <!-- <div class="col-4"></div> -->
+                    <textbox variableName="Azimuth" :col1="col1" :col2="col2"
+                    v-bind:variable="azimuth"
+                    unit="deg" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.azimuth"></textbox>
 
-                                <div class="col-6 q-pt-sm">azimuth (deg)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="azimuth"></div>
-                                <!-- <div class="col-4"></div> -->
+                    <textbox variableName="North/South" :col1="col1" :col2="col2"
+                    v-bind:variable="northSouth"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.northSouth"></textbox>
 
-                                <div class="col-6 q-pt-sm">NorthSouth (ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="northSouth"></div>
-                                <!-- <div class="col-4"></div> -->
+                     <textbox variableName="East/West" :col1="col1" :col2="col2"
+                    v-bind:variable="eastWest"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.eastWest"></textbox>
 
-                                <div class="col-6 q-pt-sm">EastWest (ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="eastWest"></div>
-                                <!-- <div class="col-4"></div> -->
+                     <textbox variableName="Vertical Section" :col1="col1" :col2="col2"
+                    v-bind:variable="verticalSection"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.verticalSection"></textbox>
 
-                                <div class="col-6 q-pt-sm">Vertical Section (ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="verticalSection"></div>
-                                <!-- <div class="col-4"></div> -->
+                     <textbox variableName="Dogleg Severity" :col1="col1" :col2="col2"
+                    v-bind:variable="doglegSeverity"
+                    unit="ft" :hasUnit="true"
+                    :toolTipDescription="deviationSurveyDescriptions.doglegSeverity"></textbox>
 
-                                <div class="col-6 q-pt-sm">Dogleg Severity (deg/100ft)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="doglegSeverity"></div>
-                                <!-- <div class="col-4"></div> -->
+                    <div class="row">
+                      <div class="col-12" style="height:10px;"></div>
+                    </div>
 
-                                <div style="height: 50px;"></div>
+                    <div class="row">
+                      
+                        <q-btn 
+                        class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Cancel"
+                          @click="cancelDatum">
+                      </q-btn>
+                      <q-space/>
+                      <q-btn 
+                      class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          :label="buttonLabel"
+                          @click="AddSurveyRecord">
+                      </q-btn>
+                    </div>
 
-                                <div align="right">
-                                <q-btn 
-                                    class="text-center"
-                                    size="sm"
-                                    :label="buttonLabel"
-                                    @click="AddSurveyRecord">
-                                </q-btn>
-                                </div>
-                    
-                            </div>
-                        <!-- </q-card-section> -->
-
-                        <!-- <q-card-actions align="right">
-                            <q-btn 
-                                size="sm"
-                                label="Add"
-                                @click="PostDatum">
-                            </q-btn>
-                        </q-card-actions> -->
-
-                        <!-- </q-card> -->
-                    </q-expansion-item>
+                       </div>
+                    <!-- </q-expansion-item> -->
     
-                </div>
             </div>
             
             <div 
@@ -90,7 +92,7 @@
                     <hr/>
             </div>
 
-                <div class="col-6 q-pt-sm">Origin N (ft): </div>
+                <!-- <div class="col-6 q-pt-sm">Origin N (ft): </div>
                 <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent"></div>
 
                 <div class="col-6 q-pt-sm">Origin E (ft): </div>
@@ -101,7 +103,7 @@
 
                 <div class="col-12 q-pa-sm">
                     <hr/>
-            </div>
+                </div> -->
 
                 <div class="row" style="height:20px"></div>
 
@@ -122,11 +124,11 @@
                         size="sm"
                         @click="ExpandExander">
                         <q-tooltip>
-                            Add Survey Record
+                            Add New Survey Record
                         </q-tooltip>
                     </q-btn>
 
-                    <q-btn 
+                   <!--  <q-btn 
                         class="q-pa-none"
                         icon="save"
                         size="sm"
@@ -134,7 +136,7 @@
                         <q-tooltip>
                             Save Survey Table
                         </q-tooltip>
-                    </q-btn>
+                    </q-btn> -->
 
                     <q-dialog v-model="isImportDialogVisible" class="bg-secondary">
                         <div class="q-pa-sm bg-secondary">
@@ -189,6 +191,7 @@
 
 <script>
 import msExcelImport from 'components/dataImport/msExcelImport.vue';
+import textbox from "components/controls/textbox.vue"
 import { convertToNumber } from 'boot/utils.js'
 export default {
     computed:{
@@ -197,17 +200,23 @@ export default {
         },
         isImportDialogVisible() {
         return this.$store.getters['wellPathStore/isImportDialogVisible'];
+        },
+        deviationSurveyDescriptions(){
+            return this.$store.getters['wellPathStore/deviationSurveyDescriptions'];
         }
     },
     components: {
-        'msExcelImport-app': msExcelImport
+        'msExcelImport-app': msExcelImport,
+        textbox
     },
      data () {
         return {
+        col1:"6",
+        col2: "6",
         separator: 'cell',
         columns: [
             { name: "measuredDepth", label: "Measured Depth (ft)", field: "", align: "left" },
-            { name: "actions", label: "", field: "", align: "left" },
+            { name: "actions", label: "Actions", field: "", align: "left" },
             { name: "trueVerticalDepth", label: "True Vertical Depth (ft)", field: "", align: "left" },
             { name: "inclination", label: "Inclination (deg)", field: "", align: "left" },
             { name: "azimuth", label: "Azimuth (deg)", field: "", align: "left" },
@@ -325,6 +334,11 @@ export default {
             context.expanded2 = false
             context.selectedItem = _selectedItem;
       },
+      cancelDatum(){
+      var context =  this;
+      context.expanded = false;
+      context.expanded2 = true
+    },
       SaveSurveyTable(){
           var context = this;
           var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
@@ -350,6 +364,15 @@ export default {
         context.isAdd = true;
         context.expanded = true;
         context.expanded2 = false
+
+        context.measuredDepth = "";
+        context.trueVerticalDepth = "";
+        context.inclination = "";
+        context.azimuth = "";
+        context.northSouth = "";
+        context.eastWest = "";
+        context.verticalSection = "";
+        context.doglegSeverity = "";
         },
         ExpandExander2(){
         var context = this;

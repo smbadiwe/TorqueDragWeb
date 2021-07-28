@@ -28,11 +28,29 @@ const state = {
         torqueAtBitBackReaming: 0,
         overpullBackReaming: 0
     },
+    operationDescriptions: {
+      trippingInSpeed : "Please Enter Tripping In Speed",
+      trippingInRPM : "Please Enter Tripping In RPM",
+      trippingOutSpeed : "Please Enter Tripping Out Speed",
+      trippingOutRPM : "Please Enter Tripping Out RPM",
+      weightOnBit : "Please Enter Weight On Bit",
+      torqueAtBit : "Please Enter Torque At Bit",
+      weightOnBitIDHM : "Please Enter Weight On Bit",
+      hookLoadIDHM : "Please Enter Hooke Load",
+      tripSpeedBackReam: "Please Enter Tripping Speed",
+      tripRPMBackReam: "Please Enter Tripping RPM",
+      torqueAtBitDrillingOperation: "Please Enter Torque At Bit",
+      torqueAtBitBackReaming: "Please Enter Torque At Bit",
+      overpullBackReaming: "Please Enter Over Pull",
+  },
     operationNames: ["No Operation", "Tripping In", "Tripping Out", "Rotating On Bottom", 
     "Slide Drilling", "Back reaming", "Rotating Off Bottom"]
   }
 
   const getters = {
+    operationDescriptions(state){
+      return state.operationDescriptions
+    },
     operation(state){
         return state.operation;
     },

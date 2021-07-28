@@ -31,8 +31,7 @@
                                 Add Cases
                             </q-tooltip>
                         </q-btn>
-                        <q-btn dense flat icon="close"
-                        @click="closeAction" />
+                        
                     </q-bar>
                 </div>
 
@@ -224,19 +223,33 @@
                     </div>
 
                     <div class="row  bg-primary text-accent">
-                    <div class="q-pa-sm text-caption">
+                    <div class="col-12 q-pa-sm text-caption">
                         <q-btn 
                             align="right"
-                            icon="play_arrow" 
+                            icon="close" 
                             flat
                             stretch
                             size="md" 
-                            label="Run"
+                            label="Close"
                             class="text-capitalize"
                             stack 
-                            @click="RunSensitivities"
+                            @click="cancelSensitivityParameters"
                             >
                         </q-btn>
+                       <!--  <q-space/>
+                        <q-btn 
+                            align="right"
+                            icon="save" 
+                            flat
+                            stretch
+                            size="md" 
+                            label="Submit"
+                            class="text-capitalize"
+                            stack 
+                            @click="setSensitivityParameters"
+                            >
+                        </q-btn> -->
+
                     </div>
                 </div>
             
@@ -287,12 +300,15 @@ export default {
         },
         IdentityModel(){
             return this.$store.getters['authStore/IdentityModel'];
-        }
+        },
+        sensitivityParameters(){
+            return this.$store.getters['simulationStore/sensitivityParameters'];
+        },
     },
     data() {
         return {
-           separator: 'cell' ,
-           sensitivityParameters:{
+           separator: 'cell' 
+         /*   sensitivityParameters:{
                 trippingIn_1: null,
                 trippingIn_2: null,
                 trippingIn_3: null,
@@ -353,7 +369,7 @@ export default {
                 rotatingOffBottom_8: null,
                 rotatingOffBottom_9: null,
                 rotatingOffBottom_10: null
-           }
+           } */
         }
     },
     methods: {
@@ -363,21 +379,21 @@ export default {
         addSensitivity(){
             this.$store.commit('simulationStore/addSensitivity');
         },
-        closeAction(){
+        setSensitivityParameters(){
+            var context = this;
+            /* this.$store.dispatch('simulationStore/setSensitivityParameters', {
+                sensitivityParameters: context.sensitivityParameters
+            }); */
+
             this.$store.commit('simulationStore/showSensitivityDialog', false);
+
         },
-        RunSensitivities(){
-            var context =  this;
-            this.$store.commit('dataImportStore/SetLoaderParameters', {
-            showLoader: true,
-            showImportView: false
-          });
-            this.$store.dispatch('simulationStore/RunSensitivities', {
-                companyName: context.companyName,
-                designId: context.SelectedTorqueDragDesign.id,
-                userId: context.IdentityModel.id,
+        cancelSensitivityParameters(){
+            var context = this;
+            this.$store.commit('simulationStore/setSensitivityParameters', {
                 sensitivityParameters: context.sensitivityParameters
             });
+            this.$store.commit('simulationStore/showSensitivityDialog', false);
         }
     },
     created(){

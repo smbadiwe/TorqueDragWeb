@@ -1,12 +1,13 @@
 import axios from 'axios'
 //const axiosInstance = axios.create({ 
     const $http  = axios.create({ 
-      baseURL: 'http://localhost:58471/api/' ,
+      //baseURL: "https://apex.syncware.io/",
+      baseURL: 'http://localhost:58471/api/' , 
+      //baseURL: 'https://18.185.238.29/api/',
       //baseURL: 'https://learningways.com.ng/api/',
       //withCredentials: false,
         headers: {
-          'Content-Type': 'application/json'
-          //"Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json',
           //"Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
           // "Access-Control-Allow-Credentials":true
         }
