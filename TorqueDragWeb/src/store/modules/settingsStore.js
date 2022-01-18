@@ -1,6 +1,7 @@
 import { $http } from 'boot/axios' 
 
 const state = {
+  isSetting: false,
     menuTabs:[
         {
           id:1,
@@ -66,6 +67,9 @@ const state = {
   }
 
   const getters = {
+    isSetting(state){
+      return state.isSetting
+    },
     tabCaptionRight(state){
       return state.tabCaptionRight;
     },
@@ -84,6 +88,9 @@ const state = {
 }
 
 const mutations = {
+  setIsSetting(state, payload){
+    state.isSetting = payload;
+  },
     updatemenuTabs(state, payload){
         var i = payload.id;
         state.menuTabs[i].isRibbonActive = payload.isRibbonActive;
@@ -125,11 +132,11 @@ const actions = {
       },
       useCredentails: true
     }
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
     return new Promise((resolve, reject) => {
   
       
-       $http.get('Commons/GetCommon/'+ ids, config)
+       $http.get('Commons/GetCommon/'+ payload.designId)
         .then(response => {
             
           context.commit('GetCommon', response.data)      
@@ -164,21 +171,18 @@ const actions = {
       var newPayload = {
         companyName: payload.companyName,
         designId: payload.designId,
-        common: {
-                    activeFluid: context.activeFluid,
-                    startMeasuredDepth : parseFloat(context.state.common.startMeasuredDepth),
-                    endMeasuredDepth : parseFloat(context.state.common.endMeasuredDepth),
-                    stepSize : parseFloat(context.state.common.stepSize),
-                    seaWaterDensity : parseFloat(context.state.common.seaWaterDensity),
-                    courseLength : parseFloat(context.state.common.courseLength),
-                    youngsModulus : parseFloat(context.state.common.youngsModulus),
-                    blockWeight:  parseFloat(context.state.common.blockWeight),
-                    percentOfYield: parseFloat(context.state.common.percentOfYield),
-                    bucklingLimitFactor: parseFloat(context.state.common.bucklingLimitFactor),
-                    designId: payload.designId,
-                    userId: payload.userId
-                }
-
+        activeFluid: context.activeFluid,
+        startMeasuredDepth : parseFloat(context.state.common.startMeasuredDepth),
+        endMeasuredDepth : parseFloat(context.state.common.endMeasuredDepth),
+        stepSize : parseFloat(context.state.common.stepSize),
+        seaWaterDensity : parseFloat(context.state.common.seaWaterDensity),
+        courseLength : parseFloat(context.state.common.courseLength),
+        youngsModulus : parseFloat(context.state.common.youngsModulus),
+        blockWeight:  parseFloat(context.state.common.blockWeight),
+        percentOfYield: parseFloat(context.state.common.percentOfYield),
+        bucklingLimitFactor: parseFloat(context.state.common.bucklingLimitFactor),
+        designId: payload.designId,
+        userId: payload.userId
     }
       console.log("context.state.common:", context.state.common)
        $http.post('Commons/PostCommon', newPayload, config)

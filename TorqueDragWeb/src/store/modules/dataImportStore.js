@@ -1078,7 +1078,6 @@ const mutations = {
                         makeUpTorque: makeUpTorque,
                         overPullMargin: overPullMargin,
                         designId: payload.designId,
-                        userId: payload.userId,
                         isSelected: false
                     })
 
@@ -1137,9 +1136,7 @@ const mutations = {
                         reference: reference,
                         density: density,
                         plasticViscoity: plasticViscoity,
-                        yieldPoint: yieldPoint,
-                        designId: payload.designId,
-                        userId: payload.userId,
+                        yieldPoint: yieldPoint
                     })
 
                 }

@@ -5,7 +5,15 @@
     <q-header elevated>
 
     <q-bar class="q-pa-none row bg-secondary" >
-            
+          <q-btn
+          flat
+          dense
+          round
+          icon="settings"
+          aria-label="Settings"
+          @click="setIsSetting"
+          />
+
           <q-btn
           flat
           dense
@@ -14,7 +22,27 @@
           aria-label="Menu"
           @click="UpdateLeftDrawerOpen"
         />
-          <q-icon name="laptop_chromebook"/>
+        
+        <q-btn 
+            flat
+          dense
+          round
+          icon="save"
+          @click="SaveProject">
+          <q-tooltip>
+              Save Project
+          </q-tooltip>
+        </q-btn>
+        <q-btn 
+            flat
+          dense
+          round
+          icon="file_download"
+          @click="ImportCatalog">
+          <q-tooltip>
+              Load Catalog
+          </q-tooltip>
+        </q-btn>
           
 
             <!-- shadow-2 -->
@@ -321,92 +349,95 @@ export default {
     }
   },
   methods:{
-      closeStatusMessageBar(){
-        this.$store.commit('authStore/setStatusMessageBarVisibility', {
-            actionMessage: "",
-            visibility: false
-            });
-      },
-      ToggleRibbonVisibility(){
+    setIsSetting(){
+         this.$store.commit('settingsStore/setIsSetting', true);
+    },
+    closeStatusMessageBar(){
+      this.$store.commit('authStore/setStatusMessageBarVisibility', {
+          actionMessage: "",
+          visibility: false
+          });
+    },
+    ToggleRibbonVisibility(){
+      var context =  this;
+      if(context.isRibbonVisible == true)
+      {
+        context.isRibbonVisible = false;
+        context.visibilityIcon = "visibility_off";
+      }
+      else
+      {
+        context.isRibbonVisible = true;
+        context.visibilityIcon = "visibility";
+      }
+
+      console.log("isRibbonVisible: ", context.isRibbonVisible);
+    },
+    UpdateLeftDrawerOpen(){
+      var context =  this;
+      context.leftDrawerOpen = !context.leftDrawerOpen;
+      this.$store.commit('authStore/UpdateDockViewWidth', {
+        leftDrawerOpen: context.leftDrawerOpen,
+        rightDrawerOpen: context.rightDrawerOpen 
+      })
+
+    },
+    UpdateRightDrawerOpen(){
+      var context =  this;
+      context.rightDrawerOpen = !context.rightDrawerOpen;
+      this.$store.commit('authStore/UpdateDockViewWidth', {
+        leftDrawerOpen: context.leftDrawerOpen,
+        rightDrawerOpen: context.rightDrawerOpen 
+      })
+
+    },
+    ShowFileRibbon(selectedRibbonName){
         var context =  this;
-        if(context.isRibbonVisible == true)
-        {
-          context.isRibbonVisible = false;
-          context.visibilityIcon = "visibility_off";
-        }
-        else
-        {
-          context.isRibbonVisible = true;
-          context.visibilityIcon = "visibility";
-        }
+        var i = 0;
+        var menuTabsCount = context.menuTabs.length;
 
-        console.log("isRibbonVisible: ", context.isRibbonVisible);
-      },
-      UpdateLeftDrawerOpen(){
-        var context =  this;
-        context.leftDrawerOpen = !context.leftDrawerOpen;
-        this.$store.commit('authStore/UpdateDockViewWidth', {
-          leftDrawerOpen: context.leftDrawerOpen,
-          rightDrawerOpen: context.rightDrawerOpen 
-        })
+        context.isRibbonGeneralOutputs = false;
+          context.isTorqueDrag=false;
+          context.isHydraulics = false;
+          context.isRibbonActiveHome = false;
+          context.isSurgeSwab = false;
 
-      },
-      UpdateRightDrawerOpen(){
-        var context =  this;
-        context.rightDrawerOpen = !context.rightDrawerOpen;
-        this.$store.commit('authStore/UpdateDockViewWidth', {
-          leftDrawerOpen: context.leftDrawerOpen,
-          rightDrawerOpen: context.rightDrawerOpen 
-        })
+      switch(selectedRibbonName){
 
-      },
-      ShowFileRibbon(selectedRibbonName){
-          var context =  this;
-          var i = 0;
-          var menuTabsCount = context.menuTabs.length;
+        case "Home":
+          context.isRibbonActiveHome = true;
 
-          context.isRibbonGeneralOutputs = false;
-            context.isTorqueDrag=false;
-            context.isHydraulics = false;
-            context.isRibbonActiveHome = false;
-            context.isSurgeSwab = false;
+          context.homeRibbonBgColor = context.accentColor;
+          context.homeRibbonTextColor = context.primaryColor;
+          context.GeneralOutputsBgColor = context.secondaryColor;
+          context.GeneralOutputsTextColor = context.inActiveTextcolor
+          break;
 
-        switch(selectedRibbonName){
+        case "General Outputs":
+          context.isRibbonGeneralOutputs = true;
 
-          case "Home":
-            context.isRibbonActiveHome = true;
+          context.homeRibbonBgColor = context.secondaryColor;
+          context.homeRibbonTextColor = context.inActiveTextcolor;
+          context.GeneralOutputsBgColor = context.accentColor;
+          context.GeneralOutputsTextColor = context.primaryColor
 
-            context.homeRibbonBgColor = context.accentColor;
-            context.homeRibbonTextColor = context.primaryColor;
-            context.GeneralOutputsBgColor = context.secondaryColor;
-            context.GeneralOutputsTextColor = context.inActiveTextcolor
-            break;
+          break;
 
-          case "General Outputs":
-            context.isRibbonGeneralOutputs = true;
+        case "Torque & Drag":
+          context.isTorqueDrag=true;
+          break;
 
-            context.homeRibbonBgColor = context.secondaryColor;
-            context.homeRibbonTextColor = context.inActiveTextcolor;
-            context.GeneralOutputsBgColor = context.accentColor;
-            context.GeneralOutputsTextColor = context.primaryColor
+        case "Hydraulics":
+          context.isHydraulics = true;
+          break;
 
-            break;
+        case "Surge & Swab":
+          context.isSurgeSwab = true;
+          break;
 
-          case "Torque & Drag":
-            context.isTorqueDrag=true;
-            break;
+      }
 
-          case "Hydraulics":
-            context.isHydraulics = true;
-            break;
-
-          case "Surge & Swab":
-            context.isSurgeSwab = true;
-            break;
-
-        }
-
-      },
+    },
     ShowInputView(){
       var context =  this;
       if(context.isInput == true){
@@ -467,6 +498,133 @@ export default {
         context.isSchematic = false;
         context.isWellList = fafalselse;
       }
+    },
+    toNumber(value){
+        var ans = 0;
+        //console.log("value: ", value)
+        ans = parseFloat(value);
+        if(Number.isNaN(ans) === true){
+            //console.log("ans: ", ans)
+            ans = 0;
+        }
+
+        return ans;
+    },
+    RigFormatting(){
+        var context  =  this;
+        var rig = context.rig;
+        //console.log("rig: ", rig)
+        rig.highPumpPressure = context.toNumber(rig.highPumpPressure);
+        rig.lowPumpPressure = context.toNumber(rig.lowPumpPressure);
+        rig.flowRateHighPumpPressure = context.toNumber(rig.flowRateHighPumpPressure);
+        rig.flowRateLowPumpPressure = context.toNumber(rig.flowRateLowPumpPressure);
+        rig.flowExponent = context.toNumber(rig.flowExponent);
+        rig.pumpEfficiency = context.toNumber(rig.pumpEfficiency);
+        rig.maxAllowableSurfacePressure = context.toNumber(rig.maxAllowableSurfacePressure);
+        rig.maxHorsePower = context.toNumber(rig.maxHorsePower);
+        rig.minimumFlowRate = context.toNumber(rig.minimumFlowRate);
+        rig.surfaceSystemConstant = context.toNumber(rig.surfaceSystemConstant);
+        return rig;
+    },
+    DrillBitFormatting(){
+        var context  =  this;
+        var drillBit = context.drillBit;
+        drillBit.bitSize = context.toNumber(drillBit.bitSize);
+        drillBit.numberOfBitNozzles = context.toNumber(drillBit.numberOfBitNozzles);
+        drillBit.dischargeCoefficient = context.toNumber(drillBit.dischargeCoefficient);
+
+        return drillBit;
+    },
+    DatumFormatting(){
+        var context  =  this;
+        var datum = context.datum;
+        datum.datumElevation = context.toNumber(datum.datumElevation);
+        datum.groundElevation = context.toNumber(datum.groundElevation);
+        datum.airGap = context.toNumber(datum.airGap);
+        datum.wellHeadElevation = context.toNumber(datum.wellHeadElevation);
+
+        //console.log("datum: ", datum)
+        return datum;
+    },
+    FluidFormatting(){
+        var context  =  this;
+        var fluid = context.fluid;
+        fluid.baseFannDialReading = context.toNumber(fluid.baseFannDialReading);
+        fluid.baseFannRPM = context.toNumber(fluid.baseFannRPM);
+        fluid.fannDialReading = context.toNumber(fluid.fannDialReading);
+        fluid.fannRPM = context.toNumber(fluid.fannRPM);
+
+        return fluid;
+    },
+    OperationFormatting(){
+        var context  =  this;
+        var operation = context.operation;
+        operation.trippingInSpeed = context.toNumber(operation.trippingInSpeed);
+        operation.trippingInRPM = context.toNumber(operation.trippingInRPM);
+        operation.trippingOutSpeed = context.toNumber(operation.trippingOutSpeed);
+        operation.trippingOutRPM = context.toNumber(operation.trippingOutRPM);
+        operation.weightOnBit = context.toNumber(operation.weightOnBit);
+        operation.torqueAtBit = context.toNumber(operation.torqueAtBit);
+        operation.weightOnBitIDHM = context.toNumber(operation.weightOnBitIDHM);
+        operation.hookLoadIDHM = context.toNumber(operation.hookLoadIDHM);
+        operation.tripSpeedBackReam = context.toNumber(operation.tripSpeedBackReam)
+        operation.tripRPMBackReam = context.toNumber(operation.tripRPMBackReam)
+        operation.torqueAtBitDrillingOperation = context.toNumber(operation.torqueAtBitDrillingOperation)
+        operation.torqueAtBitBackReaming = context.toNumber(operation.torqueAtBitBackReaming)
+        operation.overpullBackReaming = context.toNumber(operation.overpullBackReaming)
+
+        return operation;
+    },
+    SettingFormatting(){
+        var context  =  this;
+        var common = context.common;
+        common.startMeasuredDepth = context.toNumber(common.startMeasuredDepth);
+        common.endMeasuredDepth = context.toNumber(common.endMeasuredDepth);
+        common.stepSize = context.toNumber(common.stepSize);
+        common.seaWaterDensity = context.toNumber(common.seaWaterDensity);
+        common.courseLength = context.toNumber(common.courseLength);
+        common.youngsModulus = context.toNumber(common.youngsModulus);
+        common.blockWeight =  context.toNumber(common.blockWeight);
+        common.percentOfYield = context.toNumber(common.percentOfYield);
+        common.bucklingLimitFactor = context.toNumber(common.bucklingLimitFactor);
+
+        return common;
+    },
+    SaveProject(){
+      var context =  this;
+      var Conn = this.$store.getters['authStore/companyName'];
+      var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
+      var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+      
+      var allInputsDTO = {
+          rig: context.RigFormatting(),
+          drillBit: context.DrillBitFormatting(),
+          datum: context.DatumFormatting(),
+          deviationSurveys: context.deviationSurveys,
+          fluid: context.FluidFormatting(),
+          mudPVTs: context.mudPVTs,
+          holeSections: context.holeSections,
+          operation: context.OperationFormatting(),
+          pipes: context.pipes,
+          common: context.SettingFormatting()
+      }
+
+      console.log("allInputsDTO: ", allInputsDTO)
+
+      this.$store.dispatch('wellDesignStore/PostAllData', {
+                companyName: Conn,
+                designId: selectedTorqueDragDesign.id,
+                userId: IdentityModel.id,
+                allInputsDTO
+            });
+
+    },
+    ImportCatalog(){
+      this.$store.commit('authStore/AddOutputTab', {
+                name: "Load Catalog",
+                route: "catalogPage"
+            });
+
     }
   },
   mounted() {

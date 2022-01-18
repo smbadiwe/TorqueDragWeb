@@ -39,7 +39,7 @@ export default {
   },
   methods:{
     GetSelectedTorqueDragDesign(selectedItem){
-            var Conn = this.$store.getters['authStore/companyName'];
+            var companyName = this.$store.getters['authStore/companyName'];
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             
             this.$store.commit('dataImportStore/SetLoaderParameters', {
@@ -47,11 +47,13 @@ export default {
             showImportView: false
           });
 
+            console.log('selectedItem: ', selectedItem);
+            console.log('IdentityModel: ', IdentityModel);
             this.$store.dispatch('wellDesignStore/GetSelectedTorqueDragDesign', {
               SelectedTorqueDragDesign:selectedItem,
-              companyName: Conn,
+              companyName,
               designId: selectedItem.id,
-              userId: IdentityModel.id
+              userId: IdentityModel._id
             })
         },
   }

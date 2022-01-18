@@ -53,12 +53,12 @@ const actions = {
       useCredentails: true
     }
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('HoleSections/GetHoleSections/' + ids, config)
+       $http.get('HoleSections/GetHoleSections/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetHoleSections', response.data)  

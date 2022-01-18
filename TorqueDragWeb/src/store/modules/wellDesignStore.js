@@ -91,10 +91,12 @@ const mutations = {
         state.isCreateWellDesign = false
   },
   GetTorqueDragDesigns(state, payload){
-      state.wellProjects = payload.companies;  
+    console.log("payload: ", payload)
+      state.wellProjects = payload.Companies;  
       state.torqueDragDesigns = payload.torqueDragDesigns;
       state.torqueDragMostRecentDesigns = payload.torqueDragMostRecentDesigns;
       state.SelectedTorqueDragDesign = state.torqueDragDesigns[0];
+      console.log("state.wellProjects: ", state.wellProjects)
   },
   GetSelectedTorqueDragDesign(state, payload){
     state.SelectedTorqueDragDesign = payload;
@@ -110,43 +112,37 @@ const mutations = {
     }
 
     nlength= Object.keys(state.SelectedTorqueDragDesign).length;
-    console.log("nlength: ", nlength)
+    console.log("state.wellProjects: ", state.wellProjects)
     if(nlength > 0){
       var wellProject = state.wellProjects[0];
       var field = wellProject.children[0];
       var well = field.children[0];
       var wellbore = well.children[0];
-      var wellDesign = wellbore.children[0];
-      state.projectNames =[]
-      state.fieldNames =[]
-      state.wellNames =[]
-      state.wellboreNames =[]
-      state.wellDesignNames =[]
-      state.wellCases = []
-      var i = 0;
-      for(i = 0; i < state.wellProjects.length; i++){
-        state.projectNames.push(state.wellProjects[i].label)
-      }
+      //var wellDesign = wellbore.children[0];
+      //var wellCase = wellDesign.children[0];
 
-      for(i = 0; i < wellProject.children.length; i++){
-        state.fieldNames.push(wellProject.children[i].label)
-      }
+      state.projectNames = wellProject.children.map((row) => {
+        return row.label
+      });
+      state.fieldNames = field.children.map((row) => {
+        return row.label
+      });
 
-      for(i = 0; i < field.children.length; i++){
-        state.wellNames.push(field.children[i].label)
-      }
+      state.wellNames = well.children.map((row) => {
+        return row.label
+      });
+      state.wellboreNames = wellbore.children.map((row) => {
+        return row.label
+      });
 
-      for(i = 0; i < well.children.length; i++){
-        state.wellboreNames.push(well.children[i].label)
-      }
+     /*  state.wellDesignNames = wellDesign.children.map((row) => {
+        return row.label
+      });
 
-      for(i = 0; i < wellbore.children.length; i++){
-        state.wellDesignNames.push(wellbore.children[i].label)
-      }
-
-      for(i = 0; i < wellDesign.children.length; i++){
-        state.wellCases.push(wellDesign.children[i].label)
-      }
+      state.wellCases = wellCase.children.map((row) => {
+        return row.label
+      }); */
+     
     }
 
 
@@ -296,6 +292,7 @@ const actions = {
     },
     GetTorqueDragDesigns(context, payload)
     {
+      console.log("payload: ", payload);
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -305,8 +302,8 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log("seen")
-        console.log(payload);
-         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.id, config)
+        console.log(payload); 
+         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.id)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)
@@ -372,14 +369,18 @@ const actions = {
           userId: payload.userId
       }
         context.dispatch('datumStore/GetDatums', payload2, {root:true});
-        context.dispatch('fluidsStore/GetFluid', payload2, {root:true});
-        context.dispatch('holeStore/GetHoleSections', payload2, {root:true});
-        context.dispatch('operationsStore/GetOperation', payload2, {root:true});
-        context.dispatch('settingsStore/GetCommon', payload2, {root:true});
-        context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
         context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
+        context.dispatch('holeStore/GetHoleSections', payload2, {root:true});
+        context.dispatch('tubingStringStore/GetPipes', payload2, {root:true});
         context.dispatch('tubingStringStore/GetDrillBit', payload2, {root:true});
         context.dispatch('rigStore/GetRig', payload2, {root:true});
+        context.dispatch('operationsStore/GetOperation', payload2, {root:true});
+        context.dispatch('fluidsStore/GetFluid', payload2, {root:true});
+        context.dispatch('fluidsStore/GetMudPVTs', payload, {root:true}); 
+        context.dispatch('settingsStore/GetCommon', payload2, {root:true});
+       
+        
+        
 
 
         context.commit('authStore/setStatusMessageBarVisibility',  

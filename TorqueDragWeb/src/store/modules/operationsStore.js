@@ -66,12 +66,12 @@ const actions = {
       useCredentails: true
     }
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Operations/GetOperation/' + ids, config)
+       $http.get('Operations/GetOperation/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetOperation', response.data)   
@@ -124,7 +124,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       
-       $http.post('Operations/PostOperation', payload, config)
+       $http.post('Operations/PostOperation', payload.operation, config)
         .then(response => {
             
           context.commit('PostOperation', response.data)    

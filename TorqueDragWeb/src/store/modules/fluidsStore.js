@@ -77,16 +77,15 @@ const actions = {
       useCredentails: true
     }
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Fluids/GetFluid/' + ids, config)
+       $http.get('Fluids/GetFluid/' + payload.designId)
         .then(response => {
             
           context.commit('GetFluid', response.data);
-          context.dispatch('GetMudPVTs', payload); 
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
             showImportView: true
@@ -117,12 +116,12 @@ const actions = {
       },
       useCredentails: true
     }
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('MudPVTs/GetMudPVTs/' + ids, config)
+       $http.get('MudPVTs/GetMudPVTs/' + payload.designId)
         .then(response => {
             
           context.commit('GetMudPVTs', response.data);   
@@ -162,7 +161,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Fluids/PostFluid', payload, config)
+       $http.post('Fluids/PostFluid', payload.fluid)
         .then(response => {
             
           context.commit('PostFluid', response.data)  
@@ -203,7 +202,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('MudPVTs/PostMudPVTs', payload, config)
+       $http.post('MudPVTs/PostMudPVTs', payload)
         .then(response => {
             
           context.commit('PostMudPVTs', response.data)    

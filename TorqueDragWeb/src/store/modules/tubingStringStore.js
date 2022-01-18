@@ -64,13 +64,14 @@ const actions = {
       useCredentails: true
     }
 
-    state.pipes = [];
-    state.pipes = payload.pipes;
+    //state.pipes = [];
+    //state.pipes = payload.pipes;
+    console.log('payload: ', payload);
 
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/PostPipes', payload, config)
+       $http.post('Pipes/PostPipes', payload)
         .then(response => {
             
           context.commit('PostPipes', response.data)  
@@ -111,14 +112,15 @@ const actions = {
       useCredentails: true
     }
 
-    state.drillBit = [];
-    state.drillBit = payload.drillBit;
+    //state.drillBit = {};
+    //state.drillBit = payload.drillBit;
+    console.log('payload: ', payload);
 
-    payload.drillBit.bitSize = parseFloat(payload.drillBit.bitSize);
-    payload.drillBit.numberOfBitNozzles = parseFloat(payload.drillBit.numberOfBitNozzles);
-    payload.drillBit.dischargeCoefficient = parseFloat(payload.drillBit.dischargeCoefficient);
-    payload.drillBit.designId = payload.designId;
-    payload.drillBit.userId = payload.userId;
+    payload.bitSize = parseFloat(payload.bitSize);
+    payload.numberOfBitNozzles = parseFloat(payload.numberOfBitNozzles);
+    payload.dischargeCoefficient = parseFloat(payload.dischargeCoefficient);
+    payload.designId = payload.designId;
+    payload.userId = payload.userId;
 
     return new Promise((resolve, reject) => {
   
@@ -126,7 +128,7 @@ const actions = {
        $http.post('DrillBits/PostDrillBit', payload, config)
         .then(response => {
             
-          context.commit('PostDrillBit', response.data)  
+          //context.commit('PostDrillBit', response.data)  
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
             showImportView: true
@@ -195,14 +197,14 @@ const actions = {
     }
     state.pipes = [];
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Pipes/GetPipes/' + ids, config)
+       $http.get('Pipes/GetPipes/' + payload.designId)
         .then(response => {
-            
+          console.log('drillpipe response: ', response);
           context.commit('GetPipes', response.data)  
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,
@@ -236,14 +238,14 @@ const actions = {
 
     state.drillBit = {};
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+   // var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DrillBits/GetDrillBit/' + ids, config)
+       $http.get('DrillBits/GetDrillBit/' + payload.designId)
         .then(response => {
-            
+            console.log('drillbit response: ', response);
           context.commit('GetDrillBit', response.data)  
           context.commit('dataImportStore/SetLoaderParameters', {
             showLoader: false,

@@ -209,15 +209,16 @@ export default {
         var designMonth = d.getMonth() + 1;
         var designYear = d.getFullYear();
         var IdentityModel = this.$store.getters['authStore/IdentityModel'];
+        var compId = this.$store.getters['authStore/companyId'];
 
         this.$store.commit('dataImportStore/SetLoaderParameters', {
                 showLoader: true,
                 showImportView: false
         });
 
+
         this.$store.dispatch('wellDesignStore/PostTorqueDragDesign', {
                 torqueDragDesign: {
-                    companyId: context.companyId,
                     designName: context.designName,
                     designDay: designDay,
                     designMonth: designMonth,
@@ -229,7 +230,7 @@ export default {
                     wellDesignName: context.wellDesignName,
                     siteName: context.siteName,
                     externalcompanyName: context.externalcompanyName,
-                    userId: IdentityModel.id
+                    userId: IdentityModel._id
                 },
                 companyName: context.companyName
             });

@@ -448,7 +448,7 @@ export default {
         SaveTubingStringTable(){
             var context = this;
             var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
-            var Conn = this.$store.getters['authStore/companyName'];
+            var companyName = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
 
@@ -460,15 +460,17 @@ export default {
              this.$store.dispatch('tubingStringStore/PostPipes', {
                 pipes: context.pipes,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
+                userId: IdentityModel._id,
+                companyName
               });
 
               this.$store.dispatch('tubingStringStore/PostDrillBit', {
-                drillBit: context.drillBit,
+                bitSize: context.drillBit.bitSize,
+                numberOfBitNozzles: context.drillBit.numberOfBitNozzles,
+                dischargeCoefficient: context.drillBit.dischargeCoefficient,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
+                userId: IdentityModel._id,
+                companyName
               });
 
         }

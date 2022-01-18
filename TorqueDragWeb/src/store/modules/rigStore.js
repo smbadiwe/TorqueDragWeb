@@ -6,7 +6,7 @@ const state = {
         lowPumpPressure: null,
         flowRateHighPumpPressure: null,
         flowRateLowPumpPressure: null,
-        flowExponent: null,
+        flowExponent: "0.9",
         pumpEfficiency: null,
         maxAllowableSurfacePressure: null,
         maxHorsePower: null,
@@ -48,12 +48,12 @@ const actions = {
 
     context.state.rig = {};
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Rig/GetRig/' + ids, config)
+       $http.get('Rigs/GetRig/' + payload.designId)
         .then(response => {
             
           context.commit('GetRig', response.data)  
@@ -88,24 +88,20 @@ const actions = {
         var newPayload = {
           companyName: payload.companyName,
           designId: payload.designId,
-          rig: {
-            highPumpPressure : parseFloat(context.state.rig.highPumpPressure),
-            lowPumpPressure : parseFloat(context.state.rig.lowPumpPressure),
-            flowRateHighPumpPressure : parseFloat(context.state.rig.flowRateHighPumpPressure),
-            flowRateLowPumpPressure : parseFloat(context.state.rig.flowRateLowPumpPressure),
-            flowExponent : parseFloat(context.state.rig.flowExponent),
-            pumpEfficiency:  parseFloat(context.state.rig.pumpEfficiency),
-            maxAllowableSurfacePressure: parseFloat(context.state.rig.maxAllowableSurfacePressure),
-            maxHorsePower : parseFloat(context.state.rig.maxHorsePower),
-            minimumFlowRate : parseFloat(context.state.rig.minimumFlowRate),
-            surfaceSystemConstant: parseFloat(context.state.rig.surfaceSystemConstant),
-            designId: payload.designId,
-            userId: payload.userId
-        }
-
+          userId: payload.userId,
+          highPumpPressure : parseFloat(context.state.rig.highPumpPressure),
+          lowPumpPressure : parseFloat(context.state.rig.lowPumpPressure),
+          flowRateHighPumpPressure : parseFloat(context.state.rig.flowRateHighPumpPressure),
+          flowRateLowPumpPressure : parseFloat(context.state.rig.flowRateLowPumpPressure),
+          flowExponent : parseFloat(context.state.rig.flowExponent),
+          pumpEfficiency:  parseFloat(context.state.rig.pumpEfficiency),
+          maxAllowableSurfacePressure: parseFloat(context.state.rig.maxAllowableSurfacePressure),
+          maxHorsePower : parseFloat(context.state.rig.maxHorsePower),
+          minimumFlowRate : parseFloat(context.state.rig.minimumFlowRate),
+          surfaceSystemConstant: parseFloat(context.state.rig.surfaceSystemConstant)
       }
         console.log("context.state.rig:", context.state.rig)
-         $http.post('Rig/PostRig', newPayload, config)
+         $http.post('Rigs/PostRig', newPayload)
           .then(response => {
               
             console.log('PostRig', response.data)  

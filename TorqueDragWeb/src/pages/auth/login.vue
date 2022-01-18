@@ -43,7 +43,7 @@ export default {
             var context = this;
 
             this.$store.dispatch('authStore/Login', {
-             username: context.username,
+             userName: context.username,
              password: context.password
             });
         }

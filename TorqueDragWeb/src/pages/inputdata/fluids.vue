@@ -364,7 +364,7 @@ export default {
                     plasticViscoity: context.plasticViscoity,
                     yieldPoint: context.yieldPoint,
                     designId: selectedTorqueDragDesign.id,
-                    userId: IdentityModel.id,
+                    userId: IdentityModel._id,
                 });
 
             context.reference = ''
@@ -391,14 +391,14 @@ export default {
             this.$store.dispatch('fluidsStore/PostFluid', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
+                userId: IdentityModel._id,
                 fluid: context.fluid
             })
 
             this.$store.dispatch('fluidsStore/PostMudPVTs', {
                 mudPVTs: context.mudPVTs,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
+                userId: IdentityModel._id,
                 companyName: Conn
               });
         }

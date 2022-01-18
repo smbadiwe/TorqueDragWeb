@@ -39,7 +39,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Users/PostUser', payload, config)
+         $http.post('Users/PostUser', payload.user)
           .then(response => {
               
             context.commit('createUser', response.data)              
@@ -60,11 +60,11 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Identities/PostIdentity', payload, config)
+         $http.post('Identities/PostIdentity', payload.user)
           .then(response => {
               
             context.commit('createIdentity', response.data) 
-            payload.user.password =  response.data.password;
+            //payload.user.passWord =  response.data.passWord;
             context.dispatch('createUser',  payload)                   
               resolve(response)
               

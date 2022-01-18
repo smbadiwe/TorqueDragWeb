@@ -260,7 +260,7 @@ export default {
             this.$store.dispatch('operationsStore/PostOperation', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
+                userId: IdentityModel._id,
                 operation: context.operation
                 /* operation: {
                     isTrippingInChecked: context.isTrippingInChecked,

@@ -375,7 +375,7 @@ export default {
             this.$store.dispatch('simulationStore/RunSensitivities', {
                 companyName: context.companyName,
                 designId: context.SelectedTorqueDragDesign.id,
-                userId: context.IdentityModel.id,
+                userId: context.IdentityModel._id,
                 sensitivityParameters: context.sensitivityParameters
             });
         }

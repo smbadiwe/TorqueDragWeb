@@ -97,7 +97,7 @@ export default {
             designId: selectedTorqueDragDesign.id,
             xVariableName: "Vertical Section",
             chartId: "VerticalSection",
-            userId: IdentityModel.id
+            userId: IdentityModel._id
         }
         this.$store.dispatch('wellPathStore/LoadDevSurveySeriesCollection', payload);
     }

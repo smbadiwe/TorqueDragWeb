@@ -308,7 +308,7 @@ export default {
         SaveHoleSectionTable(){
             var context = this;
             var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
-            var Conn = this.$store.getters['authStore/companyName'];
+            var companyName = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
 
@@ -320,8 +320,8 @@ export default {
             this.$store.dispatch('holeStore/PostHoleSections', {
                     holeSections: context.holeSections,
                     designId: selectedTorqueDragDesign.id,
-                    userId: IdentityModel.id,
-                    companyName: Conn,
+                    userId: IdentityModel._id,
+                    companyName,
                     holeSection: {}
                 });
         }

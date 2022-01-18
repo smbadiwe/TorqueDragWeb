@@ -169,7 +169,7 @@ export default {
             this.$store.dispatch('rigStore/PostRig', {
                     rig: context.rig,
                     designId: selectedTorqueDragDesign.id,
-                    userId: IdentityModel.id,
+                    userId: IdentityModel._id,
                     companyName: companyName
                 });
         }

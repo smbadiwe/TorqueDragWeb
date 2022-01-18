@@ -223,24 +223,25 @@ export default {
       var context = this;
       var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
       var IdentityModel = this.$store.getters['authStore/IdentityModel'];
-      var Conn = this.$store.getters['authStore/companyName'];
+      var companyName = this.$store.getters['authStore/companyName'];
        this.$store.commit('dataImportStore/SetLoaderParameters', {
             showLoader: true,
             showImportView: false
           });
       this.$store.dispatch('datumStore/PostDatum', {
             datum: {
-              designId: selectedTorqueDragDesign.id,
               typeOfShore: context.typeOfShore,
               datumElevation: parseFloat(context.datumElevation),
               groundElevation: parseFloat(context.groundElevation),
               airGap: parseFloat(context.airGap),
               wellHeadElevation: parseFloat(context.wellHeadElevation),
               datumName: context.datumName,
-              userId: IdentityModel.id
+              designId: selectedTorqueDragDesign.id,
+              userId: IdentityModel._id
             },
-            companyName: Conn,
-            designId: selectedTorqueDragDesign.id
+            companyName,
+            designId: selectedTorqueDragDesign.id,
+            userId: IdentityModel._id
           });
 
           context.expanded = false;

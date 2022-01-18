@@ -57,9 +57,9 @@ const actions = {
 
       return new Promise((resolve, reject) => {
      
-         $http.get('Companies/GetCompanies', config)
+         $http.get('Companies/GetCompanies')
           .then(response => {
-              
+              console.log("response: ", response)
             context.commit('GetCompanies', response.data)              
               resolve(response)
               

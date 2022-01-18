@@ -5,7 +5,7 @@ import newLayout from 'layouts/newLayout.vue'
 import newLayout2 from 'layouts/newLayout2.vue'
 import companyLayout from 'layouts/companyLayout.vue'
 import registrationLayout from 'layouts/registrationLayout.vue'
-import landingpage from 'pages/index.vue'
+//import landingpage from 'pages/index.vue'
 import loginapge from 'pages/auth/loginapge.vue'
 import dockpage1 from 'pages/inputdata/dockpage1.vue'
 import simulationConsole from 'pages/simulation/simulationConsole.vue'
@@ -112,7 +112,7 @@ const routes = [
       }
     ] */
   },
-  {
+ /*  {
     path: '/main',
     component: mainLayout,
     children: [
@@ -121,7 +121,7 @@ const routes = [
         component: landingpage
       }
     ]
-  },
+  },*/
   {
     path: '/userLayout',
     component: userLayout,

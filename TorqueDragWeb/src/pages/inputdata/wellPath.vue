@@ -328,7 +328,7 @@ export default {
       SaveSurveyTable(){
           var context = this;
           var typeOfInput = this.$store.getters['dataImportStore/typeOfInput'];
-          var Conn = this.$store.getters['authStore/companyName'];
+          var companyName = this.$store.getters['authStore/companyName'];
           var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
           var IdentityModel = this.$store.getters['authStore/IdentityModel'];
 
@@ -337,12 +337,16 @@ export default {
             showImportView: false
           });
 
-          this.$store.dispatch('wellPathStore/PostDeviationSurvey', {
+            const payload = {
                 deviationSurveys: context.deviationSurveys,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
-                companyName: Conn
-              });
+                userId: IdentityModel._id,
+                companyName
+            }
+
+            console.log('payload: ', payload);
+
+          this.$store.dispatch('wellPathStore/PostDeviationSurvey', payload);
 
       },
       ExpandExander(){

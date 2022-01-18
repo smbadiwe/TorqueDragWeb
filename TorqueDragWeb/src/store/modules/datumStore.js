@@ -32,6 +32,7 @@ const mutations = {
     state.datum = payload;
   },
   GetDatums(state, payload){
+    console.log('payload: ', payload);
     state.datums = payload;
     state.datumNames = [];
     var i = 0;
@@ -83,7 +84,14 @@ const actions = {
           {
             actionMessage: "Datum saved successfully",
             visibility: true
-          }, {root:true});            
+          }, {root:true});  
+          
+          var payload2 = {
+            companyName: payload.companyName,
+            designId: payload.designId,
+            userId: payload.userId
+        }
+          context.dispatch('GetDatums', payload2);
             resolve(response)
             
         })
@@ -111,12 +119,12 @@ const actions = {
       useCredentails: true
     }
 
-    var ids = payload.designId.toString() + "&" + payload.userId.toString();
+    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.get('Datums/GetDatums/' + ids, config)
+       $http.get('Datums/GetDatums/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetDatums', response.data)

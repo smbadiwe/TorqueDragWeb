@@ -171,18 +171,20 @@ const mutations = {
     Login(state, payload){
         console.log("loginDTO:", payload)
         state.Loginstatus= true;
-        state.IdentityModel = payload.identity;
+        state.IdentityModel = payload; //payload.identity;
         state.companyName = payload.companyName;
-        state.companyId = payload.companyId;
+        //state.companyId = payload.companyId;
         //state.user = payload.user;
         //state.administrator = payload.administrator;
         
-        if(state.IdentityModel.roleName == "admin"){
-          this.$router.push('/admin');
+        this.$router.push('/userLayout');
+
+       /* if(state.IdentityModel.roleName == "admin"){
+           this.$router.push('/admin');
         }
         else{
           this.$router.push('/userLayout');
-        }
+        } */
     
         state.visible = false
         state.showSimulatedReturnData = true
@@ -203,6 +205,42 @@ const mutations = {
 }
 
 const actions = {
+    LoginUser(context, payload)
+    {
+
+      let config = {
+        useCredentails: false
+      }
+      context.state.visible = true
+      context.state.showSimulatedReturnData = false
+
+      return new Promise((resolve, reject) => {
+        console.log(payload)
+        $http.post('users/Login', payload)
+          .then(response => {
+            console.log("response: ", response);
+            context.commit('Login', response.data) 
+            context.commit('setStatusMessageBarVisibility',  
+            {
+              actionMessage: response.data.info,
+              visibility: true
+            });
+            context.dispatch('wellDesignStore/GetTorqueDragDesigns',  {
+              companyName: response.data.companyName,
+              id: response.data._id
+            }, {root:true})             
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log(error.message)
+            state.visible = false
+            state.showSimulatedReturnData = true
+            alert(error.message);
+            reject(error)
+          })
+      })
+    },
     Login(context, payload)
     {
 
@@ -214,11 +252,11 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('Authentications/Login', payload, config)
+         $http.post('identities/Login', payload)
           .then(response => {
-              
-            context.commit('Login', response.data) 
-            context.commit('setStatusMessageBarVisibility',  
+            console.log("response: ", response);
+            context.dispatch('LoginUser', payload) 
+           /*  context.commit('setStatusMessageBarVisibility',  
             {
               actionMessage: response.data.info,
               visibility: true
@@ -226,7 +264,8 @@ const actions = {
             context.dispatch('wellDesignStore/GetTorqueDragDesigns',  {
               companyName: response.data.identity.companyName,
               id: response.data.identity.id
-            }, {root:true})             
+            }, {root:true}) */ 
+
               resolve(response)
               
           })
@@ -247,7 +286,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log("seen")
-         $http.post('Authentications/Logout', context.state.IdentityModel, config)
+         $http.post('identities/Logout', context.state.IdentityModel)
           .then(response => {
               
             context.commit('Logout', response.data)              

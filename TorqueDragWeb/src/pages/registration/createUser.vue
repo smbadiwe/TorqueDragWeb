@@ -14,7 +14,7 @@
                 <q-select outlined v-model="roleName" :options="roles" label="Role" />
                 <q-input outlined v-model="jobDescription" label="Job Description" />
                 <q-input outlined v-model="userName" label="UserName" />
-                <q-input outlined v-model="password" label="Password" type="password" />
+                <q-input outlined v-model="pword" label="Password" />
                 <div>
                 <q-btn color="primary" label="Create" @click="createUser" />
                 </div>
@@ -58,7 +58,7 @@ export default {
         companyName: "",
         roleName: "",
         jobDescription: "",
-        password: "",
+        pword: "",
         userName: "",
         roles: [
         'admin', 'member'
@@ -69,8 +69,7 @@ export default {
     methods: {
         createUser() {
             var context = this;
-
-            this.$store.dispatch('userStore/createIdentity', {
+            var payload = {
                 companyName: context.companyName,
                 user: {
                     firstName: context.firstName,
@@ -79,10 +78,13 @@ export default {
                     companyName: context.companyName,
                     roleName: context.roleName,
                     jobDescription: context.jobDescription,
-                    password: context.password,
+                    password: context.pword,
                     userName: context.userName
                 }
-            });
+            }
+
+            console.log("payload: ", payload)
+            this.$store.dispatch('userStore/createIdentity', payload);
         }
     },
     created(){
