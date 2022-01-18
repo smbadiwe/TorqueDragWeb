@@ -27,13 +27,13 @@ const state =  {
     },
     dockViewWidth: screen.width,
     outputTabs: [
-      {
+      /* {
         name: 'General',
         isActive: false,
         route: 'commonPage'
-      }
+      } */
     ],
-    outputTabNames: ['General']
+    outputTabNames: [] //'General'
 
 }
 
@@ -142,6 +142,10 @@ const mutations = {
         if(len > 0)
         {
           var route = '/' + state.outputTabs[len-1].route;
+          this.$router.push(route);
+        }
+        if(len <= 0){
+          var route = '/commonPage';
           this.$router.push(route);
         }
       }

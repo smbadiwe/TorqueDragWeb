@@ -2,11 +2,11 @@
   <div>
     <q-toolbar class=" bg-info text-white q-my-md">
 
-        
        <div>
             <div class="row buttonTD1">
                   <div class="q-pa-sm text-caption">
                     <q-btn 
+                    v-if="isRunning"
                     icon="play_arrow" 
                     flat
                     stretch
@@ -15,6 +15,18 @@
                     class="text-capitalize"
                     stack 
                     @click="RunSimulation"
+                    >
+                </q-btn>
+                <q-btn 
+                v-else
+                    icon="stop" 
+                    flat
+                    stretch
+                    :size="size" 
+                    label="Stop"
+                    class="text-capitalize"
+                    stack 
+                    @click="StopSimulation"
                     >
                 </q-btn>
                 </div>
@@ -127,6 +139,7 @@
                     :size="size" 
                     class="text-capitalize"
                     stack 
+                    @click="getDataFromClipBoard"
                     >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/well_6.jpg">
@@ -143,6 +156,7 @@
                     :size="size" 
                     class="text-capitalize"
                     stack 
+                    @click="readFromClipBoard"
                     >
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/well_7.jpg">
@@ -223,7 +237,7 @@
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/well_12.jpg">
                     </q-avatar></span>
-                    Deviated Schematic
+                    Vertical Schematic
                     </q-btn>
                 </div>
 
@@ -234,11 +248,11 @@
                     :size="size"  
                     class="text-capitalize"
                     stack 
-                    @click="formationTopsPlot">
+                    @click=" deviatedSchematicPlot">
                     <span><q-avatar square size="42px">
                         <img src="~/assets/images/well_13.jpg">
                     </q-avatar></span>
-                    Formation Tops
+                     Deviated Schematic
                     </q-btn>
                 </div>
 
@@ -262,7 +276,7 @@
 
 
 <script>
-
+import { dataFormattingMethods } from 'boot/fornatInputData.js'
 export default {
     computed: {
         dockViewWidth(){
@@ -270,6 +284,39 @@ export default {
             console.log("Width: ", wd);
             return wd;
         },
+        isRunning(){
+            return this.$store.getters['simulationStore/isRunning'];
+        },
+        rig(){
+            return this.$store.getters['rigStore/rig'];
+        },
+        drillBit(){
+            return this.$store.getters['tubingStringStore/drillBit'];
+        },
+        datum(){
+            return this.$store.getters['datumStore/datum'];
+        },
+        deviationSurveys(){
+            return this.$store.getters['wellPathStore/deviationSurveys'];
+        },
+        fluid(){
+            return this.$store.getters['fluidsStore/fluid'];
+        },
+        mudPVTs(){
+            return this.$store.getters['fluidsStore/mudPVTs'];
+        },
+        holeSections(){
+            return this.$store.getters['holeStore/holeSections'];
+        },
+        operation(){
+            return this.$store.getters['operationsStore/operation'];
+        },
+        pipes(){
+            return this.$store.getters['tubingStringStore/pipes'];
+        },
+        common(){
+            return this.$store.getters['settingsStore/common'];
+        }
     },
     components: {
     },
@@ -280,6 +327,88 @@ export default {
 
     },
     methods: {
+        getDataFromClipBoard(){
+            /*  window.Clipboard.write("Gab", {
+                jude: 123,
+                james: 1020
+            });   */
+            //console.log("window: " , window);
+
+            /* var gab =  window.Clipboard.read("Gab");
+            console.log("gab: " , gab); */
+            var context =  this;
+            context.writeToClipboard();
+
+        },
+        writeToClipboard(){
+             var gab = {
+                jude: 123,
+                james: 1020
+            };
+            //const objBlob = new Blob([JSON.stringify({'myobjLabel' : 'myObj'})], {type: 'text/plain'});
+            const objBlob = new Blob([JSON.stringify(gab)], {type: 'text/plain'});
+
+            const item = new ClipboardItem({
+                'text/plain': objBlob
+            });
+
+            navigator.clipboard.write([item]).catch((ex) => { 
+            console.log(ex) 
+            } ); 
+        },
+        readFromClipBoard(){
+            //const clipboardItems = await navigator.clipboard.read();
+            
+
+            navigator.clipboard.read().then((clipboardItems) => {
+                for (const clipboardItem of clipboardItems) {
+
+                    for (const type of clipboardItem.types) {
+
+                        if (type === 'text/plain') {
+                            clipboardItem.getType(type).then((dat)=> {
+                                console.log("dat: ", dat)
+                            })
+
+                        // return PNG blob
+                        //return await clipboardItem.getType(type);
+
+                        }
+
+                    }
+
+                    }
+           
+            });
+        },
+         copy() {
+             var gab = {
+                jude: 123,
+                james: 1020
+            };
+            //navigator.clipboard.writeText("Yes Yes Yes")
+      navigator.clipboard.write("gab", gab)
+        .then(() => {
+          console.log('Text is on the clipboard.');
+          //this.message = 'Code copied to clipboard.';
+        })
+      .catch(e => {
+        console.error(e);
+        //this.message = 'Sorry, unable to copy to clipboard.'
+      });    
+    },
+        StopSimulation(){
+             this.$store.commit('simulationStore/setIsRunning', true);
+             this.$store.commit('dataImportStore/SetLoaderParameters', {
+            showLoader: false,
+            showImportView: true
+          }); 
+          this.$store.commit('authStore/setStatusMessageBarVisibility',  
+          {
+            actionMessage: "Simulation stopped suddenly",
+            visibility: true
+          }, {root:true});  
+        },
           RunSimulation(){
             this.$store.commit('authStore/AddOutputTab', {
                 name: "Simulation Log",
@@ -291,26 +420,31 @@ export default {
           });
 
             var context =  this;
+            this.$store.commit('simulationStore/setIsRunning', false);
             var Conn = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             var IdentityModel = this.$store.getters['authStore/IdentityModel'];
             
-            this.$store.dispatch('simulationStore/RunSimulation', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id
-            });
+            var allInputsDTO = {
+                rig: dataFormattingMethods.RigFormatting(context.rig),
+                drillBit: dataFormattingMethods.DrillBitFormatting(context.drillBit),
+                datum: dataFormattingMethods.DatumFormatting(context.datum),
+                deviationSurveys: context.deviationSurveys,
+                fluid: dataFormattingMethods.FluidFormatting(context.fluid),
+                mudPVTs: context.mudPVTs,
+                holeSections: context.holeSections,
+                operation: dataFormattingMethods.OperationFormatting(context.operation),
+                pipes: context.pipes,
+                common: dataFormattingMethods.SettingFormatting(context.common)
+            }
 
-            this.$store.dispatch('simulationStore/RunHydraulics', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id
-            });
+            //console.log("allInputsDTO: ", allInputsDTO)
 
-            this.$store.dispatch('simulationStore/RunSurgeSwab', {
+            this.$store.dispatch('simulationStore/RunSensitivities', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id
+                userId: IdentityModel.id,
+                allInputsDTO
             });
 
         },
@@ -344,13 +478,16 @@ export default {
                 route: "azimuth"
             });
         },
-        formationTopsPlot(){
-           
+        deviatedSchematicPlot(){
+           this.$store.commit('authStore/AddOutputTab', {
+                name: "Schematic",
+                route: "schematic"
+            });
         },
         DrawSchematic(){
 
              this.$store.commit('authStore/AddOutputTab', {
-                name: "Schematic",
+                name: "Schematic 2",
                 route: "formationTops"
             });
 

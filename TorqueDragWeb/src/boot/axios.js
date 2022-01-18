@@ -6,8 +6,7 @@ import axios from 'axios'
       //baseURL: 'https://learningways.com.ng/api/',
       //withCredentials: false,
         headers: {
-          'Content-Type': 'application/json'
-          //"Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json',
           //"Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
           // "Access-Control-Allow-Credentials":true
         }

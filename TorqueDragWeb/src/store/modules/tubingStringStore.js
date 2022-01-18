@@ -8,10 +8,30 @@ const state = {
       bitSize: 0,
       numberOfBitNozzles: 0,
       dischargeCoefficient: 0
+    },
+    pipeDescriptions: {
+      length: "Please Enter Length",
+      measuredDepth: "Please Enter Measured Depth",
+      size: "Please Enter Outer Diameter Size",
+      outerDiameter: "Please Enter Outer Diameter",
+      innerDiameter: "Please Enter Inner Diameter",
+      weight: "Please Enter Inner Weight",
+      grade: "Please Enter Grade",
+      innminimumYieldStrengtherDiameter: "Please Enter Minimum Yield Strength",
+      youngsModulus: "Please Enter Youngs Modulus",
+      makeUpTorque: "Please Enter MakeUp Torque",
+      overPullMargin: "Please Enter OverPull Margin",
+      bitSize: "Please Enter Bit Size",
+      numberOfBitNozzles: "Please Enter Number of Nozzles",
+      dischargeCoefficient: "Please Enter Discharge Coefficient"
     }
   }
 
+
   const getters = {
+    pipeDescriptions(){
+      return state.pipeDescriptions;
+    },
     drillBit(state){
       return state.drillBit;
     },

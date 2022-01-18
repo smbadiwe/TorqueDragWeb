@@ -46,12 +46,18 @@ import introDockSite1 from 'components/uiComponents/introDockSite1.vue'
 import createWell from 'components/uiComponents/createWell.vue'
 import createCompany from 'pages/registration/createCompany.vue'
 import createUser from 'pages/registration/createUser.vue'
-import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity2.vue'
+import doglegSeverity from 'pages/dataVisualization/OutputPlots/doglegSeverity.vue'
 import verticalSection from 'pages/dataVisualization/OutputPlots/verticalSection.vue'
 import planView from 'pages/dataVisualization/OutputPlots/planView.vue'
 import inclination from 'pages/dataVisualization/OutputPlots/inclination.vue'
-import azimuth from 'pages/dataVisualization/OutputPlots/azimuth2.vue'
+import azimuth from 'pages/dataVisualization/OutputPlots/azimuth.vue'
 import formationTops from 'pages/dataVisualization/formationTops.vue'
+import trippingInStress from 'pages/stressPlots/trippingInStress.vue'
+import trippingOutStress from 'pages/stressPlots/trippingOutStress.vue'
+import slideDrillingStress from 'pages/stressPlots/slideDrillingStress.vue'
+import rotatingOnBottomStress from 'pages/stressPlots/rotatingOnBottomStress.vue'
+import rotatingOffBottomStress from 'pages/stressPlots/rotatingOffBottomStress.vue'
+import backReamingStress from 'pages/stressPlots/backReamingStress.vue'
 
 const routes = [
   {
@@ -281,10 +287,33 @@ const routes = [
       {
         path: '/hyraulicsReport',
         component: hyraulicsReport
+      },
+      {
+        path: '/trippingInStress',
+        component: trippingInStress
+      },
+      {
+        path: '/trippingOutStress',
+        component: trippingOutStress
+      },
+      {
+        path: '/slideDrillingStress',
+        component: slideDrillingStress
+      },
+      {
+        path: '/rotatingOnBottomStress',
+        component: rotatingOnBottomStress
+      },
+      {
+        path: '/rotatingOffBottomStress',
+        component: rotatingOffBottomStress
+      },
+      {
+        path: '/backReamingStress',
+        component: backReamingStress
       }
     ]
   },
-
   // Always leave this as last one,
   // but you can also remove it
   {

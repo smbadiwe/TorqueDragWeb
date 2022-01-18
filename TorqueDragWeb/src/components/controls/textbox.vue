@@ -1,10 +1,19 @@
 <template>
-    <div class="q-pa-md">
-        <div class="form-group">
-        <span>{{ variableName }}</span>
-        <input class="form-field" type="text" placeholder="domain.tld">
-        <!-- <span v-if="hasUnit">https://</span> -->
-    </div>
+    <div class="row">
+        <div v-if="hasUnit" :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }} ({{ unit }})</div>
+        <div v-else :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }}</div>
+        <div :class="'col-'+ col2 + ' q-pa-sm text-accent'" v-if="setBorder()">
+            <input class="text-center bg-positive text-accent" v-model="variable" 
+            style="border: 1px solid transparent;">
+        </div>
+        <div
+         :class="'col-'+ col2 + ' q-pa-sm text-accent'" v-else>
+            <q-tooltip>
+                {{ toolTipDescription }}
+            </q-tooltip>
+            <input class="text-center bg-positive text-accent" v-model="variable" 
+            style="border: 1px solid red;">
+        </div>
     </div>
 </template>
 
@@ -14,146 +23,73 @@ export default {
   components:{
   },
   props: {
-    hasUnit: false,
-    variableName: "name",
-    unit: "weight (kg)"
+    col1: {
+        type: String,
+        default: "3"
+    },
+    col2: {
+        type: String,
+        default: "5"
+    },
+    col3: {
+        type: String,
+        default: "4"
+    },
+    variable: {
+        default: ""
+    },
+    variableName: {
+        type: String,
+        default: ""
+    },
+    unit: {
+        type: String,
+        default: ""
+    },
+    hasUnit: {
+        type: Boolean,
+        default: false
+    },
+    toolTipDescription: {
+        type: String,
+        default: ""
+    }
   },
   data () {
     return {
+        //border: "border: 1px solid red;"
+        
     }
   },
   methods: {
+      setBorder(){
+          var context =  this;
+          //console.log("context.variable: ", context.variable)
+          if(context.variable != "" && 
+          context.variable != null && context.variable != undefined){
+              return true;
+          }
+          return false;
+      },
       getWeight(){
           var context = this;
 
           return context.variableName;
       }
+  },
+  mounted(){
+      /* var context =  this;
+          console.log(context.variable)
+          if(context.variable != ""){
+              context.border = "border: 1px solid yellow;"
+              console.log(context.border)
+          } */
+           
   }
 }
 </script>
 
 
-<style lang="scss">
+<style scoped>
 
-:root {
-
-    --input-color: #99A3BA;
-    --input-border: #CDD9ED;
-    --input-background: #fff;
-    --input-placeholder: #CBD1DC;
-
-    --input-border-focus: #275EFE;
-
-    --group-color: var(--input-color);
-    --group-border: var(--input-border);
-    --group-background: #EEF4FF;
-
-    --group-color-focus: #fff;
-    --group-border-focus: var(--input-border-focus);
-    --group-background-focus: #678EFE;
-
-}
-
-.form-field {
-    display: block;
-    width: 100%;
-    padding: 8px 16px;
-    line-height: 25px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-    border-radius: 6px;
-    -webkit-appearance: none;
-    color: var(--input-color);
-    border: 1px solid var(--input-border);
-    background: var(--input-background);
-    transition: border .3s ease;
-    &::placeholder {
-        color: var(--input-placeholder);
-    }
-    &:focus {
-        outline: none;
-        border-color: var(--input-border-focus);
-    }
-}
-
-.form-group {
-    position: relative;
-    display: flex;
-    width: 100%;
-    & > span,
-    .form-field {
-        white-space: nowrap;
-        display: block;
-        &:not(:first-child):not(:last-child) {
-            border-radius: 0;
-        }
-        &:first-child {
-            border-radius: 6px 0 0 6px;
-        }
-        &:last-child {
-            border-radius: 0 6px 6px 0;
-        }
-        &:not(:first-child) {
-            margin-left: -1px;
-        }
-    }
-    .form-field {
-        position: relative;
-        z-index: 1;
-        flex: 1 1 auto;
-        width: 1%;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    & > span {
-        text-align: center;
-        padding: 8px 12px;
-        font-size: 14px;
-        line-height: 25px;
-        color: var(--group-color);
-        background: var(--group-background);
-        border: 1px solid var(--group-border);
-        transition: background .3s ease, border .3s ease, color .3s ease;
-    }
-    &:focus-within {
-        & > span {
-            color: var(--group-color-focus);
-            background: var(--group-background-focus);
-            border-color: var(--group-border-focus);
-        }
-    }
-}
-
-html {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
-
-* {
-    box-sizing: inherit;
-    &:before,
-    &:after {
-        box-sizing: inherit;
-    }
-}
-
-
-body {
-    min-height: 100vh;
-    font-family: 'Mukta Malar', Arial;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #F5F9FF;  
-    .form-group {
-        max-width: 360px;
-        &:not(:last-child) {
-            margin-bottom: 32px;
-        }
-    }
-}
-
-  
 </style>

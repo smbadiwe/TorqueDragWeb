@@ -185,7 +185,7 @@ const actions = {
         userId: payload.userId
     }
       console.log("context.state.common:", context.state.common)
-       $http.post('Commons/PostCommon', newPayload, config)
+       $http.post('Commons/PostCommon', payload, config)
         .then(response => {
             
           context.commit('PostCommon', response.data)  

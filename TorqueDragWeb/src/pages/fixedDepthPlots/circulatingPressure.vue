@@ -1,7 +1,7 @@
 <template>
   <div>
 	   <div class="row">
-            <q-bar class="col-12 q-pa-sm row bg-secondary" >
+            <q-bar class="col-12 q-pa-sm bg-secondary" >
                  <q-btn
                     flat
                     dense
@@ -12,6 +12,21 @@
                     @click="reFreshPlot"
                     />
 					<q-space />
+					<div class="q-pa-sm">
+						Select Operational Pump Rate (gpm): 
+					</div>
+					<div class="q-pa-sm">
+						<select style="width:100%;"
+						class="text-center bg-positive text-accent"
+						name="NameOfPumpRate" 
+						id="" 
+						v-on:change="onPumpRateSelectionChanged($event)">
+							<option
+							v-for="pumpFlow in rigDTO.pumpFlowRate" :key="pumpFlow">
+							{{ pumpFlow }}
+							</option>
+						</select>
+					</div>
             </q-bar>
         </div>
 
@@ -27,37 +42,31 @@
 import Plotly from 'plotly.js-dist'
 
 export default {
+	computed:{
+		rigDTO(){
+            return this.$store.getters['simulationStore/rigDTOSurgeSwab'];
+        }
+	},
     data(){
         return {
-			trace1: {
-				x: [1, 2, 3, 4],
-				y: [10, 15, 13, 17],
-				mode: 'markers',
-				type: 'scatter'
-				},
-			trace2: {
-				x: [2, 3, 4, 5],
-				y: [16, 5, 11, 9],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter'
-				},
-			trace3: {
-				x: [1, 2, 3, 4],
-				y: [12, 9, 15, 12],
-				mode: 'lines+markers',
-				type: 'scatter'
-				}
+			rateSelectedIndex: 0
 
         }
     },
     methods:{
+			onPumpRateSelectionChanged(e){
+			 var context = this;
+        	//var id = e.target.value;
+            //var name = e.target.options[e.target.options.selectedIndex].text;
+            //console.log('id ', id );
+            //console.log('name ',name );
+            context.rateSelectedIndex = e.target.options.selectedIndex;
+            context.createChart();
+		},
         createChart() {
 			var context = this;
-            var rigDTO = this.$store.getters['simulationStore/rigDTO'];
-            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
+            var rigDTO = this.$store.getters['simulationStore/rigDTOSurgeSwab'];
+            var hydraulicSensitivityDTO = this.$store.getters['simulationStore/hydraulicSensitivityDTO'];
             console.log("hydraulicSensitivityDTO", hydraulicSensitivityDTO)
 			var j = 0;
 			var M = 1000.0;
@@ -105,11 +114,11 @@ export default {
 
 			
             //console.log("simulationResultsDTOsCount", simulationResultsDTOsCount)
-            j = simulationResultsDTOsCount - 1;
+            j = context.rateSelectedIndex
 			//for(j = 0; j < simulationResultsDTOsCount; j++){
 
 
-				var hydraulicsResults =  hydraulicSensitivityDTO[j].surgeSwabResults;
+				var hydraulicsResults =  hydraulicSensitivityDTO[j].hydraulicsResults;
 				
                 var hydraulicsResultsLength = hydraulicsResults.length;
 

@@ -18,7 +18,17 @@
 
                             </q-list>
                         </q-btn-dropdown>
-                        </div>
+                        <q-btn
+                            flat
+                            dense
+                            round
+                            size="md"
+                            :icon="dynamicIcon"
+                            aria-label="Menu"
+                            @click="toggleTable"
+                            />
+                            </div>
+                        
                         
                     </q-card-section>
                     </q-card>
@@ -26,99 +36,150 @@
         </div>
 
         <div class="row">
-            <div class="col-12 q-pa-sm">
-                <q-table
-                    class="my-sticky-header-table"
-                    :data="drillingResults"
-                    :columns="columns"
-                    row-key="name"
-                    dark
-                    color="amber"
-                    bordered
-                    :separator="separator">
-
-
-                    <template v-slot:body="props">
-                        <q-tr
-                        :props="props">
-                            <q-td key="typeOfSection" :props="props">{{ props.row.typeOfSection }}</q-td>
-                            <q-td key="length" :props="props">{{ props.row.length }}</q-td>
-                            <q-td key="pipeInnerArea" :props="props">{{ props.row.pipeInnerArea }}</q-td>
-                            <q-td key="pipeOuterArea" :props="props">{{ props.row.pipeOuterArea }}</q-td>
-                            <q-td key="pipeTotalWeight" :props="props">{{ props.row.pipeTotalWeight }}</q-td>
-                            <q-td key="buoyancyWeight" :props="props">{{ props.row.buoyancyWeight }}</q-td>
-                            <q-td key="tensileStrength" :props="props">{{ props.row.tensileStrength }}</q-td>
-                            <q-td key="bottomMeasuredDepth" :props="props">{{ props.row.bottomMeasuredDepth }}</q-td>
-                            <q-td key="topInclination" :props="props">{{ props.row.topInclination }}</q-td>
-                            <q-td key="bottomInclination" :props="props">{{ props.row.bottomInclination }}</q-td>
-                            <q-td key="topAzimuth" :props="props">{{ props.row.topAzimuth }}</q-td>
-                            <q-td key="bottomAzimuth" :props="props">{{ props.row.bottomAzimuth }}</q-td>
-                            <q-td key="dogLegSeverity" :props="props">{{ props.row.dogLegSeverity }}</q-td>
-                            <q-td key="tensionBottomOfPipe" :props="props">{{ props.row.tensionBottomOfPipe }}</q-td>
-                            <q-td key="normalForce" :props="props">{{ props.row.normalForce }}</q-td>
-                            <q-td key="tensionTopOfPipe" :props="props">{{ props.row.tensionTopOfPipe }}</q-td>
-                            <q-td key="totalDrag" :props="props">{{ props.row.totalDrag }}</q-td>
-                            <q-td key="HookeLoadAtJoint" :props="props">{{ props.row.hookeLoadAtJoint }}</q-td>
-                            <q-td key="torqueBottom" :props="props">{{ props.row.torqueBottom }}</q-td>
-                            <q-td key="torqueTop" :props="props">{{ props.row.torqueTop }}</q-td>
-                            <q-td key="criticalInclinationAngle" :props="props">{{ props.row.criticalInclinationAngle }}</q-td>
-                            <q-td key="criticalSinusoidalBuckling" :props="props">{{ props.row.criticalSinusoidalBuckling }}</q-td>
-                            <q-td key="criticalHelicalBuckling" :props="props">{{ props.row.criticalHelicalBuckling }}</q-td>
-                        </q-tr>
-                        </template>
-                </q-table>
+            <div class="col-12 q-pa-sm bg-primary text-accent">
+               <chartToTable></chartToTable>
             </div>
         </div>
+       
     </div>
 </template>
 
 <script>
+import chartToTable from "pages/fixedDepthPlots/chartToTable.vue"
+
 export default {
     computed:{
-        drillingResults() {
-        return this.$store.getters['simulationStore/drillingResults'];
-        },
         sensitivityIndices() {
             return this.$store.getters['simulationStore/sensitivityIndices'];
         },
+        drillingResults() {
+            return this.$store.getters['simulationStore/drillingResults'];
+        }
     },
+    components:{
+		chartToTable
+	},
     data () {
         return {
+        dynamicIcon:"table_chart",
+        expandLoadData: true,
+        expandStressData:false,
         separator: 'cell',
+        isLoadData: true,
         columns: [
-            { name: "typeOfSection", label: "Type Of Section", field: "", align: "left" },
-            { name: "length", label: "length (m)", field: "", align: "left" },
-            { name: "pipeInnerArea", label: "Inner Area (sqin)", field: "", align: "left" },
-            { name: "pipeOuterArea", label: "Outer Area (sqin)", field: "", align: "left" },
-            { name: "pipeTotalWeight", label: "Total Weight (lbs)", field: "", align: "left" },
-            { name: "buoyancyWeight", label: "Buoyancy Weight (lbs)", field: "", align: "left" },
-            { name: "tensileStrength", label: "Tensile Strength", field: "", align: "left" },
-            { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (m)", field: "", align: "left" },
-            { name: "topInclination", label: "Top Inclination (rad)", field: "", align: "left" },
-            { name: "bottomInclination", label: "Bottom Inclination (rad)", field: "", align: "left" },
-            { name: "topAzimuth", label: "Top Azimuth (rad)", field: "", align: "left" },
-            { name: "bottomAzimuth", label: "Bottom Azimuth (rad)", field: "", align: "left" },
-            { name: "dogLegSeverity", label: "DogLeg Severity", field: "", align: "left" },
-            { name: "tensionBottomOfPipe", label: "Bottom Tension (Ib)", field: "", align: "left" },
-            { name: "normalForce", label: "Normal Force (Ib)", field: "", align: "left" },
-            { name: "tensionTopOfPipe", label: "Top Tension (Ib)", field: "", align: "left" },
-            { name: "totalDrag", label: "Drag Force (Ib)", field: "", align: "left" },
-            { name: "HookeLoadAtJoint", label: "Hook Load (Ib)", field: "", align: "left" },
-            { name: "torqueBottom", label: "Bottom Torque (Ib)", field: "", align: "left" },
-            { name: "torqueTop", label: "Top Torque (Ib)", field: "", align: "left" },
-            { name: "criticalInclinationAngle", label: "critical Inc. (rad)", field: "", align: "left" },
-            { name: "criticalSinusoidalBuckling", label: "Sinusoidal Buckling (Ib)", field: "", align: "left" },
-            { name: "criticalHelicalBuckling", label: "Helical Buckling (Ib)", field: "", align: "left" }
+            { name: "typeOfSection", label: "Type Of Section", field: "typeOfSection", align: "left" },
+            { name: "section2D", label: "2D section", field: "section2D", align: "left" },
+            { name: "length", label: "length (ft)", field: "length", align: "left" },
+            { name: "pipeInnerArea", label: "Inner Area (sqin)", field: "pipeInnerArea", align: "left" },
+            { name: "pipeOuterArea", label: "Outer Area (sqin)", field: "pipeOuterArea", align: "left" },
+            { name: "pipeTotalWeight", label: "Total Weight (lbs)", field: "pipeTotalWeight", align: "left" },
+            { name: "buoyancyWeight", label: "Buoyancy Weight (lbs)", field: "buoyancyWeight", align: "left" },
+            { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (ft)", field: "bottomMeasuredDepth", align: "left" },
+            { name: "topInclination", label: "Top Inclination (rad)", field: "topInclination", align: "left" },
+            { name: "bottomInclination", label: "Bottom Inclination (rad)", field: "bottomInclination", align: "left" },
+            { name: "topAzimuth", label: "Top Azimuth (rad)", field: "topAzimuth", align: "left" },
+            { name: "bottomAzimuth", label: "Bottom Azimuth (rad)", field: "bottomAzimuth", align: "left" },
+            { name: "dogLegSeverity", label: "DogLeg Severity", field: "dogLegSeverity", align: "left" },
+            { name: "tensionBottomOfPipe", label: "Bottom Tension (Ib)", field: "tensionBottomOfPipe", align: "left" },
+            { name: "normalForce", label: "Normal Force (Ib)", field: "normalForce", align: "left" },
+            { name: "tensionTopOfPipe", label: "Top Tension (Ib)", field: "tensionTopOfPipe", align: "left" },
+            { name: "totalDrag", label: "Drag Force (Ib)", field: "totalDrag", align: "left" },
+            { name: "tensileStrength", label: "Tensile Strength", field: "tensileStrength", align: "left" },
+            { name: "hookeLoadAtJoint", label: "Hook Load (Ib)", field: "hookeLoadAtJoint", align: "left" },
+            { name: "overPullMargin", label: "Overpull Margin (Ib)", field: "overPullMargin", align: "left" },
+            { name: "torqueBottom", label: "Bottom Torque (Ib)", field: "torqueBottom", align: "left" },
+            { name: "torqueTop", label: "Top Torque (Ib)", field: "torqueTop", align: "left" },
+            { name: "criticalInclinationAngle", label: "critical Inc. (rad)", field: "criticalInclinationAngle", align: "left" },
+            { name: "criticalSinusoidalBuckling", label: "Sinusoidal Buckling (Ib)", field: "criticalSinusoidalBuckling", align: "left" },
+            { name: "criticalHelicalBuckling", label: "Helical Buckling (Ib)", field: "criticalHelicalBuckling", align: "left" }
+        ],
+        columnsStressData: [
+            { name: "typeOfSection", label: "Type Of Section", field: "typeOfSection", align: "left" },
+            { name: "length", label: "length (ft)", field: "length", align: "left" },
+            { name: "pipeInnerArea", label: "Inner Area (sqin)", field: "pipeInnerArea", align: "left" },
+            { name: "pipeOuterArea", label: "Outer Area (sqin)", field: "pipeOuterArea", align: "left" },
+            { name: "pipeTotalWeight", label: "Total Weight (lbs)", field: "pipeTotalWeight", align: "left" },
+            { name: "buoyancyWeight", label: "Buoyancy Weight (lbs)", field: "buoyancyWeight", align: "left" },
+            { name: "bottomMeasuredDepth", label: "Bottom MeasuredDepth (ft)", field: "bottomMeasuredDepth", align: "left" },
+            { name: "mudDensityInsidePipe", label: "Pipe Mud Density (lb/ft3)", field: "mudDensityInsidePipe", align: "left" },
+            { name: "mudDensityAnnulus", label: "Annulus Mud Density (lb/ft3)", field: "mudDensityAnnulus", align: "left" },
+            { name: "insidePipeHydrostaticPressure", label: "Pipe Hydrostatic Pressure (psi)", field: "insidePipeHydrostaticPressure", align: "left" },
+            { name: "annulusHydrostaticPressure", label: "Annulus Hydrostatic Pressure (m)", field: "annulusHydrostaticPressure", align: "left" },
+            { name: "pipeBottomPressureForce", label: "Pipe Hydrostatic Force (lb)", field: "pipeBottomPressureForce", align: "left" },
+            { name: "annulusBottomPressureForce", label: "Annulus Hydrostatic Forece (lb)", field: "annulusBottomPressureForce", align: "left" },
+            { name: "shearRateInAnnulus", label: "Annulus Shear Rate (Sec^-1)", field: "shearRateInAnnulus", align: "left" },
+            { name: "shearStress", label: "Shear Stress (psi)", field: "shearStress", align: "left" },
+            { name: "fatiqueLimit", label: "Fatique Limit (psi)", field: "fatiqueLimit", align: "left" },
+            { name: "fatiqueRatioInner", label: "Pipe Fatique Ratio", field: "fatiqueRatioInner", align: "left" },
+            { name: "fatiqueRatioOuter", label: "Annulus Fatique Ratio", field: "fatiqueRatioOuter", align: "left" },
+            { name: "effectiveStressInner", label: "Pipe Effective Stress (psi)", field: "effectiveStressInner", align: "left" },
+            { name: "effectiveStressOuter", label: "Annulus Effective Stress (psi)", field: "effectiveStressOuter", align: "left" },
+            { name: "axilStressInner", label: "Pipe Axial Stress (psi)", field: "axilStressInner", align: "left" },
+            { name: "axilStressOuter", label: "Annulus Axial Stress (psi)", field: "axilStressOuter", align: "left" },
+            { name: "transverseStressInner", label: "Pipe Transverse Stress (psi)", field: "transverseStressInner", align: "left" },
+            { name: "transverseStressOuter", label: "Annulus Transverse Stress (psi)", field: "transverseStressOuter", align: "left" },
+            { name: "bendingStressInner", label: "Pipe Bending Stress (psi)", field: "bendingStressInner", align: "left" },
+            { name: "bendingStressOuter", label: "Annulus Bending Stress (psi)", field: "bendingStressOuter", align: "left" },
+            { name: "bucklingStressInner", label: "Pipe Buckling Stress (psi)", field: "bucklingStressInner", align: "left" },
+            { name: "bucklingStressOuter", label: "Annulus Buckling Stress (psi)", field: "maxAxialStress", align: "left" },
+            { name: "maxAxialStress", label: "Maximum Axial Stress (psi)", field: "maxBendingStress", align: "left" },
+            { name: "maxBendingStress", label: "Maximum Bending Stress (psi)", field: "maxBendingStress", align: "left" },
+            { name: "maxDoglegSeverity", label: "Max. Dogleg Severity (deg/100ft)", field: "maxDoglegSeverity", align: "left" },
+            { name: "angleSinusoidalBuckling", label: "Angle Sinusoidal Buckling (degrees)", field: "angleSinusoidalBuckling", align: "left" },
+            { name: "angleHelicalBuckling", label: "Angle Helical Buckling (degrees)", field: "angleHelicalBuckling", align: "left" },
+            { name: "pitchHelical", label: "Pitch", field: "pitchHelical", align: "left" },
+            { name: "pressureLoss", label: "Pressure Loss (psi)", field: "pressureLoss", align: "left" },
+            { name: "fluidDragForce", label: "Fluid Drag Force (lb)", field: "fluidDragForce", align: "left" }
+            
         ]
     }
   },
-   methods: {
+  methods: {
+      toggleTable(){
+          var context = this;
+          var tableData = {
+                data: context.drillingResults,
+                columns: [],
+				excelFileName: "Rotating On Bottom.csv",
+				tableTitle: "Rotating On Bottom"
+            }
+            
+            if(context.isLoadData == false){
+                tableData.columns = context.columns;
+                tableData.excelFileName = "Rotating On Bottom Load Data.csv"
+                tableData.tableTitle = "Rotating On Bottom Load Data"
+                context.isLoadData = true;
+            }else{
+                tableData.columns = context.columnsStressData;
+                tableData.excelFileName = "Rotating On Bottom Stress Data.csv"
+                tableData.tableTitle = "Rotating On Bottom Stress Data"
+                context.isLoadData = false;
+            }
+
+        this.$store.commit('simulationStore/setCustomColumnsForReport', tableData);
+        this.$store.commit('simulationStore/setCustomTableForReport', tableData);
+        this.$store.commit('simulationStore/setExcelFileName', tableData);
+        this.$store.commit('simulationStore/setTableTitle', tableData);
+          
+          
+      },
       onItemClick(selectedItem){
           var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
           var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
           var simulationResultsDTOsCount = simulationResultsDTOs.length;
           var simulationResultsDTO = simulationResultsDTOs[selectedItem-1];
-           this.$store.commit('simulationStore/setDrillingResults', simulationResultsDTO.drillingResults);
+          this.$store.commit('simulationStore/setDrillingResults', simulationResultsDTO.drillingResults);
+           var tableData = {
+                data: simulationResultsDTO.drillingResults,
+                columns: context.columns,
+				excelFileName: "Rotating On Bottom Load Data.csv",
+				tableTitle: "Rotating On Bottom Load Data"
+			}
+
+        this.$store.commit('simulationStore/setCustomColumnsForReport', tableData);
+        this.$store.commit('simulationStore/setCustomTableForReport', tableData);
+        this.$store.commit('simulationStore/setExcelFileName', tableData);
+        this.$store.commit('simulationStore/setTableTitle', tableData);
       }
   },
   created(){
@@ -128,6 +189,18 @@ export default {
     var simulationResultsDTOsCount = simulationResultsDTOs.length;
     var simulationResultsDTO = simulationResultsDTOs[selectedItem];
     this.$store.commit('simulationStore/setDrillingResults', simulationResultsDTO.drillingResults);
+    var context =  this;
+    var tableData = {
+                data: simulationResultsDTO.drillingResults,
+                columns: context.columns,
+				excelFileName: "Rotating On Bottom Load Data.csv",
+				tableTitle: "Rotating On Bottom Load Data"
+			}
+
+        this.$store.commit('simulationStore/setCustomColumnsForReport', tableData);
+        this.$store.commit('simulationStore/setCustomTableForReport', tableData);
+        this.$store.commit('simulationStore/setExcelFileName', tableData);
+        this.$store.commit('simulationStore/setTableTitle', tableData);
   }
 }
 </script>
@@ -141,6 +214,24 @@ export default {
   .q-table__bottom,
   thead tr:first-child th {
     
-    background-color: black
+    background-color: black;
   }
+
+ thead tr th{
+     position: sticky;
+    z-index: 1;
+ }
+    
+  thead tr:first-child th{
+      top: 0;
+  }
+    
+
+  /* this is when the loading indicator appears */
+  .q-table--loading thead tr:last-child th{
+      /* height of all previous header rows */
+    top: 48px;
+  }
+    
+   
 </style>

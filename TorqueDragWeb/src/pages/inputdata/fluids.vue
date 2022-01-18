@@ -9,51 +9,62 @@
                         dense
                         dense-toggle
                         expand-separator
-                        label="Add Datum"
+                        label="Add Fluid Data"
                         clickable
                         @click="ExpandExander2"
                     >
-                        <!-- <q-card>
-                        <q-card-section> -->
-                            
-                            <div class="row">
+                        <textbox variableName="Temperature" :col1="col1" :col2="col2"
+                        v-bind:variable="temperature"
+                        unit="deg F" :hasUnit="true"  
+                        :toolTipDescription="fluidDescription.temperature"></textbox>
 
-                                <div class="col-6 q-pt-sm">Temperature (deg F)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="temperature"></div>
-                                <!-- <div class="col-2"></div> -->
+                        <textbox variableName="Pressure" :col1="col1" :col2="col2"
+                        v-bind:variable="pressure"
+                        unit="psi" :hasUnit="true"
+                        :toolTipDescription="fluidDescription.pressure"></textbox>
 
-                                <div class="col-6 q-pt-sm">Pressure (psi)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="pressure"></div>
-                                <!-- <div class="col-4"></div> -->
+                        <textbox variableName="Density" :col1="col1" :col2="col2"
+                        v-bind:variable="density"
+                        unit="lb/ft3" :hasUnit="true"
+                        :toolTipDescription="fluidDescription.density"></textbox>
 
-                                <div class="col-6 q-pt-sm">Density (lb/ft3)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="density"></div>
-                                <!-- <div class="col-4"></div> -->
+                        <textbox variableName="Plastic Viscoity" :col1="col1" :col2="col2"
+                        v-bind:variable="plasticViscoity"
+                        unit="cp" :hasUnit="true"
+                        :toolTipDescription="fluidDescription.plasticViscoity"></textbox>
 
-                                <div class="col-6 q-pt-sm">Plastic Viscoity (cp)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="plasticViscoity"></div>
-                                <!-- <div class="col-4"></div> -->
+                        <textbox variableName="Yield Point" :col1="col1" :col2="col2"
+                        v-bind:variable="yieldPoint"
+                        unit="lbf/100ft2" :hasUnit="true"
+                        :toolTipDescription="fluidDescription.yieldPoint"></textbox>
 
-                                <div class="col-6 q-pt-sm">Yield Point (lbf/100ft2)</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="yieldPoint"></div>
-                                <!-- <div class="col-4"></div> -->
+                        <textbox variableName="Reference" :col1="col1" :col2="col2"
+                        v-bind:variable="reference"
+                        unit="" :hasUnit="false"
+                        :toolTipDescription="fluidDescription.Reference"></textbox>
 
-                                <div class="col-6 q-pt-sm">Reference</div>
-                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="reference"></div>
-                                <!-- <div class="col-4"></div> -->
+                        <div class="row">
+                            <div class="col-12" style="height:10px;"></div>
+                        </div>
 
-                                <div style="height: 50px;"></div>
-
-                                <div class="col-12 q-pa-sm text-right"> 
-                                <q-btn 
-                                    class="text-center"
-                                    size="sm"
-                                    label="Add"
-                                    @click="AddPVTRecord">
-                                </q-btn>
-                                </div>
-                    
-                            </div>
+                        <div class="row">
+                      
+                        <q-btn 
+                        class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Cancel"
+                          @click="cancelPVTRecord">
+                      </q-btn>
+                      <q-space/>
+                      <q-btn 
+                      class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Add"
+                          @click="AddPVTRecord">
+                      </q-btn>
+                    </div>
     
                     </q-expansion-item>
     
@@ -159,7 +170,7 @@
                                 </label>
                             </div> -->
 
-                            <q-expansion-item class="col-12 q-pa-sm"
+                           <!--  <q-expansion-item class="col-12 q-pa-sm"
                                 v-model="expandFannParams"
                                 dense
                                 dense-toggle
@@ -172,22 +183,21 @@
 
                                     <div class="col-4 q-pt-sm">Base Dial Reading</div>
                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.baseFannDialReading"></div>
-                                    <!-- <div class="col-2"></div> -->
-
+                                    
                                     <div class="col-4 q-pt-sm">Base Speed (RPM)</div>
                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.baseFannRPM"></div>
-                                    <!-- <div class="col-4"></div> -->
+                                    
 
                                     <div class="col-4 q-pt-sm">Dial Reading</div>
                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.fannDialReading"></div>
-                                    <!-- <div class="col-4"></div> -->
+                                   
 
                                     <div class="col-4 q-pt-sm">Speed (RPM)</div>
                                     <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="fluid.fannRPM"></div>
-                                    <!-- <div class="col-4"></div> -->
+                                    
                                 </div>
 
-                            </q-expansion-item>
+                            </q-expansion-item> -->
 
 
                             <div class="col-12 q-pa-sm text-right"> 
@@ -275,6 +285,7 @@
 
 <script>
 import msExcelImport from 'components/dataImport/msExcelImport.vue';
+import textbox from "components/controls/textbox.vue"
 import { convertToNumber } from 'src/boot/utils';
 export default {
     computed:{
@@ -286,13 +297,19 @@ export default {
         },
         fluid() {
         return this.$store.getters['fluidsStore/fluid'];
+        },
+        fluidDescription(){
+            return this.$store.getters['fluidsStore/fluidDescription'];
         } 
     },
     components: {
-        'msExcelImport-app': msExcelImport
+        'msExcelImport-app': msExcelImport,
+        textbox
     },
     data () {
     return {
+        col1: "4",
+        col2: "8",
         expandFannParams: true,
         expanded: false,
         expanded2: true,
@@ -344,6 +361,11 @@ export default {
             }else{
                 context.expanded2 = true
             }
+        },
+         cancelPVTRecord(){
+            var context =  this;
+            context.expanded = false;
+            context.expanded2 = true
         },
         AddPVTRecord(){
             var context = this;

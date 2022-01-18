@@ -39,26 +39,23 @@
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
                                                 <q-expansion-item
+                                                    class="col-12"
                                                     v-model="expandedTrippingIn"
                                                     dense
                                                     dense-toggle
                                                     expand-separator
                                                 >
-                                                        <div class="row">
+                                                    <textbox variableName="Speed" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.trippingInSpeed"
+                                                    unit="ft/min" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.trippingInSpeed"></textbox>
 
-                                                                <div class="col-3 q-pa-sm">Speed</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingInSpeed"></div>
-                                                                <div class="col-3 q-pa-sm">ft/min</div>
-
-                                                                <div class="col-3 q-pa-sm">RPM</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingInRPM"></div>
-                                                                <div class="col-3 q-pa-sm">rpm</div>
-
-                                                        </div>
+                                                    <textbox variableName="RPM" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.trippingInRPM"
+                                                    unit="rpm" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.trippingInRPM"></textbox>
                                                 </q-expansion-item>
-                                            </div>
                                         </div>
                                 
 
@@ -70,25 +67,26 @@
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
-                                                <q-expansion-item
-                                                    v-model="expandedTrippingOut"
-                                                    dense
-                                                    dense-toggle
-                                                    expand-separator
-                                                >
-                                                        <div class="row">
+                                        
+                                            <q-expansion-item
+                                            class="col-12"
+                                                v-model="expandedTrippingOut"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                            >
 
-                                                            <div class="col-3 q-pa-sm">Speed</div>
-                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingOutSpeed"></div>
-                                                            <div class="col-3 q-pa-sm">ft/min</div>
+                                             <textbox variableName="Speed" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.trippingOutSpeed"
+                                                    unit="ft/min" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.trippingOutSpeed"></textbox>
 
-                                                            <div class="col-3 q-pa-sm">RPM</div>
-                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.trippingOutRPM"></div>
-                                                            <div class="col-3 q-pa-sm">rpm</div>
-                                                        </div>
-                                                </q-expansion-item>
-                                            </div>
+                                            <textbox variableName="RPM" :col1="col1" :col2="col2"
+                                            v-bind:variable="operation.trippingOutRPM"
+                                            unit="rpm" :hasUnit="true"
+                                            :toolTipDescription="operationDescriptions.trippingOutRPM"></textbox>
+
+                                            </q-expansion-item>
 
                                         </div>
 
@@ -100,26 +98,25 @@
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
                                                 <q-expansion-item
+                                                class="col-12"
                                                     v-model="expandedRotatingOnBottom"
                                                     dense
                                                     dense-toggle
                                                     expand-separator
                                                 >
-                                                        <div class="row">
 
-                                                            <div class="col-3 q-pa-sm">WOB</div>
-                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.weightOnBit"></div>
-                                                            <div class="col-3 q-pa-sm">kip</div>
+                                                <textbox variableName="WOB" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.weightOnBit"
+                                                    unit="kip" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.weightOnBit"></textbox>
 
-                                                            <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                            <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBitDrillingOperation"></div>
-                                                            <div class="col-3 q-pa-sm">ft-lbf</div>
-                                                            
-                                                        </div>
+                                                <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
+                                                v-bind:variable="operation.torqueAtBitDrillingOperation"
+                                                unit="ft-lbf" :hasUnit="true"
+                                                :toolTipDescription="operationDescriptions.torqueAtBitDrillingOperation"></textbox>
+
                                                 </q-expansion-item>
-                                            </div>
 
                                         </div>
 
@@ -131,25 +128,25 @@
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
-                                                <q-expansion-item
-                                                    v-model="expandedSlideDrilling"
-                                                    dense
-                                                    dense-toggle
-                                                    expand-separator
-                                                >
-                                                        <div class="row">
+                                            <q-expansion-item
+                                                class="col-12"
+                                                v-model="expandedSlideDrilling"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                            >
 
-                                                                <div class="col-3 q-pa-sm">WOB</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.weightOnBitIDHM"></div>
-                                                                <div class="col-3 q-pa-sm">kip</div>
+                                                <textbox variableName="WOB" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.weightOnBitIDHM"
+                                                    unit="kip" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.weightOnBitIDHM"></textbox>
 
-                                                                <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBit"></div>
-                                                                <div class="col-3 q-pa-sm">ft-lbf</div>
-                                                        </div>
-                                                </q-expansion-item>
-                                            </div>
+                                                <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
+                                                v-bind:variable="operation.torqueAtBit"
+                                                unit="ft-lbf" :hasUnit="true"
+                                                :toolTipDescription="operationDescriptions.torqueAtBit"></textbox>
+
+                                            </q-expansion-item>
 
                                         </div>
 
@@ -161,25 +158,24 @@
                                                 <hr/>
                                             </div>
 
-                                            <div class="col-12">
-                                                <q-expansion-item
-                                                    v-model="expandedBackReaming"
-                                                    dense
-                                                    dense-toggle
-                                                    expand-separator
-                                                >
-                                                        <div class="row">
+                                            <q-expansion-item
+                                                class="col-12"
+                                                v-model="expandedBackReaming"
+                                                dense
+                                                dense-toggle
+                                                expand-separator
+                                            >
+                                                <textbox variableName="Overpull" :col1="col1" :col2="col2"
+                                                    v-bind:variable="operation.overpullBackReaming"
+                                                    unit="kip" :hasUnit="true"
+                                                    :toolTipDescription="operationDescriptions.overpullBackReaming"></textbox>
 
-                                                                <div class="col-3 q-pa-sm">Overpull</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.overpullBackReaming"></div>
-                                                                <div class="col-3 q-pa-sm">kip</div>
+                                                <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
+                                                v-bind:variable="operation.torqueAtBitBackReaming"
+                                                unit="ft-lbf" :hasUnit="true"
+                                                :toolTipDescription="operationDescriptions.torqueAtBitBackReaming"></textbox>
 
-                                                                <div class="col-3 q-pa-sm">Torque at bit</div>
-                                                                <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="operation.torqueAtBitBackReaming"></div>
-                                                                <div class="col-3 q-pa-sm">ft-lbf</div>
-                                                        </div>
-                                                </q-expansion-item>
-                                            </div>
+                                            </q-expansion-item>
 
                                         </div>
 
@@ -227,14 +223,23 @@
 </template>
 
 <script>
+import textbox from "components/controls/textbox.vue"
 export default {
     computed:{
        operation() {
         return this.$store.getters['operationsStore/operation'];
-        } 
+        },
+        operationDescriptions(){
+            return this.$store.getters['operationsStore/operationDescriptions'];
+        }
+    },
+    components:{
+        textbox
     },
     data() {
         return {
+            col1: "4",
+            col2: "8",
             visible: true,
             expandedTDrmalAnalysis: true,
             expandedTrippingIn: false,

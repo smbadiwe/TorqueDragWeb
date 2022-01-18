@@ -3,10 +3,21 @@ import { $http } from 'boot/axios'
 const state = {
     holeSections:[],
     isImportDialogVisible: false,
-    holeSection: {}
+    holeSection: {},
+    holeSectionDescriptions: {
+      outerDiameter: "PLease Enter Outer Diameter",
+      innerDiameter: "PLease Enter Inner Diameter",
+      weight: "PLease Enter Outer Weight",
+      top: "PLease Enter Top MD",
+      bottom: "PLease Enter Bottom MD",
+      frictionFactor: "PLease Enter Friction Factor"
+    }
   }
 
   const getters = {
+    holeSectionDescriptions(state){
+      return state.holeSectionDescriptions;
+    },
     holeSections(state){
       return state.holeSections;
     },

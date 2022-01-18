@@ -19,14 +19,13 @@
                 <div class="col-12">
 
                     <div class="row">
-                        <div class="col-12">
                             <q-expansion-item
+                                class="col-12 text-left"
                                 v-model="expandedAnalysisSettings"
                                 dense
                                 dense-toggle
                                 expand-separator
                                 label="Common"
-                                class="text-left"
                                 >
 
                                 <div class="row">
@@ -81,7 +80,6 @@
 
                             
                             </q-expansion-item>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -183,6 +181,7 @@
 </template>
 
 <script>
+import textbox from "components/controls/textbox.vue"
 export default {
  computed:{
         common() {
@@ -192,6 +191,9 @@ export default {
         return this.$store.getters['settingsStore/isFromDB'];
         }
     },
+  components:{
+      textbox
+  },
   data () {
     return {
         visible: true,
@@ -210,6 +212,32 @@ export default {
     }
   },
   methods: {
+      toNumber(value){
+            var ans = 0;
+            //console.log("value: ", value)
+            ans = parseFloat(value);
+            if(Number.isNaN(ans) === true){
+                console.log("ans: ", ans)
+                ans = 0;
+            }
+
+            return ans;
+        },
+       SettingFormatting(){
+            var context  =  this;
+            var common = context.common;
+            common.startMeasuredDepth = context.toNumber(common.startMeasuredDepth);
+            common.endMeasuredDepth = context.toNumber(common.endMeasuredDepth);
+            common.stepSize = context.toNumber(common.stepSize);
+            common.seaWaterDensity = context.toNumber(common.seaWaterDensity);
+            common.courseLength = context.toNumber(common.courseLength);
+            common.youngsModulus = context.toNumber(common.youngsModulus);
+            common.blockWeight =  context.toNumber(common.blockWeight);
+            common.percentOfYield = context.toNumber(common.percentOfYield);
+            common.bucklingLimitFactor = context.toNumber(common.bucklingLimitFactor);
+
+            return common;
+      },
       PostCommon(){
             var context =  this;
             var Conn = this.$store.getters['authStore/companyName'];

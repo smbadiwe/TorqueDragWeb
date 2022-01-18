@@ -29,31 +29,20 @@ import Plotly from 'plotly.js-dist'
 export default {
     data(){
         return {
-			trace1: {
-				x: [1, 2, 3, 4],
-				y: [10, 15, 13, 17],
-				mode: 'markers',
-				type: 'scatter'
-				},
-			trace2: {
-				x: [2, 3, 4, 5],
-				y: [16, 5, 11, 9],
-				line:{
-					shape: 'spline'
-				},
-				mode: 'lines',
-				type: 'scatter'
-				},
-			trace3: {
-				x: [1, 2, 3, 4],
-				y: [12, 9, 15, 12],
-				mode: 'lines+markers',
-				type: 'scatter'
-				}
+			rateSelectedIndex: 0
 
         }
     },
     methods:{
+		onPumpRateSelectionChanged(e){
+			 var context = this;
+        	//var id = e.target.value;
+            //var name = e.target.options[e.target.options.selectedIndex].text;
+            //console.log('id ', id );
+            //console.log('name ',name );
+            context.rateSelectedIndex = e.target.options.selectedIndex;
+            context.createChart();
+		},
         createChart() {
 			var context = this;
             var rigDTO = this.$store.getters['simulationStore/rigDTOSurgeSwab'];

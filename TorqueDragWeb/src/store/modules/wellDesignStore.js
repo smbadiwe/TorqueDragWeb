@@ -391,6 +391,81 @@ const actions = {
             {root:true});
         //console.log("state.selectedSheetHeader:", state.selectedSheetHeader);
     },
+    PostAllData(context, payload)
+    {
+      //payload.allInputsDTO.datum.designId = payload.designId;
+      //payload.allInputsDTO.datum.userId = payload.userId;
+
+      context.dispatch('datumStore/PostDatum', {
+        companyName: payload.companyName,
+        designId: payload.designId,
+        userId: payload.userId,
+        datum:  payload.allInputsDTO.datum
+      }, {root:true});
+
+      context.dispatch('fluidsStore/PostFluid', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          fluid: payload.allInputsDTO.fluid
+      }, {root:true});
+
+      context.dispatch('holeStore/PostHoleSections', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          holeSections: payload.allInputsDTO.holeSections
+      }, {root:true});
+
+      context.dispatch('operationsStore/PostOperation', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          operation: payload.allInputsDTO.operation
+      }, {root:true});
+
+      context.dispatch('settingsStore/PostCommon', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          common: payload.allInputsDTO.common
+
+      }, {root:true});
+
+
+      context.dispatch('tubingStringStore/PostPipes', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          pipes: payload.allInputsDTO.pipes
+
+      }, {root:true});
+
+      context.dispatch('wellPathStore/PostDeviationSurvey', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          deviationSurveys: payload.allInputsDTO.deviationSurveys,
+
+      }, {root:true});
+
+      context.dispatch('tubingStringStore/PostDrillBit', {
+          companyName: payload.companyName,
+          designId: payload.designId,
+          userId: payload.userId,
+          drillBit: payload.allInputsDTO.drillBit,
+
+      }, {root:true});
+
+      context.dispatch('rigStore/PostRig', {
+        companyName: payload.companyName,
+        designId: payload.designId,
+        userId: payload.userId,
+        rig: payload.allInputsDTO.rig,
+
+    }, {root:true});
+
+    }
 
 
 }

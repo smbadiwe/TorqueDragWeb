@@ -18,11 +18,18 @@
           flat
           dense
           round
+          icon="settings"
+          aria-label="Settings"
+          @click="setIsSetting"
+        />
+        <q-btn
+          flat
+          dense
+          round
           icon="menu"
           aria-label="Menu"
           @click="UpdateLeftDrawerOpen"
         />
-        
         <q-btn 
             flat
           dense
@@ -155,6 +162,12 @@
       </q-bar>
     </div>
 
+       <q-dialog v-model="isSetting" class="bg-primary">
+          <div class="q-pa-sm bg-primary">
+              <settings></settings>
+          </div>
+      </q-dialog>
+
     </q-header>
 
     <q-drawer
@@ -262,11 +275,15 @@ import chartSeries from 'pages/dataVisualization/TorqueDrag/chartSeries.vue';
 import chartProperties from 'pages/dataVisualization/TorqueDrag/chartProperties.vue';
 import dockView from 'pages/inputdata/dockView.vue';
 import leftSideMenu from 'pages/menus/leftSideMenu.vue';
+import settings from 'pages/menus/settings.vue'
 
 
 export default {
   name: 'userLayout',
   computed: {
+    isSetting(){
+       return this.$store.getters['settingsStore/isSetting'];
+    },
     caption(){
           return this.$store.getters['wellDesignStore/caption'];
     },
@@ -281,13 +298,37 @@ export default {
     },
     statusBar(){
       return this.$store.getters['authStore/statusBar'];
-    }
-   /*  leftDrawerOpen(){
-          return this.$store.getters['authStore/leftDrawerOpen'];
     },
-    right(){
-          return this.$store.getters['authStore/right'];
-    } */
+    rig(){
+            return this.$store.getters['rigStore/rig'];
+        },
+        drillBit(){
+            return this.$store.getters['tubingStringStore/drillBit'];
+        },
+        datum(){
+            return this.$store.getters['datumStore/datum'];
+        },
+        deviationSurveys(){
+            return this.$store.getters['wellPathStore/deviationSurveys'];
+        },
+        fluid(){
+            return this.$store.getters['fluidsStore/fluid'];
+        },
+        mudPVTs(){
+            return this.$store.getters['fluidsStore/mudPVTs'];
+        },
+        holeSections(){
+            return this.$store.getters['holeStore/holeSections'];
+        },
+        operation(){
+            return this.$store.getters['operationsStore/operation'];
+        },
+        pipes(){
+            return this.$store.getters['tubingStringStore/pipes'];
+        },
+        common(){
+            return this.$store.getters['settingsStore/common'];
+        }
   },
   components: { 
       'fileRibbon-app': fileRibbon,
@@ -304,7 +345,8 @@ export default {
       dockView,
       leftSideMenu,
       hydraulicsRibbon,
-      surgeSwabRibbon
+      surgeSwabRibbon,
+      settings
       },
   data () {
     return {
@@ -349,27 +391,27 @@ export default {
     }
   },
   methods:{
-    setIsSetting(){
+      setIsSetting(){
          this.$store.commit('settingsStore/setIsSetting', true);
-    },
-    closeStatusMessageBar(){
-      this.$store.commit('authStore/setStatusMessageBarVisibility', {
-          actionMessage: "",
-          visibility: false
-          });
-    },
-    ToggleRibbonVisibility(){
-      var context =  this;
-      if(context.isRibbonVisible == true)
-      {
-        context.isRibbonVisible = false;
-        context.visibilityIcon = "visibility_off";
-      }
-      else
-      {
-        context.isRibbonVisible = true;
-        context.visibilityIcon = "visibility";
-      }
+      },
+      closeStatusMessageBar(){
+        this.$store.commit('authStore/setStatusMessageBarVisibility', {
+            actionMessage: "",
+            visibility: false
+            });
+      },
+      ToggleRibbonVisibility(){
+        var context =  this;
+        if(context.isRibbonVisible == true)
+        {
+          context.isRibbonVisible = false;
+          context.visibilityIcon = "visibility_off";
+        }
+        else
+        {
+          context.isRibbonVisible = true;
+          context.visibilityIcon = "visibility";
+        }
 
       console.log("isRibbonVisible: ", context.isRibbonVisible);
     },
@@ -617,14 +659,12 @@ export default {
                 userId: IdentityModel.id,
                 allInputsDTO
             });
-
     },
     ImportCatalog(){
       this.$store.commit('authStore/AddOutputTab', {
                 name: "Load Catalog",
                 route: "catalogPage"
             });
-
     }
   },
   mounted() {
@@ -636,6 +676,9 @@ export default {
 </script>
 
 <style scoped>
+body{
+  background:black;
+}
 #Rectangle_2 {
 	fill: rgba(50,50,50,1); 
 }

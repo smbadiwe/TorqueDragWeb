@@ -157,7 +157,7 @@ export default {
             return this.$store.getters['simulationStore/surgeSwabSensitivityDTO'];
         },
         rigDTO(){
-            return this.$store.getters['simulationStore/rigDTO'];
+            return this.$store.getters['simulationStore/rigDTOSurgeSwab'];
         }
     },
     data(){

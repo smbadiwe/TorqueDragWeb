@@ -1,29 +1,309 @@
 <template>
-    <div style="height: 1100px;">
-        <chart></chart>
-    </div>
+  <div>
+	   <div class="row">
+            <q-bar class="col-12 q-pa-sm row bg-secondary" >
+                 <q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    icon="refresh"
+                    aria-label="Menu"
+                    @click="reFreshPlot"
+                    />
+					<q-btn
+                    flat
+                    dense
+                    round
+                    size="md"
+                    :icon="dynamicIcon"
+                    aria-label="Menu"
+                    @click="toggleTable"
+                    />
+                    <q-space />
+                    <q-btn-dropdown color="primary" :label="selectedYVariable">
+                    <q-list>
+                        <q-item 
+                        v-for="variableName in variableNames" :key="variableName"
+                        clickable v-close-popup @click="onItemClick(variableName)">
+                        <q-item-section>
+                            <q-item-label>{{ variableName }}</q-item-label>
+                        </q-item-section>
+                        </q-item>
+
+                    </q-list>
+                    </q-btn-dropdown>
+            </q-bar>
+        </div>
+
+		<div class="row">
+			<div v-if="isTable">
+				<chartToTable></chartToTable>
+			</div>
+			<div 
+			v-else
+			id="myDiv" class="col-12 bg-accent">
+
+			</div>
+		</div>
+  </div>
 </template>
 
 <script>
-import chart from  'pages/dataVisualization/chart.vue'
 import Plotly from 'plotly.js-dist'
-import {copy} from '../../../boot/utils'
+import chartToTable from "pages/fixedDepthPlots/chartToTable.vue"
+
 export default {
-    components:{
-        chart
-    },
-    created(){
-        var Conn = this.$store.getters['authStore/companyName'];
-        var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign'];
-        var IdentityModel = this.$store.getters['authStore/IdentityModel'];
-        var payload = {
-            companyName: Conn,
-            designId: selectedTorqueDragDesign.id,
-            xVariableName: "East/West",
-            chartId: "PlanView",
-            userId: IdentityModel.id
+	components:{
+		chartToTable
+	},
+    data(){
+        return {
+			isTable: false,
+            dynamicIcon: "table_view",
+            selectedYVariable: "",
+            variableNames: ["Measured Depth",
+                                "True Vertical Depth",
+                                "Inclination",
+                                "Azimuth",
+                                "Vertical Section",
+                                "Dogleg Severity",
+                                "North/South",
+                                "East/West"]
+
         }
-        this.$store.dispatch('wellPathStore/LoadDevSurveySeriesCollection', payload);
+    },
+    methods:{
+		toggleTable(){
+			var context = this;
+			
+			if(context.isTable == true){
+				context.isTable = false;
+				context.dynamicIcon = "table_chart";
+				console.log("dynamicIcon: ", context.dynamicIcon)
+				//context.reFreshPlot();
+			}else{
+				context.isTable = true
+				context.dynamicIcon = "table_chart";
+				console.log("dynamicIcon: ", context.dynamicIcon)
+				//context.reFreshPlot();
+				
+
+			}
+		},
+        createChart(selectedYName) {
+			var context = this;
+            var deviationSurveys = this.$store.getters['wellPathStore/deviationSurveys'];
+            //console.log("deviationSurveys: ", deviationSurveys)
+			var j = 0;
+			var length;
+			var M = 1000.0;
+			var i = 0;
+			var data  = [];
+			var series = {
+				x: [],
+				y: [],
+				line:{
+					shape: 'spline',
+					color: 'rgb(55, 128, 191)',
+    				width: 3
+				},
+				mode: 'lines',
+				type: 'scatter',
+                name: '',
+                actualName: ''
+            }
+            
+
+                length = deviationSurveys.length;
+                var yUnit = ""
+                var isReversed = false;
+                var reversed = ""
+                
+               switch (selectedYName) {
+                        case "Measured Depth":
+                          series.name = "Measured Depth";
+                          series.actualName = "measuredDepth";
+                            yUnit = "ft";
+                            isReversed = true;
+                            reversed = "reversed";
+                            for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].measuredDepth);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+
+                        case "True Vertical Depth":
+                          series.name = "True Vertical Depth";
+                          series.actualName = "trueVerticalDepth";
+                          isReversed = true;
+                          reversed = "reversed";
+                          yUnit = "ft"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].trueVerticalDepth);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+
+                        case "Inclination":;
+                          series.name = "Inclination";
+                          series.actualName = "inclination";
+                          yUnit = "degrees"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].inclination);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+
+                        case "Azimuth":
+                          series.name = "Azimuth";
+                          series.actualName = "azimuth";
+                          yUnit = "degrees"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].azimuth);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+
+                        case "Vertical Section":
+                          series.name = "Vertical Section";
+                          series.actualName = "verticalSection";
+                          yUnit = "ft"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].verticalSection);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+                        case "North/South":
+                          series.name = "North/South";
+                          series.actualName = "northSouth";
+                          yUnit = "ft"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].northSouth);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+                        case "East/West":
+                          series.name = "East/West";
+                          series.actualName = "eastWest";
+                          yUnit = "ft"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].eastWest);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+                          case "Dogleg Severity":
+                          series.name = "Dogleg Severity";
+                          series.actualName = "doglegSeverity";
+                          yUnit = "deg/100ft"
+                          for(i = 0; i < length; i++){
+                                series.y.push(deviationSurveys[i].doglegSeverity);
+                                series.x.push(deviationSurveys[i].eastWest);
+                            }
+                          break;
+                  }
+
+                  data.push(series)
+                
+                var tableData = {
+				data,
+				xAxisData: {
+					actualName:"eastWest",
+					name: "Plan View",
+					unit: "ft"
+				},
+				yAxisData: {
+					unit: yUnit
+				},
+				excelFileName: "Plan View.csv",
+				tableTitle: "Plan View",
+				isReversed: false
+            }
+            
+
+            console.log("data: ", data)
+			this.$store.commit('simulationStore/setCustomColumns', tableData);
+			this.$store.commit('simulationStore/setCustomTable', tableData);
+			this.$store.commit('simulationStore/setExcelFileName', tableData);
+			this.$store.commit('simulationStore/setTableTitle', tableData);
+
+			var layout = { 
+				showlegend: true,
+				title: 'Plan View Plot',
+				height: 900,
+				xaxis: {
+					title: tableData.xAxisData.name + " (" + tableData.xAxisData.unit + ")",
+					titlefont: {
+					family: 'Arial, sans-serif',
+					size: 14,
+					color: 'black'
+					},
+					showticklabels: true,
+					tickangle: 'auto',
+					tickfont: {
+					family: 'Old Standard TT, serif',
+					size: 14,
+					color: 'black'
+					},
+					showgrid: true,
+					zeroline: true,
+					showline: true,
+					mirror: 'ticks',
+					gridcolor: '#bdbdbd',
+					gridwidth: 2,
+					zerolinecolor: '#969696',
+					zerolinewidth: 4,
+					linecolor: '#636363',
+					linewidth: 4
+				},
+				yaxis: { 
+					autorange: reversed,
+					title: series.name + " (" + yUnit + ")",
+					titlefont: {
+					family: 'Arial, sans-serif',
+					size: 14,
+					color: 'black'
+					},
+					showticklabels: true,
+					tickangle: 45,
+					tickfont: {
+						family: 'Old Standard TT, serif',
+						size: 14,
+						color: 'black'
+						},
+					showgrid: true,
+					zeroline: true,
+					showline: true,
+					mirror: 'ticks',
+					gridcolor: '#bdbdbd',
+					gridwidth: 2,
+					zerolinecolor: '#969696',
+					zerolinewidth: 4,
+					linecolor: '#636363',
+					linewidth: 4
+				 	} 
+				};
+			var config = {responsive: true}
+			Plotly.newPlot('myDiv', data, layout, config);
+		},
+		reFreshPlot(){
+			var context = this;
+            context.isTable = false;
+            context.selectedYVariable = "Measured Depth";
+            var yVariable = context.selectedYVariable ;
+			context.createChart(yVariable);
+        },
+          onItemClick (yVariable) {
+            var context = this;
+            context.createChart(yVariable)
+        }
+    },
+    mounted() {
+        var context = this;
+        context.selectedYVariable = "Measured Depth";
+            var yVariable = context.selectedYVariable ;
+		context.createChart(yVariable);
+		
     }
 }
 </script>

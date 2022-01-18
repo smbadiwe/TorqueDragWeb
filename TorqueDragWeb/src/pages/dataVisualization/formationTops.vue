@@ -53,7 +53,7 @@ export default {
             'Flow Coupling', 'SSSV', 'Seal Assembly', 'Mandrel', 'Packer', 'Drill Pipe'],
             pipeSectionColors: ['#D3D3D3', '#D3D3D3', 'gray', 'red', 'black',
                                 'gold', 'blue', '#D3D3D3'],
-            schematicHeight: 1000,
+            schematicHeight: 700,
             schematicWidth: 1000,
             isByMD: false,
             operationResults: []              
@@ -388,11 +388,13 @@ export default {
             for(i = 0; i < length; i++){
                 var pt = {
                     x: displacement,
-                    y: depths[i]
+                    y: depths[i],
+                    inclination: 0
                 }
 
                 if(isMeasuedDepth == true){
                    pt.x = context.interpolation(deviationSurveys, pt.y, 'verticalSection');
+                   pt.inclination = context.interpolation(deviationSurveys, pt.y, 'inclination');
                    //console.log('vertical section: ', pt.x);
                 }
 
@@ -1714,9 +1716,10 @@ export default {
             var tDmax = deviationSurveys[lengthOfdeviationSurveys-1].trueVerticalDepth;
             var displacementMin = deviationSurveys[0].verticalSection;
             var displacementMax = deviationSurveys[lengthOfdeviationSurveys-1].verticalSection;
-            var canvasMD = context.schematicWidth * mDmax / displacementMax;
-            var canvasTVD = context.schematicWidth * tDmax / displacementMax;
-            context.schematicHeight = canvasMD;
+            var canvasMD = context.schematicHeight;// context.schematicWidth * mDmax / displacementMax;
+            var canvasTVD = context.schematicHeight;//context.schematicWidth * tDmax / displacementMax;
+            //context.schematicHeight = canvasMD;
+            //console.log("context.schematicHeight: ", context.schematicHeight)
             canvas.height = context.schematicHeight + 50;
 
 
@@ -1754,10 +1757,19 @@ export default {
             var mdBottom = 0;
             var topDisplacement = 0;
             var bottomDisplacement  = 0;
+            var formationHoleSpaceVLeft = 5;
+            var holeWidth = 50;
+            var pipeWidth = 35;
+            //var bottomInclination = 0;
 
             for(i = 0; i < lengthOfholeSections; i++){
                 mdTop = holeSections[i].topOfHole;
                 mdBottom = holeSections[i].bottomOfHole;
+
+                //topInclination = context.interpolation(deviationSurveys, holeSections[i].topOfHole, 'inclination');
+                //bottomInclination = context.interpolation(deviationSurveys, holeSections[i].bottomOfHole, 'inclination');
+                
+                
                 topDisplacement = context.interpolation(deviationSurveys, holeSections[i].topOfHole, 'verticalSection');
                 bottomDisplacement = context.interpolation(deviationSurveys, holeSections[i].bottomOfHole, 'verticalSection'); 
               
@@ -1779,16 +1791,23 @@ export default {
                     var horizontaDisplacement_h = context.interpolate(0, context.schematicWidth, displacementMin, displacementMax, holePoints[j].x);
                     //console.log("tvd_h: ", tvd_h);
                     
+                    if(holePoints[j].inclination == 0){
+                        formationHoleSpaceVLeft = 5;
+                        holeWidth = 35;
+                    }else{
+                        formationHoleSpaceVLeft = 20;
+                        holeWidth = 70;
+                    }
 
                     var pointLeft =  {
-                            x: originX + offsetX + horizontaDisplacement_h -5,
+                            x: originX + offsetX + horizontaDisplacement_h - formationHoleSpaceVLeft,
                             y: mD_h
                         }
                     pointLeft.x = pointLeft.x  - Math.floor(Math.random() * context.openHoleProperties.holeAnnulus);
                     leftPoints.push(pointLeft);
 
                      var pointRight =  {
-                            x:  originX + offsetX + horizontaDisplacement_h + 55,
+                            x:  originX + offsetX + horizontaDisplacement_h + (holeWidth + formationHoleSpaceVLeft),
                             y: mD_h
                         }
 
@@ -1804,7 +1823,7 @@ export default {
                     leftPointsCasing.push(pointLeftCasing);
 
                      var pointRightCasing =  {
-                            x:  originX + offsetX + horizontaDisplacement_h + 50,
+                            x:  originX + offsetX + horizontaDisplacement_h + holeWidth,
                             y: mD_h
                         }
                     rightPointsCasing.push(pointRightCasing);
@@ -1892,14 +1911,20 @@ export default {
                                 y: mD_h
                             }
 
-                    if(pipes[i].typeOfSection == 'Pup Joint' ||
-                        pipes[i].typeOfSection == 'Tubing'){
-                            pointLeft.x = originX + offsetX + horizontaDisplacement_h + 15;
-                            pointRight.x = originX + offsetX + horizontaDisplacement_h + 35;
-                    }else{
 
-                        pointLeft.x = originX + offsetX + horizontaDisplacement_h + 10;
-                        pointRight.x = originX + offsetX + horizontaDisplacement_h + 40;
+                     if(holePoints[j].inclination == 0){
+                         pipeWidth = 20;
+                        if(pipes[i].typeOfSection == 'Pup Joint' ||
+                            pipes[i].typeOfSection == 'Tubing'){
+                                pointLeft.x = originX + offsetX + horizontaDisplacement_h + 15;
+                                pointRight.x = originX + offsetX + horizontaDisplacement_h + 35;
+                        }else{
+
+                            pointLeft.x = originX + offsetX + horizontaDisplacement_h + 10;
+                            pointRight.x = originX + offsetX + horizontaDisplacement_h + 40;
+                        }
+                    }else{
+                        pipeWidth = 40;
                     }
                         
 
@@ -1968,7 +1993,7 @@ export default {
             var isXAxisPositive = true;
             for(i = 0; i < pipesCount; i++){
 
-                if(i == 0){
+               /*  if(i == 0){
                     context.drawPipeMD(ctx,
                     drillPipes[i].leftPoints, drillPipes[i].rightPoints,
                     drillPipes[i].fillStyle, true, true,
@@ -1987,7 +2012,7 @@ export default {
                     true, true, drillPipes[i].showLabel, drillPipes[i].description, drillPipes[i].depthDescription,
                     drillPipes[i].isSinusoidalBuckling, drillPipes[i].isHelicalBuckling);
                 }
-
+ */
 
             }
 

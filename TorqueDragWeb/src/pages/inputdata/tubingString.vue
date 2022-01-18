@@ -72,30 +72,32 @@
                                                 dense
                                                 dense-toggle
                                                 expand-separator
-                                                label="Add Datum"
+                                                label="Add Tubing"
                                                 clickable
                                                 @click="ExpandExander2"
                                             >
                                             <div class="row">
-                                            <div class="col-3 q-pa-sm">
-                                                Type: 
-                                            </div>
-                                            <div class="col-9 q-pa-sm">
-                                                <select style="width:100%;"
-                                                class="text-center bg-positive text-accent"
-                                                name="NameOfDatum"
-                                                id="" >
-                                                    <option>
-                                                        Hydraulic
-                                                    </option>
-                                                </select>
+                                                <div class="col-3 q-pa-sm">
+                                                    Type: 
+                                                </div>
+                                                <div class="col-9 q-pa-sm">
+                                                    <select style="width:100%;"
+                                                    class="text-center bg-positive text-accent"
+                                                    name="NameOfDatum"
+                                                    id="" >
+                                                        <option>
+                                                            Hydraulic
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
 
-                                            <div class="col-4 q-pt-sm">Description</div>
-                                            <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="itemDescription"></div>
-
-                                            </div>
+                                            <textbox variableName="Description" :col1="col1" :col2="col2"
+                                            v-bind:variable="itemDescription"
+                                            unit="" :hasUnit="false"></textbox>
+                                            
                                             <q-expansion-item
+                                                class="row"
                                                 v-model="expandGeneral"
                                                 dense
                                                 dense-toggle
@@ -104,32 +106,39 @@
                                                 clickable
                                             >
                                                     
-                                                <div class="row dialogBorder">
+                                                <div class="col-12">
+                                                    
+                                                    <textbox variableName="Length" :col1="col1" :col2="col2"
+                                                    v-bind:variable="length"
+                                                    unit="ft" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.length"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Length (ft)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="length"></div>
-                                                    <!-- <div class="col-2"></div> -->
+                                                    <textbox variableName="MD" :col1="col1" :col2="col2"
+                                                    v-bind:variable="measuredDepth"
+                                                    unit="ft" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.measuredDepth"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">MD (ft)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="measuredDepth"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="Size" :col1="col1" :col2="col2"
+                                                    v-bind:variable="size"
+                                                    unit="ft" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.size"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Size (in)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="size"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="OD" :col1="col1" :col2="col2"
+                                                    v-bind:variable="outerDiameter"
+                                                    unit="in" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.outerDiameter"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">OD (in)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="outerDiameter"></div>
-                                                    <!-- <div class="col-4"></div> -->
-
-                                                    <div class="col-4 q-pt-sm">ID (in)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="innerDiameter"></div>
+                                                    <textbox variableName="ID" :col1="col1" :col2="col2"
+                                                    v-bind:variable="innerDiameter"
+                                                    unit="in" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.innerDiameter"></textbox>
                                         
                                                 </div>
 
                                             </q-expansion-item>
 
                                             <q-expansion-item
+                                                class="row"
                                                 v-model="expandedMechanical"
                                                 dense
                                                 dense-toggle
@@ -138,73 +147,92 @@
                                                 clickable
                                             >
 
-                                                <div class="row dialogBorder">
+                                                <div class="col-12">
 
-                                                    <div class="col-3 q-pa-sm">
-                                                        Section Type: 
+                                                    <div class="row">
+                                                        <div class="col-3 q-pa-sm">
+                                                            Section Type: 
+                                                        </div>
+                                                        <div class="col-9 q-pa-sm">
+                                                            <select style="width:100%;"
+                                                            class="text-center bg-positive text-accent"
+                                                            v-on:change="onItemSelectionChanged($event)"
+                                                            name="sectionType"
+                                                            v-model="typeOfSection"
+                                                            id="" >
+                                                                <option>
+                                                                    Pup Joint
+                                                                </option>
+                                                                <option>
+                                                                    Tubing
+                                                                </option>
+                                                                <option>
+                                                                    Flow Coupling
+                                                                </option>
+                                                                <option>
+                                                                    SSSV
+                                                                </option>
+                                                                <option>
+                                                                    Seal Assembly
+                                                                </option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-9 q-pa-sm">
-                                                        <select style="width:100%;"
-                                                        class="text-center bg-positive text-accent"
-                                                        v-on:change="onItemSelectionChanged($event)"
-                                                        name="sectionType"
-                                                        v-model="typeOfSection"
-                                                        id="" >
-                                                            <option>
-                                                                Pup Joint
-                                                            </option>
-                                                            <option>
-                                                                Tubing
-                                                            </option>
-                                                            <option>
-                                                                Flow Coupling
-                                                            </option>
-                                                            <option>
-                                                                SSSV
-                                                            </option>
-                                                            <option>
-                                                                Seal Assembly
-                                                            </option>
-                                                        </select>
-                                                    </div>
 
-                                                    <div class="col-4 q-pt-sm">Weight (ppf)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="weight"></div>
-                                                    <!-- <div class="col-2"></div> -->
+                                                    <textbox variableName="Weight" :col1="col1" :col2="col2"
+                                                    v-bind:variable="weight"
+                                                    unit="lbf" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.weight"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Grade</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="grade"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="Grade" :col1="col1" :col2="col2"
+                                                    v-bind:variable="grade"
+                                                    unit="" :hasUnit="false"
+                                                    :toolTipDescription="pipeDescriptions.grade"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Minimum yield Strength (psi)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="minimumYieldStrength"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="Minimum Yield Strength" :col1="col1" :col2="col2"
+                                                    v-bind:variable="minimumYieldStrength"
+                                                    unit="psi" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.minimumYieldStrength"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Youngs Modulus (psi)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="youngsModulus"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="Youngs Modulus" :col1="col1" :col2="col2"
+                                                    v-bind:variable="youngsModulus"
+                                                    unit="psi" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.youngsModulus"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">MakeUp Torque (kip)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="makeUpTorque"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="MakeUp Torque" :col1="col1" :col2="col2"
+                                                    v-bind:variable="makeUpTorque"
+                                                    unit="kip" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.makeUpTorque"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">OverPull Margin (kip)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="overPullMargin"></div>
-                                                    <!-- <div class="col-4"></div> -->
+                                                    <textbox variableName="OverPull Margin" :col1="col1" :col2="col2"
+                                                    v-bind:variable="overPullMargin"
+                                                    unit="kip" :hasUnit="true"
+                                                    :toolTipDescription="pipeDescriptions.overPullMargin"></textbox>
 
                                         
                                                 </div>
 
                                             </q-expansion-item>
                                                 
-                                            <div class="col-12 q-pa-sm text-right"> 
+
+                                            <div class="row">
+                      
                                                 <q-btn 
+                                                    class="col-2 text-right"
+                                                    align="right"
+                                                    size="sm"
+                                                    label="Cancel"
+                                                    @click="cancelDatum">
+                                                </q-btn>
+                                                <q-space/>
+                                                <q-btn 
+                                                class="col-2 text-right"
+                                                    align="right"
                                                     size="sm"
                                                     label="Add"
-                                                    class="q-pa-none"
                                                     @click="AddTubingStringRecord">
                                                 </q-btn>
-                                            </div>
+                                                </div>
                                             </q-expansion-item>
                             
                                         </div>
@@ -253,7 +281,7 @@
 
                 <q-tab-panel name="optional"
                  class="bg-primary">
-                    <div>
+                    <div class="row text-accent">
                             <q-expansion-item class="col-12 q-pa-sm"
                                                 v-model="expandBitParams"
                                                 dense
@@ -263,21 +291,22 @@
                                                 clickable
                                             >
                                                     
-                                                <div class="row dialogBorder">
+                                            <textbox variableName="Bit Size" :col1="col1" :col2="col2"
+                                            v-bind:variable="drillBit.bitSize"
+                                            unit="in" :hasUnit="true"
+                                            :toolTipDescription="pipeDescriptions.bitSize"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Bit Size (in)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.bitSize"></div>
-                                                    <!-- <div class="col-2"></div> -->
+                                            <textbox variableName="Number of Nozzles" :col1="col1" :col2="col2"
+                                            v-bind:variable="drillBit.numberOfBitNozzles"
+                                            unit="" :hasUnit="false"
+                                            :toolTipDescription="pipeDescriptions.numberOfBitNozzles"></textbox>
 
-                                                    <div class="col-4 q-pt-sm">Number of Nozzles</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.numberOfBitNozzles"></div>
-                                                    
-                                                    <div class="col-4 q-pt-sm">Discharge Coefficient (fraction)</div>
-                                                    <div class="col-8 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="drillBit.dischargeCoefficient"></div>
+                                            <textbox variableName="Discharge Coefficient" :col1="col1" :col2="col2"
+                                            v-bind:variable="drillBit.dischargeCoefficient"
+                                            unit="fraction" :hasUnit="true"
+                                            :toolTipDescription="pipeDescriptions.dischargeCoefficient"></textbox>
 
-                                                </div>
-
-                                            </q-expansion-item>
+                            </q-expansion-item>
                     </div>
                 </q-tab-panel>
             </q-tab-panels>
@@ -291,6 +320,7 @@
 
 <script>
 import msExcelImport from 'components/dataImport/msExcelImport.vue';
+import textbox from "components/controls/textbox.vue"
 import { convertToNumber } from 'src/boot/utils';
 export default {
      computed:{
@@ -302,13 +332,19 @@ export default {
         },
         isImportDialogVisible() {
         return this.$store.getters['tubingStringStore/isImportDialogVisible'];
+        },
+        pipeDescriptions(){
+            return this.$store.getters['tubingStringStore/pipeDescriptions'];
         }
     },
     components: {
-        'msExcelImport-app': msExcelImport
+        'msExcelImport-app': msExcelImport,
+        textbox
     },
     data () {
         return {
+        col1: "4",
+        col2: "8",
         expandBitParams: true,
         tab: 'general',
         outputTabs: [
@@ -473,6 +509,11 @@ export default {
                 companyName
               });
 
+        },
+        cancelDatum(){
+            var context =  this;
+            context.expanded = false;
+            context.expanded2 = true
         }
   },
   created(){

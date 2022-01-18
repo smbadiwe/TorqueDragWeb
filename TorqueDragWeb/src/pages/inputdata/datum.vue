@@ -21,10 +21,12 @@
           
         </div>
           
-        <div class="row text-accent"
-        v-if="expanded">
+        <div 
+        v-if="expanded"
+        class="row text-accent"
+        >
         <div class="col-12">
-                  <q-expansion-item
+                 <!--  <q-expansion-item
                       v-model="expanded"
                       dense
                       dense-toggle
@@ -32,11 +34,52 @@
                       label="Add Datum"
                       clickable
                       @click="ExpandExander2"
-                  >
-                      <!-- <q-card>
-                      <q-card-section> -->
+                  > -->
+
+                    <textbox variableName="Datum Name" col1="4" col2="8"
+                    v-bind:variable="datumName"
+                    unit="" :hasUnit="false" :toolTipDescription="datumDescriptions.datumName"></textbox>
+
+                    <textbox variableName="Datum Elevation" col1="4" col2="8"
+                    v-bind:variable="datumElevation"
+                    unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.datumElevation"></textbox>
+
+                    <textbox variableName="Ground Elevation" col1="4" col2="8"
+                    v-bind:variable="groundElevation"
+                    unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.groundElevation"></textbox>
+
+                    <textbox variableName="WellHead Elevation" col1="4" col2="8"
+                    v-bind:variable="wellHeadElevation"
+                    unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.wellHeadElevation"></textbox>
+
+                    <textbox variableName="Air Gap" col1="4" col2="8"
+                    v-bind:variable="airGap"
+                    unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.airGap"></textbox>
+
+                    <div class="row">
+                      <div class="col-12" style="height:10px;"></div>
+                    </div>
+
+                    <div class="row">
+                      
+                        <q-btn 
+                        class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Cancel"
+                          @click="cancelDatum">
+                      </q-btn>
+                      <q-space/>
+                      <q-btn 
+                      class="col-2 text-right"
+                          align="right"
+                          size="sm"
+                          label="Add"
+                          @click="PostDatum">
+                      </q-btn>
+                    </div>
                           
-                          <div class="row">
+                          <!-- <div class="row">
 
                             <div class="col-3 q-pt-sm">Shore</div>
                             <div class="col-5 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="typeOfShore"></div>
@@ -72,19 +115,8 @@
                               @click="PostDatum">
                           </q-btn>
                   
-                        </div>
-                      <!-- </q-card-section> -->
-
-                      <!-- <q-card-actions align="right">
-                          <q-btn 
-                              size="sm"
-                              label="Add"
-                              @click="PostDatum">
-                          </q-btn>
-                      </q-card-actions> -->
-
-                      <!-- </q-card> -->
-                  </q-expansion-item>
+                        </div> -->
+                  <!-- </q-expansion-item> -->
   
               </div>
         </div>
@@ -93,56 +125,51 @@
         <div 
         v-if="expanded2"
         class="row text-accent">
-          <div class="col-md-3 col-sm-12 q-pa-sm">
-              Select Datum: 
-            </div>
-            <div class="col-md-9 col-sm-12 q-pa-sm">
-            <select style="width:100%;"
-            class="text-center bg-positive text-accent"
-              name="NameOfDatum"
-              id="" 
-              v-on:change="onDatumSelectionChanged($event)">
-                <option
-                  v-for="datum in datums" :key="datum.id">
-                  {{ datum.datumName }}
-                </option>
-            </select>
+
+          <div class="col-12">
+
+            <comboBox v-on:onSelectionChanged="onDatumSelectionChanged($event)"
+            variableName = "Select Datum:" col1="4" col2="8"
+            v-bind:listOfData="datums"
+            :toolTipDescription="datumDescriptions.datumName"></comboBox>
+
+            <textbox variableName="Shore" col1="4" col2="8"
+            v-bind:variable="selectedDatum.typeOfShore"
+            unit="" :hasUnit="false" disabled
+            :toolTipDescription="datumDescriptions.datumName"></textbox>
+
+            <textbox variableName="Datum Name" col1="4" col2="8"
+            v-bind:variable="selectedDatum.datumName"
+            unit="" :hasUnit="false" disabled
+            :toolTipDescription="datumDescriptions.datumName"></textbox>
+
+            <textbox variableName="Datum Elevation" col1="4" col2="8"
+            v-bind:variable="selectedDatum.datumElevation"
+            unit="ft" :hasUnit="true" disabled
+            :toolTipDescription="datumDescriptions.datumElevation"></textbox>
+
+            <textbox variableName="Ground Elevation" col1="4" col2="8"
+            v-bind:variable="selectedDatum.groundElevation"
+            unit="ft" :hasUnit="true" disabled
+            :toolTipDescription="datumDescriptions.groundElevation"></textbox>
+
+            <textbox variableName="WellHead Elevation" col1="4" col2="8"
+            v-bind:variable="selectedDatum.wellHeadElevation"
+            unit="ft" :hasUnit="true" disabled
+            :toolTipDescription="datumDescriptions.wellHeadElevation"></textbox>
+
+            <textbox variableName="Air Gap" col1="4" col2="8"
+            v-bind:variable="selectedDatum.airGap"
+            unit="ft" :hasUnit="true" disabled
+            :toolTipDescription="datumDescriptions.airGap"></textbox>
+      
+
           </div>
 
-          <div class="col-12 q-pa-sm">
-            Datum Details
-            <br>
-            <hr/>
-          </div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm text-accent">Shore</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.typeOfShore"></div>
-          <div class="col-3"></div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm">Datum Name</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.datumName"></div>
-          <div class="col-3"></div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm">Datum Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.datumElevation"></div>
-          <div class="col-3"></div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm">Ground Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.groundElevation"></div>
-          <div class="col-3"></div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm">WellHead Elevation (ft)</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.wellHeadElevation"></div>
-          <div class="col-3"></div>
-
-          <div class="col-md-3 col-sm-12 q-pt-sm">Air Gap (ft)</div>
-          <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="selectedDatum.airGap"></div>
-          <div class="col-3"></div>
-  
+          
         </div>
 
-
-      
+         
       </div>
 
     <!-- </q-scroll-area> -->
@@ -150,7 +177,8 @@
 </template>
 
 <script>
-
+import textbox from "components/controls/textbox.vue"
+import comboBox from "components/controls/comboBox.vue"
 export default {
   computed: {
     companyName(){
@@ -164,13 +192,19 @@ export default {
     },
     selectedDatum(){
       return this.$store.getters['datumStore/selectedDatum'];
+    },
+    datumDescriptions(){
+      return this.$store.getters['datumStore/datumDescriptions'];
     }
   },
   components:{
-
+    textbox,
+    comboBox
   },
   data () {
     return {
+      isUnit: true,
+      isNotUnit: false,
       message: "",
       hasUnit1: true,
       hastUnit2: false,
@@ -208,11 +242,11 @@ export default {
       }
     },
     onDatumSelectionChanged(e){
-      var context = this;
+      /* var context = this;
        var id = e.target.value;
         var name = e.target.options[e.target.options.selectedIndex].text;
         console.log('id ', id );
-        console.log('name ',name );
+        console.log('name ',name ); */
 
       this.$store.commit('datumStore/onDatumSelectionChanged', name);
 
@@ -246,6 +280,11 @@ export default {
 
           context.expanded = false;
           context.expanded2 = true
+    },
+    cancelDatum(){
+      var context =  this;
+      context.expanded = false;
+      context.expanded2 = true
     }
       
   },
