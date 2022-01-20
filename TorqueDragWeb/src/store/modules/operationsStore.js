@@ -66,6 +66,35 @@ const mutations = {
   GetOperation(state, payload){
     //console.log(payload)
     state.operation = payload;
+  },
+  ClearOperation(state){
+    state.operation = {
+      isTrippingInChecked: false,
+      trippingInSpeed : 0,
+      trippingInRPM : 0,
+      isTrippingOutChecked : false,
+      trippingOutSpeed : 0,
+      trippingOutRPM : 0,
+      isRotatingOnBottomChecked : false,
+      isSlideDrillingChecked : false,
+      weightOnBit : 0,
+      torqueAtBit : 0,
+      isBackReamingChecked: false,
+      isRotatingOffBottomChecked : false,
+      isUserDefinedOperationsChecked : false,
+      isHookLoad : false,
+      isWeightOnBit : false,
+      isIDHMTrippingInChecked : false,
+      weightOnBitIDHM : 0,
+      hookLoadIDHM : 0,
+      isIDHMTrippingOutChecked: false,
+      isIDHMRotatingChecked : false,
+      tripSpeedBackReam: 0,
+      tripRPMBackReam: 0,
+      torqueAtBitDrillingOperation: 0,
+      torqueAtBitBackReaming: 0,
+      overpullBackReaming: 0
+    };
   }
 
 }
@@ -172,6 +201,9 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearOperation(context, payload){
+    context.commit('ClearOperation');
   }
 
 

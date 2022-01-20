@@ -80,6 +80,23 @@ const mutations = {
   SavePVTRecord(state, payload){
     state.mudPVTs.push(payload);
     console.log("mudPVTs: ", state.mudPVTs)
+  },
+  ClearMudPVTs(state){
+    state.mudPVTs = [];
+  },
+  ClearFluid(state){
+    state.fluid = {
+      mudName: "",
+      description: "",
+      mudBaseType: "",
+      baseFluid: "",
+      rheologyModel: "",
+      rheologyModelType: "",
+      baseFannDialReading: "70",
+      baseFannRPM: "300",
+      fannDialReading: "130",
+      fannRPM: "60"
+    };
   }
 }
 
@@ -248,6 +265,12 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearFluid(context, payload){
+    context.commit('ClearFluid');
+  },
+  ClearMudPVTs(context, payload){
+    context.commit('ClearMudPVTs');
   }
 
 }

@@ -443,7 +443,7 @@ export default {
             this.$store.dispatch('simulationStore/RunSensitivities', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
+                userId: IdentityModel._id,
                 allInputsDTO
             });
 

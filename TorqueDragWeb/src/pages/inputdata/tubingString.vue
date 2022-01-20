@@ -93,7 +93,7 @@
                                             </div>
 
                                             <textbox variableName="Description" :col1="col1" :col2="col2"
-                                            v-bind:variable="itemDescription"
+                                            v-model="itemDescription"
                                             unit="" :hasUnit="false"></textbox>
                                             
                                             <q-expansion-item
@@ -109,27 +109,27 @@
                                                 <div class="col-12">
                                                     
                                                     <textbox variableName="Length" :col1="col1" :col2="col2"
-                                                    v-bind:variable="length"
+                                                    v-model="length"
                                                     unit="ft" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.length"></textbox>
 
                                                     <textbox variableName="MD" :col1="col1" :col2="col2"
-                                                    v-bind:variable="measuredDepth"
+                                                    v-model="measuredDepth"
                                                     unit="ft" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.measuredDepth"></textbox>
 
                                                     <textbox variableName="Size" :col1="col1" :col2="col2"
-                                                    v-bind:variable="size"
+                                                    v-model="size"
                                                     unit="ft" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.size"></textbox>
 
                                                     <textbox variableName="OD" :col1="col1" :col2="col2"
-                                                    v-bind:variable="outerDiameter"
+                                                    v-model="outerDiameter"
                                                     unit="in" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.outerDiameter"></textbox>
 
                                                     <textbox variableName="ID" :col1="col1" :col2="col2"
-                                                    v-bind:variable="innerDiameter"
+                                                    v-model="innerDiameter"
                                                     unit="in" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.innerDiameter"></textbox>
                                         
@@ -180,32 +180,32 @@
                                                     </div>
 
                                                     <textbox variableName="Weight" :col1="col1" :col2="col2"
-                                                    v-bind:variable="weight"
+                                                    v-model="weight"
                                                     unit="lbf" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.weight"></textbox>
 
                                                     <textbox variableName="Grade" :col1="col1" :col2="col2"
-                                                    v-bind:variable="grade"
+                                                    v-model="grade"
                                                     unit="" :hasUnit="false"
                                                     :toolTipDescription="pipeDescriptions.grade"></textbox>
 
                                                     <textbox variableName="Minimum Yield Strength" :col1="col1" :col2="col2"
-                                                    v-bind:variable="minimumYieldStrength"
+                                                    v-model="minimumYieldStrength"
                                                     unit="psi" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.minimumYieldStrength"></textbox>
 
                                                     <textbox variableName="Youngs Modulus" :col1="col1" :col2="col2"
-                                                    v-bind:variable="youngsModulus"
+                                                    v-model="youngsModulus"
                                                     unit="psi" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.youngsModulus"></textbox>
 
                                                     <textbox variableName="MakeUp Torque" :col1="col1" :col2="col2"
-                                                    v-bind:variable="makeUpTorque"
+                                                    v-model="makeUpTorque"
                                                     unit="kip" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.makeUpTorque"></textbox>
 
                                                     <textbox variableName="OverPull Margin" :col1="col1" :col2="col2"
-                                                    v-bind:variable="overPullMargin"
+                                                   v-model="overPullMargin"
                                                     unit="kip" :hasUnit="true"
                                                     :toolTipDescription="pipeDescriptions.overPullMargin"></textbox>
 
@@ -292,17 +292,17 @@
                                             >
                                                     
                                             <textbox variableName="Bit Size" :col1="col1" :col2="col2"
-                                            v-bind:variable="drillBit.bitSize"
+                                            v-model="drillBit.bitSize"
                                             unit="in" :hasUnit="true"
                                             :toolTipDescription="pipeDescriptions.bitSize"></textbox>
 
                                             <textbox variableName="Number of Nozzles" :col1="col1" :col2="col2"
-                                            v-bind:variable="drillBit.numberOfBitNozzles"
+                                            v-model="drillBit.numberOfBitNozzles"
                                             unit="" :hasUnit="false"
                                             :toolTipDescription="pipeDescriptions.numberOfBitNozzles"></textbox>
 
                                             <textbox variableName="Discharge Coefficient" :col1="col1" :col2="col2"
-                                            v-bind:variable="drillBit.dischargeCoefficient"
+                                            v-model="drillBit.dischargeCoefficient"
                                             unit="fraction" :hasUnit="true"
                                             :toolTipDescription="pipeDescriptions.dischargeCoefficient"></textbox>
 

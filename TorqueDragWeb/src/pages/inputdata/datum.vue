@@ -36,24 +36,30 @@
                       @click="ExpandExander2"
                   > -->
 
+                   <!--  <textbox2 v-model="typeOfShore" placeholder="Enter type of platform"/> -->
+
+                    <textbox variableName="Type of Shore" col1="4" col2="8"
+                    v-model="typeOfShore"
+                    unit="" :hasUnit="false" :toolTipDescription="datumDescriptions.typeOfShore"></textbox>
+
                     <textbox variableName="Datum Name" col1="4" col2="8"
-                    v-bind:variable="datumName"
+                     v-model="datumName"
                     unit="" :hasUnit="false" :toolTipDescription="datumDescriptions.datumName"></textbox>
 
                     <textbox variableName="Datum Elevation" col1="4" col2="8"
-                    v-bind:variable="datumElevation"
+                     v-model="datumElevation"
                     unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.datumElevation"></textbox>
 
                     <textbox variableName="Ground Elevation" col1="4" col2="8"
-                    v-bind:variable="groundElevation"
+                     v-model="groundElevation"
                     unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.groundElevation"></textbox>
 
                     <textbox variableName="WellHead Elevation" col1="4" col2="8"
-                    v-bind:variable="wellHeadElevation"
+                     v-model="wellHeadElevation"
                     unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.wellHeadElevation"></textbox>
 
                     <textbox variableName="Air Gap" col1="4" col2="8"
-                    v-bind:variable="airGap"
+                     v-model="airGap"
                     unit="ft" :hasUnit="true" :toolTipDescription="datumDescriptions.airGap"></textbox>
 
                     <div class="row">
@@ -134,32 +140,32 @@
             :toolTipDescription="datumDescriptions.datumName"></comboBox>
 
             <textbox variableName="Shore" col1="4" col2="8"
-            v-bind:variable="selectedDatum.typeOfShore"
+            v-model="selectedDatum.typeOfShore"
             unit="" :hasUnit="false" disabled
-            :toolTipDescription="datumDescriptions.datumName"></textbox>
+            :toolTipDescription="datumDescriptions.typeOfShore"></textbox>
 
             <textbox variableName="Datum Name" col1="4" col2="8"
-            v-bind:variable="selectedDatum.datumName"
+            v-model="selectedDatum.datumName"
             unit="" :hasUnit="false" disabled
             :toolTipDescription="datumDescriptions.datumName"></textbox>
 
             <textbox variableName="Datum Elevation" col1="4" col2="8"
-            v-bind:variable="selectedDatum.datumElevation"
+            v-model="selectedDatum.datumElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.datumElevation"></textbox>
 
             <textbox variableName="Ground Elevation" col1="4" col2="8"
-            v-bind:variable="selectedDatum.groundElevation"
+            v-model="selectedDatum.groundElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.groundElevation"></textbox>
 
             <textbox variableName="WellHead Elevation" col1="4" col2="8"
-            v-bind:variable="selectedDatum.wellHeadElevation"
+            v-model="selectedDatum.wellHeadElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.wellHeadElevation"></textbox>
 
             <textbox variableName="Air Gap" col1="4" col2="8"
-            v-bind:variable="selectedDatum.airGap"
+            v-model="selectedDatum.airGap"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.airGap"></textbox>
       
@@ -178,6 +184,7 @@
 
 <script>
 import textbox from "components/controls/textbox.vue"
+import textbox2 from "components/controls/textbox2.vue"
 import comboBox from "components/controls/comboBox.vue"
 export default {
   computed: {
@@ -199,7 +206,8 @@ export default {
   },
   components:{
     textbox,
-    comboBox
+    comboBox,
+    textbox2
   },
   data () {
     return {
@@ -262,21 +270,20 @@ export default {
             showLoader: true,
             showImportView: false
           });
-      this.$store.dispatch('datumStore/PostDatum', {
-            datum: {
+        const request = {
               typeOfShore: context.typeOfShore,
               datumElevation: parseFloat(context.datumElevation),
               groundElevation: parseFloat(context.groundElevation),
               airGap: parseFloat(context.airGap),
               wellHeadElevation: parseFloat(context.wellHeadElevation),
               datumName: context.datumName,
+              companyName,
               designId: selectedTorqueDragDesign.id,
               userId: IdentityModel._id
-            },
-            companyName,
-            designId: selectedTorqueDragDesign.id,
-            userId: IdentityModel._id
-          });
+          }
+
+          console.log('request: ', request);
+      this.$store.dispatch('datumStore/PostDatum', request);
 
           context.expanded = false;
           context.expanded2 = true

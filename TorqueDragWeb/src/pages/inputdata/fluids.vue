@@ -14,32 +14,32 @@
                         @click="ExpandExander2"
                     >
                         <textbox variableName="Temperature" :col1="col1" :col2="col2"
-                        v-bind:variable="temperature"
+                        v-model="temperature"
                         unit="deg F" :hasUnit="true"  
                         :toolTipDescription="fluidDescription.temperature"></textbox>
 
                         <textbox variableName="Pressure" :col1="col1" :col2="col2"
-                        v-bind:variable="pressure"
+                        v-model="pressure"
                         unit="psi" :hasUnit="true"
                         :toolTipDescription="fluidDescription.pressure"></textbox>
 
                         <textbox variableName="Density" :col1="col1" :col2="col2"
-                        v-bind:variable="density"
+                        v-model="density"
                         unit="lb/ft3" :hasUnit="true"
                         :toolTipDescription="fluidDescription.density"></textbox>
 
                         <textbox variableName="Plastic Viscoity" :col1="col1" :col2="col2"
-                        v-bind:variable="plasticViscoity"
+                        v-model="plasticViscoity"
                         unit="cp" :hasUnit="true"
                         :toolTipDescription="fluidDescription.plasticViscoity"></textbox>
 
                         <textbox variableName="Yield Point" :col1="col1" :col2="col2"
-                        v-bind:variable="yieldPoint"
+                        v-model="yieldPoint"
                         unit="lbf/100ft2" :hasUnit="true"
                         :toolTipDescription="fluidDescription.yieldPoint"></textbox>
 
                         <textbox variableName="Reference" :col1="col1" :col2="col2"
-                        v-bind:variable="reference"
+                        v-model="reference"
                         unit="" :hasUnit="false"
                         :toolTipDescription="fluidDescription.Reference"></textbox>
 

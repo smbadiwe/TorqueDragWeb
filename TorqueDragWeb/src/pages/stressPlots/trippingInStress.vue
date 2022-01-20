@@ -294,10 +294,10 @@ export default {
 				isReversed: true
 			}
 
-			this.$store.commit('simulationStore/setCustomColumns', tableData);
+			/* this.$store.commit('simulationStore/setCustomColumns', tableData);
 			this.$store.commit('simulationStore/setCustomTable', tableData);
 			this.$store.commit('simulationStore/setExcelFileName', tableData);
-			this.$store.commit('simulationStore/setTableTitle', tableData);
+			this.$store.commit('simulationStore/setTableTitle', tableData); */
 
 			var layout = { 
 				showlegend: true,

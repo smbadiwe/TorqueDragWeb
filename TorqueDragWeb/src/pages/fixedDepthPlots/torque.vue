@@ -74,6 +74,7 @@ export default {
 			var context = this;
 			var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
 			var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
+			
 			var j = 0;
 			var length;
 			var M = 1000.0;
@@ -109,7 +110,7 @@ export default {
 			for(j = 0; j < simulationResultsDTOsCount; j++){
 
 				var simulationResultsDTO = simulationResultsDTOs[j];
-
+				console.log('simulationResultsDTO: ', simulationResultsDTO);
 				var trippingInResults =  simulationResultsDTO.trippingInResults;
 				var trippingOutResults =  simulationResultsDTO.trippingOutResults;
 				var drillingResults =  simulationResultsDTO.drillingResults;
@@ -197,6 +198,7 @@ export default {
 			}
 
 				length = trippingInResults.length;
+				console.log('trippingInResults.length: ', length);
 				
 				
 				for(i = 0; i < length; i++){
@@ -218,6 +220,7 @@ export default {
 				
 
 				length = trippingOutResults.length;
+				console.log('trippingOutResults.length: ', length);
 				for(i = 0; i < length; i++){
 					var md = trippingOutResults[i].bottomMeasuredDepth;
 
@@ -234,6 +237,7 @@ export default {
 				}
 
 				length = drillingResults.length;
+				console.log('drillingResults.length: ', length);
 				for(i = 0; i < length; i++){
 					var md = drillingResults[i].bottomMeasuredDepth;
 
@@ -251,6 +255,7 @@ export default {
 
 				
 				length = rotatingOffBottomResults.length;
+				console.log('rotatingOffBottomResults.length: ', length);
 				for(i = 0; i < length; i++){
 					var md = rotatingOffBottomResults[i].bottomMeasuredDepth;
 
@@ -267,6 +272,7 @@ export default {
 				}
 
 				length = slideDrillingResults.length;
+				console.log('slideDrillingResults.length: ', length);
 				for(i = 0; i < length; i++){
 					var md = slideDrillingResults[i].bottomMeasuredDepth;
 
@@ -283,6 +289,7 @@ export default {
 				}
 
 				length = backReamingResults.length;
+				console.log('backReamingResults.length: ', length);
 				for(i = 0; i < length; i++){
 					var md = backReamingResults[i].bottomMeasuredDepth;
 
@@ -316,10 +323,10 @@ export default {
 				isReversed: true
 			}
 
-			this.$store.commit('simulationStore/setCustomColumns', tableData);
+			/* this.$store.commit('simulationStore/setCustomColumns', tableData);
 			this.$store.commit('simulationStore/setCustomTable', tableData);
 			this.$store.commit('simulationStore/setExcelFileName', tableData);
-			this.$store.commit('simulationStore/setTableTitle', tableData);
+			this.$store.commit('simulationStore/setTableTitle', tableData); */
 
 			
 			var layout = { 

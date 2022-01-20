@@ -47,12 +47,12 @@
                                                     expand-separator
                                                 >
                                                     <textbox variableName="Speed" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.trippingInSpeed"
+                                                    v-model="operation.trippingInSpeed"
                                                     unit="ft/min" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.trippingInSpeed"></textbox>
 
                                                     <textbox variableName="RPM" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.trippingInRPM"
+                                                    v-model="operation.trippingInRPM"
                                                     unit="rpm" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.trippingInRPM"></textbox>
                                                 </q-expansion-item>
@@ -77,12 +77,12 @@
                                             >
 
                                              <textbox variableName="Speed" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.trippingOutSpeed"
+                                                    v-model="operation.trippingOutSpeed"
                                                     unit="ft/min" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.trippingOutSpeed"></textbox>
 
                                             <textbox variableName="RPM" :col1="col1" :col2="col2"
-                                            v-bind:variable="operation.trippingOutRPM"
+                                            v-model="operation.trippingOutRPM"
                                             unit="rpm" :hasUnit="true"
                                             :toolTipDescription="operationDescriptions.trippingOutRPM"></textbox>
 
@@ -107,12 +107,12 @@
                                                 >
 
                                                 <textbox variableName="WOB" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.weightOnBit"
+                                                    v-model="operation.weightOnBit"
                                                     unit="kip" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.weightOnBit"></textbox>
 
                                                 <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
-                                                v-bind:variable="operation.torqueAtBitDrillingOperation"
+                                                v-model="operation.torqueAtBitDrillingOperation"
                                                 unit="ft-lbf" :hasUnit="true"
                                                 :toolTipDescription="operationDescriptions.torqueAtBitDrillingOperation"></textbox>
 
@@ -137,12 +137,12 @@
                                             >
 
                                                 <textbox variableName="WOB" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.weightOnBitIDHM"
+                                                    v-model="operation.weightOnBitIDHM"
                                                     unit="kip" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.weightOnBitIDHM"></textbox>
 
                                                 <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
-                                                v-bind:variable="operation.torqueAtBit"
+                                                v-model="operation.torqueAtBit"
                                                 unit="ft-lbf" :hasUnit="true"
                                                 :toolTipDescription="operationDescriptions.torqueAtBit"></textbox>
 
@@ -166,12 +166,12 @@
                                                 expand-separator
                                             >
                                                 <textbox variableName="Overpull" :col1="col1" :col2="col2"
-                                                    v-bind:variable="operation.overpullBackReaming"
+                                                    v-model="operation.overpullBackReaming"
                                                     unit="kip" :hasUnit="true"
                                                     :toolTipDescription="operationDescriptions.overpullBackReaming"></textbox>
 
                                                 <textbox variableName="Torque at bit" :col1="col1" :col2="col2"
-                                                v-bind:variable="operation.torqueAtBitBackReaming"
+                                                v-model="operation.torqueAtBitBackReaming"
                                                 unit="ft-lbf" :hasUnit="true"
                                                 :toolTipDescription="operationDescriptions.torqueAtBitBackReaming"></textbox>
 

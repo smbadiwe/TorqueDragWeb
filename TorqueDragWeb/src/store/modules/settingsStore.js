@@ -115,6 +115,20 @@ const mutations = {
     },
     GetTabCaptionRight(state, payload){
       state.tabCaptionRight = payload;
+    },
+    clearAnalysisSettings(state){
+      state.common = {
+        activeFluid: "",
+        startMeasuredDepth: null,
+        endMeasuredDepth: null,
+        stepSize: null,
+        seaWaterDensity: null,
+        courseLength: null,
+        youngsModulus: null,
+        blockWeight: null,
+        percentOfYield: null,
+        bucklingLimitFactor: 1.0
+      }
     }
 
 }
@@ -169,8 +183,6 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       var newPayload = {
-        companyName: payload.companyName,
-        designId: payload.designId,
         activeFluid: context.activeFluid,
         startMeasuredDepth : parseFloat(context.state.common.startMeasuredDepth),
         endMeasuredDepth : parseFloat(context.state.common.endMeasuredDepth),
@@ -184,8 +196,8 @@ const actions = {
         designId: payload.designId,
         userId: payload.userId
     }
-      console.log("context.state.common:", context.state.common)
-       $http.post('Commons/PostCommon', payload, config)
+      console.log("context.state.common:", newPayload)
+       $http.post('Commons/PostCommon', newPayload, config)
         .then(response => {
             
           context.commit('PostCommon', response.data)  
@@ -210,8 +222,11 @@ const actions = {
           reject(error)
         })
     })
+  },
+  clearAnalysisSettings(context, payload)
+  {
+    context.commit('clearAnalysisSettings');
   }
-
 
 }
 

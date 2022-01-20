@@ -3,7 +3,9 @@
         <div v-if="hasUnit" :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }} ({{ unit }})</div>
         <div v-else :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }}</div>
         <div :class="'col-'+ col2 + ' q-pa-sm text-accent'" v-if="setBorder()">
-            <input class="text-center bg-positive text-accent" v-model="variable" 
+            <input class="text-center bg-positive text-accent" 
+            :value="variable"
+             @input="$emit('input',$event.target.value)"
             style="border: 1px solid transparent;">
         </div>
         <div
@@ -11,7 +13,9 @@
             <q-tooltip>
                 {{ toolTipDescription }}
             </q-tooltip>
-            <input class="text-center bg-positive text-accent" v-model="variable" 
+            <input class="text-center bg-positive text-accent" 
+            :value="variable"
+            @input="$emit('input',$event.target.value)" 
             style="border: 1px solid red;">
         </div>
     </div>
@@ -36,6 +40,7 @@ export default {
         default: "4"
     },
     variable: {
+        type: String,
         default: ""
     },
     variableName: {

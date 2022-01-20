@@ -368,6 +368,21 @@ const actions = {
           designId: payload.designId,
           userId: payload.userId
       }
+      
+        context.dispatch('simulationStore/ClearSimulationStore', {}, {root:true})
+        context.dispatch('datumStore/ClearDatums', {}, {root:true});
+        context.dispatch('wellPathStore/ClearDeviationSurveys', {}, {root:true});
+        context.dispatch('holeStore/ClearHoleSections', {}, {root:true});
+        context.dispatch('tubingStringStore/ClearPipes', {}, {root:true});
+        context.dispatch('tubingStringStore/ClearDrillBit', {}, {root:true});
+        context.dispatch('rigStore/ClearRig', {}, {root:true});
+        context.dispatch('operationsStore/ClearOperation', {}, {root:true});
+        context.dispatch('fluidsStore/ClearFluid', {}, {root:true});
+        context.dispatch('fluidsStore/ClearMudPVTs', {}, {root:true});
+        context.dispatch('settingsStore/clearAnalysisSettings', {}, {root:true});
+        
+      
+        
         context.dispatch('datumStore/GetDatums', payload2, {root:true});
         context.dispatch('wellPathStore/GetDeviationSurveys', payload2, {root:true});
         context.dispatch('holeStore/GetHoleSections', payload2, {root:true});

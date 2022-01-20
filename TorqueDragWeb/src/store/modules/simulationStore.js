@@ -489,7 +489,7 @@ const mutations = {
 
     },
     RunSensitivities(state, payload){
-      //console.log("Sensitivities", payload);
+      console.log("Sensitivities", payload);
       state.sensitivityResultsDTO = payload;
     },
     RunSimulation(state, payload){
@@ -532,6 +532,28 @@ const mutations = {
   },
   DrawTubingSegmentLabel(state, payload){
     state.tubingSegmentLabels = payload;
+  },
+  ClearSimulationStore(state){
+    state.segmentPipeList = [];
+    state.holeSegmentLabels = [];
+    state.tubingSegmentLabels = [];
+    state.schematicDTO = {};
+    state.xMax = 0;
+    state.yMax = 0;
+    state.surgeSwabSensitivityDTO = {};
+    state.rigDTOSurgeSwab = {};
+    state.hydraulicSensitivityDTO = {};
+    state.rigDTO = {};
+    state.rotatingOffBottomResults = [];
+    state.hydraulicsResults = [];
+    state.surgeSwabResults = [];
+    state.trippingInResults = [];
+    state.trippingOutResults = [];
+    state.drillingResults = [];
+    state.slideDrillingResults = [];
+    state.backReamingResults = [];
+    state.customTable= [];
+    state.customColumns = [];
   }
 
 }
@@ -808,6 +830,7 @@ RunSimulation(context, payload)
     })
   }
   },
+  
 DrawSchematic(context, payload)
 {
   let config = {
@@ -821,7 +844,7 @@ DrawSchematic(context, payload)
        $http.post('Commons/DrawSchematic', payload.allInputsDTO, config)
         .then(response => {
 
-        //console.log("response: ", response)
+        console.log("response: ", response)
 
           context.commit('DrawSchematic', response.data)
           context.commit('dataImportStore/SetLoaderParameters', {
@@ -945,6 +968,9 @@ DrawPipeBuckledSections(context, payload)
             reject(error)
           })
       })
+    },
+    ClearSimulationStore(context, payload){
+      context.commit('ClearSimulationStore');
     }
 
 }

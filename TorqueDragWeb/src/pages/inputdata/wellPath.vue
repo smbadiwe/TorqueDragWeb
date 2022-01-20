@@ -128,7 +128,7 @@
                         </q-tooltip>
                     </q-btn>
 
-                   <!--  <q-btn 
+                    <q-btn 
                         class="q-pa-none"
                         icon="save"
                         size="sm"
@@ -136,7 +136,7 @@
                         <q-tooltip>
                             Save Survey Table
                         </q-tooltip>
-                    </q-btn> -->
+                    </q-btn>
 
                     <q-dialog v-model="isImportDialogVisible" class="bg-secondary">
                         <div class="q-pa-sm bg-secondary">

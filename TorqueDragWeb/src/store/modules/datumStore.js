@@ -73,6 +73,9 @@ const mutations = {
         break;
       }
     } 
+  },
+  ClearDatums(state){
+    state.datums = [];
   }
 
 }
@@ -163,6 +166,9 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearDatums(context, payload){
+    context.commit('ClearDatums');
   }
 
 }

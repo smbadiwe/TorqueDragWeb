@@ -13,15 +13,6 @@
           aria-label="Settings"
           @click="setIsSetting"
           />
-
-          <q-btn
-          flat
-          dense
-          round
-          icon="settings"
-          aria-label="Settings"
-          @click="setIsSetting"
-        />
         <q-btn
           flat
           dense

@@ -45,6 +45,9 @@ const mutations = {
   SaveHoleSectionTable(state, payload){
     state.holeSections.push(payload);
     console.log("holeSections: ", state.holeSections)
+  },
+  ClearHoleSections(state){
+    state.holeSections = [];
   }
 
 }
@@ -155,6 +158,9 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearHoleSections(context, payload){
+    context.commit('ClearHoleSections');
   }
 
 

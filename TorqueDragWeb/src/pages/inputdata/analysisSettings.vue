@@ -43,17 +43,21 @@
                                         <hr/>
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Start MD (ft):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.startMeasuredDepth"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Start MD" :col1="col1" :col2="col2"
+                                    v-model="common.startMeasuredDepth"
+                                    unit="ft" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
-                                    <div class="col-3 q-pa-sm">End MD (ft)</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.endMeasuredDepth"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="End MD" :col1="col1" :col2="col2"
+                                    v-model="common.endMeasuredDepth"
+                                    unit="ft" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
-                                    <div class="col-3 q-pa-sm">Step size (ft):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.stepSize"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Step size" :col1="col1" :col2="col2"
+                                    v-model="common.stepSize"
+                                    unit="ft" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
+
 
                                     <div class="col-12 q-pa-sm text-left"> 
                                         <q-btn 
@@ -68,13 +72,15 @@
                                         <hr/>
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Sea water density (lb/ft3):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.seaWaterDensity"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Sea water density" :col1="col1" :col2="col2"
+                                    v-model="common.seaWaterDensity"
+                                    unit="lb/ft3" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
-                                    <div class="col-3 q-pa-sm">Young Modulus (Mlbin4):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.youngsModulus"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Young Modulus" :col1="col1" :col2="col2"
+                                    v-model="common.youngsModulus"
+                                    unit="Mlbin4" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
                                 </div>
 
@@ -99,22 +105,25 @@
                                         Hook Load/Weight-Indicator Correction
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Block weight (kip):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.blockWeight"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Block weight" :col1="col1" :col2="col2"
+                                    v-model="common.blockWeight"
+                                    unit="kip" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
                                     <div class="col-12 q-pa-sm text-left">
                                         <input type="checkbox" id="checkbox" v-model="checked">
                                         <label for="checkbox"> Use sheave friction factor </label>
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Lines shung:</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="message"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Lines shung" :col1="col1" :col2="col2"
+                                    v-model="message"
+                                    unit="" :hasUnit="false"
+                                    toolTipDescription=""></textbox>
 
-                                    <div class="col-3 q-pa-sm">Mechanical Efficiency (%):</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="message"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Mechanical Efficiency" :col1="col1" :col2="col2"
+                                    v-model="message"
+                                    unit="%" :hasUnit="true"
+                                    toolTipDescription=""></textbox>
 
                                     <div class="col-12 q-pa-sm">
                                         Analytical Method
@@ -143,9 +152,10 @@
                                         <label for="checkbox"> Use viscous torque and drag</label>
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Buckling limit factor:</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.bucklingLimitFactor"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Buckling limit factor" :col1="col1" :col2="col2"
+                                    v-model="common.bucklingLimitFactor"
+                                    unit="" :hasUnit="false"
+                                    toolTipDescription=""></textbox>
 
                                     <div class="col-12 q-pa-sm">
                                         Minimun Overpull
@@ -153,9 +163,10 @@
                                         <hr/>
                                     </div>
 
-                                    <div class="col-3 q-pa-sm">Use % of yield:</div>
-                                    <div class="col-6 q-pa-sm"><input class="text-center bg-positive text-accent" v-model="common.percentOfYield"></div>
-                                    <div class="col-3 q-pa-sm"></div>
+                                    <textbox variableName="Use % of yield" :col1="col1" :col2="col2"
+                                    v-model="common.percentOfYield"
+                                    unit="" :hasUnit="false"
+                                    toolTipDescription=""></textbox>
 
                                     <div class="col-12 q-pa-sm">
                                         Fluid Column
@@ -196,6 +207,8 @@ export default {
   },
   data () {
     return {
+        col1: "4",
+        col2: "8",
         visible: true,
         expandedAnalysisSettings: true,
         expandedTorqueAndDrag: false,
@@ -240,7 +253,7 @@ export default {
       },
       PostCommon(){
             var context =  this;
-            var Conn = this.$store.getters['authStore/companyName'];
+            var companyName = this.$store.getters['authStore/companyName'];
             var selectedTorqueDragDesign = this.$store.getters['wellDesignStore/SelectedTorqueDragDesign']
             var IdentityModel = this.$store.getters['authStore/IdentityModel']
             this.$store.commit('dataImportStore/SetLoaderParameters', {
@@ -248,12 +261,12 @@ export default {
                 showImportView: false
             });
 
-            this.$store.dispatch('settingsStore/PostCommon', {
-                companyName: Conn,
-                designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel._id,
-                common: {}
-            });
+            const payload = {};
+            payload.designId = selectedTorqueDragDesign.id;
+            payload.companyName = companyName;
+            payload.userId = IdentityModel._id;
+
+            this.$store.dispatch('settingsStore/PostCommon', payload);
 
                 
         }

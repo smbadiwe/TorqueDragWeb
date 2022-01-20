@@ -15,7 +15,6 @@
                 <q-input class="q-pa-sm" outlined v-model="password" label="Password" type="password" />
                 <div class="text-right q-pa-sm">
                 <q-btn color="primary" label="Login" @click="login" />
-                <q-btn color="primary" label="Current User" @click="getCurrentUser" />
                 </div>
         </div>
     </div>

@@ -123,6 +123,9 @@ const mutations = {
       }
     }
     //console.log("deviationSurveys: ", state.deviationSurveys)
+  },
+  ClearDeviationSurveys(state){
+    state.deviationSurveys = [];
   }
 }
 
@@ -400,6 +403,9 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearDeviationSurveys(context, payload){
+    context.commit('ClearDeviationSurveys');
   }
 
 

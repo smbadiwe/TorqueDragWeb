@@ -321,7 +321,7 @@ export default {
             this.$store.dispatch('simulationStore/DrawSchematic', {
                 companyName: Conn,
                 designId: selectedTorqueDragDesign.id,
-                userId: IdentityModel.id,
+                userId: IdentityModel._id,
                 allInputsDTO
             });
 
@@ -437,7 +437,7 @@ export default {
                         xListHole2:  context.schematicDTO.holeSegments[0].xListHole2,
                         yListHole2:  context.schematicDTO.holeSegments[0].yListHole2,
                         pipeMDs: context.schematicDTO.holeSegments[0].pipeMDs,
-                        userId: IdentityModel.id
+                        userId: IdentityModel._id
                         }
                     }
                 );

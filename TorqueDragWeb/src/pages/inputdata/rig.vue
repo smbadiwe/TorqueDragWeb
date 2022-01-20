@@ -41,47 +41,47 @@
                         clickable>
 
                 <textbox variableName="Surface System Constant" :col1="col1" :col2="col2"
-                v-bind:variable="rig.surfaceSystemConstant"
+                v-model="rig.surfaceSystemConstant"
                 unit="" :hasUnit="false"
                 :toolTipDescription="rigDescriptions.surfaceSystemConstant"></textbox>
 
                 <textbox variableName="Minimum Pump Flow Rate" :col1="col1" :col2="col2"
-                v-bind:variable="rig.minimumFlowRate"
+                v-model="rig.minimumFlowRate"
                 unit="gpm" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.minimumFlowRate"></textbox>
 
                 <textbox variableName="Maximum Horse Power" :col1="col1" :col2="col2"
-                v-bind:variable="rig.maxHorsePower"
+                v-model="rig.maxHorsePower"
                 unit="hp" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.maxHorsePower"></textbox>
 
                 <textbox variableName="Maximum Surface Pressure" :col1="col1" :col2="col2"
-                v-bind:variable="rig.maxAllowableSurfacePressure"
+                v-model="rig.maxAllowableSurfacePressure"
                 unit="psi" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.maxAllowableSurfacePressure"></textbox>
 
                 <textbox variableName="High Pump Pressure" :col1="col1" :col2="col2"
-                v-bind:variable="rig.highPumpPressure"
+                v-model="rig.highPumpPressure"
                 unit="psi" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.highPumpPressure"></textbox>
 
                 <textbox variableName="Flow Rate High Pump Pressure" :col1="col1" :col2="col2"
-                v-bind:variable="rig.flowRateHighPumpPressure"
+                v-model="rig.flowRateHighPumpPressure"
                 unit="gpm" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.flowRateHighPumpPressure"></textbox>
 
                 <textbox variableName="Low Pump Pressure" :col1="col1" :col2="col2"
-                v-bind:variable="rig.lowPumpPressure"
+                v-model="rig.lowPumpPressure"
                 unit="psi" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.lowPumpPressure"></textbox>
 
                 <textbox variableName="Flow Rate Low Pump Pressure" :col1="col1" :col2="col2"
-                v-bind:variable="rig.flowRateLowPumpPressure"
+                v-model="rig.flowRateLowPumpPressure"
                 unit="gpm" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.flowRateLowPumpPressure"></textbox>
 
                 <textbox variableName="Pump Efficiency" :col1="col1" :col2="col2"
-                v-bind:variable="rig.pumpEfficiency"
+                v-model="rig.pumpEfficiency"
                 unit="fraction" :hasUnit="true"
                 :toolTipDescription="rigDescriptions.pumpEfficiency"></textbox>
 
@@ -95,15 +95,15 @@
                     clickable>
 
                     <textbox variableName="Bit Nozzle Area" :col1="col1" :col2="col2"
-                    v-bind:variable="bitLosses.nozzleArea"
+                    v-model="bitLosses.nozzleArea"
                     unit="ft2" :hasUnit="true" disabled></textbox>
 
                     <textbox variableName="Low Pressure Loss" :col1="col1" :col2="col2"
-                    v-bind:variable="bitLosses.lowPressureDropThroughBit"
+                    v-model="bitLosses.lowPressureDropThroughBit"
                     unit="psi" :hasUnit="true" disabled></textbox>
 
                     <textbox variableName="High Pressure Loss" :col1="col1" :col2="col2"
-                    v-bind:variable="bitLosses.highPressureDropThroughBit"
+                    v-model="bitLosses.highPressureDropThroughBit"
                     unit="psi" :hasUnit="true" disabled></textbox>
 
                     <div class="row">

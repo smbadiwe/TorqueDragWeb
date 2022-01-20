@@ -9,36 +9,36 @@
                 <div class="col-12">
 
                     <textbox variableName="Name" :col1="col1" :col2="col2"
-                    v-bind:variable="typeOfHole"
+                    v-model="typeOfHole"
                     unit="" :hasUnit="false" disabled></textbox>
 
                     <textbox variableName="Outer Diameter" :col1="col1" :col2="col2"
-                    v-bind:variable="outerDiameter"
+                    v-model="outerDiameter"
                     unit="in" :hasUnit="true"
                     :toolTipDescription="holeSectionDescriptions.outerDiameter"></textbox>
 
                     <textbox variableName="Inner Diameter" :col1="col1" :col2="col2"
-                    v-bind:variable="innerDiameter"
+                    v-model="innerDiameter"
                     unit="in" :hasUnit="true"
                     :toolTipDescription="holeSectionDescriptions.innerDiameter"></textbox>
 
                     <textbox variableName="Weight" :col1="col1" :col2="col2"
-                    v-bind:variable="weight"
+                    v-model="weight"
                     unit="lbf" :hasUnit="true"
                     :toolTipDescription="holeSectionDescriptions.weight"></textbox>
 
                     <textbox variableName="Top MD" :col1="col1" :col2="col2"
-                    v-bind:variable="top"
+                    v-model="top"
                     unit="ft" :hasUnit="true"
                     :toolTipDescription="holeSectionDescriptions.top"></textbox>
 
                     <textbox variableName="Bottom MD" :col1="col1" :col2="col2"
-                    v-bind:variable="bottom"
+                    v-model="bottom"
                     unit="ft" :hasUnit="true"
                     :toolTipDescription="holeSectionDescriptions.bottom"></textbox>
 
                     <textbox variableName="Friction Factor" :col1="col1" :col2="col2"
-                    v-bind:variable="frictionFactor"
+                    v-model="frictionFactor"
                     unit="" :hasUnit="false"
                     :toolTipDescription="holeSectionDescriptions.frictionFactor"></textbox>
 

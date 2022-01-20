@@ -61,6 +61,20 @@ const mutations = {
     }
     
   },
+  ClearRig(state){
+    state.rig = {
+      highPumpPressure: null,
+      lowPumpPressure: null,
+      flowRateHighPumpPressure: null,
+      flowRateLowPumpPressure: null,
+      flowExponent: 1.75,
+      pumpEfficiency: null,
+      maxAllowableSurfacePressure: null,
+      maxHorsePower: null,
+      minimumFlowRate: null,
+      surfaceSystemConstant: null
+    };
+  }
 }
 
 const actions = {
@@ -301,6 +315,9 @@ const actions = {
             reject(error)
           })
       })
+    },
+    ClearRig(context, payload){
+      context.commit('ClearRig');
     }
 
 }

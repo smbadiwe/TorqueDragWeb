@@ -70,6 +70,16 @@ const mutations = {
   SaveTubingStringTable(state, payload){
     state.pipes.push(payload);
     console.log("pipes: ", state.pipes)
+  },
+  ClearPipes(state){
+    state.pipes = [];
+  },
+  ClearDrillBit(state){
+    state.drillBit = {
+      bitSize: 0,
+      numberOfBitNozzles: 0,
+      dischargeCoefficient: 0
+    }
   }
 
 }
@@ -283,6 +293,12 @@ const actions = {
           reject(error)
         })
     })
+  },
+  ClearPipes(context, payload){
+    context.commit('ClearPipes');
+  },
+  ClearDrillBit(context, payload){
+    context.commit('ClearDrillBit');
   }
 
 
