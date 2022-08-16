@@ -59,7 +59,9 @@ const actions = {
       showLoader: true,
       showImportView: false
     }, {root:true});
-    state.holeSections = [];
+
+    context.commit("ClearHoleSections");
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -126,8 +128,8 @@ const actions = {
       useCredentails: true
     }
 
-    state.holeSections = [];
-    state.holeSections = payload.holeSections;
+
+    context.commit('GetHoleSections', payload.holeSections)  
 
     return new Promise((resolve, reject) => {
   

@@ -32,7 +32,6 @@ const state = {
     sensitivityColumns: [
         { name: "sensitivity1", label: "Sensitivity 1", field: "", align: "left" }
     ],
-    noOfSensitivities: 2,
     sensitivity: {
       name: "Sensitivity 1",
       typesOfHole: [ 
@@ -86,9 +85,6 @@ const state = {
     isTDSensitivity: false,
     SensitivityDialog: false,
     incremetVisibility: false,
-    isThreeVisible: false,
-    isFourVisible: false,
-    isFiveVisible: false,
     sensitivityResultsDTO: {},
     hydraulicSensitivityDTO: {},
     surgeSwabSensitivityDTO: {},
@@ -96,22 +92,26 @@ const state = {
     rigDTO: {},
     rigDTOSurgeSwab: {},
     sensitivityParameters:{
-        trippingIn_1: null,
-        trippingIn_2: null,
-        trippingIn_3: null,
-        trippingIn_4: null,
-        trippingIn_5: null,
-        trippingIn_6: null,
+      noOfSensitivities: 3,
+      isThreeVisible: true,
+      isFourVisible: false,
+      isFiveVisible: false,
+        trippingIn_1: 0.15,
+        trippingIn_2: 0.2,
+        trippingIn_3: 0.2,
+        trippingIn_4: 0.25,
+        trippingIn_5: 0.25,
+        trippingIn_6: 0.3,
         trippingIn_7: null,
         trippingIn_8: null,
         trippingIn_9: null,
         trippingIn_10: null,
-        trippingOut_1: null,
-        trippingOut_2: null,
-        trippingOut_3: null,
-        trippingOut_4: null,
-        trippingOut_5: null,
-        trippingOut_6: null,
+        trippingOut_1: 0.15,
+        trippingOut_2: 0.2,
+        trippingOut_3: 0.2,
+        trippingOut_4: 0.25,
+        trippingOut_5: 0.25,
+        trippingOut_6: 0.3,
         trippingOut_7: null,
         trippingOut_8: null,
         trippingOut_9: null,
@@ -205,23 +205,11 @@ const state = {
     sensitivityResultsDTO(state){
       return state.sensitivityResultsDTO;
     },
-    isFiveVisible(state){
-      return state.isFiveVisible;
-    },
-    isFourVisible(state){
-      return state.isFourVisible;
-    },
-    isThreeVisible(state){
-      return state.isThreeVisible;
-    },
     incremetVisibility(state){
       return state.incremetVisibility;
     },
     SensitivityDialog(state){
       return state.SensitivityDialog;
-    },
-    noOfSensitivities(state){
-      return state.noOfSensitivities;
     },
     sensitivityColumns(state){
       return state.sensitivityColumns;
@@ -420,69 +408,69 @@ const mutations = {
     addSensitivity(state) {
 
         
-    if(state.noOfSensitivities  < 5){
-      state.noOfSensitivities++;
-
-      switch(state.noOfSensitivities){
+    if(state.sensitivityParameters.noOfSensitivities  < 5){
+      state.sensitivityParameters.noOfSensitivities++;
+      
+      switch(state.sensitivityParameters.noOfSensitivities){
         case 2:
-          state.isThreeVisible = false;
-          state.isFourVisible = false;
-          state.isFiveVisible = false;
+          state.sensitivityParameters.isThreeVisible = false;
+          state.sensitivityParameters.isFourVisible = false;
+          state.sensitivityParameters.isFiveVisible = false;
           break;
         case 3:
-          state.isThreeVisible = true;
-          state.isFourVisible = false;
-          state.isFiveVisible = false;
+          state.sensitivityParameters.isThreeVisible = true;
+          state.sensitivityParameters.isFourVisible = false;
+          state.sensitivityParameters.isFiveVisible = false;
           break;
         case 4:
-          state.isThreeVisible = true;
-          state.isFourVisible = true;
-          state.isFiveVisible = false;
+          state.sensitivityParameters.isThreeVisible = true;
+          state.sensitivityParameters.isFourVisible = true;
+          state.sensitivityParameters.isFiveVisible = false;
           break;
         case 5:
-          state.isThreeVisible = true;
-          state.isFourVisible = true;
-          state.isFiveVisible = true;
+          state.sensitivityParameters.isThreeVisible = true;
+          state.sensitivityParameters.isFourVisible = true;
+          state.sensitivityParameters.isFiveVisible = true;
           break
       }
 
       state.sensitivityIndices = [];
       var i = 0;
-      for(i = 1; i <= state.noOfSensitivities; i++){
+      for(i = 1; i <= state.sensitivityParameters.noOfSensitivities; i++){
         state.sensitivityIndices.push(i);
       }
     }
         
     },
     removeSensitivity(state) {
-      if(state.noOfSensitivities > 2)
+      if(state.sensitivityParameters.noOfSensitivities > 2)
       {
-        state.noOfSensitivities--;
-        switch(state.noOfSensitivities){
+        state.sensitivityParameters.noOfSensitivities--;
+        switch(state.sensitivityParameters.noOfSensitivities){
           case 2:
-            state.isThreeVisible = false;
-            state.isFourVisible = false;
-            state.isFiveVisible = false;
+            state.sensitivityParameters.isThreeVisible = false;
+            state.sensitivityParameters.isFourVisible = false;
+            state.sensitivityParameters.isFiveVisible = false;
             break;
           case 3:
-            state.isThreeVisible = true;
-            state.isFourVisible = false;
-            state.isFiveVisible = false;
+            state.sensitivityParameters.isThreeVisible = true;
+            state.sensitivityParameters.isFourVisible = false;
+            state.sensitivityParameters.isFiveVisible = false;
             break;
           case 4:
-            state.isThreeVisible = true;
-            state.isFourVisible = true;
-            state.isFiveVisible = false;
+            state.sensitivityParameters.isThreeVisible = true;
+            state.sensitivityParameters.isFourVisible = true;
+            state.sensitivityParameters.isFiveVisible = false;
             break;
           case 5:
-            state.isThreeVisible = true;
-            state.isFourVisible = true;
-            state.isFiveVisible = true;
+            state.sensitivityParameters.isThreeVisible = true;
+            state.sensitivityParameters.isFourVisible = true;
+            state.sensitivityParameters.isFiveVisible = true;
             break
         }
         state.sensitivityIndices = [];
         var i = 0;
-        for(i = 1; i <= state.noOfSensitivities; i++){
+        for(i = 1; i <= state.sensitivityParameters.noOfSensitivities; i++){
           state.sensitivityIndices.push(i);
         }
       }  
@@ -554,6 +542,75 @@ const mutations = {
     state.backReamingResults = [];
     state.customTable= [];
     state.customColumns = [];
+    state.sensitivityParameters = {
+      noOfSensitivities: 3,
+      isThreeVisible: true,
+      isFourVisible: false,
+      isFiveVisible: false,
+      trippingIn_1: 0.15,
+      trippingIn_2: 0.2,
+      trippingIn_3: 0.2,
+      trippingIn_4: 0.25,
+      trippingIn_5: 0.25,
+      trippingIn_6: 0.3,
+      trippingIn_7: null,
+      trippingIn_8: null,
+      trippingIn_9: null,
+      trippingIn_10: null,
+      trippingOut_1: 0.15,
+      trippingOut_2: 0.2,
+      trippingOut_3: 0.2,
+      trippingOut_4: 0.25,
+      trippingOut_5: 0.25,
+      trippingOut_6: 0.3,
+      trippingOut_7: null,
+      trippingOut_8: null,
+      trippingOut_9: null,
+      trippingOut_10: null,
+        drilling_1: null,
+        drilling_2: null,
+        drilling_3: null,
+        drilling_4: null,
+        drilling_5: null,
+        drilling_6: null,
+        drilling_7: null,
+        drilling_8: null,
+        drilling_9: null,
+        drilling_10: null,
+        slideDrilling_1: null,
+        slideDrilling_2: null,
+        slideDrilling_3: null,
+        slideDrilling_4: null,
+        slideDrilling_5: null,
+        slideDrilling_6: null,
+        slideDrilling_7: null,
+        slideDrilling_8: null,
+        slideDrilling_9: null,
+        slideDrilling_10: null,
+        backReaming_1: null,
+        backReaming_2: null,
+        backReaming_3: null,
+        backReaming_4: null,
+        backReaming_5: null,
+        backReaming_6: null,
+        backReaming_7: null,
+        backReaming_8: null,
+        backReaming_9: null,
+        backReaming_10: null,
+        rotatingOffBottom_1: null,
+        rotatingOffBottom_2: null,
+        rotatingOffBottom_3: null,
+        rotatingOffBottom_4: null,
+        rotatingOffBottom_5: null,
+        rotatingOffBottom_6: null,
+        rotatingOffBottom_7: null,
+        rotatingOffBottom_8: null,
+        rotatingOffBottom_9: null,
+        rotatingOffBottom_10: null
+    };
+  },
+  GetSensitivityParameters(state, payload){
+    state.sensitivityParameters = payload;
   }
 
 }
@@ -590,7 +647,6 @@ const actions = {
           userId: payload.userId,
           designId: payload.designId,
           companyName: payload.companyName,
-          noOfSensitivities: context.state.noOfSensitivities,
           sensitivityParameters: context.state.sensitivityParameters,
           isTDSensitivity: context.state.isTDSensitivity,
           allInputsDTO: payload.allInputsDTO
@@ -971,7 +1027,168 @@ DrawPipeBuckledSections(context, payload)
     },
     ClearSimulationStore(context, payload){
       context.commit('ClearSimulationStore');
-    }
+    },
+    PostSensitivityParameters(context, payload)
+    {
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        },
+        //useCredentails: true
+      }
+
+      const newPayload = {
+        ...state.sensitivityParameters,
+        designId: payload.designId,
+        userId: payload.userId
+      }
+
+      newPayload.trippingIn_1 = parseFloat(newPayload.trippingIn_1);
+      newPayload.trippingIn_2 = parseFloat(newPayload.trippingIn_2);
+      newPayload.trippingIn_3 = parseFloat(newPayload.trippingIn_3);
+      newPayload.trippingIn_4 = parseFloat(newPayload.trippingIn_4);
+      newPayload.trippingIn_5 = parseFloat(newPayload.trippingIn_5);
+      newPayload.trippingIn_6 = parseFloat(newPayload.trippingIn_6);
+      newPayload.trippingIn_7 = parseFloat(newPayload.trippingIn_7);
+      newPayload.trippingIn_8 = parseFloat(newPayload.trippingIn_8);
+      newPayload.trippingIn_9 = parseFloat(newPayload.trippingIn_9);
+      newPayload.trippingIn_10 = parseFloat(newPayload.trippingIn_10);
+
+      newPayload.trippingOut_1 = parseFloat(newPayload.trippingOut_1);
+      newPayload.trippingOut_2 = parseFloat(newPayload.trippingOut_2);
+      newPayload.trippingOut_3 = parseFloat(newPayload.trippingOut_3);
+      newPayload.trippingOut_4 = parseFloat(newPayload.trippingOut_4);
+      newPayload.trippingOut_5 = parseFloat(newPayload.trippingOut_5);
+      newPayload.trippingOut_6 = parseFloat(newPayload.trippingOut_6);
+      newPayload.trippingOut_7 = parseFloat(newPayload.trippingOut_7);
+      newPayload.trippingOut_8 = parseFloat(newPayload.trippingOut_8);
+      newPayload.trippingOut_9 = parseFloat(newPayload.trippingOut_9);
+      newPayload.trippingOut_10 = parseFloat(newPayload.trippingOut_10);
+
+      newPayload.drilling_1 = parseFloat(newPayload.drilling_1);
+      newPayload.drilling_2 = parseFloat(newPayload.drilling_2);
+      newPayload.drilling_3 = parseFloat(newPayload.drilling_3);
+      newPayload.drilling_4 = parseFloat(newPayload.drilling_4);
+      newPayload.drilling_5 = parseFloat(newPayload.drilling_5);
+      newPayload.drilling_6 = parseFloat(newPayload.drilling_6);
+      newPayload.drilling_7 = parseFloat(newPayload.drilling_7);
+      newPayload.drilling_8 = parseFloat(newPayload.drilling_8);
+      newPayload.drilling_9 = parseFloat(newPayload.drilling_9);
+      newPayload.drilling_10 = parseFloat(newPayload.drilling_10);
+
+      newPayload.slideDrilling_1 = parseFloat(newPayload.slideDrilling_1);
+      newPayload.slideDrilling_2 = parseFloat(newPayload.slideDrilling_2);
+      newPayload.slideDrilling_3 = parseFloat(newPayload.slideDrilling_3);
+      newPayload.slideDrilling_4 = parseFloat(newPayload.slideDrilling_4);
+      newPayload.slideDrilling_5 = parseFloat(newPayload.slideDrilling_5);
+      newPayload.slideDrilling_6 = parseFloat(newPayload.slideDrilling_6);
+      newPayload.slideDrilling_7 = parseFloat(newPayload.slideDrilling_7);
+      newPayload.slideDrilling_8 = parseFloat(newPayload.slideDrilling_8);
+      newPayload.slideDrilling_9 = parseFloat(newPayload.slideDrilling_9);
+      newPayload.slideDrilling_10 = parseFloat(newPayload.slideDrilling_10);
+
+      newPayload.backReaming_1 = parseFloat(newPayload.backReaming_1);
+      newPayload.backReaming_2 = parseFloat(newPayload.backReaming_2);
+      newPayload.backReaming_3 = parseFloat(newPayload.backReaming_3);
+      newPayload.backReaming_4 = parseFloat(newPayload.backReaming_4);
+      newPayload.backReaming_5 = parseFloat(newPayload.backReaming_5);
+      newPayload.backReaming_6 = parseFloat(newPayload.backReaming_6);
+      newPayload.backReaming_7 = parseFloat(newPayload.backReaming_7);
+      newPayload.backReaming_8 = parseFloat(newPayload.backReaming_8);
+      newPayload.backReaming_9 = parseFloat(newPayload.backReaming_9);
+      newPayload.backReaming_10 = parseFloat(newPayload.backReaming_10);
+
+      newPayload.rotatingOffBottom_1 = parseFloat(newPayload.rotatingOffBottom_1);
+      newPayload.rotatingOffBottom_2 = parseFloat(newPayload.rotatingOffBottom_2);
+      newPayload.rotatingOffBottom_3 = parseFloat(newPayload.rotatingOffBottom_3);
+      newPayload.rotatingOffBottom_4 = parseFloat(newPayload.rotatingOffBottom_4);
+      newPayload.rotatingOffBottom_5 = parseFloat(newPayload.rotatingOffBottom_5);
+      newPayload.rotatingOffBottom_6 = parseFloat(newPayload.rotatingOffBottom_6);
+      newPayload.rotatingOffBottom_7 = parseFloat(newPayload.rotatingOffBottom_7);
+      newPayload.rotatingOffBottom_8 = parseFloat(newPayload.rotatingOffBottom_8);
+      newPayload.rotatingOffBottom_9 = parseFloat(newPayload.rotatingOffBottom_9);
+      newPayload.rotatingOffBottom_10 = parseFloat(newPayload.rotatingOffBottom_10);
+
+        context.state.sensitivityIndices = [];
+        var i = 0;
+        for(i = 1; i <= newPayload.noOfSensitivities; i++){
+          context.state.sensitivityIndices.push(i);
+        }
+        
+        return new Promise((resolve, reject) => {
+          $http.post('SensitivityParameters/PostSensitivityParameters', newPayload, config)
+            .then(response => {
+
+            console.log("response: ", response);
+
+              context.commit('dataImportStore/SetLoaderParameters', {
+                showLoader: false,
+                showImportView: true
+              }, {root:true}); 
+              context.commit('authStore/setStatusMessageBarVisibility',  
+              {
+                actionMessage: "Sensitivity parameters saved successful",
+                visibility: true
+              }, {root:true});              
+                resolve(response)
+                
+            })
+            .catch(error => {
+              console.log("PostSensitivityParameters error")
+              context.commit('dataImportStore/SetLoaderParameters', {
+                showLoader: false,
+                showImportView: true
+              }, {root:true}); 
+              context.commit('authStore/setStatusMessageBarVisibility',  
+              {
+                actionMessage: "Saving sensitivity parameters failed",
+                visibility: true
+              }, {root:true});    
+              reject(error)
+            })
+        })
+    },
+
+    GetSensitivityParameters(context, payload)
+  {
+      context.commit('dataImportStore/SetLoaderParameters', {
+        showLoader: true,
+        showImportView: false
+      }, {root:true});
+      let config = {
+        headers: {
+          tenantcode: payload.companyName,
+        },
+        useCredentails: true
+      }
+
+      //var ids = payload.designId.toString() + "&" + payload.userId.toString();
+
+      return new Promise((resolve, reject) => {
+    
+
+        $http.get('SensitivityParameters/GetSensitivityParameters/' + payload.designId, config)
+          .then(response => {
+            
+            console.log('SensitivityParameters: ', response.data);
+            context.commit('GetSensitivityParameters', response.data)   
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});           
+              resolve(response)
+              
+          })
+          .catch(error => {
+            console.log("GetSensitivityParameters error")
+            context.commit('dataImportStore/SetLoaderParameters', {
+              showLoader: false,
+              showImportView: true
+            }, {root:true});
+            reject(error)
+          })
+      })
+    },
 
 }
 

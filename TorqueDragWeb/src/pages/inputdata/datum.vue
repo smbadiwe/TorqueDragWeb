@@ -139,33 +139,34 @@
             v-bind:listOfData="datums"
             :toolTipDescription="datumDescriptions.datumName"></comboBox>
 
-            <textbox variableName="Shore" col1="4" col2="8"
-            v-model="selectedDatum.typeOfShore"
-            unit="" :hasUnit="false" disabled
+            <textbox disabled variableName="Shore" col1="4" col2="8"
+            :variable="selectedDatum.typeOfShore"
+            unit="" :hasUnit="false"
             :toolTipDescription="datumDescriptions.typeOfShore"></textbox>
+            
 
             <textbox variableName="Datum Name" col1="4" col2="8"
-            v-model="selectedDatum.datumName"
+            :variable="selectedDatum.datumName"
             unit="" :hasUnit="false" disabled
             :toolTipDescription="datumDescriptions.datumName"></textbox>
 
             <textbox variableName="Datum Elevation" col1="4" col2="8"
-            v-model="selectedDatum.datumElevation"
+            :variable="selectedDatum.datumElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.datumElevation"></textbox>
 
             <textbox variableName="Ground Elevation" col1="4" col2="8"
-            v-model="selectedDatum.groundElevation"
+            :variable="selectedDatum.groundElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.groundElevation"></textbox>
 
             <textbox variableName="WellHead Elevation" col1="4" col2="8"
-            v-model="selectedDatum.wellHeadElevation"
+            :variable="selectedDatum.wellHeadElevation"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.wellHeadElevation"></textbox>
 
             <textbox variableName="Air Gap" col1="4" col2="8"
-            v-model="selectedDatum.airGap"
+            :variable="selectedDatum.airGap"
             unit="ft" :hasUnit="true" disabled
             :toolTipDescription="datumDescriptions.airGap"></textbox>
       
@@ -250,13 +251,21 @@ export default {
       }
     },
     onDatumSelectionChanged(e){
-      /* var context = this;
-       var id = e.target.value;
+      console.log("e: ", e)
+      //var context = this
+      
+       /* var id = e.target.value;
         var name = e.target.options[e.target.options.selectedIndex].text;
         console.log('id ', id );
         console.log('name ',name ); */
 
-      this.$store.commit('datumStore/onDatumSelectionChanged', name);
+      this.$store.commit('datumStore/onDatumSelectionChanged', e);
+      
+      /* datumElevation: "",
+      groundElevation: "",
+      airGap: "",
+      wellHeadElevation: "",
+      datumName: "", */
 
       
          // @input="onDatumSelectionChanged"
@@ -270,6 +279,8 @@ export default {
             showLoader: true,
             showImportView: false
           });
+
+          console.log("context.datumElevation: ", context.datumElevation)
         const request = {
               typeOfShore: context.typeOfShore,
               datumElevation: parseFloat(context.datumElevation),
@@ -302,9 +313,10 @@ export default {
       var payload = {
           companyName: Conn,
           designId: selectedTorqueDragDesign.id,
-          userId: IdentityModel.id
+          userId: IdentityModel._id
       }
-      this.$store.dispatch('datumStore/GetDatums', payload) */
+      var response = await this.$store.dispatch('datumStore/GetDatums', payload)
+      console.log("response: ", response) */
       var tabCaption = "Datum Details";
       this.$store.commit('settingsStore/GetTabCaption', tabCaption);
    }
@@ -320,6 +332,11 @@ export default {
     font-weight: lighter;
     font-size: 15px;
     color: rgba(214,214,214,1);
+}
+
+.disabledTag {
+    pointer-events: none;
+    opacity: 0.4;
 }
 
 </style>

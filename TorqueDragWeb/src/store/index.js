@@ -19,6 +19,7 @@ import userStore from './modules/userStore'
 import chartStore from './modules/chartStore'
 import propertyGridStore from './modules/propertyGridStore'
 import rigStore from './modules/rigStore'
+import catalogStore from './modules/catalogStore'
 
 Vue.use(Vuex)
 
@@ -51,7 +52,8 @@ export default function (/* { ssrContext } */) {
       userStore,
       chartStore,
       propertyGridStore,
-      rigStore
+      rigStore,
+      catalogStore
     },
 
     // enable strict mode (adds overhead!)

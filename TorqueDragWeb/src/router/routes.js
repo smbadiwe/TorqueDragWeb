@@ -58,6 +58,7 @@ import slideDrillingStress from 'pages/stressPlots/slideDrillingStress.vue'
 import rotatingOnBottomStress from 'pages/stressPlots/rotatingOnBottomStress.vue'
 import rotatingOffBottomStress from 'pages/stressPlots/rotatingOffBottomStress.vue'
 import backReamingStress from 'pages/stressPlots/backReamingStress.vue'
+import catalogPage from 'pages/Catalogs/catalogPage.vue'
 
 const routes = [
   {
@@ -311,6 +312,10 @@ const routes = [
       {
         path: '/backReamingStress',
         component: backReamingStress
+      },
+      {
+        path: '/catalogPage',
+        component: catalogPage
       }
     ]
   },

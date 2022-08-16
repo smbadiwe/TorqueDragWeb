@@ -22,7 +22,7 @@
                                 Add Cases
                             </q-tooltip>
                         </q-btn>
-                        <input class="text-center bg-accent text-primary" style="width:30px;" v-model="noOfSensitivities">
+                        <input class="text-center bg-accent text-primary" style="width:30px;" v-model="sensitivityParameters.noOfSensitivities">
                         <q-btn  icon="remove"
                             size="sm"
                             flat
@@ -44,22 +44,22 @@
                         <div class="textBox q-pa-sm text-center">Open Hole</div>
 
                         <div
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm text-center">Casing</div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm text-center">Open Hole</div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm text-center">Casing</div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm text-center">Open Hole</div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm text-center">Casing</div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm text-center">Open Hole</div>
 
                     </div>
@@ -72,22 +72,22 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_4"></div>
 
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_5"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingIn_10"></div>
                     </div>
 
@@ -99,21 +99,21 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_4"></div>
 
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_5"></div>
-                        <div v-if="isThreeVisible"
+                        <div v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.trippingOut_10"></div>
                     </div>
 
@@ -125,22 +125,22 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_4"></div>
 
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_5"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.drilling_10"></div>
                     </div>
 
@@ -151,22 +151,22 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_3"></div>
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_4"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_5"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.slideDrilling_10"></div>
                     </div>
 
@@ -177,22 +177,22 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_3"></div>
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_4"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_5"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.backReaming_10"></div>
                     </div>
 
@@ -203,22 +203,22 @@
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_3"></div>
                         <div class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_4"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_5"></div>
                         <div 
-                        v-if="isThreeVisible"
+                        v-if="sensitivityParameters.isThreeVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_6"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_7"></div>
                         <div 
-                        v-if="isFourVisible"
+                        v-if="sensitivityParameters.isFourVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_8"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_9"></div>
                         <div 
-                        v-if="isFiveVisible"
+                        v-if="sensitivityParameters.isFiveVisible"
                         class="textBox q-pa-sm"><input class="text-center bg-positive text-accent" v-model="sensitivityParameters.rotatingOffBottom_10"></div>
                     </div>
 
@@ -236,19 +236,19 @@
                             @click="cancelSensitivityParameters"
                             >
                         </q-btn>
-                       <!--  <q-space/>
+                        <q-space/>
                         <q-btn 
                             align="right"
                             icon="save" 
                             flat
                             stretch
                             size="md" 
-                            label="Submit"
+                            label="Save"
                             class="text-capitalize"
                             stack 
-                            @click="setSensitivityParameters"
+                            @click="PostSensitivityParameters"
                             >
-                        </q-btn> -->
+                        </q-btn>
 
                     </div>
                 </div>
@@ -277,20 +277,8 @@ export default {
         showView(){
         return this.$store.getters['dataImportStore/showImportView'];
         },
-        noOfSensitivities(){
-            return this.$store.getters['simulationStore/noOfSensitivities'];
-        },
         incremetVisibility(){
             return this.$store.getters['simulationStore/incremetVisibility'];
-        },
-        isThreeVisible(){
-            return this.$store.getters['simulationStore/isThreeVisible'];
-        },
-        isFourVisible(){
-            return this.$store.getters['simulationStore/isFourVisible'];
-        },
-        isFiveVisible(){
-            return this.$store.getters['simulationStore/isFiveVisible'];
         },
         companyName(){
             return this.$store.getters['authStore/companyName'];
@@ -387,6 +375,15 @@ export default {
 
             this.$store.commit('simulationStore/showSensitivityDialog', false);
 
+        },
+        PostSensitivityParameters(){
+            var context = this;
+            this.$store.dispatch('simulationStore/PostSensitivityParameters', {
+                companyName: context.companyName,
+                designId: context.SelectedTorqueDragDesign.id,
+                userId: context.IdentityModel._id
+            });
+            this.$store.commit('simulationStore/showSensitivityDialog', false);
         },
         RunSensitivities(){
             var context =  this;

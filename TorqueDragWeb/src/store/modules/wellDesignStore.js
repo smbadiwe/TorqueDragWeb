@@ -103,46 +103,49 @@ const mutations = {
     console.log(state.SelectedTorqueDragDesign)
   },
   GetListsofData(state){
-    var nlength= Object.keys(state.SelectedTorqueDragDesign).length;
-    if(nlength == 0){
-      var nCount = state.torqueDragDesigns.length;
-      if(nCount > 0){
-        state.SelectedTorqueDragDesign = state.torqueDragDesigns[0];
+    if(state.SelectedTorqueDragDesign !== undefined){
+
+      var nlength= Object.keys(state.SelectedTorqueDragDesign).length;
+      if(nlength == 0){
+        var nCount = state.torqueDragDesigns.length;
+        if(nCount > 0){
+          state.SelectedTorqueDragDesign = state.torqueDragDesigns[0];
+        }
       }
-    }
 
-    nlength= Object.keys(state.SelectedTorqueDragDesign).length;
-    console.log("state.wellProjects: ", state.wellProjects)
-    if(nlength > 0){
-      var wellProject = state.wellProjects[0];
-      var field = wellProject.children[0];
-      var well = field.children[0];
-      var wellbore = well.children[0];
-      //var wellDesign = wellbore.children[0];
-      //var wellCase = wellDesign.children[0];
+      nlength= Object.keys(state.SelectedTorqueDragDesign).length;
+      console.log("state.wellProjects: ", state.wellProjects)
+      if(nlength > 0){
+        var wellProject = state.wellProjects[0];
+        var field = wellProject.children[0];
+        var well = field.children[0];
+        var wellbore = well.children[0];
+        //var wellDesign = wellbore.children[0];
+        //var wellCase = wellDesign.children[0];
 
-      state.projectNames = wellProject.children.map((row) => {
-        return row.label
-      });
-      state.fieldNames = field.children.map((row) => {
-        return row.label
-      });
+        state.projectNames = wellProject.children.map((row) => {
+          return row.label
+        });
+        state.fieldNames = field.children.map((row) => {
+          return row.label
+        });
 
-      state.wellNames = well.children.map((row) => {
-        return row.label
-      });
-      state.wellboreNames = wellbore.children.map((row) => {
-        return row.label
-      });
+        state.wellNames = well.children.map((row) => {
+          return row.label
+        });
+        state.wellboreNames = wellbore.children.map((row) => {
+          return row.label
+        });
 
-     /*  state.wellDesignNames = wellDesign.children.map((row) => {
-        return row.label
-      });
+      /*  state.wellDesignNames = wellDesign.children.map((row) => {
+          return row.label
+        });
 
-      state.wellCases = wellCase.children.map((row) => {
-        return row.label
-      }); */
-     
+        state.wellCases = wellCase.children.map((row) => {
+          return row.label
+        }); */
+      
+      }
     }
 
 
@@ -172,6 +175,21 @@ const mutations = {
         }
       }
 
+  },
+  GetSelectedDesign(state, payload){
+    state.SelectedTorqueDragDesign = payload.SelectedTorqueDragDesign;
+    var i = 0;
+    var nCount = state.torqueDragMostRecentDesigns.length;
+    for(i = 0; i < nCount; i++){
+        if(state.torqueDragMostRecentDesigns[i].uniqueId == state.SelectedTorqueDragDesign.uniqueId){
+          state.torqueDragMostRecentDesigns[i].isSelected = true;
+        }else{
+          state.torqueDragMostRecentDesigns[i].isSelected = false;
+        }
+    }
+
+    state.caption ="DP Well Engineering (" +  state.SelectedTorqueDragDesign.designName + ")";
+
   }
 
 }
@@ -189,11 +207,12 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('TorqueDragDesigns/PostTorqueDragDesign', payload, config)
+         $http.post('torqueDragDesigns/PostTorqueDragDesign', payload, config)
           .then(response => {
               
+            console.log("response.data: ", response.data)
             context.commit('PostTorqueDragDesign', response.data);
-            context.state.caption = "DP Well Engineering" +  " (" + state.SelectedTorqueDragDesign.designName + ")";
+            context.state.caption = "DP Well Engineering" +  " (" + payload.designName + ")";
             context.dispatch('GetTorqueDragDesigns',  {
               companyName: payload.companyName,
               id: payload.torqueDragDesign.userId
@@ -217,8 +236,14 @@ const actions = {
               showLoader: false,
               showImportView: true
             }, {root:true});
+            context.commit('authStore/setStatusMessageBarVisibility',  
+            {
+              actionMessage: `Error encountered during saving ${payload.designName}`,
+              visibility: true
+            }, 
+            {root:true});
             console.log("PostTorqueDragDesign error")
-            context.state.caption = "DP Well Engineering" +  " (" + state.SelectedTorqueDragDesign.designName + ")";
+            context.state.caption = "DP Well Engineering" +  " (" + payload.designName + ")";
             reject(error)
           })
       })
@@ -244,7 +269,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('TorqueDragDesigns/PostSelectedWellDesign', {
+         $http.post('torqueDragDesigns/PostSelectedWellDesign', {
           wellCaseId: payload.wellCaseId,
           torqueDragDesigns: context.state.torqueDragDesigns
          }, config)
@@ -303,7 +328,7 @@ const actions = {
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload); 
-         $http.get('TorqueDragDesigns/GetWellDesignsByUserId/' + payload.id)
+         $http.get('torqueDragDesigns/GetWellDesignsByUserId/' + payload.id)
           .then(response => {
               
             context.commit('GetTorqueDragDesigns', response.data)
@@ -328,7 +353,7 @@ const actions = {
       return new Promise((resolve, reject) => {
         console.log("seen")
         console.log(payload);
-         $http.get('TorqueDragDesigns/DeleteTorqueDragDesign/' + payload.uniqueId, config)
+         $http.get('torqueDragDesigns/DeleteTorqueDragDesign/' + payload.uniqueId, config)
           .then(response => {
               
             context.commit('DeleteTorqueDragDesign', response.data);
@@ -349,20 +374,8 @@ const actions = {
       })
     },
     GetSelectedTorqueDragDesign(context, payload){
-      //console.log("GetselectedSheetHeader")
-      context.state.SelectedTorqueDragDesign = payload.SelectedTorqueDragDesign;
-        var i = 0;
-        var nCount = context.state.torqueDragMostRecentDesigns.length;
-        for(i = 0; i < nCount; i++){
-            if(context.state.torqueDragMostRecentDesigns[i].uniqueId == context.state.SelectedTorqueDragDesign.uniqueId){
-              context.state.torqueDragMostRecentDesigns[i].isSelected = true;
-            }else{
-              context.state.torqueDragMostRecentDesigns[i].isSelected = false;
-            }
-        }
 
-        context.state.caption ="DP Well Engineering (" +  context.state.SelectedTorqueDragDesign.designName + ")";
-
+        context.commit("GetSelectedDesign", payload)
         var payload2 = {
           companyName: payload.companyName,
           designId: payload.designId,
@@ -393,6 +406,7 @@ const actions = {
         context.dispatch('fluidsStore/GetFluid', payload2, {root:true});
         context.dispatch('fluidsStore/GetMudPVTs', payload, {root:true}); 
         context.dispatch('settingsStore/GetCommon', payload2, {root:true});
+        context.dispatch('simulationStore/GetSensitivityParameters', payload2, {root:true});
        
         
         

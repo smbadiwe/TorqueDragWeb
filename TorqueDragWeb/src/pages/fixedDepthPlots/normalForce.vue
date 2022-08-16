@@ -110,19 +110,41 @@ export default {
 
 				var simulationResultsDTO = simulationResultsDTOs[j];
 
-				var trippingInResults =  simulationResultsDTO.trippingInResults;
-				var trippingOutResults =  simulationResultsDTO.trippingOutResults;
-				var drillingResults =  simulationResultsDTO.drillingResults;
-				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
-				var backReamingResults =  simulationResultsDTO.backReamingResults;
-				var rotatingOffBottomResults = simulationResultsDTO.rotatingOffBottomResults;
+				var trippingInResults = simulationResultsDTO.trippingInResults === undefined ? 
+				[] :  simulationResultsDTO.trippingInResults;
 
-				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
-				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
-				var isRotatingOnBottomChecked =  simulationResultsDTO.isRotatingOnBottomChecked;
-				var isSlideDrillingChecked =  simulationResultsDTO.isSlideDrillingChecked;
-				var isBackReamingChecked =  simulationResultsDTO.isBackReamingChecked;
-				var isRotatingOffBottomChecked =  simulationResultsDTO.isRotatingOffBottomChecked;
+				var trippingOutResults = simulationResultsDTO.trippingOutResults === undefined ? 
+				[] :  simulationResultsDTO.trippingOutResults;
+
+				var drillingResults = simulationResultsDTO.drillingResults === undefined ? 
+				[] :  simulationResultsDTO.drillingResults;
+
+				var slideDrillingResults = simulationResultsDTO.slideDrillingResults === undefined ? 
+				[] :  simulationResultsDTO.slideDrillingResults;
+
+				var backReamingResults = simulationResultsDTO.backReamingResults === undefined ? 
+				[] :  simulationResultsDTO.backReamingResults;
+
+				var rotatingOffBottomResults = simulationResultsDTO.rotatingOffBottomResults === undefined ? 
+				[] :  simulationResultsDTO.rotatingOffBottomResults;
+
+				var isTrippingInChecked = simulationResultsDTO.isTrippingInChecked === undefined ? 
+				false :  simulationResultsDTO.isTrippingInChecked;
+
+				var isTrippingOutChecked = simulationResultsDTO.isTrippingOutChecked === undefined ? 
+				false :  simulationResultsDTO.isTrippingOutChecked;
+
+				var isRotatingOnBottomChecked = simulationResultsDTO.isRotatingOnBottomChecked === undefined ? 
+				false :  simulationResultsDTO.isRotatingOnBottomChecked;
+
+				var isSlideDrillingChecked = simulationResultsDTO.isSlideDrillingChecked === undefined ? 
+				false :  simulationResultsDTO.isSlideDrillingChecked;
+
+				var isBackReamingChecked = simulationResultsDTO.isBackReamingChecked === undefined ? 
+				false :  simulationResultsDTO.isBackReamingChecked;
+
+				var isRotatingOffBottomChecked = simulationResultsDTO.isRotatingOffBottomChecked === undefined ? 
+				false :  simulationResultsDTO.isRotatingOffBottomChecked;
 				//console.log("isRotatingOffBottomChecked", isRotatingOffBottomChecked)
 
 				var trippingIn = {

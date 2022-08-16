@@ -199,7 +199,7 @@ const actions = {
       useCredentails: true
     }
     
-    state.deviationSurveys = [];
+   context.commit('ClearDeviationSurveys')
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {

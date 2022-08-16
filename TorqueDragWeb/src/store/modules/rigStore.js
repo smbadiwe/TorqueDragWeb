@@ -91,7 +91,7 @@ const actions = {
       useCredentails: true
     }
 
-    context.state.rig = {};
+    context.commit("ClearRig")
 
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 

@@ -2,8 +2,8 @@ import axios from 'axios'
 //const axiosInstance = axios.create({ 
     const $http  = axios.create({ 
       //baseURL: 'http://localhost:58471/api/' ,
-      baseURL: 'http://localhost:3000/',
-      //baseURL: 'https://learningways.com.ng/api/',
+      baseURL: 'http://localhost:8080/',
+      //baseURL: 'https://torque-drag-app-by88t.ondigitalocean.app/',
       //withCredentials: false,
         headers: {
           'Content-Type': 'application/json',

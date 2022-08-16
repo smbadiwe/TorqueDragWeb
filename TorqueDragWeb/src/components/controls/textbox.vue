@@ -2,14 +2,14 @@
     <div class="row">
         <div v-if="hasUnit" :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }} ({{ unit }})</div>
         <div v-else :class="'col-'+ col1 + ' q-pt-sm text-accent'">{{ variableName }}</div>
-        <div :class="'col-'+ col2 + ' q-pa-sm text-accent'" v-if="setBorder()">
+        <div :class="'col-'+ col2 + ' q-pa-sm text-accent'">
             <input class="text-center bg-positive text-accent" 
             :value="variable"
-             @input="$emit('input',$event.target.value)"
+            @input="$emit('input',$event.target.value)"
             style="border: 1px solid transparent;">
         </div>
-        <div
-         :class="'col-'+ col2 + ' q-pa-sm text-accent'" v-else>
+        <!-- <div
+         :class="'col-'+ col2 + ' q-pa-sm text-accent'">
             <q-tooltip>
                 {{ toolTipDescription }}
             </q-tooltip>
@@ -17,7 +17,7 @@
             :value="variable"
             @input="$emit('input',$event.target.value)" 
             style="border: 1px solid red;">
-        </div>
+        </div> -->
     </div>
 </template>
 

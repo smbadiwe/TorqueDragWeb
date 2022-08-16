@@ -225,7 +225,8 @@ const actions = {
       },
       useCredentails: true
     }
-    state.pipes = [];
+   
+    context.commit("ClearPipes")
 
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
@@ -266,7 +267,7 @@ const actions = {
       useCredentails: true
     }
 
-    state.drillBit = {};
+    context.commit("ClearDrillBit")
 
    // var ids = payload.designId.toString() + "&" + payload.userId.toString();
 

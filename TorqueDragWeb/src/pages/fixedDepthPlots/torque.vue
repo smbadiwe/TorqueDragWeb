@@ -80,6 +80,7 @@ export default {
 			var M = 1000.0;
 			var i = 0;
 			var simulationResultsDTOsCount = simulationResultsDTOs.length;
+			console.log('simulationResultsDTOs: ', simulationResultsDTOs);
 			var data  = [];
 			var helicalBuckling = {
 				x: [],
@@ -111,19 +112,43 @@ export default {
 
 				var simulationResultsDTO = simulationResultsDTOs[j];
 				console.log('simulationResultsDTO: ', simulationResultsDTO);
-				var trippingInResults =  simulationResultsDTO.trippingInResults;
-				var trippingOutResults =  simulationResultsDTO.trippingOutResults;
-				var drillingResults =  simulationResultsDTO.drillingResults;
-				var slideDrillingResults =  simulationResultsDTO.slideDrillingResults;
-				var backReamingResults =  simulationResultsDTO.backReamingResults;
-				var rotatingOffBottomResults = simulationResultsDTO.rotatingOffBottomResults;
 
-				var isTrippingInChecked =  simulationResultsDTO.isTrippingInChecked;
-				var isTrippingOutChecked =  simulationResultsDTO.isTrippingOutChecked;
-				var isRotatingOnBottomChecked =  simulationResultsDTO.isRotatingOnBottomChecked;
-				var isSlideDrillingChecked =  simulationResultsDTO.isSlideDrillingChecked;
-				var isBackReamingChecked =  simulationResultsDTO.isBackReamingChecked;
-				var isRotatingOffBottomChecked =  simulationResultsDTO.isRotatingOffBottomChecked;
+				var trippingInResults = simulationResultsDTO.trippingInResults === undefined ? 
+				[] :  simulationResultsDTO.trippingInResults;
+
+				var trippingOutResults = simulationResultsDTO.trippingOutResults === undefined ? 
+				[] :  simulationResultsDTO.trippingOutResults;
+
+				var drillingResults = simulationResultsDTO.drillingResults === undefined ? 
+				[] :  simulationResultsDTO.drillingResults;
+
+				var slideDrillingResults = simulationResultsDTO.slideDrillingResults === undefined ? 
+				[] :  simulationResultsDTO.slideDrillingResults;
+
+				var backReamingResults = simulationResultsDTO.backReamingResults === undefined ? 
+				[] :  simulationResultsDTO.backReamingResults;
+
+				var rotatingOffBottomResults = simulationResultsDTO.rotatingOffBottomResults === undefined ? 
+				[] :  simulationResultsDTO.rotatingOffBottomResults;
+
+				var isTrippingInChecked = simulationResultsDTO.isTrippingInChecked === undefined ? 
+				false :  simulationResultsDTO.isTrippingInChecked;
+
+				var isTrippingOutChecked = simulationResultsDTO.isTrippingOutChecked === undefined ? 
+				false :  simulationResultsDTO.isTrippingOutChecked;
+
+				var isRotatingOnBottomChecked = simulationResultsDTO.isRotatingOnBottomChecked === undefined ? 
+				false :  simulationResultsDTO.isRotatingOnBottomChecked;
+
+				var isSlideDrillingChecked = simulationResultsDTO.isSlideDrillingChecked === undefined ? 
+				false :  simulationResultsDTO.isSlideDrillingChecked;
+
+				var isBackReamingChecked = simulationResultsDTO.isBackReamingChecked === undefined ? 
+				false :  simulationResultsDTO.isBackReamingChecked;
+
+				var isRotatingOffBottomChecked = simulationResultsDTO.isRotatingOffBottomChecked === undefined ? 
+				false :  simulationResultsDTO.isRotatingOffBottomChecked;
+
 				//console.log("isRotatingOffBottomChecked", isRotatingOffBottomChecked)
 
 				var trippingIn = {
@@ -131,12 +156,17 @@ export default {
 				y: [],
 				line:{
 					shape: 'spline',
-    				width: 3
+					width: 3,
+					color: 'green'
 				},
 				mode: 'lines',
 				type: 'scatter',
 				name: 'Tripping In',
-				} 
+				fill: 'tonexty'
+				}
+				//tonexty tozeroy tonextx tozerox
+				if(j == 0)trippingIn.fill = 'none'
+				else trippingIn.fill = 'tonexty'
 			var trippingOut = {
 				x: [],
 				y: [],
@@ -148,6 +178,9 @@ export default {
 				type: 'scatter',
 				name: 'Tripping Out',
 			}
+
+			if(j == 0)trippingOut.fill = 'none'
+				else trippingOut.fill = 'tonexty'
 
 			var rotatingOnBottom = {
 				x: [],
@@ -161,6 +194,9 @@ export default {
 				name: 'Rotating On Bottom',
 			}
 
+			if(j == 0)rotatingOnBottom.fill = 'none'
+				else rotatingOnBottom.fill = 'tonexty'
+
 			var slideDrilling = {
 				x: [],
 				y: [],
@@ -172,6 +208,9 @@ export default {
 				type: 'scatter',
 				name: 'Slide Drilling',
 			}
+
+			if(j == 0)slideDrilling.fill = 'none'
+				else slideDrilling.fill = 'tonexty'
 
 			var backReaming = {
 				x: [],
@@ -185,6 +224,9 @@ export default {
 				name: 'Back Reaming',
 			}
 
+			if(j == 0)backReaming.fill = 'none'
+				else backReaming.fill = 'tonexty'
+
 			var rotatingOffBottom = {
 				x: [],
 				y: [],
@@ -196,6 +238,9 @@ export default {
 				type: 'scatter',
 				name: 'Rotating Off Bottom',
 			}
+
+			if(j == 0)rotatingOffBottom.fill = 'none'
+				else rotatingOffBottom.fill = 'tonexty'
 
 				length = trippingInResults.length;
 				console.log('trippingInResults.length: ', length);

@@ -8,9 +8,9 @@
           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 qx-pa-md q-gutter-md">
 
                 <q-input outlined v-model="companyName" label="Company Name" />
-                <q-input outlined v-model="databaseName" label="Database Name" />
+                <q-input outlined v-model="dbEngine" label="Database Engine" />
                 <q-input outlined v-model="dbPassword" label="Database Password" type="password" />
-                <q-input outlined v-model="serverName" label="Server Name" />
+                <q-input outlined v-model="connectionString" label="Connection String" />
                 <div>
                     <q-btn color="primary" label="Create" @click="createCompany" />
                 </div>
@@ -39,8 +39,8 @@ export default {
     data () {
     return {
         companyName: "",
-        databaseName: "",
-        serverName: "",
+        dbEngine: "",
+        connectionString: "",
         dbPassword: ""
       
      }
@@ -51,8 +51,8 @@ export default {
 
             this.$store.dispatch('companyStore/createCompany', {
              companyName: context.companyName,
-             databaseName: context.databaseName,
-             serverName: context.serverName,
+             dbEngine: context.dbEngine,
+             connectionString: context.connectionString,
              dbPassword: context.dbPassword
             });
         }

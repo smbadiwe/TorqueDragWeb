@@ -183,6 +183,7 @@ export default {
       }
   },
   created(){
+      
     var selectedItem = 0;
     var sensitivityResultsDTO = this.$store.getters['simulationStore/sensitivityResultsDTO'];
     var simulationResultsDTOs = sensitivityResultsDTO.simulationResultsDTOs;
@@ -190,6 +191,7 @@ export default {
     var simulationResultsDTO = simulationResultsDTOs[selectedItem];
     this.$store.commit('simulationStore/setTrippingInResults', simulationResultsDTO.trippingInResults);
     var context =  this;
+    console.log('sensitivityIndices: ', context.sensitivityIndices);
     var tableData = {
                 data: simulationResultsDTO.trippingInResults,
                 columns: context.columns,
