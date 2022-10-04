@@ -198,6 +198,9 @@ const actions = {
 
     PostTorqueDragDesign(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -250,6 +253,9 @@ const actions = {
     },
     PostSelectedWellDesign(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -317,6 +323,9 @@ const actions = {
     },
     GetTorqueDragDesigns(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       console.log("payload: ", payload);
       let config = {
         headers: {
@@ -330,7 +339,7 @@ const actions = {
         console.log(payload); 
          $http.get('torqueDragDesigns/GetWellDesignsByUserId/' + payload.id)
           .then(response => {
-              
+              console.log("design cases: ", response.data)
             context.commit('GetTorqueDragDesigns', response.data)
             context.commit('GetListsofData');              
               resolve(response)
@@ -343,6 +352,10 @@ const actions = {
       })
     },
     DeleteTorqueDragDesign(context, payload){
+
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -375,6 +388,9 @@ const actions = {
     },
     GetSelectedTorqueDragDesign(context, payload){
 
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
         context.commit("GetSelectedDesign", payload)
         var payload2 = {
           companyName: payload.companyName,

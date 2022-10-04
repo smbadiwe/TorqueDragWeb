@@ -55,6 +55,9 @@ const mutations = {
 const actions = {
   GetHoleSections(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false
@@ -97,6 +100,9 @@ const actions = {
   },
   PostHoleSection(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -121,6 +127,9 @@ const actions = {
   },
   PostHoleSections(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
     let config = {
       headers: {
         tenantcode: payload.companyName,

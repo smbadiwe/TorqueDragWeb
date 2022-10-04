@@ -136,6 +136,9 @@ const mutations = {
 const actions = {
   GetCommon(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false
@@ -173,6 +176,9 @@ const actions = {
   },
   PostCommon(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
     let config = {
       headers: {
         tenantcode: payload.companyName,

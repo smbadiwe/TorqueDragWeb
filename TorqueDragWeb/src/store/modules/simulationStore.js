@@ -618,6 +618,9 @@ const mutations = {
 const actions = {
   RunSensitivities(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -693,6 +696,9 @@ const actions = {
   },
 RunSimulation(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
 
     let config = {
       headers: {
@@ -763,6 +769,9 @@ RunSimulation(context, payload)
   },
   RunHydraulics(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -829,6 +838,9 @@ RunSimulation(context, payload)
   },
   RunSurgeSwab(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
 
     let config = {
       headers: {
@@ -889,6 +901,9 @@ RunSimulation(context, payload)
   
 DrawSchematic(context, payload)
 {
+  var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
   let config = {
     headers: {
       tenantcode: payload.companyName,
@@ -932,6 +947,8 @@ DrawSchematic(context, payload)
   },
 DrawPipeBuckledSections(context, payload)
 {
+  var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
   let config = {
     useCredentails: true
@@ -963,6 +980,9 @@ DrawPipeBuckledSections(context, payload)
   },
   DrawHoleSegmentLabel(context, payload2)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload2.companyName,
@@ -995,6 +1015,9 @@ DrawPipeBuckledSections(context, payload)
     },
   DrawTubingSegmentLabel(context, payload2)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload2.companyName,
@@ -1030,6 +1053,9 @@ DrawPipeBuckledSections(context, payload)
     },
     PostSensitivityParameters(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -1151,6 +1177,9 @@ DrawPipeBuckledSections(context, payload)
 
     GetSensitivityParameters(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
       context.commit('dataImportStore/SetLoaderParameters', {
         showLoader: true,
         showImportView: false

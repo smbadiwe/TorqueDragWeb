@@ -130,6 +130,9 @@ const mutations = {
 const actions = {
     saveSelectedTable(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+      $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       return new Promise((resolve, reject) => {
     
   

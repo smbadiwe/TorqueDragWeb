@@ -87,6 +87,9 @@ const mutations = {
 const actions = {
   PostPipes(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -135,6 +138,9 @@ const actions = {
   },
   PostDrillBit(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -189,6 +195,9 @@ const actions = {
   },
   PostPipe(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
 
     let config = {
       headers: {
@@ -215,6 +224,9 @@ const actions = {
   },
   GetPipes(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false
@@ -256,6 +268,9 @@ const actions = {
   },
   GetDrillBit(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false

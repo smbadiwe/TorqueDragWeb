@@ -14,7 +14,7 @@
                 <q-select outlined v-model="roleName" :options="roles" label="Role" />
                 <q-input outlined v-model="jobDescription" label="Job Description" />
                 <q-input outlined v-model="userName" label="UserName" />
-                <q-input outlined v-model="pword" label="Password" />
+                <q-input outlined v-model="password" label="Password" />
                 <div>
                 <q-btn color="primary" label="Create" @click="createUser" />
                 </div>
@@ -58,7 +58,7 @@ export default {
         companyName: "",
         roleName: "",
         jobDescription: "",
-        pword: "",
+        password: "",
         userName: "",
         roles: [
         'admin', 'member'

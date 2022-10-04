@@ -175,13 +175,19 @@ const mutations = {
     Login(state, payload){
         console.log("loginDTO:", payload)
         state.Loginstatus= true;
-        state.IdentityModel = payload; //payload.identity;
-        state.companyName = payload.companyName;
+        state.IdentityModel = payload.user; //payload.identity;
+        state.companyName = payload.user.companyName;
+        sessionStorage.setItem("token", payload.token); 
+
         //state.companyId = payload.companyId;
         //state.user = payload.user;
         //state.administrator = payload.administrator;
         
-        this.$router.push('/userLayout');
+        if(payload.token !== undefined){
+          this.$router.push('/userLayout');
+          state.visible = false
+          state.showSimulatedReturnData = true
+        }
 
        /* if(state.IdentityModel.roleName == "admin"){
            this.$router.push('/admin');
@@ -190,8 +196,6 @@ const mutations = {
           this.$router.push('/userLayout');
         } */
     
-        state.visible = false
-        state.showSimulatedReturnData = true
         
     },
     Logout(state){

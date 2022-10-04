@@ -80,6 +80,9 @@ const mutations = {
 const actions = {
   GetRig(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false
@@ -121,6 +124,9 @@ const actions = {
   },
   PostRig(context, payload)
     {
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -176,8 +182,12 @@ const actions = {
             reject(error)
           })
       })
-    },
-    calculateFlowExponent(context, payload){
+  },
+  calculateFlowExponent(context, payload){
+
+      var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -239,8 +249,12 @@ const actions = {
             reject(error)
           })
       })
-    },
-    calculatePressureLosses(context, payload){
+  },
+  calculatePressureLosses(context, payload){
+
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -315,10 +329,10 @@ const actions = {
             reject(error)
           })
       })
-    },
-    ClearRig(context, payload){
+  },
+  ClearRig(context, payload){
       context.commit('ClearRig');
-    }
+  }
 
 }
 

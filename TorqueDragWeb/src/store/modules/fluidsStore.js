@@ -115,6 +115,9 @@ const actions = {
       useCredentails: true
     }
 
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
@@ -154,6 +157,9 @@ const actions = {
       },
       useCredentails: true
     }
+
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {
@@ -188,6 +194,9 @@ const actions = {
       },
       useCredentails: true
     }
+
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     payload.fluid.baseFannDialReading = parseFloat(payload.fluid.baseFannDialReading);
     payload.fluid.baseFannRPM = parseFloat(payload.fluid.baseFannRPM);
@@ -227,6 +236,9 @@ const actions = {
   },
   PostMudPVTs(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,

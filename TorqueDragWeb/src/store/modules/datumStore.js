@@ -91,6 +91,9 @@ const actions = {
       useCredentails: true
     }
 
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
@@ -141,6 +144,8 @@ const actions = {
       useCredentails: true
     }
 
+    var token = sessionStorage.getItem("token") 
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     //var ids = payload.designId.toString() + "&" + payload.userId.toString();
 
     return new Promise((resolve, reject) => {

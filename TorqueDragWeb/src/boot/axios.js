@@ -3,7 +3,7 @@ import axios from 'axios'
     const $http  = axios.create({ 
       //baseURL: 'http://localhost:58471/api/' ,
       baseURL: 'http://localhost:8080/',
-      //baseURL: 'https://torque-drag-app-by88t.ondigitalocean.app/',
+      //baseURL: 'https://sea-turtle-app-sgqll.ondigitalocean.app/',
       //withCredentials: false,
         headers: {
           'Content-Type': 'application/json',

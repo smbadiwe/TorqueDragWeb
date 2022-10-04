@@ -132,6 +132,9 @@ const mutations = {
 const actions = {
   PostDeviationSurvey(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     let config = {
       headers: {
         tenantcode: payload.companyName,
@@ -188,6 +191,9 @@ const actions = {
   },
   GetDeviationSurveys(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
       showImportView: false
@@ -232,6 +238,9 @@ const actions = {
   },
   LoadDevSurveySeriesCollection(context, payload)
   {
+    var token = sessionStorage.getItem("token") 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  
     let config = {
       headers: {
         tenantcode: payload.companyName,
