@@ -1,11 +1,9 @@
 import axios from 'axios'
-//const axiosInstance = axios.create({ 
+const processEnvNOEENV = "production";
     const $http  = axios.create({ 
-      //baseURL: 'http://localhost:58471/api/' ,
-      baseURL: 'http://localhost:8080/',
-      //baseURL: 'https://sea-turtle-app-sgqll.ondigitalocean.app/',
-      //withCredentials: false,
+        baseURL: (processEnvNOEENV == 'production') ? 'https://sea-turtle-app-sgqll.ondigitalocean.app/' : 'http://localhost:5212/',
         headers: {
+          baseURL: (processEnvNOEENV == 'production') ? 'https://sea-turtle-app-sgqll.ondigitalocean.app/' : 'http://localhost:8080/',
           'Content-Type': 'application/json',
           //"Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
           // "Access-Control-Allow-Credentials":true

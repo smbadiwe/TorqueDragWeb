@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     rig: {
@@ -80,8 +80,6 @@ const mutations = {
 const actions = {
   GetRig(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -101,7 +99,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Rigs/GetRig/' + payload.designId)
+       https().get('Rigs/GetRig/' + payload.designId)
         .then(response => {
             
           context.commit('GetRig', response.data)  
@@ -124,8 +122,6 @@ const actions = {
   },
   PostRig(context, payload)
     {
-      var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
       let config = {
         headers: {
@@ -152,7 +148,7 @@ const actions = {
           surfaceSystemConstant: parseFloat(context.state.rig.surfaceSystemConstant)
       }
         console.log("context.state.rig:", context.state.rig)
-         $http.post('Rigs/PostRig', newPayload)
+         https().post('Rigs/PostRig', newPayload)
           .then(response => {
               
             console.log('PostRig', response.data)  
@@ -185,9 +181,6 @@ const actions = {
   },
   calculateFlowExponent(context, payload){
 
-      var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -218,7 +211,7 @@ const actions = {
     
 
         console.log("context.state.rig:", context.state.rig);
-        $http.post('Commons/calculateFlowExponent', newPayload, config)
+        https().post('Commons/calculateFlowExponent', newPayload, config)
           .then(response => {
             console.log("response.data: ", response.data);
             context.state.rig.flowExponent = response.data.flowExponent; 
@@ -252,9 +245,6 @@ const actions = {
   },
   calculatePressureLosses(context, payload){
 
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
       let config = {
         headers: {
           tenantcode: payload.companyName,
@@ -285,7 +275,7 @@ const actions = {
     
 
         console.log("context.state.rig:", context.state.rig);
-        $http.post('Commons/calculatePressureLosses', newPayload, config)
+        https().post('Commons/calculatePressureLosses', newPayload, config)
           .then(response => {
             console.log("response.data: ", response.data);
             context.state.bitLosses.nozzleArea = response.data.nozzleArea;

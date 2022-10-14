@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 import { copy } from "boot/utils";
 import { devCalcParams } from 'boot/devSurveyManager'
 
@@ -132,8 +132,6 @@ const mutations = {
 const actions = {
   PostDeviationSurvey(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -157,7 +155,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('DeviationSurveys/PostDeviationSurvey', payload, config)
+       https().post('DeviationSurveys/PostDeviationSurvey', payload, config)
         .then(response => {
             
           context.commit('PostDeviationSurvey', response.data) 
@@ -191,8 +189,6 @@ const actions = {
   },
   GetDeviationSurveys(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -211,7 +207,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
+       https().get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
         .then(response => {
 
           //console.log("response.data:", response.data)
@@ -238,8 +234,6 @@ const actions = {
   },
   LoadDevSurveySeriesCollection(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
     let config = {
       headers: {
@@ -255,7 +249,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
+       https().get('DeviationSurveys/GetDeviationSurveys/' + payload.designId, config)
         .then(response => {
 
           

@@ -1,5 +1,5 @@
-import { $http } from 'boot/axios'
-import { stat } from 'fs';
+import { https } from "./services";
+import { $http } from "boot/axios";
 
 const state =  {
   statusBar: {
@@ -176,8 +176,16 @@ const mutations = {
         console.log("loginDTO:", payload)
         state.Loginstatus= true;
         state.IdentityModel = payload.user; //payload.identity;
-        state.companyName = payload.user.companyName;
-        sessionStorage.setItem("token", payload.token); 
+        state.companyName = payload.user.companyName; 
+
+        const inMin = 24 * 60;
+        let expiredAt = new Date(new Date().getTime() + (60000 * inMin));
+        let obj = {
+          value: payload.token,
+          expiredAt: expiredAt.toISOString()
+        }
+        sessionStorage.setItem('seassionObj', JSON.stringify(obj));
+
 
         //state.companyId = payload.companyId;
         //state.user = payload.user;
@@ -224,7 +232,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-        $http.post('users/Login', payload)
+        https().post('users/Login', payload)
           .then(response => {
             console.log("response: ", response);
             context.commit('Login', response.data) 
@@ -233,9 +241,10 @@ const actions = {
               actionMessage: response.data.info,
               visibility: true
             });
+            //payload.user
             context.dispatch('wellDesignStore/GetTorqueDragDesigns',  {
-              companyName: response.data.companyName,
-              id: response.data._id
+              companyName: response.data.user.companyName,
+              id: response.data.user._id
             }, {root:true})             
               resolve(response)
               
@@ -260,7 +269,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log(payload)
-         $http.post('identities/Login', payload)
+         https().post('identities/Login', payload)
           .then(response => {
             console.log("response: ", response);
             context.dispatch('LoginUser', payload) 
@@ -294,7 +303,7 @@ const actions = {
 
       return new Promise((resolve, reject) => {
         console.log("seen")
-         $http.post('identities/Logout', context.state.IdentityModel)
+         https().post('identities/Logout', context.state.IdentityModel)
           .then(response => {
               
             context.commit('Logout', response.data)              

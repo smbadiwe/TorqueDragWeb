@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     operation: {
@@ -102,8 +102,6 @@ const mutations = {
 const actions = {
   GetOperation(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -116,12 +114,10 @@ const actions = {
       useCredentails: true
     }
 
-    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
-
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Operations/GetOperation/' + payload.designId, config)
+       https().get('Operations/GetOperation/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetOperation', response.data)   
@@ -144,8 +140,6 @@ const actions = {
   },
   PostOperation(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
     let config = {
       headers: {
@@ -177,7 +171,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       
-       $http.post('Operations/PostOperation', payload.operation, config)
+       https().post('Operations/PostOperation', payload.operation, config)
         .then(response => {
             
           context.commit('PostOperation', response.data)    

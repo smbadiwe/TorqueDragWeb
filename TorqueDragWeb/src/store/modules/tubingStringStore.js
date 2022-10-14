@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     pipes:[],
@@ -87,8 +87,6 @@ const mutations = {
 const actions = {
   PostPipes(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -104,7 +102,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/PostPipes', payload)
+       https().post('Pipes/PostPipes', payload)
         .then(response => {
             
           context.commit('PostPipes', response.data)  
@@ -138,8 +136,6 @@ const actions = {
   },
   PostDrillBit(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -161,7 +157,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('DrillBits/PostDrillBit', payload, config)
+       https().post('DrillBits/PostDrillBit', payload, config)
         .then(response => {
             
           //context.commit('PostDrillBit', response.data)  
@@ -195,8 +191,6 @@ const actions = {
   },
   PostPipe(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
 
     let config = {
@@ -208,7 +202,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Pipes/PostPipe', payload, config)
+       https().post('Pipes/PostPipe', payload, config)
         .then(response => {
             
           context.commit('PostPipe', response.data)  
@@ -224,8 +218,6 @@ const actions = {
   },
   GetPipes(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -245,7 +237,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Pipes/GetPipes/' + payload.designId)
+       https().get('Pipes/GetPipes/' + payload.designId)
         .then(response => {
           console.log('drillpipe response: ', response);
           context.commit('GetPipes', response.data)  
@@ -268,8 +260,6 @@ const actions = {
   },
   GetDrillBit(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -289,7 +279,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.get('DrillBits/GetDrillBit/' + payload.designId)
+       https().get('DrillBits/GetDrillBit/' + payload.designId)
         .then(response => {
             console.log('drillbit response: ', response);
           context.commit('GetDrillBit', response.data)  

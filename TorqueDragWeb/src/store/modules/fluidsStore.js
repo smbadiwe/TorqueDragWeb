@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     mudPVTs:[],
@@ -115,15 +115,10 @@ const actions = {
       useCredentails: true
     }
 
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
-    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
-
     return new Promise((resolve, reject) => {
   
 
-       $http.get('Fluids/GetFluid/' + payload.designId)
+       https().get('Fluids/GetFluid/' + payload.designId)
         .then(response => {
             
           context.commit('GetFluid', response.data);
@@ -158,14 +153,10 @@ const actions = {
       useCredentails: true
     }
 
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
-
     return new Promise((resolve, reject) => {
   
 
-       $http.get('MudPVTs/GetMudPVTs/' + payload.designId)
+       https().get('MudPVTs/GetMudPVTs/' + payload.designId)
         .then(response => {
             
           context.commit('GetMudPVTs', response.data);   
@@ -195,9 +186,6 @@ const actions = {
       useCredentails: true
     }
 
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
     payload.fluid.baseFannDialReading = parseFloat(payload.fluid.baseFannDialReading);
     payload.fluid.baseFannRPM = parseFloat(payload.fluid.baseFannRPM);
     payload.fluid.fannDialReading = parseFloat(payload.fluid.fannDialReading);
@@ -208,7 +196,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('Fluids/PostFluid', payload.fluid)
+       https().post('Fluids/PostFluid', payload.fluid)
         .then(response => {
             
           context.commit('PostFluid', response.data)  
@@ -236,8 +224,6 @@ const actions = {
   },
   PostMudPVTs(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -252,7 +238,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('MudPVTs/PostMudPVTs', payload)
+       https().post('MudPVTs/PostMudPVTs', payload)
         .then(response => {
             
           context.commit('PostMudPVTs', response.data)    

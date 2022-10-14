@@ -1,4 +1,3 @@
-import { $http } from 'boot/axios' 
 
 const state = {
     isDataVisualization: false,

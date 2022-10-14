@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     holeSections:[],
@@ -55,8 +55,6 @@ const mutations = {
 const actions = {
   GetHoleSections(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -72,12 +70,10 @@ const actions = {
       useCredentails: true
     }
 
-    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
-
     return new Promise((resolve, reject) => {
   
 
-       $http.get('HoleSections/GetHoleSections/' + payload.designId, config)
+       https().get('HoleSections/GetHoleSections/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetHoleSections', response.data)  
@@ -100,8 +96,6 @@ const actions = {
   },
   PostHoleSection(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -112,7 +106,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
 
-       $http.post('HoleSections/PostHoleSection', payload, config)
+       https().post('HoleSections/PostHoleSection', payload, config)
         .then(response => {
             
           context.commit('PostHoleSection', response.data)              
@@ -127,8 +121,6 @@ const actions = {
   },
   PostHoleSections(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
     let config = {
       headers: {
@@ -143,7 +135,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       console.log("payload: ", payload)
-       $http.post('HoleSections/PostHoleSections', payload, config)
+       https().post('HoleSections/PostHoleSections', payload, config)
         .then(response => {
             
           context.commit('PostHoleSections', response.data)  

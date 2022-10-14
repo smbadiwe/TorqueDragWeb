@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
   isSetting: false,
@@ -136,8 +136,6 @@ const mutations = {
 const actions = {
   GetCommon(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     context.commit('dataImportStore/SetLoaderParameters', {
       showLoader: true,
@@ -153,7 +151,7 @@ const actions = {
     return new Promise((resolve, reject) => {
   
       
-       $http.get('Commons/GetCommon/'+ payload.designId)
+       https().get('Commons/GetCommon/'+ payload.designId)
         .then(response => {
             
           context.commit('GetCommon', response.data)      
@@ -176,8 +174,6 @@ const actions = {
   },
   PostCommon(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
     let config = {
       headers: {
@@ -203,7 +199,7 @@ const actions = {
         userId: payload.userId
     }
       console.log("context.state.common:", newPayload)
-       $http.post('Commons/PostCommon', newPayload, config)
+       https().post('Commons/PostCommon', newPayload, config)
         .then(response => {
             
           context.commit('PostCommon', response.data)  

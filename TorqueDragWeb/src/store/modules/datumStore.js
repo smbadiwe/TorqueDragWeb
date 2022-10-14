@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios' 
+import { https } from "./services";
 
 const state = {
     datum:{
@@ -91,13 +91,10 @@ const actions = {
       useCredentails: true
     }
 
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.post('Datums/PostDatum', payload, config)
+       https().post('Datums/PostDatum', payload, config)
         .then(response => {
             
           context.commit('PostDatum', response.data) 
@@ -144,14 +141,10 @@ const actions = {
       useCredentails: true
     }
 
-    var token = sessionStorage.getItem("token") 
-    $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    //var ids = payload.designId.toString() + "&" + payload.userId.toString();
-
     return new Promise((resolve, reject) => {
       console.log("seen")
       console.log(payload);
-       $http.get('Datums/GetDatums/' + payload.designId, config)
+       https().get('Datums/GetDatums/' + payload.designId, config)
         .then(response => {
             
           context.commit('GetDatums', response.data)

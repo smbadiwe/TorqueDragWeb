@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios'
+import { https } from "./services";
 import { convertToNumber } from 'boot/utils'
 
 const state = {
@@ -618,8 +618,6 @@ const mutations = {
 const actions = {
   RunSensitivities(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -644,16 +642,18 @@ const actions = {
 
       console.log("isTDSensitivity: ", context.state.isTDSensitivity)
       console.log("sensitivityParameters: ", context.state.sensitivityParameters)
+      const req = {
+        userId: payload.userId,
+        designId: payload.designId,
+        companyName: payload.companyName,
+        sensitivityParameters: context.state.sensitivityParameters,
+        isTDSensitivity: context.state.isTDSensitivity,
+        allInputsDTO: payload.allInputsDTO
+       }
 
+       console.log("req: ",req);
       return new Promise((resolve, reject) => {
-        $http.post('Commons/RunSensitivities', {
-          userId: payload.userId,
-          designId: payload.designId,
-          companyName: payload.companyName,
-          sensitivityParameters: context.state.sensitivityParameters,
-          isTDSensitivity: context.state.isTDSensitivity,
-          allInputsDTO: payload.allInputsDTO
-         }, config)
+        https().post('Commons/RunSensitivities', req, config)
          .then(response => {
  
          console.log("response: ", response)
@@ -696,9 +696,6 @@ const actions = {
   },
 RunSimulation(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
 
     let config = {
       headers: {
@@ -724,7 +721,7 @@ RunSimulation(context, payload)
         visibility: true
       }, {root:true}); 
       return new Promise((resolve, reject) => {
-        $http.post('Commons/RunSimulation', payload.allInputsDTO, config)
+        https().post('Commons/RunSimulation', payload.allInputsDTO, config)
          .then(response => {
  
          console.log("response: ", response)
@@ -769,8 +766,6 @@ RunSimulation(context, payload)
   },
   RunHydraulics(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -794,7 +789,7 @@ RunSimulation(context, payload)
       }, {root:true}); 
 
     return new Promise((resolve, reject) => {
-       $http.post('Commons/RunHydraulics', payload.allInputsDTO, config)
+       https().post('Commons/RunHydraulics', payload.allInputsDTO, config)
         .then(response => {
 
         //console.log("data: ", response.data)
@@ -838,8 +833,6 @@ RunSimulation(context, payload)
   },
   RunSurgeSwab(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
 
     let config = {
@@ -862,7 +855,7 @@ RunSimulation(context, payload)
       }, {root:true}); 
 
     return new Promise((resolve, reject) => {
-       $http.post('Commons/RunSurgeSwab', payload.allInputsDTO, config)
+       https().post('Commons/RunSurgeSwab', payload.allInputsDTO, config)
         .then(response => {
 
         console.log("response.data: ", response.data)
@@ -901,9 +894,6 @@ RunSimulation(context, payload)
   
 DrawSchematic(context, payload)
 {
-  var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-
   let config = {
     headers: {
       tenantcode: payload.companyName,
@@ -912,7 +902,7 @@ DrawSchematic(context, payload)
   }
     
     return new Promise((resolve, reject) => {
-       $http.post('Commons/DrawSchematic', payload.allInputsDTO, config)
+       https().post('Commons/DrawSchematic', payload.allInputsDTO, config)
         .then(response => {
 
         console.log("response: ", response)
@@ -947,8 +937,6 @@ DrawSchematic(context, payload)
   },
 DrawPipeBuckledSections(context, payload)
 {
-  var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
   let config = {
     useCredentails: true
@@ -961,7 +949,7 @@ DrawPipeBuckledSections(context, payload)
     //this.$router.push('/schematic');
     
     return new Promise((resolve, reject) => {
-      $http.post('Commons/DrawPipeBuckledSections', payload, config)
+      https().post('Commons/DrawPipeBuckledSections', payload, config)
         .then(response => {
 
         //console.log("response: ", response)
@@ -980,8 +968,6 @@ DrawPipeBuckledSections(context, payload)
   },
   DrawHoleSegmentLabel(context, payload2)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -996,7 +982,7 @@ DrawPipeBuckledSections(context, payload)
       //this.$router.push('/schematic');
       
       return new Promise((resolve, reject) => {
-        $http.post('Commons/DrawHoleSegmentLabel', payload2.payload, config)
+        https().post('Commons/DrawHoleSegmentLabel', payload2.payload, config)
           .then(response => {
 
           //console.log("response: ", response)
@@ -1015,8 +1001,6 @@ DrawPipeBuckledSections(context, payload)
     },
   DrawTubingSegmentLabel(context, payload2)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
     let config = {
       headers: {
@@ -1031,7 +1015,7 @@ DrawPipeBuckledSections(context, payload)
       //this.$router.push('/schematic');
       
       return new Promise((resolve, reject) => {
-        $http.post('Commons/DrawTubingSegmentLabel', payload2.payload, config)
+        https().post('Commons/DrawTubingSegmentLabel', payload2.payload, config)
           .then(response => {
 
           //console.log("response: ", response)
@@ -1053,8 +1037,6 @@ DrawPipeBuckledSections(context, payload)
     },
     PostSensitivityParameters(context, payload)
     {
-      var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
       let config = {
         headers: {
@@ -1142,7 +1124,7 @@ DrawPipeBuckledSections(context, payload)
         }
         
         return new Promise((resolve, reject) => {
-          $http.post('SensitivityParameters/PostSensitivityParameters', newPayload, config)
+          https().post('SensitivityParameters/PostSensitivityParameters', newPayload, config)
             .then(response => {
 
             console.log("response: ", response);
@@ -1177,8 +1159,6 @@ DrawPipeBuckledSections(context, payload)
 
     GetSensitivityParameters(context, payload)
   {
-    var token = sessionStorage.getItem("token") 
-  $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   
       context.commit('dataImportStore/SetLoaderParameters', {
         showLoader: true,
@@ -1196,7 +1176,7 @@ DrawPipeBuckledSections(context, payload)
       return new Promise((resolve, reject) => {
     
 
-        $http.get('SensitivityParameters/GetSensitivityParameters/' + payload.designId, config)
+        https().get('SensitivityParameters/GetSensitivityParameters/' + payload.designId, config)
           .then(response => {
             
             console.log('SensitivityParameters: ', response.data);

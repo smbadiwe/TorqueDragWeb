@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios'
+import { https } from "./services";
 
 const state =  {
     isWellSchematic: false,

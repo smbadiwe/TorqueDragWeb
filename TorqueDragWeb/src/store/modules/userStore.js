@@ -1,5 +1,4 @@
-import { $http } from 'boot/axios'
-import { stat } from 'fs';
+import { $http } from "boot/axios";
 
 const state =  {
   user: {},

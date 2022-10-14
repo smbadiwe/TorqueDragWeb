@@ -1,4 +1,4 @@
-import { $http } from 'boot/axios'
+import { https } from "./services";
 
 const state =  {
     selectedSheetName: "",
@@ -130,13 +130,11 @@ const mutations = {
 const actions = {
     saveSelectedTable(context, payload)
     {
-      var token = sessionStorage.getItem("token") 
-      $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
       return new Promise((resolve, reject) => {
     
   
-         $http.post('Catalogs/SaveSelectedTable', payload)
+         https().post('Catalogs/SaveSelectedTable', payload)
           .then(response => {
                
             context.commit('dataImportStore/SetLoaderParameters', {
